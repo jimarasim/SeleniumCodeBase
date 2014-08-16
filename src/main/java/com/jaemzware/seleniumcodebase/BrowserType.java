@@ -21,6 +21,7 @@ import org.openqa.selenium.Platform;
 public enum BrowserType {
     CHROME("chrome","",Platform.WINDOWS), 
     CHROMELINUX("chrome","",Platform.LINUX),
+    CHROMEMAC ("chrome","",Platform.MAC),
     FIREFOX("firefox","",Platform.WINDOWS),    
     SAFARI("safari","7",Platform.MAC),
     IE8("InternetExplorer","8",Platform.WINDOWS), 

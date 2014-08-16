@@ -1,5 +1,6 @@
 package com.jaemzware.seleniumcodebase;
 
+import static com.jaemzware.seleniumcodebase.BrowserType.CHROMELINUX;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
@@ -53,7 +54,7 @@ public class AutomationCodeBase
     protected static String input = null; //for specifying input files (ReadTermResultFromInputXls) or sql statements (Sql.java)
     protected static String aNumber = null; //for specifying a generic number for usage or comparison (Sql.java), will fail if not integer parseable
     protected static String aString = null; //for specifiying a generic string for usage or comparison (Sql.java)
-    protected static EnvironmentType environment = EnvironmentType.test;    
+    protected static EnvironmentType environment = EnvironmentType.craigslist;    
     protected static BrowserType browser=BrowserType.CHROME;    
     
     //default time IN SECONDS to wait when finding elements
@@ -196,7 +197,8 @@ public class AutomationCodeBase
             }
             catch(IllegalArgumentException ex)
             {
-                System.out.println("AN INVALID -Denvironment ("+environmentParm+") WAS SPECIFIED. WILL USE DEFAULT IF THIS IS IGNORED:"+environment+" VALID: dev, test, stage, prod (WebProperties) PRD,STG,TST,DV1,DV2,DV3,DV4,DV5,DV6,DV7 (OracleEBS)");
+                //TODO enumerate through environment enumerations, and print them out here
+                System.out.println("AN INVALID -Denvironment ("+environmentParm+") WAS SPECIFIED. WILL USE DEFAULT IF THIS IS IGNORED:"+environment+" VALID: "); 
                 return false;
             }            
         }
@@ -231,7 +233,9 @@ public class AutomationCodeBase
     protected static void StartDriver(String relativePathToDrivers) throws Exception
     {
         
-        //LAUNCH APPIUM BROWSER, IF AVAILABLE
+        //LAUNCH APPIUM BROWSER IF AVAILABLE, AND DRIVER HASN'T BEEN SET  
+        //APPIUM (http://appium.io/) IS A TOOL FOR DRIVING MOBILE APPS WITH SELENIUM
+        //SO FAR THIS ONLY USES THE MOBILE SAFARI APP 
         //check if the request is for appium
         if(driver==null && browser==BrowserType.APPIUM)
         {
@@ -239,9 +243,12 @@ public class AutomationCodeBase
             {
                 //set desired capabilites for running safari on iphone simulator through appium
                 DesiredCapabilities cap = new DesiredCapabilities();
-                cap.setCapability("device", "iPhone Simulator");
+                cap.setCapability("platformName", "iOS");
+                cap.setCapability("deviceName", "iPhone Simulator");
                 //cap.setCapability("device", "iPad Simulator");
-                cap.setCapability("app", "safari");                
+                cap.setCapability("app", "safari");         
+                
+                //try to get the appium remote web driver
                 driver = new RemoteWebDriver(new URL("http://"+appiumHub+"/wd/hub"), cap);
                 
                 //augment the driver so that screenshots can be taken
@@ -251,11 +258,11 @@ public class AutomationCodeBase
             }
             catch(MalformedURLException ex)
             {
-                throw new Exception("COULD NOT LAUNCH APPIUM:"+ex.getMessage());
+                throw new Exception("APPIUM:"+ex.getMessage());
             }
         }
                 
-        //LAUNCH GRID BROWSER
+        //LAUNCH GRID BROWSER IF AVAILABLE, AND DRIVER HASN'T BEEN SET
         //try to get the browser on selenium grid
         //don't do this if -Dnogrid is specified though
         if(driver==null && System.getProperty("nogrid")==null)
@@ -310,7 +317,7 @@ public class AutomationCodeBase
                 //augment the driver so that screenshots can be taken
                 driver = new Augmenter().augment(driver);
                 
-                System.out.println("SUCCESSFULLY LAUNCHED SELENIUM GRID NODE FOR:"+browser.browserName+" VERSION:"+browser.version+" PLATFORM:"+browser.platform.toString());
+                System.out.println("SUCCESSFULLY GRID NODE FOR:"+browser.browserName+" VERSION:"+browser.version+" PLATFORM:"+browser.platform.toString());
             } 
             catch(Exception ex)
             {
@@ -331,18 +338,20 @@ public class AutomationCodeBase
             }
         }
         
-        //LAUNCH LOCAL BROWSER: if grid didn't work out, start the desired browser on the native os
+        //LAUNCH LOCAL BROWSER, IF DRIVER HASN'T BEEN SET
         if(driver==null)
         {
-            System.out.println("ATTEMPTING TO LAUNCH NON-GRID BROWSER FOR:"+browser+" ON:"+GetOsType());
+            System.out.println("ATTEMPTING TO LAUNCH LOCAL BROWSER:"+browser+" ON:"+GetOsType());
             
             switch (browser)
             {
+                //CHROME VARIATIONS. 
                 case CHROMELINUX:
+                case CHROMEMAC:
                 case CHROME:
-                case IPHONE6:
-                case IPAD4:
-                case ANDROID402:
+                case IPHONE6: //CHROME EMULATOR
+                case IPAD4: //CHROME EMULATOR
+                case ANDROID402: //CHROME EMULATOR
 
                     //chrome uses a different driver binary depending on what os we're on
                     switch(GetOsType())
@@ -441,7 +450,7 @@ public class AutomationCodeBase
                     throw new Exception("UNSUPPORTED -Dbrowser:"+browser+" VALID BROWSERS (NOGRID):FIREFOX,CHROME,SAFARI,IE8,IE9,IE10,IE11");
             }
             
-            System.out.println("SUCCESSFULLY LAUNCHED NATIVE BROWSER FOR:"+browser+" ON:"+GetOsType());
+            System.out.println("SUCCESSFULLY LAUNCHED LOCAL BROWSER FOR:"+browser+" ON:"+GetOsType());
         }
         
         //start with no cookies
@@ -479,6 +488,11 @@ public class AutomationCodeBase
         
     }
     
+    /**
+     * This method quits (and closes) the browser.
+     * It also sets it to null, in case the same test calls StartDriver twice, for two different
+     * browsers.
+     */
     protected static void QuitDriver()
     {
         driver.quit(); 
