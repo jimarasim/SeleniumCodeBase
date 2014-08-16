@@ -54,7 +54,7 @@ public class AutomationCodeBase
     protected static String input = null; //for specifying input files (ReadTermResultFromInputXls) or sql statements (Sql.java)
     protected static String aNumber = null; //for specifying a generic number for usage or comparison (Sql.java), will fail if not integer parseable
     protected static String aString = null; //for specifiying a generic string for usage or comparison (Sql.java)
-    protected static EnvironmentType environment = EnvironmentType.craigslist;    
+    protected static EnvironmentType environment = EnvironmentType.dev;    
     protected static BrowserType browser=BrowserType.CHROME;    
     
     //default time IN SECONDS to wait when finding elements

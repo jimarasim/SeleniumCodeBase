@@ -1,21 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.jaemzware.seleniumcodebase;
 
 import org.openqa.selenium.Platform;
 
 /**
  *
- * @author arasim
+ * @author jaemzware@hotmail.com
  */
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//SELENIUM GRID (http://docs.seleniumhq.org/download/) NOTES
-//https://itsvn.f5net.com/svn/qa_tools/Documents/ EXAMPLES
-//https://docs.f5net.com/display/ITQA/Selenium+Grid DOCUMENTATION
-////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 public enum BrowserType {
