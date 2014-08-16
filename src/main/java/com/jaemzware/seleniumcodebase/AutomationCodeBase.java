@@ -32,7 +32,8 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
 /**
- * Hello world!
+ * AutomationCodeBase
+ * @author jaemzware@hotmail.com
  *
  */
 public class AutomationCodeBase 
@@ -63,61 +64,11 @@ public class AutomationCodeBase
     
     //save off main window handle, for when dealing with popups
     protected static String mainWindowHandle; 
-    /**
-     * This method is used to print custom, stack traces that will show a custom message, and can be formatted
-     * Unlike Exception printStackTrace(), it will not throw an exception.
-     * @param customMessage
-     * @param ex 
-     */
-    protected void CustomStackTrace(String customMessage, Exception ex)
-    {
-        //write out stack trace to info
-        StackTraceElement[] stack = ex.getStackTrace();
 
-        System.out.println("MESSAGE:"+customMessage+" STACK TRACE:");
-        for(StackTraceElement line:stack)
-        {
-            System.out.println("FILE:"+line.getFileName()+" METHOD:"+line.getMethodName()+" LINE:"+line.getLineNumber());				
-        }
-    }
-    
-    /**
-     * This method makes an http get request to the provided url, and returns the reponse as a String
-     * @param url
-     * @return 
-     */
-    protected String HttpGetReturnResponse(String url) throws Exception
-    {
-        //HTTPCLIENT/REST EXAMPLES
-            //http://www.mkyong.com/java/apache-httpclient-examples/
-            //http://www.mkyong.com/webservices/jax-rs/restful-java-client-with-apache-httpclient/
-            
-        //make the request
-        HttpClient client = HttpClientBuilder.create().build();
-        HttpGet request = new HttpGet(url);
-        HttpResponse response = client.execute(request);
-
-//            System.out.println("Response Code : " 
-//                    + response.getStatusLine().getStatusCode());
-
-        //read the reponse
-        BufferedReader rd = new BufferedReader(
-                new InputStreamReader(response.getEntity().getContent()));
-
-        StringBuilder result = new StringBuilder();
-        String line;
-        while ((line = rd.readLine()) != null) {
-                result.append(line);
-        }
-
-        //System.out.println(result);
-        
-        return result.toString();
-    }
     
      /**
-     * This function gets the command line parameters.  Will be called by StartDriver to be backwards compatible.  Separated out so that tests like
-     * Sql.java can get the parameters without having to start the driver
+     * This function gets the command line parameters.  Will be called by StartDriver to be backwards compatible.  
+     * Separated out so that tests  can get the parameters without having to start the driver
      * @return boolean indicating whether GetParameters() succeeded in obtaining valid values.  Currently
      * false will be returned if -DaNumber cannot be parsed as an integer, -Denvironment is not supported,
      * or -Dbrowser is not supported
@@ -269,17 +220,18 @@ public class AutomationCodeBase
     /**
      * This function starts the desired web browser
      * @param relativePathToDrivers - this allows the calling test to specify the relative path to chromedriver and/or iedriverserver in the project 
-     * directory (e.g. StdTechValidation or WebProperties), as that's where they will be in each instance.  This was done because the original Linerate
-     * test was moved to a subfolder of the Linerate folder, thus giving it a relative path of ../../ instead of just ../, like all the other projects.
-     * NOTE: Chromedriver and iedriverserver are not checked into svn, because there are different versions for different platforms, and they're named 
+     * directory, as that's where they will be in each instance.  This was done because an original 
+     * test was moved to a subfolder folder, thus giving it a relative path of ../../ instead of just ../, like all the other projects.
+     * NOTE: Chromedriver and iedriverserver are not checked in, because there are different versions for different platforms, 
+     * and they're named 
      * the same thing: e.g. iedriverserver.exe (32bit) and iedriverserver.exe (64bit)
+     * @assumptions it is the responsibility of the extended test scrip to call GetParameters() before calling StartDriver()
      * @throws Exception 
      */
     protected static void StartDriver(String relativePathToDrivers) throws Exception
     {
-        //GetParameters(); //taking out this call, it's the responsibility of the extended test script to call this to get the parameters, or the default browser will be used
-          
-        //LAUNCH APPIUM BROWSER
+        
+        //LAUNCH APPIUM BROWSER, IF AVAILABLE
         //check if the request is for appium
         if(driver==null && browser==BrowserType.APPIUM)
         {
@@ -402,7 +354,7 @@ public class AutomationCodeBase
                             System.setProperty("webdriver.chrome.driver", relativePathToDrivers+"chromedriver"); //FOR MAC
                             break;
                         case UNIX:
-                            System.setProperty("webdriver.chrome.driver", relativePathToDrivers+"chromedriver"); //FOR MAC
+                            System.setProperty("webdriver.chrome.driver", relativePathToDrivers+"chromedriver"); //FOR unix
                             break;
                         default:
                             throw new Exception("-Dbrowser="+browser+" IS UNSUPPORTED NATIVELY ON THIS OS:"+GetOsType());
@@ -642,6 +594,57 @@ public class AutomationCodeBase
         System.out.println("SCREENSHOT:"+fileName);
     }
     
+    /**
+ * This method is used to print custom, stack traces that will show a custom message, and can be formatted
+ * Unlike Exception printStackTrace(), it will not throw an exception.
+ * @param customMessage
+ * @param ex 
+ */
+    protected void CustomStackTrace(String customMessage, Exception ex)
+    {
+        //write out stack trace to info
+        StackTraceElement[] stack = ex.getStackTrace();
+
+        System.out.println("MESSAGE:"+customMessage+" STACK TRACE:");
+        for(StackTraceElement line:stack)
+        {
+            System.out.println("FILE:"+line.getFileName()+" METHOD:"+line.getMethodName()+" LINE:"+line.getLineNumber());				
+        }
+    }
+    
+    /**
+     * This method makes an http get request to the provided url, and returns the reponse as a String
+     * @param url
+     * @return 
+     */
+    protected String HttpGetReturnResponse(String url) throws Exception
+    {
+        //HTTPCLIENT/REST EXAMPLES
+            //http://www.mkyong.com/java/apache-httpclient-examples/
+            //http://www.mkyong.com/webservices/jax-rs/restful-java-client-with-apache-httpclient/
+            
+        //make the request
+        HttpClient client = HttpClientBuilder.create().build();
+        HttpGet request = new HttpGet(url);
+        HttpResponse response = client.execute(request);
+
+//            System.out.println("Response Code : " 
+//                    + response.getStatusLine().getStatusCode());
+
+        //read the reponse
+        BufferedReader rd = new BufferedReader(
+                new InputStreamReader(response.getEntity().getContent()));
+
+        StringBuilder result = new StringBuilder();
+        String line;
+        while ((line = rd.readLine()) != null) {
+                result.append(line);
+        }
+
+        //System.out.println(result);
+        
+        return result.toString();
+    }
   
     
    
