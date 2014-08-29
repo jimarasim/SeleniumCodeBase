@@ -16,7 +16,16 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
+
+import javax.mail.Folder;
+import javax.mail.Message;
+import javax.mail.Multipart;
+import javax.mail.Session;
+import javax.mail.Store;
+import javax.mail.search.BodyTerm;
+
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
@@ -660,6 +669,112 @@ public class AutomationCodeBase
         return result.toString();
     }
   
-    
+    /**
+     * This method makes a connection to an email server, and returns the first message that matches a search term provided.
+     * @param mailServer - the mail server to connect to
+     * @param user - the user name to login to the mail server as
+     * @param password - the password for the user
+     * @param folderName - the folder to search for messages in (e.g. "Inbox")
+     * @param bodySearchTerm - the search term for matching messages to be returned
+     * @return 
+     */
+    protected String GetFirstEmailMessageForSearchTerm(String mailServer, String user, String password, String folderName, String bodySearchTerm, int millisToWait) throws Exception
+    {
+        String firstMessage="";
+        
+        //get all messages that match the search term
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        
+        System.out.println("MAILSERVER:"+mailServer+" USER:"+user+" FOLDER:"+folderName+" SEARCHTERM:"+bodySearchTerm+"--"+dateFormat.format(date));
+        
+        //setup session instance properties
+        Properties properties = System.getProperties();
+
+        //need this to access a shared mailbox
+        properties.put("mail.imaps.auth.plain.disable", "true");
+        properties.put("mail.imaps.auth.ntlm.disable", "true");
+        properties.put("mail.imaps.auth.gssapi.disable", "true");
+
+        //connect to the server
+        Session session = Session.getInstance(properties);
+        Store store = session.getStore("imaps");
+        store.connect(mailServer,user,password);
+        
+
+        //open a folder
+        Folder folder = store.getFolder(folderName);
+        folder.open(Folder.READ_ONLY);
+
+        //mark time to wait for email
+        long endTimeMillis = System.currentTimeMillis() + millisToWait;
+
+        Message[] messages = folder.search(new BodyTerm(bodySearchTerm));
+
+        //wait a few minutes for messages if none are found right away
+        if(messages.length<=0)
+        {
+            //while waitTime is elapsing
+            while(System.currentTimeMillis()<endTimeMillis)
+            {            
+
+                //reopen the folder to get around exchange issue
+                folder.close(false);
+                folder.open(Folder.READ_ONLY);
+                
+                //get an array of messages with a keyword in the body
+                messages = folder.search(new BodyTerm(bodySearchTerm));
+
+                //fail if no messages are found
+                if(messages.length<=0)
+                {
+                    date=new Date();
+                    System.out.println("NO MESSAGES FOUND "+dateFormat.format(date));
+                    Thread.sleep(10000);
+                }
+                else
+                {
+                    break;
+                }
+                
+            }
+            
+            if(messages.length<=0)
+            {
+                throw new Exception("NO MESSAGES FOUND AFTER WAITING 300000 ms");
+            }
+        }
+        
+        
+        //print out the content
+        //MIME
+        if(messages[0].getContent().toString().contains("javax.mail.internet.MimeMultipart"))
+        {
+
+            System.out.println("Message: Multipart");
+
+            Multipart mp = (Multipart)messages[0].getContent();
+            for(int j=0;j<mp.getCount();j++)
+            {
+                if(mp.getBodyPart(j).isMimeType("text/plain"))
+                {
+                    firstMessage=(String)mp.getBodyPart(j).getContent();
+                }
+                else
+                {
+                    System.out.println("CONTENT TYPE:"+mp.getBodyPart(j).getContentType());
+                }
+            }
+        }
+        //NON-MIME
+        else
+        {
+            firstMessage=(String)messages[0].getContent();
+        }
+        
+        store.close();
+        
+        return firstMessage;
+    }
    
 }

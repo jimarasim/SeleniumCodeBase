@@ -115,6 +115,23 @@ public class Scratch extends AutomationCodeBase
     }
     
     @Test
+    public void CheckGmail(){
+        try{
+            System.out.println(GetFirstEmailMessageForSearchTerm("imap.gmail.com", 
+                    "jaemzware", 
+                    "8googlegoogle", 
+                    "Inbox",
+                    "Metabliss", 
+                    30000));
+            
+        }
+        catch(Exception ex){
+            System.out.println("COULD NOT GET EMAIL:"+ex.getMessage());
+        }
+    }
+            
+    
+    @Test
     public void RestRequest()
     {
         try{

@@ -69,5 +69,11 @@
       <version>2.42.2</version>
       <type>jar</type>
     </dependency>
+    <dependency>
+      <groupId>javax.mail</groupId>
+      <artifactId>mail</artifactId>
+      <version>1.4.5</version>
+      <type>jar</type>
+    </dependency>
   </dependencies>
 </project>
