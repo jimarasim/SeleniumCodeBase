@@ -76,4 +76,10 @@
       <type>jar</type>
     </dependency>
   </dependencies>
+  <!--
+  
+    mvn -Dtest=Scratch#VerifyLogos -Dbrowser=FIREFOX -Denvironment=prod -Dnogrid test 
+    mvn -Dtest=Scratch#RestRequest -Dbrowser=FIREFOX -Denvironment=prod -Dnogrid test
+    mvn -Dtest=Scratch#CheckGmail -Dbrowser=FIREFOX -Denvironment=prod -Dnogrid test
+  -->
 </project>

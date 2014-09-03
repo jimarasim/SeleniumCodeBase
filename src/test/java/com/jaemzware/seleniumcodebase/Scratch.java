@@ -1,5 +1,7 @@
 package com.jaemzware.seleniumcodebase;
 
+import static com.jaemzware.seleniumcodebase.AutomationCodeBase.QuitDriver;
+import static com.jaemzware.seleniumcodebase.AutomationCodeBase.StartDriver;
 import static com.jaemzware.seleniumcodebase.AutomationCodeBase.driver;
 import static com.jaemzware.seleniumcodebase.AutomationCodeBase.environment;
 import java.io.FileInputStream;
@@ -43,8 +45,6 @@ public class Scratch extends AutomationCodeBase
             
             //get input parameters HERE
             GetParameters();
-            
-            StartDriver();
         }
         catch(Exception ex)
         {
@@ -59,6 +59,10 @@ public class Scratch extends AutomationCodeBase
         
         try
         {
+            
+            
+            StartDriver();
+            
             final String url = properties.getProperty(environment.toString()+".url");
             final String logoxpath = properties.getProperty(environment.toString()+".logoxpath");
             
@@ -155,7 +159,9 @@ public class Scratch extends AutomationCodeBase
     {
         try
         {
-            QuitDriver();
+            if(driver!=null){
+                QuitDriver();
+            }
             
             //check if there were any verify errors, and fail whole test if so
             if(verificationErrors.length()>0)
