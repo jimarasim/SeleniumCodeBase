@@ -99,12 +99,13 @@ public class Scratch extends AutomationCodeBase
                 
                 //if logo is not present, don't assert/fail, just add a verification error,
                 //so all links get checked regardless of ones that fail
-                if(!IsElementPresent(By.xpath(logoxpath))){
+                if(!href.contains(".jpg") && !IsElementPresent(By.xpath(logoxpath))){
                     verificationErrors.append("URL:")
                             .append(href)
                             .append(" MISSING LOGO:")
                             .append(logoxpath)
                             .append("\n");
+                } else {
                 }
             }
             
