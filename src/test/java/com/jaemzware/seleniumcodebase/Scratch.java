@@ -60,12 +60,35 @@ public class Scratch extends AutomationCodeBase
         try
         {
             
-            
+            //open browser
             StartDriver();
             
-            final String url = properties.getProperty(environment.toString()+".url");
-            final String logoxpath = properties.getProperty(environment.toString()+".logoxpath");
+            //get base url
+            String url = new String();
+            if(input!=null){
+                url=input;
+            }
+            else{
+                url= properties.getProperty(environment.toString()+".url");
+            }
             
+            if(url==null){
+                throw new Exception("URL NOT SPECIFIED NOR FOUND IN PROPERTIES FILE");
+            }
+            
+            //get xpath to look for
+            String logoxpath=new String();
+            if(aString != null){
+                logoxpath=aString;
+            }
+            else{
+                logoxpath = properties.getProperty(environment.toString()+".logoxpath");
+            }
+            
+            if(logoxpath==null){
+                throw new Exception("LOGOXPATH NOT SPECIFIED NOR FOUND IN PROPERTIES FILE");
+            }
+                
             //navigate to the starting page
             driver.get(url);
            
