@@ -776,5 +776,15 @@ public class AutomationCodeBase
         
         return firstMessage;
     }
+    
+    //get a unique datestamp string
+    protected String getDateStamp(){
+        //generate a unique file name
+        DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+        Date date = new Date();
+        String dateStamp = dateFormat.format(date);
+        
+        return dateStamp;
+    }
    
 }
