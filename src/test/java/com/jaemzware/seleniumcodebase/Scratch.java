@@ -29,7 +29,6 @@ public class Scratch extends AutomationCodeBase
 {
     static Properties properties = new Properties();
     StringBuilder verificationErrors;
-    long startTime;
     
     
     @Before
@@ -90,7 +89,7 @@ public class Scratch extends AutomationCodeBase
             }
                 
             //navigate to the starting page
-            driver.get(url);
+            driverGetWithTime(url);
            
             //get all non-empty/non-javascript href on the page
             Map<String,String> hrefs = new HashMap<String,String>();
@@ -110,15 +109,7 @@ public class Scratch extends AutomationCodeBase
             //visit each href, report load time, and make sure the page has the logo
             for(String href:hrefs.keySet()){
                 
-                System.out.println("LOADING:"+href+" REFERREDBY:"+hrefs.get(href));
-                
-                //mark start time to report how long it takes to load the page
-                startTime = System.currentTimeMillis();
-                
-                driver.get(href);
-                
-                //print out load time, this can be used in splunk
-                System.out.println("URL:"+href+" LOADTIME(ms):"+(System.currentTimeMillis()-startTime));
+                driverGetWithTime(href);
                 
                 //if logo is not present, don't assert/fail, just add a verification error,
                 //so all links get checked regardless of ones that fail
