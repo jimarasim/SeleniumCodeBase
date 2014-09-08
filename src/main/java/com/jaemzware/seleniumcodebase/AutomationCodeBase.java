@@ -52,7 +52,7 @@ public class AutomationCodeBase
     protected static WebDriver driver=null;
  
     //selenium grid hub
-    protected static final String seleniumGridHub = "localhost";
+    protected static final String seleniumGridHub = "64.90.58.161";
     
     //appium hub
     private static final String appiumHub = "localhost:4723";
