@@ -1,0 +1,1 @@
+start cmd /k java -Dwebdriver.chrome.driver=chromedriver.exe -jar selenium-server-standalone-2.40.0.jar -role node -browser "browserName=chrome,maxInstances=5" -hub http://SEAOTMAPP02.olympus.F5NET.com:4444/grid/register -port 5559
