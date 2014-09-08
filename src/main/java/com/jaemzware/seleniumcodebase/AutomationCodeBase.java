@@ -290,6 +290,7 @@ public class AutomationCodeBase
                         cap = DesiredCapabilities.chrome();
                         break;
                     case FIREFOX:
+                    case FIREFOXLINUX: 
                         cap = DesiredCapabilities.firefox();
                         break;
                     case SAFARI:
@@ -302,7 +303,7 @@ public class AutomationCodeBase
                         cap = DesiredCapabilities.internetExplorer();
                         break;
                     default:
-                        throw new Exception("UNSUPPORTED -Dbrowser:"+browser+" VALID BROWSERS (GRID):FIREFOX,CHROME,SAFARI,IE8,IE9,IE10,IE11");
+                        throw new Exception("UNSUPPORTED -Dbrowser:"+browser+" VALID: CHROME,CHROMELINUX,FIREFOX,FIREFOXLINUX,SAFARI,IE8,IE9,IE10,IE11");
                 }
 
                 //accept all ssl certificates by default
@@ -414,6 +415,7 @@ public class AutomationCodeBase
 
                     break;
                 case FIREFOX:
+                case FIREFOXLINUX:
 
                     //create a firefox profile for dealing with untrusted certificates
                     FirefoxProfile fp = new FirefoxProfile();
