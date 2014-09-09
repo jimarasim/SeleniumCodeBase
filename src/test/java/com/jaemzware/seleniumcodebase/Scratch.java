@@ -101,9 +101,9 @@ public class Scratch extends AutomationCodeBase
                 try{System.out.println(we.getAttribute("href"));}catch(Exception ex){System.out.println("EXCEPTION GETTING HREF FROM LIST. COUNT:"+exceptionCount++);continue;}
                 hrefFound=we.getAttribute("href");
                 
-                if(hrefFound.contains(url.substring(url.indexOf("/",0)))){
+//                if(hrefFound.contains(url.substring(url.indexOf("/",0)))){
                     hrefs.put(hrefFound,url);
-                }
+//                }
             }
             
             //visit each href, report load time, and make sure the page has the logo

@@ -793,13 +793,15 @@ public class AutomationCodeBase
     protected void driverGetWithTime(String href){
         long startTime;
         
+        System.out.println("GET:"+href);
+        
         //mark start time to report how long it takes to load the page
         startTime = System.currentTimeMillis();
 
         driver.get(href);
 
         //print out load time, this can be used in splunk
-        System.out.println("GET:"+href+" TIME(ms):"+(System.currentTimeMillis()-startTime));
+        System.out.println("LOADTIME(ms):"+(System.currentTimeMillis()-startTime));
         
     }
    
