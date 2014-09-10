@@ -181,7 +181,7 @@ public class Scratch extends AutomationCodeBase
             //check if there were any verify errors, and fail whole test if so
             if(verificationErrors.length()>0)
             {
-                Assert.fail("\nVERIFICATION ERRORS\n"+verificationErrors.toString());
+                Assert.fail("<b>VERIFICATION ERRORS</b><br />"+verificationErrors.toString());
             }
         }
         catch(Exception ex)
