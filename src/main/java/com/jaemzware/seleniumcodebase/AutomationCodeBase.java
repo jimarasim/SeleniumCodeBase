@@ -801,7 +801,7 @@ public class AutomationCodeBase
         driver.get(href);
 
         //print out load time, this can be used in splunk
-        System.out.println("LOADTIME(ms):"+(System.currentTimeMillis()-startTime));
+        System.out.println("LOADTIME(ms):<b>"+(System.currentTimeMillis()-startTime)+"</b>");
         
     }
    
