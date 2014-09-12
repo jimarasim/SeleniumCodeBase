@@ -29,6 +29,9 @@ public class Scratch extends AutomationCodeBase
     static Properties properties = new Properties();
     StringBuilder verificationErrors;
     
+    //monster tamer
+    private final String monsterTamerDomain = "monster-tamer.com";
+    private final String monsterTamer404Xpath = "//h1[contains(text(),'404 Page')]";
     
     @Before
     public void BeforeTest()
@@ -57,6 +60,7 @@ public class Scratch extends AutomationCodeBase
         
         try
         {
+            //
             
             //open browser
             StartDriver();
@@ -112,14 +116,30 @@ public class Scratch extends AutomationCodeBase
                 
                 //if logo is not present, don't assert/fail, just add a verification error,
                 //so all links get checked regardless of ones that fail
-                if(!href.contains(".jpg") && !IsElementPresent(By.xpath(logoxpath),1000)){
-                    verificationErrors.append("URL:")
-                            .append(href)
-                            .append(" MISSING LOGO:")
-                            .append(logoxpath)
-                            .append("\n");
-                } else {
+                
+                //make sure we're on a real page, and not an image
+                if(!href.endsWith(".jpg") && !href.endsWith(".gif"))
+                {
+                    //verify logo
+                    if(!IsElementPresent(By.xpath(logoxpath),1000)){
+                        verificationErrors.append("URL:")
+                                .append(href)
+                                .append(" MISSING LOGO:")
+                                .append(logoxpath)
+                                .append("\n");
+                    }
+                    
+                    //check for 404 (monster-tamer)
+                    if(href.contains(monsterTamerDomain) && IsElementPresent(By.xpath(monsterTamer404Xpath),1000)){
+                        verificationErrors.append("URL:")
+                                .append(href)
+                                .append(" 404 PAGE:")
+                                .append(monsterTamer404Xpath)
+                                .append("\n");
+                    }
+                    
                 }
+                 
             }
             
             
