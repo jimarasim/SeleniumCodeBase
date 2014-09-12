@@ -67,7 +67,7 @@ public class AutomationCodeBase
     protected static BrowserType browser=BrowserType.CHROME;    
     
     //default time IN SECONDS to wait when finding elements
-    protected static int defaultImplicitWait = 60;	
+    protected int defaultImplicitWait = 60;	
     
     //verification errors that can occur during a test
     protected StringBuilder verificationErrors = new StringBuilder();
@@ -219,7 +219,7 @@ public class AutomationCodeBase
      * This function starts the desired web browser.
      * @throws Exception 
      */
-    protected static void StartDriver() throws Exception
+    protected void StartDriver() throws Exception
     {
         
         StartDriver("../");
@@ -497,8 +497,6 @@ public class AutomationCodeBase
         //set the main window handle
         mainWindowHandle = driver.getWindowHandle();
         
-        //set implicit wait
-        driver.manage().timeouts().implicitlyWait(defaultImplicitWait, TimeUnit.SECONDS);
         
     }
     

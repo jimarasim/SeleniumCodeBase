@@ -1,7 +1,6 @@
 package com.jaemzware.seleniumcodebase;
 
 import static com.jaemzware.seleniumcodebase.AutomationCodeBase.QuitDriver;
-import static com.jaemzware.seleniumcodebase.AutomationCodeBase.StartDriver;
 import static com.jaemzware.seleniumcodebase.AutomationCodeBase.driver;
 import static com.jaemzware.seleniumcodebase.AutomationCodeBase.environment;
 import java.io.FileInputStream;
