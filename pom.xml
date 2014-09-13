@@ -78,8 +78,9 @@
   </dependencies>
   <!--
   
-    mvn -Dtest=Scratch#VerifyLogos -Dbrowser=FIREFOX -Denvironment=prod -Dinput="http://seattlerules.com" -DaString="//a" -Dnogrid test 
-    mvn -Dtest=Scratch#RestRequest -Dbrowser=FIREFOX -Denvironment=prod -Dnogrid test
-    mvn -Dtest=Scratch#CheckGmail -Dbrowser=FIREFOX -Denvironment=prod -Dnogrid test
+    mvn -Dtest=Scratch#VerifyLogos -Dbrowser=SAFARI -Denvironment=prod -Dinput="http://seattlerules.com" -DaString="//a" -Dnogrid test 
+    mvn -Dtest=Scratch#VerifyLogos -Dbrowser=SAFARI -Denvironment=prod -Dinput="http://monster-tamer.com" -DaString="//img[@alt='MONSTER TAMER']" -Dnogrid test
+    mvn -Dtest=Scratch#RestRequest -Dbrowser=SAFARI -Denvironment=prod -Dnogrid test
+    mvn -Dtest=Scratch#CheckGmail -Dbrowser=SAFARI -Denvironment=prod -Dnogrid test
   -->
 </project>

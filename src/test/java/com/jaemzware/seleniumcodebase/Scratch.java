@@ -58,9 +58,16 @@ public class Scratch extends AutomationCodeBase
     public void VerifyLogos()
     {
         
+        //build web page
+        String fileName = "index-VerifyLogos-"+getDateStamp()+".htm";
+        PrintWriter writer=null;
+        String fileWriteString = "";
+        
         try
         {
-            //
+            writer = new PrintWriter(fileName, "UTF-8");
+            
+            writer.println("<html><head><title>boardscrub</title></head><body><h1>boardscrub</h1>");
             
             //open browser
             StartDriver();
@@ -92,7 +99,10 @@ public class Scratch extends AutomationCodeBase
             }
                 
             //navigate to the starting page
-            driverGetWithTime(url);
+            fileWriteString = driverGetWithTime(url);
+            
+            //write stats to html report
+            writer.println(fileWriteString);
            
             //get all non-empty/non-javascript href on the page
             Map<String,String> hrefs = new HashMap<String,String>();
@@ -127,6 +137,11 @@ public class Scratch extends AutomationCodeBase
                                 .append(" MISSING LOGO:")
                                 .append(logoxpath)
                                 .append("\n");
+                        
+                        //write error to html report
+                        fileWriteString = "<br />ISSUE:MISSING LOGO URL:<a href='"+href+"' target='_blank'>"+href+"</a>";
+                        writer.println(fileWriteString);
+                        
                     }
                     
                     //check for 404 (monster-tamer)
@@ -136,12 +151,20 @@ public class Scratch extends AutomationCodeBase
                                 .append(" 404 PAGE:")
                                 .append(monsterTamer404Xpath)
                                 .append("\n");
+                        
+                        //write error to html report
+                        fileWriteString = "<br />ISSUE:404 URL:<a href='"+href+"' target='_blank'>"+href+"</a>";
+                        writer.println(fileWriteString);
                     }
                     
                 }
                  
             }
             
+                        
+            writer.println("</body></html>");
+            
+            System.out.println("INDEX FILE WRITTEN:"+fileName);
             
         }
         catch(Exception ex)
@@ -149,6 +172,14 @@ public class Scratch extends AutomationCodeBase
             ScreenShot();
             CustomStackTrace("VerifyLogos EXCEPTION",ex);
             Assert.fail(ex.getMessage());
+        }
+        finally
+        {
+            //write the file if it was created
+            if(writer!=null){
+                writer.flush();
+                writer.close();
+            }
         }
     }
     
@@ -177,10 +208,13 @@ public class Scratch extends AutomationCodeBase
             
             String response = HttpGetReturnResponse(url);
             
-            //build web page
-            PrintWriter writer = new PrintWriter("index.htm", "UTF-8");
+            //recreate web page
+            String fileName = "index-RestRequest-"+getDateStamp()+".htm";
+            PrintWriter writer = new PrintWriter(fileName, "UTF-8");
             writer.println(response);
-            System.out.println(response);
+            writer.flush();
+            writer.close();
+            System.out.println("WROTE RESPONSE TO:"+fileName);
         }
         catch(Exception ex){
             CustomStackTrace("RestRequest EXCEPTION",ex);

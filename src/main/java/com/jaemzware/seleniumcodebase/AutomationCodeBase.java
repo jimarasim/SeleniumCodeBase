@@ -790,11 +790,19 @@ public class AutomationCodeBase
         return dateStamp;
     }
     
-    //get a url and print out the load time
-    protected void driverGetWithTime(String href){
+    
+    /**
+     * get a url and print out the load time
+     * @param href
+     * @return html formatted output
+     */
+    protected String driverGetWithTime(String href){
         long startTime;
         
+        String htmlOutput="";
+        
         System.out.println("GETTING:"+href);
+        htmlOutput+="<br />GETTING:"+href;
         
         //mark start time to report how long it takes to load the page
         startTime = System.currentTimeMillis();
@@ -802,7 +810,11 @@ public class AutomationCodeBase
         driver.get(href);
 
         //print out load time, this can be used in splunk
-        System.out.println("LOADTIME(ms):"+(System.currentTimeMillis()-startTime));
+        String loadTimeStatement = "LOADTIME(ms):"+(System.currentTimeMillis()-startTime);
+        System.out.println(loadTimeStatement);
+        htmlOutput+="<br />"+loadTimeStatement;
+        
+        return(htmlOutput);
         
     }
    
