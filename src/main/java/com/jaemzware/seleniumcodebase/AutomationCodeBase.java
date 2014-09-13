@@ -54,6 +54,9 @@ public class AutomationCodeBase
     //selenium grid hub
     protected static final String seleniumGridHub = "64.90.58.161";
     
+    //jenkins report folder url
+    protected static final String jenkinsReportPath = "http://www.jaemzware.com/jenkinsArtifacts/";
+    
     //appium hub
     private static final String appiumHub = "localhost:4723";
     

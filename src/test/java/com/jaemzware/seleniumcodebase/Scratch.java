@@ -167,7 +167,7 @@ public class Scratch extends AutomationCodeBase
                         
             writer.println("</body></html>");
             
-            System.out.println("INDEX FILE WRITTEN:"+fileName);
+            System.out.println("INDEX FILE WRITTEN:"+jenkinsReportPath+fileName);
             
         }
         catch(Exception ex)
@@ -217,7 +217,7 @@ public class Scratch extends AutomationCodeBase
             writer.println(response);
             writer.flush();
             writer.close();
-            System.out.println("WROTE RESPONSE TO:"+fileName);
+            System.out.println("WROTE RESPONSE TO:"+jenkinsReportPath+fileName);
         }
         catch(Exception ex){
             CustomStackTrace("RestRequest EXCEPTION",ex);
