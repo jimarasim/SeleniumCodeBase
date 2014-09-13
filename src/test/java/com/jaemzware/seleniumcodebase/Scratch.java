@@ -3,6 +3,7 @@ package com.jaemzware.seleniumcodebase;
 import static com.jaemzware.seleniumcodebase.AutomationCodeBase.QuitDriver;
 import static com.jaemzware.seleniumcodebase.AutomationCodeBase.driver;
 import static com.jaemzware.seleniumcodebase.AutomationCodeBase.environment;
+import static com.jaemzware.seleniumcodebase.AutomationCodeBase.input;
 import java.io.FileInputStream;
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -67,14 +68,14 @@ public class Scratch extends AutomationCodeBase
         {
             writer = new PrintWriter(fileName, "UTF-8");
             
-            writer.println("<html><head><title>boardscrub</title></head><body><h1>boardscrub</h1>");
+            writer.println(HtmlReportHeader("VerifyLogos"));
             
             //open browser
             StartDriver();
             
             //get base url
             String url = new String();
-            if(input!=null){
+            if(input!=null && !input.isEmpty()){
                 url=input;
             }
             else{
@@ -165,7 +166,7 @@ public class Scratch extends AutomationCodeBase
             }
             
                         
-            writer.println("</body></html>");
+            writer.println(HtmlReportFooter());
             
             System.out.println("INDEX FILE WRITTEN:"+jenkinsReportPath+fileName);
             
@@ -207,12 +208,19 @@ public class Scratch extends AutomationCodeBase
     public void RestRequest()
     {
         try{
-            final String url = properties.getProperty(environment.toString()+".url");
+            //get base url
+            String url = new String();
+            if(input!=null && !input.isEmpty()){
+                url=input;
+            }
+            else{
+                url= properties.getProperty(environment.toString()+".url");
+            }
             
             String response = HttpGetReturnResponse(url);
             
             //recreate web page
-            String fileName = "index-RestRequest-"+getDateStamp()+".htm";
+            String fileName = "Index-RestRequest-"+getDateStamp()+".htm";
             PrintWriter writer = new PrintWriter(fileName, "UTF-8");
             writer.println(response);
             writer.flush();

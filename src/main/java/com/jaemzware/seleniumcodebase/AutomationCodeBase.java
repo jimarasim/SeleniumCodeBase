@@ -55,6 +55,8 @@ public class AutomationCodeBase
     protected static final String seleniumGridHub = "64.90.58.161";
     
     //jenkins report folder url
+    protected static final String jenkinsReportHeader = "";
+    protected static final String jenkinsReportFooter = "";
     protected static final String jenkinsReportPath = "http://www.jaemzware.com/jenkinsArtifacts/";
     
     //appium hub
@@ -78,6 +80,24 @@ public class AutomationCodeBase
     //save off main window handle, for when dealing with popups
     protected static String mainWindowHandle; 
 
+    /**
+     * compose and return an html string for an html page to the body opener
+     * @param titleHeaderString - custom title / h1
+     * @return 
+     */
+    protected String HtmlReportHeader(String titleHeaderString)
+    {
+        return("<html><head><title>Jaemzware - "+titleHeaderString+"</title></head><body><h1>Jaemzware - "+titleHeaderString+"</h1>");
+    }
+    
+    /**
+     * compose and return an  html string for an html page from the body closer
+     * @return 
+     */
+    protected String HtmlReportFooter()
+    {
+        return("<br /><a href='mailto:jaemzware@hotmail.com' target='_blank'>jaemzware@hotmail.com</a><br /><a href='https://www.linkedin.com/pub/james-arasim/15/991/424'>LinkedIn</a></body></html>");
+    }
     
      /**
      * This function gets the command line parameters.  Will be called by StartDriver to be backwards compatible.  
