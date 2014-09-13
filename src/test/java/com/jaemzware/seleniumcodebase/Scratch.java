@@ -122,7 +122,10 @@ public class Scratch extends AutomationCodeBase
             //visit each href, report load time, and make sure the page has the logo
             for(String href:hrefs.keySet()){
                 
-                driverGetWithTime(href);
+                //go to the href
+                fileWriteString = driverGetWithTime(href);
+                //write stats to html report
+                writer.println(fileWriteString);
                 
                 //if logo is not present, don't assert/fail, just add a verification error,
                 //so all links get checked regardless of ones that fail
