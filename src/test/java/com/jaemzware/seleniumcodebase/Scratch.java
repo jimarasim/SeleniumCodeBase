@@ -79,25 +79,18 @@ public class Scratch extends AutomationCodeBase
                 url=input;
             }
             else{
-                url= properties.getProperty(environment.toString()+".url");
-            }
-            
-            if(url==null){
-                throw new Exception("URL NOT SPECIFIED NOR FOUND IN PROPERTIES FILE");
+                throw new Exception("URL NOT SPECIFIED (-Dinput)");
             }
             
             //get xpath to look for
             String logoxpath=new String();
-            if(aString != null){
+            if(aString != null && !aString.isEmpty()){
                 logoxpath=aString;
             }
             else{
-                logoxpath = properties.getProperty(environment.toString()+".logoxpath");
+                throw new Exception("LOGOXPATH NOT SPECIFIED (-DaString");
             }
             
-            if(logoxpath==null){
-                throw new Exception("LOGOXPATH NOT SPECIFIED NOR FOUND IN PROPERTIES FILE");
-            }
                 
             //navigate to the starting page
             fileWriteString = driverGetWithTime(url);
@@ -189,10 +182,11 @@ public class Scratch extends AutomationCodeBase
     
     @Test
     public void CheckGmail(){
+//        uses app password for gmail.  app name "Scratch" https://support.google.com/accounts/answer/185833
         try{
             System.out.println(GetFirstEmailMessageForSearchTerm("imap.gmail.com", 
                     "jaemzware", 
-                    "8googlegoogle", 
+                    "jhnuhivmbvubjuds",
                     "Inbox",
                     "Metabliss", 
                     30000));
@@ -214,10 +208,12 @@ public class Scratch extends AutomationCodeBase
                 url=input;
             }
             else{
-                url= properties.getProperty(environment.toString()+".url");
+                throw new Exception("URL NOT SPECIFIED (-Dinput)");
             }
             
             String response = HttpGetReturnResponse(url);
+            
+            System.out.println(response);
             
             //recreate web page
             String fileName = "Index-RestRequest-"+getDateStamp()+".htm";
