@@ -1,252 +1,219 @@
 package com.jaemzware.seleniumcodebase;
 
-import static com.jaemzware.seleniumcodebase.AutomationCodeBase.QuitDriver;
-import static com.jaemzware.seleniumcodebase.AutomationCodeBase.driver;
-import static com.jaemzware.seleniumcodebase.AutomationCodeBase.environment;
-import static com.jaemzware.seleniumcodebase.AutomationCodeBase.input;
 import java.io.FileInputStream;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.Before;
-import org.junit.After;
-
-
 import java.util.Properties;
+
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-
 /**
- *@author jaemzware@hotmail.com
- * 
+ * @author jaemzware@hotmail.com
  */
-public class Scratch extends AutomationCodeBase
-{
+public class Scratch extends AutomationCodeBase {
     static Properties properties = new Properties();
     StringBuilder verificationErrors;
-    
-    //monster tamer
+
+    // monster tamer
     private final String monsterTamerDomain = "monster-tamer.com";
     private final String monsterTamer404Xpath = "//h1[contains(text(),'404 Page')]";
-    
+
     @Before
-    public void BeforeTest()
-    {
-        try
-        {  
-            //properties file is in same directory as pom.xml
+    public void BeforeTest() {
+        try {
+            // properties file is in same directory as pom.xml
             properties.load(new FileInputStream("src/test/java/com/jaemzware/seleniumcodebase/selenium.properties"));
-            
-            //initialize verifification errors
+
+            // initialize verifification errors
             verificationErrors = new StringBuilder();
-            
-            //get input parameters HERE
+
+            // get input parameters HERE
             GetParameters();
-        }
-        catch(Exception ex)
-        {
-            CustomStackTrace("BEFORE TESTS EXCEPTION",ex);
-            Assert.fail("BEFORE TESTS EXCEPTION:"+ex.getMessage());
+        } catch (Exception ex) {
+            CustomStackTrace("BEFORE TESTS EXCEPTION", ex);
+            Assert.fail("BEFORE TESTS EXCEPTION:" + ex.getMessage());
         }
     }
-    
+
     @Test
-    public void VerifyLogos()
-    {
-        
-        //build web page
-        String fileName = "index-VerifyLogos-"+getDateStamp()+".htm";
-        PrintWriter writer=null;
+    public void VerifyLogos() {
+
+        // build web page
+        String fileName = "index-VerifyLogos-" + getDateStamp() + ".htm";
+        PrintWriter writer = null;
         String fileWriteString = "";
-        
-        try
-        {
+
+        try {
             writer = new PrintWriter(fileName, "UTF-8");
-            
+
             writer.println(HtmlReportHeader("VerifyLogos"));
-            
-            //open browser
+
+            // open browser
             StartDriver();
-            
-            //get base url
+
+            // get base url
             String url = new String();
-            if(input!=null && !input.isEmpty()){
-                url=input;
-            }
-            else{
+            if (input != null && !input.isEmpty()) {
+                url = input;
+            } else {
                 throw new Exception("URL NOT SPECIFIED (-Dinput)");
             }
-            
-            //get xpath to look for
-            String logoxpath=new String();
-            if(aString != null && !aString.isEmpty()){
-                logoxpath=aString;
-            }
-            else{
+
+            // get xpath to look for
+            String logoxpath = new String();
+            if (aString != null && !aString.isEmpty()) {
+                logoxpath = aString;
+            } else {
                 throw new Exception("LOGOXPATH NOT SPECIFIED (-DaString");
             }
-            
-                
-            //navigate to the starting page
+
+            // navigate to the starting page
             fileWriteString = driverGetWithTime(url);
-            
-            //write stats to html report
+
+            // write stats to html report
             writer.println(fileWriteString);
-           
-            //get all non-empty/non-javascript href on the page
-            Map<String,String> hrefs = new HashMap<String,String>();
+
+            // get all non-empty/non-javascript href on the page
+            Map<String, String> hrefs = new HashMap<String, String>();
             String hrefFound;
-            List<WebElement> internalAnchors = driver.findElements(By.xpath("//a[@href and not(@href='') and not(contains(@href,'javascript:'))]"));
-            int exceptionCount=0;
-            for(WebElement we:internalAnchors){
-                //TODO FIND OUT WHY THIS THROWS AN EXCEPTION SOMETIMES
-                try{System.out.println(we.getAttribute("href"));}catch(Exception ex){System.out.println("EXCEPTION GETTING HREF FROM LIST. COUNT:"+exceptionCount++);continue;}
-                hrefFound=we.getAttribute("href");
-                
-                if(hrefFound.contains(url.substring(url.indexOf("/",0)))){
-                    hrefs.put(hrefFound,url);
+            List<WebElement> internalAnchors = driver.findElements(By
+                    .xpath("//a[@href and not(@href='') and not(contains(@href,'javascript:'))]"));
+            int exceptionCount = 0;
+            for (WebElement we : internalAnchors) {
+                // TODO FIND OUT WHY THIS THROWS AN EXCEPTION SOMETIMES
+                try {
+                    System.out.println(we.getAttribute("href"));
+                } catch (Exception ex) {
+                    System.out.println("EXCEPTION GETTING HREF FROM LIST. COUNT:" + exceptionCount++);
+                    continue;
+                }
+                hrefFound = we.getAttribute("href");
+
+                if (hrefFound.contains(url.substring(url.indexOf("/", 0)))) {
+                    hrefs.put(hrefFound, url);
                 }
             }
-            
-            //visit each href, report load time, and make sure the page has the logo
-            for(String href:hrefs.keySet()){
-                
-                //go to the href
+
+            // visit each href, report load time, and make sure the page has the logo
+            for (String href : hrefs.keySet()) {
+
+                // go to the href
                 fileWriteString = driverGetWithTime(href);
-                //write stats to html report
+                // write stats to html report
                 writer.println(fileWriteString);
-                
-                //if logo is not present, don't assert/fail, just add a verification error,
-                //so all links get checked regardless of ones that fail
-                
-                //make sure we're on a real page, and not an image
-                if(!href.endsWith(".jpg") && !href.endsWith(".gif"))
-                {
-                    //verify logo
-                    if(!IsElementPresent(By.xpath(logoxpath),1000)){
-                        verificationErrors.append("URL:")
-                                .append(href)
-                                .append(" MISSING LOGO:")
-                                .append(logoxpath)
+
+                // save off the page for later analysis
+                input = href;
+                RestRequest();
+
+                // if logo is not present, don't assert/fail, just add a verification error,
+                // so all links get checked regardless of ones that fail
+
+                // make sure we're on a real page, and not an image
+                if (!href.endsWith(".jpg") && !href.endsWith(".gif")) {
+                    // verify logo
+                    if (!IsElementPresent(By.xpath(logoxpath), 1000)) {
+                        verificationErrors.append("URL:").append(href).append(" MISSING LOGO:").append(logoxpath)
                                 .append("\n");
-                        
-                        //write error to html report
-                        fileWriteString = "<br />ISSUE:MISSING LOGO URL:<a href='"+href+"' target='_blank'>"+href+"</a>";
+
+                        // write error to html report
+                        fileWriteString = "<br />ISSUE:MISSING LOGO URL:<a href='" + href + "' target='_blank'>" + href
+                                + "</a>";
                         writer.println(fileWriteString);
-                        
+
                     }
-                    
-                    //check for 404 (monster-tamer)
-                    if(href.contains(monsterTamerDomain) && IsElementPresent(By.xpath(monsterTamer404Xpath),1000)){
-                        verificationErrors.append("URL:")
-                                .append(href)
-                                .append(" 404 PAGE:")
-                                .append(monsterTamer404Xpath)
-                                .append("\n");
-                        
-                        //write error to html report
-                        fileWriteString = "<br />ISSUE:404 URL:<a href='"+href+"' target='_blank'>"+href+"</a>";
+
+                    // check for 404 (monster-tamer)
+                    if (href.contains(monsterTamerDomain) && IsElementPresent(By.xpath(monsterTamer404Xpath), 1000)) {
+                        verificationErrors.append("URL:").append(href).append(" 404 PAGE:")
+                                .append(monsterTamer404Xpath).append("\n");
+
+                        // write error to html report
+                        fileWriteString = "<br />ISSUE:404 URL:<a href='" + href + "' target='_blank'>" + href + "</a>";
                         writer.println(fileWriteString);
                     }
-                    
+
                 }
-                 
+
             }
-            
-                        
+
             writer.println(HtmlReportFooter());
-            
-            System.out.println("INDEX FILE WRITTEN:"+jenkinsReportPath+fileName);
-            
-        }
-        catch(Exception ex)
-        {
+
+            System.out.println("INDEX FILE WRITTEN:" + jenkinsReportPath + fileName);
+
+        } catch (Exception ex) {
             ScreenShot();
-            CustomStackTrace("VerifyLogos EXCEPTION",ex);
+            CustomStackTrace("VerifyLogos EXCEPTION", ex);
             Assert.fail(ex.getMessage());
-        }
-        finally
-        {
-            //write the file if it was created
-            if(writer!=null){
+        } finally {
+            // write the file if it was created
+            if (writer != null) {
                 writer.flush();
                 writer.close();
             }
         }
     }
-    
+
     @Test
-    public void CheckGmail(){
-//        uses app password for gmail.  app name "Scratch" https://support.google.com/accounts/answer/185833
-        try{
-            System.out.println(GetFirstEmailMessageForSearchTerm("imap.gmail.com", 
-                    "jaemzware", 
-                    "jhnuhivmbvubjuds",
-                    "Inbox",
-                    "Metabliss", 
-                    30000));
-            
-        }
-        catch(Exception ex){
-            System.out.println("COULD NOT GET EMAIL:"+ex.getMessage());
+    public void CheckGmail() {
+        // uses app password for gmail. app name "Scratch" https://support.google.com/accounts/answer/185833
+        try {
+            System.out.println(GetFirstEmailMessageForSearchTerm("imap.gmail.com", "jaemzware", "jhnuhivmbvubjuds",
+                    "Inbox", "Metabliss", 30000));
+
+        } catch (Exception ex) {
+            System.out.println("COULD NOT GET EMAIL:" + ex.getMessage());
         }
     }
-            
-    
+
     @Test
-    public void RestRequest()
-    {
-        try{
-            //get base url
+    public void RestRequest() {
+        try {
+            // get base url
             String url = new String();
-            if(input!=null && !input.isEmpty()){
-                url=input;
-            }
-            else{
+            if (input != null && !input.isEmpty()) {
+                url = input;
+            } else {
                 throw new Exception("URL NOT SPECIFIED (-Dinput)");
             }
-            
+
             String response = HttpGetReturnResponse(url);
-            
+
             System.out.println(response);
-            
-            //recreate web page
-            String fileName = "Index-RestRequest-"+getDateStamp()+".htm";
+
+            // recreate web page
+            String fileName = "Index-RestRequest-" + getDateStamp() + ".htm";
             PrintWriter writer = new PrintWriter(fileName, "UTF-8");
             writer.println(response);
             writer.flush();
             writer.close();
-            System.out.println("WROTE RESPONSE TO:"+jenkinsReportPath+fileName);
-        }
-        catch(Exception ex){
-            CustomStackTrace("RestRequest EXCEPTION",ex);
+            System.out.println("WROTE RESPONSE TO:" + jenkinsReportPath + fileName);
+        } catch (Exception ex) {
+            CustomStackTrace("RestRequest EXCEPTION", ex);
             Assert.fail(ex.getMessage());
         }
     }
-    
+
     @After
-    public void AfterTest()
-    {
-        try
-        {
-            if(driver!=null){
+    public void AfterTest() {
+        try {
+            if (driver != null) {
                 QuitDriver();
             }
-            
-            //check if there were any verify errors, and fail whole test if so
-            if(verificationErrors.length()>0)
-            {
-                Assert.fail("\nVERIFICATION ERRORS\n"+verificationErrors.toString());
+
+            // check if there were any verify errors, and fail whole test if so
+            if (verificationErrors.length() > 0) {
+                Assert.fail("\nVERIFICATION ERRORS\n" + verificationErrors.toString());
             }
-        }
-        catch(Exception ex)
-        {
-            CustomStackTrace("AFTER EXCEPTION",ex);
+        } catch (Exception ex) {
+            CustomStackTrace("AFTER EXCEPTION", ex);
             Assert.fail(ex.getMessage());
         }
     }
