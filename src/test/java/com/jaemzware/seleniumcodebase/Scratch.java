@@ -46,7 +46,7 @@ public class Scratch extends AutomationCodeBase {
     public void VerifyLogos() {
 
         // build web page
-        String fileName = "index-VerifyLogos-" + getDateStamp() + ".htm";
+        String fileName = "Index-VerifyLogos-" + getDateStamp() + ".htm";
         PrintWriter writer = null;
         String fileWriteString = "";
 
@@ -110,8 +110,7 @@ public class Scratch extends AutomationCodeBase {
                 writer.println(fileWriteString);
 
                 // save off the page for later analysis
-                input = href;
-                RestRequest();
+                RestRequest(href);
 
                 // if logo is not present, don't assert/fail, just add a verification error,
                 // so all links get checked regardless of ones that fail
@@ -174,7 +173,7 @@ public class Scratch extends AutomationCodeBase {
     }
 
     @Test
-    public void RestRequest() {
+    public void MakeRestRequest() {
         try {
             // get base url
             String url = new String();
@@ -184,17 +183,7 @@ public class Scratch extends AutomationCodeBase {
                 throw new Exception("URL NOT SPECIFIED (-Dinput)");
             }
 
-            String response = HttpGetReturnResponse(url);
-
-            // System.out.println(response);
-
-            // recreate web page
-            String fileName = "Index-RestRequest-" + getDateStamp() + ".htm";
-            PrintWriter writer = new PrintWriter(fileName, "UTF-8");
-            writer.println(response);
-            writer.flush();
-            writer.close();
-            System.out.println("WROTE RESPONSE TO:" + jenkinsReportPath + fileName);
+            RestRequest(url);
         } catch (Exception ex) {
             CustomStackTrace("RestRequest EXCEPTION", ex);
             Assert.fail(ex.getMessage());
