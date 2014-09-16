@@ -186,7 +186,7 @@ public class Scratch extends AutomationCodeBase {
 
             String response = HttpGetReturnResponse(url);
 
-            System.out.println(response);
+            // System.out.println(response);
 
             // recreate web page
             String fileName = "Index-RestRequest-" + getDateStamp() + ".htm";
