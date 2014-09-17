@@ -128,7 +128,9 @@ public class Scratch extends AutomationCodeBase {
                 // so all links get checked regardless of ones that fail
 
                 // make sure we're on a real page, and not an image
-                if (!href.endsWith(".jpg") && !href.endsWith(".gif")) {
+                if (    !href.endsWith(".jpg") && 
+                        !href.endsWith(".gif") &&
+                        !href.endsWith("rss")) {
                     // verify logo
                     if (!IsElementPresent(By.xpath(logoxpath), 1000)) {
                         verificationErrors.append("URL:").append(href).append(" MISSING LOGO:").append(logoxpath)
