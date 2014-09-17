@@ -7,7 +7,8 @@
                 <goal>surefire:test</goal>
                 <goal>-Dtest=Scratch#VerifyLogos</goal>
                 <goal>-Dbrowser=CHROME</goal>
-                <goal>-Denvironment=other</goal>
+                <goal>-Dinput=https://www.blackmarketskates.seattlerules.com/theshop</goal>
+                <goal>-DaString=//a[contains(text(),'Home')]</goal>
                 <goal>-Dnogrid</goal>
             </goals>
             <properties>
@@ -22,9 +23,10 @@
             <goals>
                 <goal>test-compile</goal>
                 <goal>surefire:test</goal>
-                <goal>-Dtest=Scratch#CheckGmail</goal>
+                <goal>-Dtest=Scratch#VerifyLogos</goal>
                 <goal>-Dbrowser=CHROME</goal>
-                <goal>-Denvironment=other</goal>
+                <goal>-Dinput=https://www.blackmarketskates.seattlerules.com/theshop</goal>
+                <goal>-DaString=//a[contains(text(),'Home')]</goal>
                 <goal>-Dnogrid</goal>
             </goals>
             <properties>

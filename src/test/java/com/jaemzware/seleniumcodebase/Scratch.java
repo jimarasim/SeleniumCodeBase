@@ -24,6 +24,7 @@ public class Scratch extends AutomationCodeBase {
     // monster tamer
     private final String monsterTamerDomain = "monster-tamer.com";
     private final String monsterTamer404Xpath = "//h1[contains(text(),'404 Page')]";
+    private final String linksOnSpashPageXpath = "//a[@href and not(@href='') and not(contains(@href,'javascript:'))]";
 
     @Before
     public void BeforeTest() {
@@ -83,22 +84,33 @@ public class Scratch extends AutomationCodeBase {
             // get all non-empty/non-javascript href on the page
             Map<String, String> hrefs = new HashMap<String, String>();
             String hrefFound;
-            List<WebElement> internalAnchors = driver.findElements(By
-                    .xpath("//a[@href and not(@href='') and not(contains(@href,'javascript:'))]"));
-            int exceptionCount = 0;
-            for (WebElement we : internalAnchors) {
-                // TODO FIND OUT WHY THIS THROWS AN EXCEPTION SOMETIMES
-                try {
-                    System.out.println(we.getAttribute("href"));
-                } catch (Exception ex) {
-                    System.out.println("EXCEPTION GETTING HREF FROM LIST. COUNT:" + exceptionCount++);
-                    continue;
-                }
-                hrefFound = we.getAttribute("href");
+            
+            if(IsElementPresent(By.xpath(linksOnSpashPageXpath))){
+                List<WebElement> internalAnchors = driver.findElements(By.xpath(linksOnSpashPageXpath));
+                int exceptionCount = 0;
+                for (WebElement we : internalAnchors) {
+                    // TODO FIND OUT WHY THIS THROWS AN EXCEPTION SOMETIMES
+                    try {
+                        we.getAttribute("href");
+                    } catch (Exception ex) {
+                        System.out.println("EXCEPTION GETTING HREF FROM LIST. COUNT:" + exceptionCount++);
+                        continue;
+                    }
+                    hrefFound = we.getAttribute("href");
 
-                if (hrefFound.contains(url.substring(url.indexOf("/", 0)))) {
-                    hrefs.put(hrefFound, url);
+                    //only visit hrefs that contain the base url
+                    if (hrefFound.contains(url)) {
+                        hrefs.put(hrefFound, url);
+                        System.out.println("WILL VISIT:"+hrefFound);
+                    }
+                    else{
+                        System.out.println("SKIPPING: "+hrefFound+" DOES NOT CONTAIN BASE URL:"+url);
+                    }
+                        
                 }
+            }
+            else{
+                System.out.println("WARNING: NO LINKS FOUND ON PAGE MATCHING XPATH:"+linksOnSpashPageXpath);
             }
 
             // visit each href, report load time, and make sure the page has the logo
