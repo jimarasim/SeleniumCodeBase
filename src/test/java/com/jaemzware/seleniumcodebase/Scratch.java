@@ -130,7 +130,7 @@ public class Scratch extends AutomationCodeBase {
                 // make sure we're on a real page, and not an image
                 if (    !href.endsWith(".jpg") && 
                         !href.endsWith(".gif") &&
-                        !href.endsWith("rss")) {
+                        !href.endsWith("rss2")) {
                     // verify logo
                     if (!IsElementPresent(By.xpath(logoxpath), 1000)) {
                         verificationErrors.append("URL:").append(href).append(" MISSING LOGO:").append(logoxpath)
