@@ -66,6 +66,8 @@ public class AutomationCodeBase {
     protected static String aNumber = null; // for specifying a generic number for usage or comparison (Sql.java), will
                                             // fail if not integer parseable
     protected static String aString = null; // for specifiying a generic string for usage or comparison (Sql.java)
+    
+    
     protected static EnvironmentType environment = EnvironmentType.dev;
     protected static BrowserType browser = BrowserType.CHROME;
 
