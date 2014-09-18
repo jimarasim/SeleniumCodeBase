@@ -805,7 +805,7 @@ public class AutomationCodeBase {
             writer.println(response);
             writer.flush();
             writer.close();
-            System.out.println("WROTE RESPONSE TO:" + jenkinsReportPath + fileName);
+            System.out.println("WROTE RESPONSE TO:" + fileName);
         } catch (Exception ex) {
             CustomStackTrace("RestRequest EXCEPTION", ex);
             throw new Exception(ex);
