@@ -95,8 +95,14 @@ public class AutomationCodeBase {
         StringBuilder returnString = new StringBuilder();
 
         // standard header
-        returnString.append("<html><head><title>Jaemzware - " + titleHeaderString
-                + "</title></head><body><h1>Jaemzware - " + titleHeaderString + "</h1>");
+        returnString.append("<html><head><title>Jaemzware - ")
+                .append(titleHeaderString)
+                .append("</title>")
+                .append("<style>table td, table th {border: 1px solid black;}</style>")
+                .append("</head>")
+                .append("<body><h1>Jaemzware - ")
+                .append(titleHeaderString)
+                .append("</h1>");
 
         returnString
                 .append("<a href='mailto:jaemzware@hotmail.com' target='_blank'>jaemzware@hotmail.com</a><br /><a href='https://www.linkedin.com/pub/james-arasim/15/991/424'>LinkedIn</a>");

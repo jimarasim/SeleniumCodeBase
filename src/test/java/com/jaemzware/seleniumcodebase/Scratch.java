@@ -154,7 +154,7 @@ public class Scratch extends AutomationCodeBase {
                         !href.endsWith(".gif") &&
                         !href.endsWith("rss2")) {
                     // verify logo
-                    if (!IsElementPresent(By.xpath(logoxpath), 1000)) {
+                    if (!IsElementPresent(By.xpath(logoxpath), 2000)) {
                         verificationErrors.append("URL:").append(href).append(" MISSING LOGO:").append(logoxpath)
                                 .append("\n");
 
@@ -250,7 +250,7 @@ public class Scratch extends AutomationCodeBase {
     private String ExtractJSLogs() {
         StringBuilder logString = new StringBuilder();
         logString.append("<table>")
-                .append("<tr><td>DATE</td><td>ERROR LEVEL</td><td>MESSAGE</td></tr>");
+                .append("<tr><td>DATE</td><td>ERROR LEVEL</td><td>ERROR MESSAGE</td></tr>");
         LogEntries logEntries = driver.manage().logs().get(LogType.BROWSER);
         for (LogEntry entry : logEntries) {
             logString.append("<tr><td>")
