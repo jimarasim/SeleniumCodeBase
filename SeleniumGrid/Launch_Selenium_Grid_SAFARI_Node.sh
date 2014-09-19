@@ -1,1 +1,1 @@
-java -jar selenium-server-standalone-2.42.2.jar -role node -browser platform=MAC,browserName=safari,maxInstances=5,version=7,seleniumProtocol=WebDriver,acceptSslCerts=true -hub http://jaemzware.com:4444/grid/register -host 75.165.40.31 -port 5552
+java -jar selenium-server-standalone-2.43.1.jar -role node -browser platform=MAC,browserName=safari,maxInstances=5,version=7,seleniumProtocol=WebDriver,acceptSslCerts=true -hub http://jaemzware.com:4444/grid/register -host 75.165.40.31 -port 5552

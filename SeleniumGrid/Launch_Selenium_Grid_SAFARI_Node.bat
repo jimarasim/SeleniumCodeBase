@@ -1,1 +1,1 @@
-start cmd /k java -jar selenium-server-standalone-2.40.0.jar -role node -browser platform=VISTA,browserName=safari,maxInstances=5,version=5 -hub http://SEAOTMAPP02.olympus.F5NET.com:4444/grid/register -port 5551
+start cmd /k java -jar selenium-server-standalone-2.43.1.jar -role node -browser platform=VISTA,browserName=safari,maxInstances=5,version=5 -hub http://SEAOTMAPP02.olympus.F5NET.com:4444/grid/register -port 5551
