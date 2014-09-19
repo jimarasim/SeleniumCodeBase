@@ -1,7 +1,9 @@
 package com.jaemzware.seleniumcodebase;
 
+import static com.jaemzware.seleniumcodebase.AutomationCodeBase.browser;
 import java.io.FileInputStream;
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +15,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.logging.LogEntries;
+import org.openqa.selenium.logging.LogEntry;
+import org.openqa.selenium.logging.LogType;
 
 /**
  * @author jaemzware@hotmail.com
@@ -48,14 +53,17 @@ public class Scratch extends AutomationCodeBase {
     @Test
     public void VerifyLogos() {
 
-        // build web page
+        //create a file for the web page log
         String fileName = "Index-VerifyLogos-" + getDateStamp() + ".htm";
         PrintWriter writer = null;
         String fileWriteString = "";
 
         try {
+            
+            //create the web page
             writer = new PrintWriter(fileName, "UTF-8");
 
+            //write the html header in the web page
             writer.println(HtmlReportHeader("VerifyLogos"));
 
             // open browser
@@ -82,6 +90,12 @@ public class Scratch extends AutomationCodeBase {
 
             // write stats to html report
             writer.println(fileWriteString);
+            
+            //write debug info to the html report
+            if(browser.equals(BrowserType.CHROMEMAC)||browser.equals(BrowserType.CHROMELINUX)||browser.equals(BrowserType.CHROMEMAC)){
+                writer.println(ExtractJSLogs());
+                
+            }
 
             // get all non-empty/non-javascript href on the page
             Map<String, String> hrefs = new HashMap<String, String>();
@@ -120,8 +134,14 @@ public class Scratch extends AutomationCodeBase {
 
                 // go to the href
                 fileWriteString = driverGetWithTime(href);
+                
                 // write stats to html report
                 writer.println(fileWriteString);
+                
+                //write debug info to the html report
+                if(browser.equals(BrowserType.CHROMEMAC)||browser.equals(BrowserType.CHROMELINUX)||browser.equals(BrowserType.CHROMEMAC)){
+                    writer.println(ExtractJSLogs());
+                }
 
                 // save off the page for later analysis
                 RestRequest(href);
@@ -222,4 +242,20 @@ public class Scratch extends AutomationCodeBase {
             Assert.fail(ex.getMessage());
         }
     }
+    
+    /**
+     * get js log errors, if any
+     * @return 
+     */
+    private String ExtractJSLogs() {
+        StringBuilder logString = new StringBuilder();
+        
+        LogEntries logEntries = driver.manage().logs().get(LogType.BROWSER);
+        for (LogEntry entry : logEntries) {
+            logString.append(getDateStamp()).append(entry.getLevel()).append("<b>").append(entry.getMessage()).append("</b><br />");
+        }
+        
+        return logString.toString();
+    }
+    
 }
