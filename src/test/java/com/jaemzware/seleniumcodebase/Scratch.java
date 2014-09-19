@@ -262,11 +262,14 @@ public class Scratch extends AutomationCodeBase {
         logString.append("<table>")
                 .append("<tr><td>DATE</td><td>ERROR LEVEL</td><td>ERROR MESSAGE</td></tr>");
         LogEntries logEntries = driver.manage().logs().get(LogType.BROWSER);
+        String errorLevel = "";
         for (LogEntry entry : logEntries) {
+            errorLevel=entry.getLevel().toString();
             logString.append("<tr><td>")
                     .append(getDateStamp())
-                    .append("</td><td>")
-                    .append(entry.getLevel())
+                    .append("</td>");
+            logString.append("<td>");
+            logString.append(errorLevel)
                     .append("</td><td>")
                     .append(entry.getMessage())
                     .append("</td></tr>");
