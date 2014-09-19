@@ -1,6 +1,8 @@
 package com.jaemzware.seleniumcodebase;
 
 import static com.jaemzware.seleniumcodebase.AutomationCodeBase.browser;
+import static com.jaemzware.seleniumcodebase.AutomationCodeBase.input;
+import static com.jaemzware.seleniumcodebase.AutomationCodeBase.userid;
 import java.io.FileInputStream;
 import java.io.PrintWriter;
 import java.util.Date;
@@ -69,12 +71,20 @@ public class Scratch extends AutomationCodeBase {
             // open browser
             StartDriver();
 
-            // get base url
-            String url = new String();
+            // get START url
+            String starturl = new String();
             if (input != null && !input.isEmpty()) {
-                url = input;
+                starturl = input;
             } else {
-                throw new Exception("URL NOT SPECIFIED (-Dinput)");
+                throw new Exception("START URL NOT SPECIFIED (-Dinput)");
+            }
+            
+            //get base url
+            String baseurl = new String();
+            if (userid != null && !userid.isEmpty()) {
+                baseurl = userid;
+            } else {
+                throw new Exception("BASE URL NOT SPECIFIED (-Duserid)");
             }
 
             // get xpath to look for
@@ -86,7 +96,7 @@ public class Scratch extends AutomationCodeBase {
             }
 
             // navigate to the starting page
-            fileWriteString = driverGetWithTime(url);
+            fileWriteString = driverGetWithTime(starturl);
 
             // write stats to html report
             writer.println(fileWriteString);
@@ -115,12 +125,12 @@ public class Scratch extends AutomationCodeBase {
                     hrefFound = we.getAttribute("href");
 
                     //only visit hrefs that contain the base url
-                    if (hrefFound.contains(url)) {
-                        hrefs.put(hrefFound, url);
+                    if (hrefFound.contains(baseurl)) {
+                        hrefs.put(hrefFound, starturl);
                         System.out.println("WILL VISIT:"+hrefFound);
                     }
                     else{
-                        System.out.println("SKIPPING: "+hrefFound+" DOES NOT CONTAIN BASE URL:"+url);
+                        System.out.println("SKIPPING: FOUND URL:"+hrefFound+" DOES NOT CONTAIN BASE URL:"+baseurl);
                     }
                         
                 }
@@ -211,12 +221,12 @@ public class Scratch extends AutomationCodeBase {
     @Test
     public void MakeRestRequest() {
         try {
-            // get base url
+            // get start url
             String url = new String();
             if (input != null && !input.isEmpty()) {
                 url = input;
             } else {
-                throw new Exception("URL NOT SPECIFIED (-Dinput)");
+                throw new Exception("START URL NOT SPECIFIED (-Dinput)");
             }
 
             RestRequest(url);
