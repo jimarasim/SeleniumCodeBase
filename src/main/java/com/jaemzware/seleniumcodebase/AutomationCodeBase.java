@@ -310,6 +310,9 @@ public class AutomationCodeBase {
 
                 // get the desired capabilities
                 DesiredCapabilities cap;
+                
+                
+                LoggingPreferences loggingprefs = new LoggingPreferences();
 
                 // desired browser
                 switch (browser) {
@@ -318,15 +321,26 @@ public class AutomationCodeBase {
                 case CHROMEMAC:
                     cap = DesiredCapabilities.chrome();
                     
-                    //turn on error logging :)
-                    LoggingPreferences loggingprefs = new LoggingPreferences();
+                
+                    //TESTING - TODO TEST WITH MORE THAN CHROME
+                    //turn on error logging :) 
                     loggingprefs.enable(LogType.BROWSER, Level.ALL);
                     cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
+                    //TESTING - TODO TEST WITH MORE THAN CHROME
                     
                     break;
                 case FIREFOX:
                 case FIREFOXLINUX:
                     cap = DesiredCapabilities.firefox();
+                    
+                
+                    //TESTING - TODO TEST WITH MORE THAN CHROME
+                    //turn on error logging :) 
+                    loggingprefs.enable(LogType.BROWSER, Level.ALL);
+                    cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
+                    //TESTING - TODO TEST WITH MORE THAN CHROME
+                    
+                    
                     break;
                 case SAFARI:
                     cap = DesiredCapabilities.safari();
@@ -449,15 +463,17 @@ public class AutomationCodeBase {
                 break;
             case FIREFOX:
             case FIREFOXLINUX:
+                
+                // get the desired capabilities
+                DesiredCapabilities cap = DesiredCapabilities.firefox();
 
-                // create a firefox profile for dealing with untrusted certificates
-                FirefoxProfile fp = new FirefoxProfile();
-
-                fp.setAcceptUntrustedCertificates(true);
-                fp.setAssumeUntrustedCertificateIssuer(false);
-
+                //turn on error logging :)
+                LoggingPreferences loggingprefs = new LoggingPreferences();
+                loggingprefs.enable(LogType.BROWSER, Level.ALL);
+                cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
+                
                 // get the firefox driver/start firefox
-                driver = new FirefoxDriver(fp);
+                driver = new FirefoxDriver(cap);
 
                 break;
             case SAFARI:

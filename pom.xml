@@ -28,20 +28,20 @@
       <version>4.3.3</version>
     </dependency>
     <dependency>
-      <groupId>org.seleniumhq.selenium</groupId>
-      <artifactId>selenium-api</artifactId>
-      <version>2.42.2</version>
-      <type>jar</type>
-    </dependency>
-    <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
       <version>2.4</version>
       <type>jar</type>
     </dependency>
     <dependency>
+      <groupId>javax.mail</groupId>
+      <artifactId>mail</artifactId>
+      <version>1.4.5</version>
+      <type>jar</type>
+    </dependency>
+    <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
-      <artifactId>selenium-chrome-driver</artifactId>
+      <artifactId>selenium-api</artifactId>
       <version>2.42.2</version>
       <type>jar</type>
     </dependency>
@@ -65,14 +65,8 @@
     </dependency>
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
-      <artifactId>selenium-support</artifactId>
+      <artifactId>selenium-chrome-driver</artifactId>
       <version>2.42.2</version>
-      <type>jar</type>
-    </dependency>
-    <dependency>
-      <groupId>javax.mail</groupId>
-      <artifactId>mail</artifactId>
-      <version>1.4.5</version>
       <type>jar</type>
     </dependency>
   </dependencies>
