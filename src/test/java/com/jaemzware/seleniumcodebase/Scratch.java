@@ -249,12 +249,19 @@ public class Scratch extends AutomationCodeBase {
      */
     private String ExtractJSLogs() {
         StringBuilder logString = new StringBuilder();
-        
+        logString.append("<table>")
+                .append("<tr><td>DATE</td><td>ERROR LEVEL</td><td>MESSAGE</td></tr>");
         LogEntries logEntries = driver.manage().logs().get(LogType.BROWSER);
         for (LogEntry entry : logEntries) {
-            logString.append(getDateStamp()).append(entry.getLevel()).append("<b>").append(entry.getMessage()).append("</b><br />");
+            logString.append("<tr><td>")
+                    .append(getDateStamp())
+                    .append("</td><td>")
+                    .append(entry.getLevel())
+                    .append("</td><td>")
+                    .append(entry.getMessage())
+                    .append("</td></tr>");
         }
-        
+        logString.append("</table>");
         return logString.toString();
     }
     
