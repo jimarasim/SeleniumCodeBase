@@ -6,10 +6,10 @@
                 <goal>test-compile</goal>
                 <goal>surefire:test</goal>
                 <goal>-Dtest=Scratch#VerifyLogos</goal>
-                <goal>-Dbrowser=CHROME</goal>
+                <goal>-Dbrowser=CHROMEMAC</goal>
                 <goal>-Dinput=https://www.blackmarketskates.seattlerules.com/theshop</goal>
                 <goal>-DaString=//a[contains(text(),'Home')]</goal>
-                <goal>-Dnogrid</goal>
+                
             </goals>
             <properties>
                 <test>${packageClassName}</test>
@@ -24,10 +24,10 @@
                 <goal>test-compile</goal>
                 <goal>surefire:test</goal>
                 <goal>-Dtest=Scratch#VerifyLogos</goal>
-                <goal>-Dbrowser=CHROME</goal>
+                <goal>-Dbrowser=CHROMEMAC</goal>
                 <goal>-Dinput=https://www.blackmarketskates.seattlerules.com/theshop</goal>
                 <goal>-DaString=//a[contains(text(),'Home')]</goal>
-                <goal>-Dnogrid</goal>
+                
             </goals>
             <properties>
                 <test>${packageClassName}</test>

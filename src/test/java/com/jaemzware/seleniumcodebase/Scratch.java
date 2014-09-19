@@ -43,6 +43,8 @@ public class Scratch extends AutomationCodeBase {
         }
     }
 
+    
+    
     @Test
     public void VerifyLogos() {
 

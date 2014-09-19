@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
 
 import javax.mail.Folder;
 import javax.mail.Message;
@@ -33,7 +34,10 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.logging.LogType;
+import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.remote.Augmenter;
+import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
@@ -305,7 +309,14 @@ public class AutomationCodeBase {
                 switch (browser) {
                 case CHROME:
                 case CHROMELINUX:
+                case CHROMEMAC:
                     cap = DesiredCapabilities.chrome();
+                    
+                    //turn on error logging :)
+                    LoggingPreferences loggingprefs = new LoggingPreferences();
+                    loggingprefs.enable(LogType.BROWSER, Level.ALL);
+                    cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
+                    
                     break;
                 case FIREFOX:
                 case FIREFOXLINUX:
@@ -321,10 +332,11 @@ public class AutomationCodeBase {
                     cap = DesiredCapabilities.internetExplorer();
                     break;
                 default:
-                    throw new Exception("UNSUPPORTED -Dbrowser:" + browser
-                            + " VALID: CHROME,CHROMELINUX,FIREFOX,FIREFOXLINUX,SAFARI,IE8,IE9,IE10,IE11");
+                    throw new Exception("UNSUPPORTED FOR GRID -Dbrowser=" + browser
+                            + " VALID: CHROME,CHROMELINUX,CHROMEMAC,FIREFOX,FIREFOXLINUX,SAFARI,IE8,IE9,IE10,IE11");
                 }
 
+                
                 // accept all ssl certificates by default
                 cap.setCapability("acceptSslCerts", true);
 
@@ -416,7 +428,16 @@ public class AutomationCodeBase {
                     driver = new ChromeDriver(options);
                 } else {
                     // get the chrome driver/start regular chrome
-                    driver = new ChromeDriver();
+                    // get the desired capabilities
+                    DesiredCapabilities cap = DesiredCapabilities.chrome();
+                    
+                    //turn on error logging :)
+                    LoggingPreferences loggingprefs = new LoggingPreferences();
+                    loggingprefs.enable(LogType.BROWSER, Level.ALL);
+                    cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
+                    
+                    
+                    driver = new ChromeDriver(cap);
                 }
 
                 break;
