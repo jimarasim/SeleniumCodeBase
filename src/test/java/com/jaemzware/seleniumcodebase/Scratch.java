@@ -162,7 +162,7 @@ public class Scratch extends AutomationCodeBase {
                                 .append("\n");
 
                         // write error to html report
-                        fileWriteString = "<br />ISSUE:MISSING LOGO URL:<a href='" + href + "' target='_blank'>" + href
+                        fileWriteString = "ISSUE:MISSING LOGO URL:<a href='" + href + "' target='_blank'>" + href
                                 + "</a>";
                         writer.println(fileWriteString);
 
