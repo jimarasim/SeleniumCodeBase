@@ -162,8 +162,8 @@ public class Scratch extends AutomationCodeBase {
                                 .append("\n");
 
                         // write error to html report
-                        fileWriteString = "ISSUE:MISSING LOGO URL:<a href='" + href + "' target='_blank'>" + href
-                                + "</a>";
+                        fileWriteString = "<br />ISSUE:MISSING LOGO URL:<a href='" + href + "' target='_blank'>" + href
+                                + "</a><br />";
                         writer.println(fileWriteString);
 
                     }
@@ -174,7 +174,7 @@ public class Scratch extends AutomationCodeBase {
                                 .append(monsterTamer404Xpath).append("\n");
 
                         // write error to html report
-                        fileWriteString = "<br />ISSUE:404 URL:<a href='" + href + "' target='_blank'>" + href + "</a>";
+                        fileWriteString = "<br />ISSUE:404 URL:<a href='" + href + "' target='_blank'>" + href + "</a><br />";
                         writer.println(fileWriteString);
                     }
 
