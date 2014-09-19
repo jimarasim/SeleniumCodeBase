@@ -1,11 +1,7 @@
 package com.jaemzware.seleniumcodebase;
 
-import static com.jaemzware.seleniumcodebase.AutomationCodeBase.browser;
-import static com.jaemzware.seleniumcodebase.AutomationCodeBase.input;
-import static com.jaemzware.seleniumcodebase.AutomationCodeBase.userid;
 import java.io.FileInputStream;
 import java.io.PrintWriter;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,22 +46,20 @@ public class Scratch extends AutomationCodeBase {
         }
     }
 
-    
-    
     @Test
     public void VerifyLogos() {
 
-        //create a file for the web page log
+        // create a file for the web page log
         String fileName = "Index-VerifyLogos-" + getDateStamp() + ".htm";
         PrintWriter writer = null;
         String fileWriteString = "";
 
         try {
-            
-            //create the web page
+
+            // create the web page
             writer = new PrintWriter(fileName, "UTF-8");
 
-            //write the html header in the web page
+            // write the html header in the web page
             writer.println(HtmlReportHeader("VerifyLogos"));
 
             // open browser
@@ -78,8 +72,8 @@ public class Scratch extends AutomationCodeBase {
             } else {
                 throw new Exception("START URL NOT SPECIFIED (-Dinput)");
             }
-            
-            //get base url
+
+            // get base url
             String baseurl = new String();
             if (userid != null && !userid.isEmpty()) {
                 baseurl = userid;
@@ -100,18 +94,19 @@ public class Scratch extends AutomationCodeBase {
 
             // write stats to html report
             writer.println(fileWriteString);
-            
-            //write debug info to the html report
-            if(browser.equals(BrowserType.CHROMEMAC)||browser.equals(BrowserType.CHROMELINUX)||browser.equals(BrowserType.CHROMEMAC)){
+
+            // write debug info to the html report
+            if (browser.equals(BrowserType.CHROMEMAC) || browser.equals(BrowserType.CHROMELINUX)
+                    || browser.equals(BrowserType.CHROMEMAC)) {
                 writer.println(ExtractJSLogs());
-                
+
             }
 
             // get all non-empty/non-javascript href on the page
             Map<String, String> hrefs = new HashMap<String, String>();
             String hrefFound;
-            
-            if(IsElementPresent(By.xpath(linksOnSpashPageXpath))){
+
+            if (IsElementPresent(By.xpath(linksOnSpashPageXpath))) {
                 List<WebElement> internalAnchors = driver.findElements(By.xpath(linksOnSpashPageXpath));
                 int exceptionCount = 0;
                 for (WebElement we : internalAnchors) {
@@ -124,19 +119,18 @@ public class Scratch extends AutomationCodeBase {
                     }
                     hrefFound = we.getAttribute("href");
 
-                    //only visit hrefs that contain the base url
+                    // only visit hrefs that contain the base url
                     if (hrefFound.contains(baseurl)) {
                         hrefs.put(hrefFound, starturl);
-                        System.out.println("WILL VISIT:"+hrefFound);
+                        System.out.println("WILL VISIT:" + hrefFound);
+                    } else {
+                        System.out
+                                .println("SKIPPING: FOUND URL:" + hrefFound + " DOES NOT CONTAIN BASE URL:" + baseurl);
                     }
-                    else{
-                        System.out.println("SKIPPING: FOUND URL:"+hrefFound+" DOES NOT CONTAIN BASE URL:"+baseurl);
-                    }
-                        
+
                 }
-            }
-            else{
-                System.out.println("WARNING: NO LINKS FOUND ON PAGE MATCHING XPATH:"+linksOnSpashPageXpath);
+            } else {
+                System.out.println("WARNING: NO LINKS FOUND ON PAGE MATCHING XPATH:" + linksOnSpashPageXpath);
             }
 
             // visit each href, report load time, and make sure the page has the logo
@@ -144,12 +138,13 @@ public class Scratch extends AutomationCodeBase {
 
                 // go to the href
                 fileWriteString = driverGetWithTime(href);
-                
+
                 // write stats to html report
                 writer.println(fileWriteString);
-                
-                //write debug info to the html report
-                if(browser.equals(BrowserType.CHROMEMAC)||browser.equals(BrowserType.CHROMELINUX)||browser.equals(BrowserType.CHROMEMAC)){
+
+                // write debug info to the html report
+                if (browser.equals(BrowserType.CHROMEMAC) || browser.equals(BrowserType.CHROMELINUX)
+                        || browser.equals(BrowserType.CHROMEMAC)) {
                     writer.println(ExtractJSLogs());
                 }
 
@@ -160,9 +155,7 @@ public class Scratch extends AutomationCodeBase {
                 // so all links get checked regardless of ones that fail
 
                 // make sure we're on a real page, and not an image
-                if (    !href.endsWith(".jpg") && 
-                        !href.endsWith(".gif") &&
-                        !href.endsWith("rss2")) {
+                if (!href.endsWith(".jpg") && !href.endsWith(".gif") && !href.endsWith("rss2")) {
                     // verify logo
                     if (!IsElementPresent(By.xpath(logoxpath), 2000)) {
                         verificationErrors.append("URL:").append(href).append(" MISSING LOGO:").append(logoxpath)
@@ -252,30 +245,37 @@ public class Scratch extends AutomationCodeBase {
             Assert.fail(ex.getMessage());
         }
     }
-    
+
     /**
      * get js log errors, if any
-     * @return 
+     * 
+     * @return
      */
     private String ExtractJSLogs() {
         StringBuilder logString = new StringBuilder();
-        logString.append("<table>")
-                .append("<tr><td>DATE</td><td>ERROR LEVEL</td><td>ERROR MESSAGE</td></tr>");
+        logString.append("<table>").append("<tr><td>DATE</td><td>ERROR LEVEL</td><td>ERROR MESSAGE</td></tr>");
         LogEntries logEntries = driver.manage().logs().get(LogType.BROWSER);
         String errorLevel = "";
         for (LogEntry entry : logEntries) {
-            errorLevel=entry.getLevel().toString();
-            logString.append("<tr><td>")
-                    .append(getDateStamp())
-                    .append("</td>");
-            logString.append("<td>");
-            logString.append(errorLevel)
-                    .append("</td><td>")
-                    .append(entry.getMessage())
-                    .append("</td></tr>");
+            errorLevel = entry.getLevel().toString();
+            logString.append("<tr><td>").append(getDateStamp()).append("</td>");
+
+            // error level color coding
+            if (errorLevel.contains("INFO")) {
+                logString.append("<td style='color:brown'>");
+            } else if (errorLevel.contains("WARNING")) {
+                logString.append("<td style='color:brown'>");
+            } else if (errorLevel.contains("SEVERE")) {
+                logString.append("<td style='color:red'>");
+            } else if (errorLevel.contains("FINE")) {
+                logString.append("<td style='color:red'>");
+            } else {
+                logString.append("<td>");
+            }
+            logString.append(errorLevel).append("</td><td>").append(entry.getMessage()).append("</td></tr>");
         }
         logString.append("</table>");
         return logString.toString();
     }
-    
+
 }
