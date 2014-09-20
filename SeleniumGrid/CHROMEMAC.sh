@@ -1,1 +1,1 @@
-java -Dwebdriver.chrome.driver=chromedrivermac -jar selenium-server-standalone-2.43.1.jar -role node -browser "browserName=chrome,maxInstances=5" -hub http://jaemzware.com:4444/grid/register -host 75.165.57.183 -port 5551
+java -Dwebdriver.chrome.driver=chromedrivermac -jar selenium-server-standalone-2.43.1.jar -role node -browser "browserName=chrome,maxInstances=5" -hub http://jaemzware.com:4444/grid/register -host 71.35.185.229 -port 5551
