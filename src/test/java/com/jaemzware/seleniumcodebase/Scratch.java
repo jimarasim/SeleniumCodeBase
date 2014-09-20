@@ -282,14 +282,14 @@ public class Scratch extends AutomationCodeBase {
             logString.append("<tr><td>").append(getDateStamp()).append("</td>");
 
             // error level color coding
-            if (errorLevel.contains("INFO")) {
-                logString.append("<td style='background-color:#B0B0B0;color:#33FFFF;'>");
+            if (errorLevel.contains("SEVERE")) {
+                logString.append("<td style='background-color:#B8B8B8;color:#FF0000;'>");
             } else if (errorLevel.contains("WARNING")) {
-                logString.append("<td style='background-color:#B0B0B0;color:#CCFF00'>");
-            } else if (errorLevel.contains("SEVERE")) {
-                logString.append("<td style='background-color:#B0B0B0;color:#FF0000'>");
+                logString.append("<td style='background-color:#B8B8B8;color:#FFFF00'>");
+            } else if (errorLevel.contains("INFO")) {
+                logString.append("<td style='background-color:#B8B8B8;color:#000000'>");
             } else if (errorLevel.contains("FINE")) {
-                logString.append("<td style='background-color:#B0B0B0;color:#FF6699'>");
+                logString.append("<td style='background-color:#B8B8B8;color:#000000'>");
             } else {
                 logString.append("<td>");
             }
