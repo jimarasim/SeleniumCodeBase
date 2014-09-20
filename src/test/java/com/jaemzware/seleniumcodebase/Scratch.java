@@ -28,7 +28,7 @@ public class Scratch extends AutomationCodeBase {
     // monster tamer
     private final String monsterTamerDomain = "monster-tamer.com";
     private final String monsterTamer404Xpath = "//h1[contains(text(),'404 Page')]";
-    private final String linksOnSpashPageXpath = "//a[@href and not(@href='') and not(contains(@href,'javascript:'))]";
+    private final String linksOnSpashPageXpath = "//a[@href and not(@href='') and not(contains(@href,'javascript:')) and not(contains(@href,'mailto:'))]";
 
     @Before
     public void BeforeTest() {
@@ -61,6 +61,7 @@ public class Scratch extends AutomationCodeBase {
             // open browser
             StartDriver();
 
+        //GET PARAMETERS
             // get START url
             String starturl = new String();
             if (input != null && !input.isEmpty()) {
@@ -85,6 +86,7 @@ public class Scratch extends AutomationCodeBase {
                 throw new Exception("LOGOXPATH NOT SPECIFIED (-DaString");
             }
             
+        //CREATE A REPORT WEB PAGE
             // create the web page
             writer = new PrintWriter(fileName, "UTF-8");
 
@@ -110,6 +112,7 @@ public class Scratch extends AutomationCodeBase {
 
             }
 
+        //GET HREFS
             // get all non-empty/non-javascript href on the page that contain the baseurl
             Map<String, String> hrefs = new HashMap<String, String>();
             String hrefFound;
@@ -122,8 +125,8 @@ public class Scratch extends AutomationCodeBase {
                     try {
                         we.getAttribute("href");
                     } catch (Exception ex) {
-                        System.out.println("EXCEPTION GETTING HREF FROM LIST. COUNT:" + exceptionCount++);
-                        continue;
+                        System.out.println("WARNING: EXCEPTION GETTING HREF FROM LIST. COUNT:" + exceptionCount++);
+                        break;
                     }
                     hrefFound = we.getAttribute("href");
 
@@ -141,6 +144,7 @@ public class Scratch extends AutomationCodeBase {
                 System.out.println("WARNING: NO LINKS FOUND ON PAGE MATCHING XPATH:" + linksOnSpashPageXpath);
             }
 
+        //VISIT HREFS
             // visit each href, report load time, and make sure the page has the logo
             int maxVisits = (aNumber!=null)?Integer.parseInt(aNumber):0; //check if the max number was specified
             int visitCount = 0;
@@ -204,6 +208,7 @@ public class Scratch extends AutomationCodeBase {
 
             }
 
+        //COMPLETE WRITING REPORT WEB PAGE
             writer.println(HtmlReportFooter());
 
             System.out.println("INDEX FILE WRITTEN:" + jenkinsReportPath + fileName);
@@ -213,6 +218,8 @@ public class Scratch extends AutomationCodeBase {
             CustomStackTrace("VerifyLogos EXCEPTION", ex);
             Assert.fail(ex.getMessage());
         } finally {
+            
+            //WRITE THE FILE
             // write the file if it was created
             if (writer != null) {
                 writer.flush();
