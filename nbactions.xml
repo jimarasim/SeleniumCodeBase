@@ -8,6 +8,7 @@
                 <goal>-Dtest=Scratch#VerifyLogos</goal>
                 <goal>-Dbrowser=FIREFOX</goal>
                 <goal>-Dinput=https://www.blackmarketskates.seattlerules.com/theshop</goal>
+                <goal>-Duserid=blackmarketskates.seattlerules.com</goal>
                 <goal>-DaString=//a[contains(text(),'Home')]</goal>
                 <goal>-Dnogrid</goal>
                 
@@ -27,6 +28,7 @@
                 <goal>-Dtest=Scratch#VerifyLogos</goal>
                 <goal>-Dbrowser=FIREFOX</goal>
                 <goal>-Dinput=https://www.blackmarketskates.seattlerules.com/theshop</goal>
+                <goal>-Duserid=blackmarketskates.seattlerules.com</goal>
                 <goal>-DaString=//a[contains(text(),'Home')]</goal>
                 <goal>-Dnogrid</goal>
                 

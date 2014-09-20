@@ -1,5 +1,6 @@
 package com.jaemzware.seleniumcodebase;
 
+import static com.jaemzware.seleniumcodebase.AutomationCodeBase.browser;
 import java.io.FileInputStream;
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -149,9 +150,16 @@ public class Scratch extends AutomationCodeBase {
                 writer.println(fileWriteString);
 
                 // write debug info to the html report
-                if (browser.equals(BrowserType.CHROMEMAC) || browser.equals(BrowserType.CHROMELINUX)
-                        || browser.equals(BrowserType.CHROMEMAC)) {
+                if (browser.equals(BrowserType.CHROME) || 
+                        browser.equals(BrowserType.CHROMELINUX) ||
+                        browser.equals(BrowserType.CHROMEMAC) 
+                        ||
+                        browser.equals(BrowserType.FIREFOX) ||
+                        browser.equals(BrowserType.FIREFOXLINUX) ||
+                        browser.equals(BrowserType.FIREFOXMAC)
+                        ) {
                     writer.println(ExtractJSLogs());
+
                 }
 
                 // save off the page for later analysis
