@@ -109,7 +109,7 @@ public class Scratch extends AutomationCodeBase {
 
             }
 
-            // get all non-empty/non-javascript href on the page
+            // get all non-empty/non-javascript href on the page that contain the baseurl
             Map<String, String> hrefs = new HashMap<String, String>();
             String hrefFound;
 
@@ -126,7 +126,7 @@ public class Scratch extends AutomationCodeBase {
                     }
                     hrefFound = we.getAttribute("href");
 
-                    // only visit hrefs that contain the base url
+                    // only get hrefs that contain the base url
                     if (hrefFound.contains(baseurl)) {
                         hrefs.put(hrefFound, starturl);
                         System.out.println("WILL VISIT:" + hrefFound);
@@ -283,13 +283,13 @@ public class Scratch extends AutomationCodeBase {
 
             // error level color coding
             if (errorLevel.contains("INFO")) {
-                logString.append("<td style='background-color:green;color:yellow;'>");
+                logString.append("<td style='background-color:black;color:#33FFFF;'>");
             } else if (errorLevel.contains("WARNING")) {
-                logString.append("<td style='background-color:#696969;color:yellow'>");
+                logString.append("<td style='background-color:black;color:#CCFF00'>");
             } else if (errorLevel.contains("SEVERE")) {
-                logString.append("<td style='background-color:#696969;color:red'>");
+                logString.append("<td style='background-color:black;color:#FF0000'>");
             } else if (errorLevel.contains("FINE")) {
-                logString.append("<td style='background-color:#696969;color:orange'>");
+                logString.append("<td style='background-color:black;color:#FF6699'>");
             } else {
                 logString.append("<td>");
             }
