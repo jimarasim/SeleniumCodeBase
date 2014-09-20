@@ -57,11 +57,6 @@ public class Scratch extends AutomationCodeBase {
 
         try {
 
-            // create the web page
-            writer = new PrintWriter(fileName, "UTF-8");
-
-            // write the html header in the web page
-            writer.println(HtmlReportHeader("VerifyLogos"));
 
             // open browser
             StartDriver();
@@ -89,6 +84,12 @@ public class Scratch extends AutomationCodeBase {
             } else {
                 throw new Exception("LOGOXPATH NOT SPECIFIED (-DaString");
             }
+            
+            // create the web page
+            writer = new PrintWriter(fileName, "UTF-8");
+
+            // write the html header in the web page
+            writer.println(HtmlReportHeader("jaemzware-verifylogos [baseurl:"+baseurl+" starturl:"+starturl+" logoxpath:"+logoxpath+"]"));
 
             // navigate to the starting page
             fileWriteString = driverGetWithTime(starturl);
@@ -283,17 +284,17 @@ public class Scratch extends AutomationCodeBase {
 
             // error level color coding
             if (errorLevel.contains("SEVERE")) {
-                logString.append("<td style='background-color:#B8B8B8;color:#FF0000;'>");
+                logString.append("<td style='background-color:#C0C0C0;color:#FF0000;'><b>");
             } else if (errorLevel.contains("WARNING")) {
-                logString.append("<td style='background-color:#B8B8B8;color:#FFFF00'>");
+                logString.append("<td style='background-color:#C0C0C0;color:#FFFF00'><b>");
             } else if (errorLevel.contains("INFO")) {
-                logString.append("<td style='background-color:#B8B8B8;color:#000000'>");
+                logString.append("<td style='background-color:#C0C0C0;color:#000000'><b>");
             } else if (errorLevel.contains("FINE")) {
-                logString.append("<td style='background-color:#B8B8B8;color:#000000'>");
+                logString.append("<td style='background-color:#C0C0C0;color:#000000'><b>");
             } else {
-                logString.append("<td>");
+                logString.append("<td><b>");
             }
-            logString.append(errorLevel).append("</td>");
+            logString.append(errorLevel).append("</b></td>");
             logString.append("<td>").append(entry.getMessage()).append("</td></tr>");
         }
         logString.append("</table>");

@@ -32,7 +32,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
@@ -41,6 +40,8 @@ import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
+
+import org.apache.commons.lang.StringUtils;
 
 /**
  * AutomationCodeBase
@@ -95,16 +96,30 @@ public class AutomationCodeBase {
         StringBuilder returnString = new StringBuilder();
 
         // standard header
-        returnString.append("<html><head><title>Jaemzware - ")
+        returnString.append("<html><head><title>")
                 .append(titleHeaderString)
                 .append("</title>")
                 .append("<style>")
                 .append("table td, table th {border: 1px solid black;}")
                 .append("</style>")
                 .append("</head>")
-                .append("<body><h1>Jaemzware - ")
+                .append("<body><h3>")
                 .append(titleHeaderString)
-                .append("</h1>");
+                .append("</h3>");
+
+        return (returnString.toString());
+    }
+
+    /**
+     * compose and return an html string for an html page from the body closer
+     * 
+     * @return
+     */
+    protected String HtmlReportFooter() {
+        StringBuilder returnString = new StringBuilder();
+        
+        
+        returnString.append("<hr>");
 
         returnString
                 .append("<a href='mailto:jaemzware@hotmail.com' target='_blank'>jaemzware@hotmail.com</a><br /><a href='https://www.linkedin.com/pub/james-arasim/15/991/424'>LinkedIn</a>");
@@ -119,18 +134,8 @@ public class AutomationCodeBase {
                 .append("<img alt='' border='0' src='https://www.paypalobjects.com/en_US/i/scr/pixel.gif' width='1' height='1'>");
         returnString.append("</form>");
 
-        returnString.append("<hr>");
-
+        
         return (returnString.toString());
-    }
-
-    /**
-     * compose and return an html string for an html page from the body closer
-     * 
-     * @return
-     */
-    protected String HtmlReportFooter() {
-        return ("<hr /><a href='mailto:jaemzware@hotmail.com' target='_blank'>jaemzware@hotmail.com</a><br /><a href='https://www.linkedin.com/pub/james-arasim/15/991/424'>LinkedIn</a></body></html>");
     }
 
     /**
@@ -156,7 +161,7 @@ public class AutomationCodeBase {
 
         // get password specified on command line
         String passwordParm = System.getProperty("password");
-        if (passwordParm == null || passwordParm.isEmpty()) {
+        if (StringUtils.isEmpty(passwordParm)) {
             System.out.println("-Dpassword NOT SPECIFIED.");
         } else {
             password = passwordParm;
@@ -166,7 +171,7 @@ public class AutomationCodeBase {
 
         // get password specified on command line
         String inputParm = System.getProperty("input");
-        if (inputParm == null || inputParm.isEmpty()) {
+        if (StringUtils.isEmpty(inputParm)) {
             System.out.println("-Dinput NOT SPECIFIED.");
         } else {
             input = inputParm;
@@ -176,7 +181,7 @@ public class AutomationCodeBase {
 
         // get aNumber specified on command line
         String aNumberParm = System.getProperty("aNumber");
-        if (aNumberParm == null || aNumberParm.isEmpty()) {
+        if (StringUtils.isEmpty(aNumberParm)) {
             System.out.println("-DaNumber NOT SPECIFIED.");
         } else {
             // make sure aNumber is parseable
@@ -196,7 +201,7 @@ public class AutomationCodeBase {
 
         // get aString specified on command line
         String aStringParm = System.getProperty("aString");
-        if (aStringParm == null || aStringParm.isEmpty()) {
+        if (StringUtils.isEmpty(aStringParm)) {
             System.out.println("-DaString NOT SPECIFIED.");
         } else {
             aString = aStringParm;
@@ -207,7 +212,7 @@ public class AutomationCodeBase {
         // get browser type specified on command line
         String browserParm = System.getProperty("browser");
 
-        if (browserParm == null || browserParm.isEmpty()) {
+        if (StringUtils.isEmpty(browserParm)) {
             // if browser is not specified, output which one is being used by default
             System.out.println("-Dbrowser NOT SPECIFIED. USING DEFAULT:" + browser);
         } else {
@@ -229,7 +234,7 @@ public class AutomationCodeBase {
         // get environment type specified on command line
         String environmentParm = System.getProperty("environment");
 
-        if (environmentParm == null) {
+        if (StringUtils.isEmpty(environmentParm)) {
             // if environment is not specified, output which one is being used by default
             System.out.println("-Denvironment NOT SPECIFIED. USING DEFAULT:" + environment);
         } else {
