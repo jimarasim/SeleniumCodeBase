@@ -141,6 +141,8 @@ public class Scratch extends AutomationCodeBase {
             }
 
             // visit each href, report load time, and make sure the page has the logo
+            int maxVisits = (aNumber!=null)?Integer.parseInt(aNumber):0; //check if the max number was specified
+            int visitCount = 0;
             for (String href : hrefs.keySet()) {
 
                 // go to the href
@@ -192,6 +194,11 @@ public class Scratch extends AutomationCodeBase {
                         writer.println(fileWriteString);
                     }
 
+                }
+                
+                //check the desired image count, and break if it's been reached
+                if((maxVisits>0) && (++visitCount>maxVisits)){
+                    break;
                 }
 
             }
@@ -276,17 +283,18 @@ public class Scratch extends AutomationCodeBase {
 
             // error level color coding
             if (errorLevel.contains("INFO")) {
-                logString.append("<td style='color:brown'>");
+                logString.append("<td style='color:green'>");
             } else if (errorLevel.contains("WARNING")) {
-                logString.append("<td style='color:brown'>");
+                logString.append("<td style='color:yellow'>");
             } else if (errorLevel.contains("SEVERE")) {
                 logString.append("<td style='color:red'>");
             } else if (errorLevel.contains("FINE")) {
-                logString.append("<td style='color:red'>");
+                logString.append("<td style='color:orange'>");
             } else {
                 logString.append("<td>");
             }
-            logString.append(errorLevel).append("</td><td>").append(entry.getMessage()).append("</td></tr>");
+            logString.append(errorLevel).append("</td>");
+            logString.append("<td>").append(entry.getMessage()).append("</td></tr>");
         }
         logString.append("</table>");
         return logString.toString();
