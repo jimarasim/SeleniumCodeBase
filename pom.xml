@@ -28,20 +28,20 @@
       <version>4.3.3</version>
     </dependency>
     <dependency>
-      <groupId>org.seleniumhq.selenium</groupId>
-      <artifactId>selenium-api</artifactId>
-      <version>2.42.2</version>
-      <type>jar</type>
-    </dependency>
-    <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
       <version>2.4</version>
       <type>jar</type>
     </dependency>
     <dependency>
+      <groupId>javax.mail</groupId>
+      <artifactId>mail</artifactId>
+      <version>1.4.5</version>
+      <type>jar</type>
+    </dependency>
+    <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
-      <artifactId>selenium-chrome-driver</artifactId>
+      <artifactId>selenium-api</artifactId>
       <version>2.42.2</version>
       <type>jar</type>
     </dependency>
@@ -65,22 +65,21 @@
     </dependency>
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
-      <artifactId>selenium-support</artifactId>
+      <artifactId>selenium-chrome-driver</artifactId>
       <version>2.42.2</version>
       <type>jar</type>
     </dependency>
     <dependency>
-      <groupId>javax.mail</groupId>
-      <artifactId>mail</artifactId>
-      <version>1.4.5</version>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>2.4</version>
       <type>jar</type>
     </dependency>
   </dependencies>
   <!--
   
-    mvn -Dtest=Scratch#VerifyLogos -Dbrowser=SAFARI -Dinput="http://seattlerules.com" -DaString="//a" -Dnogrid test 
-    mvn -Dtest=Scratch#VerifyLogos -Dbrowser=SAFARI -Dinput="http://monster-tamer.com" -DaString="//img[@alt='MONSTER TAMER']" -Dnogrid test
-    mvn -Dtest=Scratch#RestRequest -Dbrowser=SAFARI -Dinput="https://seattlerules.com" -Dnogrid test
-    mvn -Dtest=Scratch#CheckGmail -Dbrowser=SAFARI -Dnogrid test
+    mvn -Dtest=Scratch#VerifyLogos -DaNumber=5 -Dbrowser=CHROME -Dinput=http://seattlerules.com -Duserid=seattlerules.com -DaString=//a -Dnogrid test 
+    mvn -Dtest=Scratch#MakeRestRequest -Dbrowser=CHROME -Dinput="https://seattlerules.com" -Dnogrid test
+    mvn -Dtest=Scratch#CheckGmail -Dbrowser=CHROME -Dnogrid test
   -->
 </project>

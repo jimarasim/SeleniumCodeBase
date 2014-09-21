@@ -1,1 +1,1 @@
-start cmd /k java -jar selenium-server-standalone-2.40.0.jar -role hub
+start cmd /k java -jar selenium-server-standalone-2.43.1.jar -role hub
