@@ -168,9 +168,15 @@ public class Scratch extends AutomationCodeBase {
                     writer.println(ExtractJSLogs());
 
                 }
-
-                // save off the page for later analysis
-                RestRequest(href);
+        //REST REQUEST THE PAGE
+                // save off the page for later analysis, don't die if this doesn't work though
+                try{
+                    RestRequest(href);
+                }
+                catch(Exception ex){
+                    System.out.println("WARNING: REST REQUEST FAILED FOR:"+href);
+                    writer.println("<span class='warning'>WARNING: REST REQUEST FAILED FOR:"+href+"</span>");
+                }
 
                 // if logo is not present, don't assert/fail, just add a verification error,
                 // so all links get checked regardless of ones that fail
@@ -291,13 +297,13 @@ public class Scratch extends AutomationCodeBase {
 
             // error level color coding
             if (errorLevel.contains("SEVERE")) {
-                logString.append("<td style='background-color:#C0C0C0;color:#FF0000;'><b>");
+                logString.append("<td class='severe'><b>");
             } else if (errorLevel.contains("WARNING")) {
-                logString.append("<td style='background-color:#C0C0C0;color:#FFFF00'><b>");
+                logString.append("<td class='warning'><b>");
             } else if (errorLevel.contains("INFO")) {
-                logString.append("<td style='background-color:#C0C0C0;color:#000000'><b>");
+                logString.append("<td class='info'><b>");
             } else if (errorLevel.contains("FINE")) {
-                logString.append("<td style='background-color:#C0C0C0;color:#000000'><b>");
+                logString.append("<td class='info'><b>");
             } else {
                 logString.append("<td><b>");
             }
