@@ -196,6 +196,35 @@ public class Scratch extends AutomationCodeBase {
                         writer.println(fileWriteString);
 
                     }
+                    else{
+                        writer.println("<table><th colspan=2>LOGOS-TEXT XPATH:"+logoxpath+"</th>");
+                        String tagString = "";
+                        String imageSrc = "";
+                        for(WebElement we: driver.findElements(By.xpath(logoxpath))){
+                            tagString = we.getTagName();
+                            
+                            writer.println("<tr><td>");
+                            writer.println(tagString);
+                            writer.println("</td>");
+                            writer.println("<td>");
+                            if(tagString.toLowerCase().equals("img")){
+                                imageSrc = we.getAttribute("src");
+                                if(imageSrc!=null && !imageSrc.isEmpty()){
+                                    writer.println("<img src='"+imageSrc+"' />");
+                                }
+                                else{
+                                    writer.println("<p class='warning'>WARNING: IMAGE SRC IS EMPTY</p>");
+                                }
+                            }
+                            else{
+                                writer.println(we.getText());
+                            }
+                            
+                            writer.println("</td></tr>");
+                        }
+                        writer.println("</table>");
+                        
+                    }
 
                     // check for 404 (monster-tamer)
                     if (href.contains(monsterTamerDomain) && IsElementPresent(By.xpath(monsterTamer404Xpath), 1000)) {
@@ -210,7 +239,7 @@ public class Scratch extends AutomationCodeBase {
                 }
                 
                 //check the desired image count, and break if it's been reached
-                if((maxVisits>0) && (++visitCount>maxVisits)){
+                if((maxVisits>0) && (++visitCount>maxVisits-1)){
                     break;
                 }
 

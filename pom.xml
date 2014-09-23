@@ -78,7 +78,7 @@
   </dependencies>
   <!--
   
-    mvn -Dtest=Scratch#VerifyLogos -DaNumber=5 -Dbrowser=CHROME -Dinput=http://seattlerules.com -Duserid=seattlerules.com -DaString=//a -Dnogrid test 
+    mvn -Dtest=Scratch#VerifyLogos -DaNumber=3 -Dbrowser=CHROME -Dinput=http://seattlerules.com -Duserid=seattlerules.com -DaString=//a -Dnogrid test 
     mvn -Dtest=Scratch#MakeRestRequest -Dbrowser=CHROME -Dinput="https://seattlerules.com" -Dnogrid test
     mvn -Dtest=Scratch#CheckGmail -Dinput="Disney" -Duserid="jaemzware" -Dpassword="g00g73G00G73" test
   -->
