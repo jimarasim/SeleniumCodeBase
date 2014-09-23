@@ -101,6 +101,10 @@ public class Scratch extends AutomationCodeBase {
             // write stats to html report
             writer.println(fileWriteString);
 
+            
+            // verify logo
+            writer.println(VerifyXpathOnCurrentPage(logoxpath));
+            
             // write debug info to the html report
             if (browser.equals(BrowserType.CHROME) || 
                     browser.equals(BrowserType.CHROMELINUX) ||
@@ -113,9 +117,6 @@ public class Scratch extends AutomationCodeBase {
                 writer.println(ExtractJSLogs());
 
             }
-            
-            // verify logo
-            writer.println(VerifyXpathOnCurrentPage(logoxpath));
 
         //GET HREFS
             // get all non-empty/non-javascript href on the page that contain the baseurl
@@ -160,6 +161,14 @@ public class Scratch extends AutomationCodeBase {
 
                 // write stats to html report
                 writer.println(fileWriteString);
+                
+                
+        //PAGE VERIFICATIONS
+                // make sure we're on a real page, and not an image
+                if (!href.endsWith(".jpg") && !href.endsWith(".gif") && !href.endsWith("rss2")) {
+                    // verify logo
+                    writer.println(VerifyXpathOnCurrentPage(logoxpath));
+                }
 
                 // write debug info to the html report
                 if (browser.equals(BrowserType.CHROME) || 
@@ -183,12 +192,6 @@ public class Scratch extends AutomationCodeBase {
                     writer.println("<span class='warning'>WARNING: REST REQUEST FAILED FOR:"+href+"</span>");
                 }
 
-        //PAGE VERIFICATIONS
-                // make sure we're on a real page, and not an image
-                if (!href.endsWith(".jpg") && !href.endsWith(".gif") && !href.endsWith("rss2")) {
-                    // verify logo
-                    writer.println(VerifyXpathOnCurrentPage(logoxpath));
-                }
                 
                 //check the desired image count, and break if it's been reached
                 if((maxVisits>0) && (++visitCount>maxVisits-1)){
