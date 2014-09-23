@@ -339,15 +339,13 @@ public class Scratch extends AutomationCodeBase {
 
         }
         else{
-            outputString.append("<table><th colspan=2>XPATH MATCHES FOR:"+xpathToVerify+"</th>");
+            outputString.append("<table><th>XPATH MATCHES FOR:"+xpathToVerify+"</th>");
             String tagString = "";
             String imageSrc = "";
             for(WebElement we: driver.findElements(By.xpath(xpathToVerify))){
                 tagString = we.getTagName();
 
-                outputString.append("<tr><td>");
-                outputString.append(tagString);
-                outputString.append("</td>");
+                outputString.append("<tr>");
                 outputString.append("<td>");
                 if(tagString.toLowerCase().equals("img")){
                     imageSrc = we.getAttribute("src");
