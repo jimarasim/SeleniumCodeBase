@@ -823,7 +823,7 @@ public class AutomationCodeBase {
         String htmlOutput = "";
 
         System.out.println("GETTING:" + href);
-        htmlOutput += "<br />GETTING:<a href='" + href + "' target='_blank'>" + href + "</a>";
+        htmlOutput += "<br /><h1>GETTING:<a href='" + href + "' target='_blank'>" + href + "</a></h1>";
 
         // mark start time to report how long it takes to load the page
         startTime = System.currentTimeMillis();
