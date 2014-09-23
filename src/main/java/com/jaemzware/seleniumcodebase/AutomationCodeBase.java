@@ -100,7 +100,7 @@ public class AutomationCodeBase {
                 .append(titleHeaderString)
                 .append("</title>")
                 .append("<style>")
-                .append("table td, table th {border: 1px solid black;}")
+                .append("table td, table th {border: 1px solid black;text-align:left;vertical-align:top;}")
                 .append(".warning {background-color:#C0C0C0;color:#FFFF00;}")
                 .append(".severe {background-color:#C0C0C0;color:#FF0000;}")
                 .append(".info {background-color:#C0C0C0;color:#000000;}")
@@ -109,6 +109,15 @@ public class AutomationCodeBase {
                 .append("<body><h3>")
                 .append(titleHeaderString)
                 .append("</h3>");
+        // paypal
+        returnString.append("<form action='https://www.paypal.com/cgi-bin/webscr' method='post' target='_top'>");
+        returnString.append("<input type='hidden' name='cmd' value='_s-xclick'>");
+        returnString.append("<input type='hidden' name='hosted_button_id' value='NHYPV5J79879N'>");
+        returnString
+                .append("<input type='image' src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif' border='0' name='submit' alt='PayPal - The safer, easier way to pay online!'>");
+        returnString
+                .append("<img alt='' border='0' src='https://www.paypalobjects.com/en_US/i/scr/pixel.gif' width='1' height='1'>");
+        returnString.append("</form>");
 
         return (returnString.toString());
     }

@@ -113,6 +113,9 @@ public class Scratch extends AutomationCodeBase {
                 writer.println(ExtractJSLogs());
 
             }
+            
+            // verify logo
+            writer.println(VerifyXpathOnCurrentPage(logoxpath));
 
         //GET HREFS
             // get all non-empty/non-javascript href on the page that contain the baseurl
@@ -180,62 +183,11 @@ public class Scratch extends AutomationCodeBase {
                     writer.println("<span class='warning'>WARNING: REST REQUEST FAILED FOR:"+href+"</span>");
                 }
 
-                // if logo is not present, don't assert/fail, just add a verification error,
-                // so all links get checked regardless of ones that fail
-
+        //PAGE VERIFICATIONS
                 // make sure we're on a real page, and not an image
                 if (!href.endsWith(".jpg") && !href.endsWith(".gif") && !href.endsWith("rss2")) {
                     // verify logo
-                    if (!IsElementPresent(By.xpath(logoxpath), 2000)) {
-                        verificationErrors.append("URL:").append(href).append(" MISSING LOGO:").append(logoxpath)
-                                .append("\n");
-
-                        // write error to html report
-                        fileWriteString = "<br />ISSUE:MISSING LOGO URL:<a href='" + href + "' target='_blank'>" + href
-                                + "</a><br />";
-                        writer.println(fileWriteString);
-
-                    }
-                    else{
-                        writer.println("<table><th colspan=2>LOGOS-TEXT XPATH:"+logoxpath+"</th>");
-                        String tagString = "";
-                        String imageSrc = "";
-                        for(WebElement we: driver.findElements(By.xpath(logoxpath))){
-                            tagString = we.getTagName();
-                            
-                            writer.println("<tr><td>");
-                            writer.println(tagString);
-                            writer.println("</td>");
-                            writer.println("<td>");
-                            if(tagString.toLowerCase().equals("img")){
-                                imageSrc = we.getAttribute("src");
-                                if(imageSrc!=null && !imageSrc.isEmpty()){
-                                    writer.println("<img src='"+imageSrc+"' />");
-                                }
-                                else{
-                                    writer.println("<p class='warning'>WARNING: IMAGE SRC IS EMPTY</p>");
-                                }
-                            }
-                            else{
-                                writer.println(we.getText());
-                            }
-                            
-                            writer.println("</td></tr>");
-                        }
-                        writer.println("</table>");
-                        
-                    }
-
-                    // check for 404 (monster-tamer)
-                    if (href.contains(monsterTamerDomain) && IsElementPresent(By.xpath(monsterTamer404Xpath), 1000)) {
-                        verificationErrors.append("URL:").append(href).append(" 404 PAGE:")
-                                .append(monsterTamer404Xpath).append("\n");
-
-                        // write error to html report
-                        fileWriteString = "<br />ISSUE:404 URL:<a href='" + href + "' target='_blank'>" + href + "</a><br />";
-                        writer.println(fileWriteString);
-                    }
-
+                    writer.println(VerifyXpathOnCurrentPage(logoxpath));
                 }
                 
                 //check the desired image count, and break if it's been reached
@@ -358,6 +310,65 @@ public class Scratch extends AutomationCodeBase {
         }
         logString.append("</table>");
         return logString.toString();
+    }
+    
+    /**
+     * This method verifies logoxpath is on the currentpage
+     * @param xpathToVerify
+     */
+    private String VerifyXpathOnCurrentPage(String xpathToVerify){
+        
+        StringBuilder outputString=new StringBuilder();
+        
+        String href = driver.getCurrentUrl();
+        
+        // if logo is not present, don't assert/fail, just add a verification error,
+        // so all links get checked regardless of ones that fail
+        if (!IsElementPresent(By.xpath(xpathToVerify), 2000)) {
+            verificationErrors.append("URL:").append(href).append(" MISSING LOGO:").append(xpathToVerify)
+                    .append("\n");
+
+            // write error to html report
+            outputString.append("<br /><p class='severe'>PAGE MISSING LOGO XPATH:");
+            outputString.append(xpathToVerify);
+            outputString.append(" URL :</p><a href='");
+            outputString.append(href);
+            outputString.append("' target='_blank'>");
+            outputString.append(href);
+            outputString.append("</a><br />");
+
+        }
+        else{
+            outputString.append("<table><th colspan=2>XPATH MATCHES FOR:"+xpathToVerify+"</th>");
+            String tagString = "";
+            String imageSrc = "";
+            for(WebElement we: driver.findElements(By.xpath(xpathToVerify))){
+                tagString = we.getTagName();
+
+                outputString.append("<tr><td>");
+                outputString.append(tagString);
+                outputString.append("</td>");
+                outputString.append("<td>");
+                if(tagString.toLowerCase().equals("img")){
+                    imageSrc = we.getAttribute("src");
+                    if(imageSrc!=null && !imageSrc.isEmpty()){
+                        outputString.append("<img src='"+imageSrc+"' />");
+                    }
+                    else{
+                        outputString.append("<p class='warning'>WARNING: IMAGE SRC IS EMPTY</p>");
+                    }
+                }
+                else{
+                    outputString.append(we.getText());
+                }
+
+                outputString.append("</td></tr>");
+            }
+            outputString.append("</table>");
+
+        }
+        
+        return outputString.toString();
     }
 
 }
