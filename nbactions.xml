@@ -5,12 +5,12 @@
             <goals>
                 <goal>test-compile</goal>
                 <goal>surefire:test</goal>
-                <goal>-Dtest=Scratch#VerifyLogos</goal>
-                <goal>-Dbrowser=FIREFOX</goal>
-                <goal>-Dinput=https://www.blackmarketskates.seattlerules.com/theshop</goal>
-                <goal>-Duserid=blackmarketskates.seattlerules.com</goal>
-                <goal>-DaString=//a[contains(text(),'Home')]</goal>
-                <goal>-Dnogrid</goal>
+                <goal>-Dtest=Scratch#CheckGmail</goal>
+                
+                
+                
+                
+                
                 
             </goals>
             <properties>
@@ -25,13 +25,13 @@
             <goals>
                 <goal>test-compile</goal>
                 <goal>surefire:test</goal>
-                <goal>-Dtest=Scratch#VerifyLogos</goal>
-                <goal>-DaNumber=5</goal>
-                <goal>-Dbrowser=CHROME</goal>
-                <goal>-Dinput=http://seattlerules.com</goal>
-                <goal>-Duserid=seattlerules.com</goal>
-                <goal>-DaString=//a</goal>
-                <goal>-Dnogrid</goal>
+                <goal>-Dtest=Scratch#CheckGmail</goal>
+                
+                
+                
+                
+                
+                
                 
                 
             </goals>

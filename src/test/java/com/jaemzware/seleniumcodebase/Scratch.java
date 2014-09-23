@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.SystemUtils;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -238,11 +240,26 @@ public class Scratch extends AutomationCodeBase {
     public void CheckGmail() {
         // uses app password for gmail. app name "Scratch" https://support.google.com/accounts/answer/185833
         try {
-            System.out.println(GetFirstEmailMessageForSearchTerm("imap.gmail.com", "jaemzware", "jhnuhivmbvubjuds",
-                    "Inbox", "Metabliss", 30000));
+            
+            //check for required parameters
+            if(input==null){
+                throw new Exception("SEARCH STRING NOT SPECIFIED (-Dinput)");
+            }
+            
+            if(userid==null){
+                throw new Exception("USERID NOT SPECIFIED (-Duserid)");
+            }
+            
+            if(password==null){
+                throw new Exception("PASSWORD NOT SPECIFIED (-Dpassword)");
+            }
+            
+            System.out.println(GetFirstEmailMessageForSearchTerm("imap.gmail.com", userid, password,
+                        "Inbox", input, 30000));
+            
 
         } catch (Exception ex) {
-            System.out.println("COULD NOT GET EMAIL:" + ex.getMessage());
+            System.out.println(ex.getMessage());
         }
     }
 
