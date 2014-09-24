@@ -127,13 +127,14 @@ public class Scratch extends AutomationCodeBase {
 
             if (IsElementPresent(By.xpath(linksOnSpashPageXpath))) {
                 List<WebElement> internalAnchors = driver.findElements(By.xpath(linksOnSpashPageXpath));
-                int exceptionCount = 0;
+                
                 for (WebElement we : internalAnchors) {
-                    // TODO FIND OUT WHY THIS THROWS AN EXCEPTION SOMETIMES
+                    
                     try {
                         we.getAttribute("href");
                     } catch (Exception ex) {
-                        System.out.println("WARNING: EXCEPTION GETTING HREF FROM LIST. COUNT:" + exceptionCount++);
+                        System.out.println("WARNING: EXCEPTION GETTING HREF FROM LIST.");
+                        writer.println("<span class='warning'>WARNING: EXCEPTION GETTING HREF FROM LIST</span>");
                         break;
                     }
                     hrefFound = we.getAttribute("href");
@@ -397,25 +398,42 @@ public class Scratch extends AutomationCodeBase {
 
         }
         else{
-            outputString.append("<table><th>XPATH MATCHES FOR:"+xpathToVerify+"</th>");
-            String tagString = "";
-            String imageSrc = "";
+            outputString.append("<table><th>XPATH MATCHES FOR:").append(xpathToVerify).append("</th>");
+            String tagString;
+            String imageSrc;
+            
             for(WebElement we: driver.findElements(By.xpath(xpathToVerify))){
                 tagString = we.getTagName();
 
                 outputString.append("<tr>");
                 outputString.append("<td>");
                 if(tagString.toLowerCase().equals("img")){
-                    imageSrc = we.getAttribute("src");
+                    
+                    try{
+                        imageSrc = we.getAttribute("src");
+                    }
+                    catch(Exception ex){
+                        System.out.println("WARNING: EXCEPTION GETTING IMAGE SRC FROM XPATH ELEMENT."+ex.getMessage());
+                        outputString.append("<span class='warning'>WARNING: EXCEPTION GETTING IMAGE SRC FROM XPATH ELEMENT:").append(ex.getMessage()).append("</span>");
+                        break;
+                    }
+                    
                     if(imageSrc!=null && !imageSrc.isEmpty()){
-                        outputString.append("<img src='"+imageSrc+"' />");
+                        outputString.append("<img src='").append(imageSrc).append("' />");
                     }
                     else{
                         outputString.append("<p class='warning'>WARNING: IMAGE SRC IS EMPTY</p>");
                     }
                 }
                 else{
-                    outputString.append(we.getText());
+                    try{
+                        outputString.append(we.getText());
+                    }
+                    catch(Exception ex){
+                        System.out.println("WARNING: EXCEPTION GETTING TEXT FROM XPATH ELEMENT:"+ex.getMessage());
+                        outputString.append("<span class='warning'>WARNING: EXCEPTION GETTING TEXT FROM XPATH ELEMENT:").append(ex.getMessage()).append("</span>");
+                        break;
+                    }
                 }
 
                 outputString.append("</td></tr>");
