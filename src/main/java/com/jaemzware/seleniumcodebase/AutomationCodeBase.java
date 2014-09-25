@@ -330,8 +330,9 @@ public class AutomationCodeBase {
                 // get the desired capabilities
                 DesiredCapabilities cap;
                 
-                
-                LoggingPreferences loggingprefs = new LoggingPreferences();
+                                    
+//ERROR LOGGING - TAKES LONG
+//                LoggingPreferences loggingprefs = new LoggingPreferences();
 
                 // desired browser
                 switch (browser) {
@@ -341,7 +342,7 @@ public class AutomationCodeBase {
                     cap = DesiredCapabilities.chrome();
                     
                 
-                    //ERROR LOGGING - TAKES LONG
+//ERROR LOGGING - TAKES LONG
 //                    loggingprefs.enable(LogType.BROWSER, Level.ALL);
 //                    cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
                     //ERROR LOGGING 
@@ -352,7 +353,7 @@ public class AutomationCodeBase {
                     cap = DesiredCapabilities.firefox();
                     
                 
-//                    //ERROR LOGGING - TAKES LONG
+//ERROR LOGGING - TAKES LONG
 //                    loggingprefs.enable(LogType.BROWSER, Level.ALL);
 //                    cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
                     //ERROR LOGGING - TAKES LONG
@@ -468,7 +469,7 @@ public class AutomationCodeBase {
                     // get the desired capabilities
                     DesiredCapabilities cap = DesiredCapabilities.chrome();
                     
-                    //ERROR LOGGING - TAKES LONG
+//ERROR LOGGING - TAKES LONG
 //                    LoggingPreferences loggingprefs = new LoggingPreferences();
 //                    loggingprefs.enable(LogType.BROWSER, Level.ALL);
 //                    cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
@@ -485,7 +486,7 @@ public class AutomationCodeBase {
                 // get the desired capabilities
                 DesiredCapabilities cap = DesiredCapabilities.firefox();
 
-                //ERROR LOGGING - TAKES LONG
+//ERROR LOGGING - TAKES LONG
 //                LoggingPreferences loggingprefs = new LoggingPreferences();
 //                loggingprefs.enable(LogType.BROWSER, Level.ALL);
 //                cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);

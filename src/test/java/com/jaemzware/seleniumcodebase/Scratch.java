@@ -1,14 +1,11 @@
 package com.jaemzware.seleniumcodebase;
 
-import static com.jaemzware.seleniumcodebase.AutomationCodeBase.browser;
 import java.io.FileInputStream;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.SystemUtils;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -16,16 +13,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.logging.LogEntries;
-import org.openqa.selenium.logging.LogEntry;
-import org.openqa.selenium.logging.LogType;
 
 /**
  * @author jaemzware@hotmail.com
  */
 public class Scratch extends AutomationCodeBase {
     static Properties properties = new Properties();
-    StringBuilder verificationErrors;
 
     // monster tamer
     private final String monsterTamerDomain = "monster-tamer.com";
@@ -55,7 +48,7 @@ public class Scratch extends AutomationCodeBase {
         // create a file for the web page log
         String fileName = "Index-VerifyLogos-" + getDateStamp() + ".htm";
         PrintWriter writer = null;
-        String fileWriteString = "";
+        String fileWriteString;
 
         try {
 
@@ -103,7 +96,7 @@ public class Scratch extends AutomationCodeBase {
 
             
             
-            //ERROR LOGGING - TAKES LONG - ADD CAPABILITY WHEN CREATING driver BEFORE USING
+//ERROR LOGGING - TAKES LONG - ADD CAPABILITY WHEN CREATING driver BEFORE USING
             // write debug info to the html report
 //            if (browser.equals(BrowserType.CHROME) || 
 //                    browser.equals(BrowserType.CHROMELINUX) ||
@@ -171,7 +164,7 @@ public class Scratch extends AutomationCodeBase {
                 
         //PAGE VERIFICATIONS
                 
-                //ERROR LOGGING - TAKES LONG - ADD CAPABILITY WHEN CREATING driver BEFORE USING
+//ERROR LOGGING - TAKES LONG - ADD CAPABILITY WHEN CREATING driver BEFORE USING
                 // write debug info to the html report
 //                if (browser.equals(BrowserType.CHROME) || 
 //                        browser.equals(BrowserType.CHROMELINUX) ||
@@ -293,7 +286,7 @@ public class Scratch extends AutomationCodeBase {
     }
 
 
-    //ERROR LOGGING - TAKES LONG - ADD CAPABILITY WHEN CREATING driver BEFORE USING
+//ERROR LOGGING - TAKES LONG - ADD CAPABILITY WHEN CREATING driver BEFORE USING
 //    private String ExtractJSLogs() {
 //        StringBuilder logString = new StringBuilder();
 //        logString.append("<table>");
@@ -334,7 +327,7 @@ public class Scratch extends AutomationCodeBase {
 //        return logString.toString();
 //    }
     
-    //ERROR LOGGING - TAKES LONG - ADD CAPABILITY WHEN CREATING driver BEFORE USING
+//ERROR LOGGING - TAKES LONG - ADD CAPABILITY WHEN CREATING driver BEFORE USING
 //    private String WriteLogEntryRows(LogEntries entries)
 //    {
 //        StringBuilder logEntryRows = new StringBuilder();
