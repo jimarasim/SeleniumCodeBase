@@ -402,7 +402,9 @@ public class Scratch extends AutomationCodeBase {
             String tagString;
             String imageSrc;
             
-            for(WebElement we: driver.findElements(By.xpath(xpathToVerify))){
+            List<WebElement> xpathElementMatches = driver.findElements(By.xpath(xpathToVerify));
+            
+            for(WebElement we: xpathElementMatches){
                 try{
                     tagString = we.getTagName();
                 }
