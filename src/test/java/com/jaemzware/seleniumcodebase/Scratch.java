@@ -403,7 +403,14 @@ public class Scratch extends AutomationCodeBase {
             String imageSrc;
             
             for(WebElement we: driver.findElements(By.xpath(xpathToVerify))){
-                tagString = we.getTagName();
+                try{
+                    tagString = we.getTagName();
+                }
+                catch(Exception ex){
+                    System.out.println("WARNING: EXCEPTION GETTING TAG STRING SRC FROM XPATH ELEMENT."+ex.getMessage());
+                    outputString.append("<span class='warning'>WARNING: EXCEPTION GETTING TAG STRING FROM XPATH ELEMENT:").append(ex.getMessage()).append("</span>");
+                    break;
+                }
 
                 outputString.append("<tr>");
                 outputString.append("<td>");
