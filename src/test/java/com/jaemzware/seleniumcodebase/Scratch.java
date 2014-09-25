@@ -1,6 +1,7 @@
 package com.jaemzware.seleniumcodebase;
 
 import static com.jaemzware.seleniumcodebase.CodeBase.GetParameters;
+import static com.jaemzware.seleniumcodebase.CodeBase.driver;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -10,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -68,6 +70,9 @@ public class Scratch extends CodeBase {
 
             // open browser
             StartDriver();
+            
+            //set implicit wait
+            driver.manage().timeouts().implicitlyWait(defaultImplicitWait, TimeUnit.SECONDS);
 
         //GET PARAMETERS
             // get START url
