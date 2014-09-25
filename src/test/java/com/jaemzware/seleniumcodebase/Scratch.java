@@ -102,18 +102,21 @@ public class Scratch extends AutomationCodeBase {
             writer.println(fileWriteString);
 
             
+            
+            //ERROR LOGGING - TAKES LONG - ADD CAPABILITY WHEN CREATING driver BEFORE USING
             // write debug info to the html report
-            if (browser.equals(BrowserType.CHROME) || 
-                    browser.equals(BrowserType.CHROMELINUX) ||
-                    browser.equals(BrowserType.CHROMEMAC) 
-                    ||
-                    browser.equals(BrowserType.FIREFOX) ||
-                    browser.equals(BrowserType.FIREFOXLINUX) ||
-                    browser.equals(BrowserType.FIREFOXMAC)
-                    ) {
-                writer.println(ExtractJSLogs());
-
-            }
+//            if (browser.equals(BrowserType.CHROME) || 
+//                    browser.equals(BrowserType.CHROMELINUX) ||
+//                    browser.equals(BrowserType.CHROMEMAC) 
+//                    ||
+//                    browser.equals(BrowserType.FIREFOX) ||
+//                    browser.equals(BrowserType.FIREFOXLINUX) ||
+//                    browser.equals(BrowserType.FIREFOXMAC)
+//                    ) {
+//                writer.println(ExtractJSLogs());
+//
+//            }
+            //ERROR LOGGING - TAKES LONG - ADD CAPABILITY WHEN CREATING driver BEFORE USING
             
             
             
@@ -167,18 +170,21 @@ public class Scratch extends AutomationCodeBase {
                 
                 
         //PAGE VERIFICATIONS
+                
+                //ERROR LOGGING - TAKES LONG - ADD CAPABILITY WHEN CREATING driver BEFORE USING
                 // write debug info to the html report
-                if (browser.equals(BrowserType.CHROME) || 
-                        browser.equals(BrowserType.CHROMELINUX) ||
-                        browser.equals(BrowserType.CHROMEMAC) 
-                        ||
-                        browser.equals(BrowserType.FIREFOX) ||
-                        browser.equals(BrowserType.FIREFOXLINUX) ||
-                        browser.equals(BrowserType.FIREFOXMAC)
-                        ) {
-                    writer.println(ExtractJSLogs());
-
-                }
+//                if (browser.equals(BrowserType.CHROME) || 
+//                        browser.equals(BrowserType.CHROMELINUX) ||
+//                        browser.equals(BrowserType.CHROMEMAC) 
+//                        ||
+//                        browser.equals(BrowserType.FIREFOX) ||
+//                        browser.equals(BrowserType.FIREFOXLINUX) ||
+//                        browser.equals(BrowserType.FIREFOXMAC)
+//                        ) {
+//                    writer.println(ExtractJSLogs());
+//
+//                }
+                //ERROR LOGGING - TAKES LONG - ADD CAPABILITY WHEN CREATING driver BEFORE USING
                 
                 // make sure we're on a real page, and not an image
                 if (!href.endsWith(".jpg") && !href.endsWith(".gif") && !href.endsWith("rss2")) {
@@ -286,90 +292,76 @@ public class Scratch extends AutomationCodeBase {
         }
     }
 
-    /**
-     * get js log errors, if any
-     * 
-     * @return
-     */
-    private String ExtractJSLogs() {
-        StringBuilder logString = new StringBuilder();
-        logString.append("<table>");
-        
-        LogEntries browserLog = driver.manage().logs().get(LogType.BROWSER);
-        if(browserLog.getAll().size()>0){
-            logString.append("<tr><td colspan=2><h3>BROWSER</h3></td></tr>");
-            logString.append("<tr><td>LEVEL</td><td>MESSAGE</td></tr>");
-            logString.append(WriteLogEntryRows(browserLog));
-        }
-        else{
-            logString.append("<tr><td colspan=2>No BROWSER log entries found.</td></tr>");
-        }
-        
-        LogEntries clientLog = driver.manage().logs().get(LogType.CLIENT);
-        if(clientLog.getAll().size()>0){
-            logString.append("<tr><td colspan=2><h3>CLIENT</h3></td></tr>");
-            logString.append("<tr><td>LEVEL</td><td>MESSAGE</td></tr>");
-            logString.append(WriteLogEntryRows(clientLog));
-        }
-        else{
-            logString.append("<tr><td colspan=2>No CLIENT log entries found.</td></tr>");
-        }
-        
-        LogEntries driverLog = driver.manage().logs().get(LogType.DRIVER);
-        if(driverLog.getAll().size()>0){
-            logString.append("<tr><td colspan=2><h3>DRIVER</h3></td></tr>");
-            logString.append("<tr><td>LEVEL</td><td>MESSAGE</td></tr>");
-            logString.append(WriteLogEntryRows(driverLog));
-        }
-        else{
-            logString.append("<tr><td colspan=2>No DRIVER log entries found.</td></tr>");
-        }
-        
-        
-//        LogEntries performanceLog = driver.manage().logs().get(LogType.PERFORMANCE);
-//        logString.append("<tr><td colspan=2><h3>PERFORMANCE</h3></td></tr>");
-//        logString.append(WriteLogEntryRows(performanceLog));
-        
-//        LogEntries profilerLog = driver.manage().logs().get(LogType.PROFILER);
-//        logString.append("<tr><td colspan=2><h3>PROFILER</h3></td></tr>");
-//        logString.append(WriteLogEntryRows(profilerLog));
-        
-//        LogEntries serverLog = driver.manage().logs().get(LogType.SERVER);
-//        logString.append("<tr><td colspan=2><h3>SERVER</h3></td></tr>");
-//        logString.append(WriteLogEntryRows(serverLog));
-        
-        logString.append("</table>");
-        return logString.toString();
-    }
-    
-    private String WriteLogEntryRows(LogEntries entries)
-    {
-        StringBuilder logEntryRows = new StringBuilder();
-        
-        String errorLevel = "";
-        for (LogEntry entry : entries) {
-            errorLevel = entry.getLevel().toString();
-            logEntryRows.append("<tr>");
-//            logString.append("<td>").append(getDateStamp()).append("</td>");
 
-            // error level color coding
-            if (errorLevel.contains("SEVERE")) {
-                logEntryRows.append("<td class='severe'><b>");
-            } else if (errorLevel.contains("WARNING")) {
-                logEntryRows.append("<td class='warning'><b>");
-            } else if (errorLevel.contains("INFO")) {
-                logEntryRows.append("<td class='info'><b>");
-            } else if (errorLevel.contains("FINE")) {
-                logEntryRows.append("<td class='info'><b>");
-            } else {
-                logEntryRows.append("<td><b>");
-            }
-            logEntryRows.append(errorLevel).append("</b></td>");
-            logEntryRows.append("<td>").append(entry.getMessage()).append("</td></tr>");
-        }
-        
-        return logEntryRows.toString();
-    }
+    //ERROR LOGGING - TAKES LONG - ADD CAPABILITY WHEN CREATING driver BEFORE USING
+//    private String ExtractJSLogs() {
+//        StringBuilder logString = new StringBuilder();
+//        logString.append("<table>");
+//        
+//        LogEntries browserLog = driver.manage().logs().get(LogType.BROWSER);
+//        if(browserLog.getAll().size()>0){
+//            logString.append("<tr><td colspan=2><h3>BROWSER</h3></td></tr>");
+//            logString.append("<tr><td>LEVEL</td><td>MESSAGE</td></tr>");
+//            logString.append(WriteLogEntryRows(browserLog));
+//        }
+//        else{
+//            logString.append("<tr><td colspan=2>No BROWSER log entries found.</td></tr>");
+//        }
+//        
+//        LogEntries clientLog = driver.manage().logs().get(LogType.CLIENT);
+//        if(clientLog.getAll().size()>0){
+//            logString.append("<tr><td colspan=2><h3>CLIENT</h3></td></tr>");
+//            logString.append("<tr><td>LEVEL</td><td>MESSAGE</td></tr>");
+//            logString.append(WriteLogEntryRows(clientLog));
+//        }
+//        else{
+//            logString.append("<tr><td colspan=2>No CLIENT log entries found.</td></tr>");
+//        }
+//        
+//        LogEntries driverLog = driver.manage().logs().get(LogType.DRIVER);
+//        if(driverLog.getAll().size()>0){
+//            logString.append("<tr><td colspan=2><h3>DRIVER</h3></td></tr>");
+//            logString.append("<tr><td>LEVEL</td><td>MESSAGE</td></tr>");
+//            logString.append(WriteLogEntryRows(driverLog));
+//        }
+//        else{
+//            logString.append("<tr><td colspan=2>No DRIVER log entries found.</td></tr>");
+//        }
+//        
+//        
+//        
+//        logString.append("</table>");
+//        return logString.toString();
+//    }
+    
+    //ERROR LOGGING - TAKES LONG - ADD CAPABILITY WHEN CREATING driver BEFORE USING
+//    private String WriteLogEntryRows(LogEntries entries)
+//    {
+//        StringBuilder logEntryRows = new StringBuilder();
+//        
+//        String errorLevel = "";
+//        for (LogEntry entry : entries) {
+//            errorLevel = entry.getLevel().toString();
+//            logEntryRows.append("<tr>");
+//
+//            // error level color coding
+//            if (errorLevel.contains("SEVERE")) {
+//                logEntryRows.append("<td class='severe'><b>");
+//            } else if (errorLevel.contains("WARNING")) {
+//                logEntryRows.append("<td class='warning'><b>");
+//            } else if (errorLevel.contains("INFO")) {
+//                logEntryRows.append("<td class='info'><b>");
+//            } else if (errorLevel.contains("FINE")) {
+//                logEntryRows.append("<td class='info'><b>");
+//            } else {
+//                logEntryRows.append("<td><b>");
+//            }
+//            logEntryRows.append(errorLevel).append("</b></td>");
+//            logEntryRows.append("<td>").append(entry.getMessage()).append("</td></tr>");
+//        }
+//        
+//        return logEntryRows.toString();
+//    }
     
     /**
      * This method verifies logoxpath is on the currentpage

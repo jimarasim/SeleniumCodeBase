@@ -341,11 +341,10 @@ public class AutomationCodeBase {
                     cap = DesiredCapabilities.chrome();
                     
                 
-                    //TESTING - TODO TEST WITH MORE THAN CHROME
-                    //turn on error logging :) 
-                    loggingprefs.enable(LogType.BROWSER, Level.ALL);
-                    cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
-                    //TESTING - TODO TEST WITH MORE THAN CHROME
+                    //ERROR LOGGING - TAKES LONG
+//                    loggingprefs.enable(LogType.BROWSER, Level.ALL);
+//                    cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
+                    //ERROR LOGGING 
                     
                     break;
                 case FIREFOX:
@@ -353,11 +352,10 @@ public class AutomationCodeBase {
                     cap = DesiredCapabilities.firefox();
                     
                 
-                    //TESTING - TODO TEST WITH MORE THAN CHROME
-                    //turn on error logging :) 
-                    loggingprefs.enable(LogType.BROWSER, Level.ALL);
-                    cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
-                    //TESTING - TODO TEST WITH MORE THAN CHROME
+//                    //ERROR LOGGING - TAKES LONG
+//                    loggingprefs.enable(LogType.BROWSER, Level.ALL);
+//                    cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
+                    //ERROR LOGGING - TAKES LONG
                     
                     
                     break;
@@ -470,10 +468,11 @@ public class AutomationCodeBase {
                     // get the desired capabilities
                     DesiredCapabilities cap = DesiredCapabilities.chrome();
                     
-                    //turn on error logging :)
-                    LoggingPreferences loggingprefs = new LoggingPreferences();
-                    loggingprefs.enable(LogType.BROWSER, Level.ALL);
-                    cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
+                    //ERROR LOGGING - TAKES LONG
+//                    LoggingPreferences loggingprefs = new LoggingPreferences();
+//                    loggingprefs.enable(LogType.BROWSER, Level.ALL);
+//                    cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
+                    //ERROR LOGGING - TAKES LONG
                     
                     
                     driver = new ChromeDriver(cap);
@@ -486,10 +485,11 @@ public class AutomationCodeBase {
                 // get the desired capabilities
                 DesiredCapabilities cap = DesiredCapabilities.firefox();
 
-                //turn on error logging :)
-                LoggingPreferences loggingprefs = new LoggingPreferences();
-                loggingprefs.enable(LogType.BROWSER, Level.ALL);
-                cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
+                //ERROR LOGGING - TAKES LONG
+//                LoggingPreferences loggingprefs = new LoggingPreferences();
+//                loggingprefs.enable(LogType.BROWSER, Level.ALL);
+//                cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
+                //ERROR LOGGING - TAKES LONG
                 
                 // get the firefox driver/start firefox
                 driver = new FirefoxDriver(cap);
