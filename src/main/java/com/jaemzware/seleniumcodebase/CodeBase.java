@@ -44,11 +44,11 @@ import org.openqa.selenium.safari.SafariDriver;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * AutomationCodeBase
+ * CodeBase
  * 
  * @author jaemzware@hotmail.com
  */
-public class AutomationCodeBase {
+public class CodeBase {
     // the one and only driver object
     protected static WebDriver driver = null;
 
@@ -73,11 +73,11 @@ public class AutomationCodeBase {
     protected static String aString = null; // for specifiying a generic string for usage or comparison (Sql.java)
     
     
-    protected static EnvironmentType environment = EnvironmentType.dev;
-    protected static BrowserType browser = BrowserType.CHROME;
+    protected static EnvironmentType environment = null;
+    protected static BrowserType browser = null;
 
     // default time IN SECONDS to wait when finding elements
-    protected int defaultImplicitWait = 60;
+    protected int defaultImplicitWait = 30;
 
     // verification errors that can occur during a test
     protected StringBuilder verificationErrors = new StringBuilder();
@@ -154,26 +154,28 @@ public class AutomationCodeBase {
      * This function gets the command line parameters. Will be called by StartDriver to be backwards compatible.
      * Separated out so that tests can get the parameters without having to start the driver
      * 
-     * @return boolean indicating whether GetParameters() succeeded in obtaining valid values. Currently false will be
-     *         returned if -DaNumber cannot be parsed as an integer, -Denvironment is not supported, or -Dbrowser is not
-     *         supported
+     * @return String indicating whether GetParameters() succeeded in obtaining valid values. An empty string will be returned if there were no errors
      */
-    protected static boolean GetParameters() {
+    protected static String GetParameters() {
         System.out.println("COMMAND LINE PARAMETERS");
 
+    //USERID
         // get userid specified on command line
         String useridParm = System.getProperty("userid");
-        if (useridParm == null || useridParm.isEmpty()) {
+        
+        if(useridParm==null||useridParm.isEmpty()){
             System.out.println("-Duserid NOT SPECIFIED.");
         } else {
             userid = useridParm;
 
             System.out.println("-Duserid:" + userid);
         }
-
+    
+    //PASSWORD
         // get password specified on command line
         String passwordParm = System.getProperty("password");
-        if (StringUtils.isEmpty(passwordParm)) {
+        
+        if(passwordParm==null||passwordParm.isEmpty()){
             System.out.println("-Dpassword NOT SPECIFIED.");
         } else {
             password = passwordParm;
@@ -181,9 +183,11 @@ public class AutomationCodeBase {
             System.out.println("-Dpassword:********");
         }
 
-        // get password specified on command line
+    //INPUT
+        // get input specified on command line
         String inputParm = System.getProperty("input");
-        if (StringUtils.isEmpty(inputParm)) {
+        
+        if(inputParm==null||inputParm.isEmpty()){
             System.out.println("-Dinput NOT SPECIFIED.");
         } else {
             input = inputParm;
@@ -191,9 +195,11 @@ public class AutomationCodeBase {
             System.out.println("-Dinput:" + input);
         }
 
+    //ANUMBER
         // get aNumber specified on command line
         String aNumberParm = System.getProperty("aNumber");
-        if (StringUtils.isEmpty(aNumberParm)) {
+        
+        if(aNumberParm==null||aNumberParm.isEmpty()) {
             System.out.println("-DaNumber NOT SPECIFIED.");
         } else {
             // make sure aNumber is parseable
@@ -204,16 +210,17 @@ public class AutomationCodeBase {
 
                 System.out.println("-DaNumber:" + aNumber);
             } catch (NumberFormatException nfx) {
-                System.out.println("-DaNumber:" + aNumberParm
-                        + " SPECIFIED IS NOT A PARSEABLE INT. RETURNING FALSE (MAY BE IGNORED BY SOME TESTS)");
-                return false;
+                return "-DaNumber:" + aNumberParm + " SPECIFIED IS NOT A PARSEABLE INT. RETURNING FALSE (MAY BE IGNORED BY SOME TESTS)";
+                
             }
 
         }
 
+    //ASTRING
         // get aString specified on command line
         String aStringParm = System.getProperty("aString");
-        if (StringUtils.isEmpty(aStringParm)) {
+        
+        if(aStringParm==null||aStringParm.isEmpty()){
             System.out.println("-DaString NOT SPECIFIED.");
         } else {
             aString = aStringParm;
@@ -221,48 +228,65 @@ public class AutomationCodeBase {
             System.out.println("-DaString:" + aString);
         }
 
+    //BROWSER
         // get browser type specified on command line
         String browserParm = System.getProperty("browser");
 
-        if (StringUtils.isEmpty(browserParm)) {
+        if(browserParm==null||browserParm.isEmpty()){
             // if browser is not specified, output which one is being used by default
-            System.out.println("-Dbrowser NOT SPECIFIED. USING DEFAULT:" + browser);
+            System.out.println("-Dbrowser NOT SPECIFIED.");
         } else {
             try {
                 browser = BrowserType.valueOf(browserParm);
 
-                System.out.println("-Dbrowser:" + browser);
+                System.out.println("-Dbrowser:" + browserParm);
             } catch (IllegalArgumentException ex) {
-                System.out
-                        .println("AN INVALID -Dbrowser ("
-                                + browserParm
-                                + ") WAS SPECIFIED. WILL USE DEFAULT IF THIS IS IGNORED:"
-                                + browser
-                                + " VALID: CHROME, FIREFOX, SAFARI, IE8, IE9, IE10, IE11 APPIUM (NON-GRID ONLY:IPHONE6,IPAD4,ANDROID402)");
-                return false;
+                StringBuilder invalidBrowserMessage = new StringBuilder();
+                
+                invalidBrowserMessage.append("INVALID BROWSER (-Dbrowser) SPECIFIED:");
+                invalidBrowserMessage.append(browserParm);
+                invalidBrowserMessage.append(" VALID VALUES:");
+                
+                BrowserType allBrowsers[] = BrowserType.values();
+                for(BrowserType validBrowser:allBrowsers){
+                    invalidBrowserMessage.append(validBrowser);
+                    invalidBrowserMessage.append(" ");
+                }
+                    
+                return invalidBrowserMessage.toString();
             }
         }
 
+    //ENVIRONMENT
         // get environment type specified on command line
         String environmentParm = System.getProperty("environment");
 
-        if (StringUtils.isEmpty(environmentParm)) {
+        if(environmentParm==null||environmentParm.isEmpty()){
             // if environment is not specified, output which one is being used by default
             System.out.println("-Denvironment NOT SPECIFIED. USING DEFAULT:" + environment);
         } else {
             try {
                 environment = EnvironmentType.valueOf(environmentParm);
 
-                System.out.println("-Denvironment:" + environment);
+                System.out.println("-Denvironment:" + environmentParm);
             } catch (IllegalArgumentException ex) {
-                // TODO enumerate through environment enumerations, and print them out here
-                System.out.println("AN INVALID -Denvironment (" + environmentParm
-                        + ") WAS SPECIFIED. WILL USE DEFAULT IF THIS IS IGNORED:" + environment + " VALID: ");
-                return false;
+                StringBuilder invalidEnvironmentMessage = new StringBuilder();
+                
+                invalidEnvironmentMessage.append("INVALID ENVIRONMENT (-Denvironment) SPECIFIED:");
+                invalidEnvironmentMessage.append(environmentParm);
+                invalidEnvironmentMessage.append(" VALID VALUES:");
+                
+                EnvironmentType allEnvironments[] = EnvironmentType.values();
+                for(EnvironmentType validEnvironment:allEnvironments){
+                    invalidEnvironmentMessage.append(validEnvironment);
+                    invalidEnvironmentMessage.append(" ");
+                }
+                    
+                return invalidEnvironmentMessage.toString();
             }
         }
 
-        return true;
+        return "";
     }
 
     /**
@@ -296,6 +320,11 @@ public class AutomationCodeBase {
      */
     protected static void StartDriver(String relativePathToDrivers) throws Exception {
 
+        if(browser==null){
+            throw new Exception("BROWSER (-Dbrowser) NOT SPECIFIED");
+        }
+            
+        
         // LAUNCH APPIUM BROWSER IF AVAILABLE, AND DRIVER HASN'T BEEN SET
         // APPIUM (http://appium.io/) IS A TOOL FOR DRIVING MOBILE APPS WITH SELENIUM
         // SO FAR THIS ONLY USES THE MOBILE SAFARI APP

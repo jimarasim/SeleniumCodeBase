@@ -5,7 +5,13 @@
             <goals>
                 <goal>test-compile</goal>
                 <goal>surefire:test</goal>
-                <goal>-Dtest=Scratch#CheckGmail</goal>
+                <goal>-Dtest=Scratch#VerifyLogos</goal>
+                <goal>-DaNumber=3</goal>
+                <goal>-Dbrowser=CHROasdME</goal>
+                <goal>-Dinput="http://seattlerules.com"</goal>
+                <goal>-Duserid="seattlerules.com"</goal>
+                <goal>-DaString="//a"</goal>
+                <goal>-Dnogrid</goal>
                 
                 
                 
@@ -25,7 +31,13 @@
             <goals>
                 <goal>test-compile</goal>
                 <goal>surefire:test</goal>
-                <goal>-Dtest=Scratch#CheckGmail</goal>
+                <goal>-Dtest=Scratch#VerifyLogos</goal>
+                <goal>-DaNumber=3</goal>
+                <goal>-Dbrowser=CHROasdME</goal>
+                <goal>-Dinput="http://seattlerules.com"</goal>
+                <goal>-Duserid="seattlerules.com"</goal>
+                <goal>-DaString="//a"</goal>
+                <goal>-Dnogrid</goal>
                 
                 
                 

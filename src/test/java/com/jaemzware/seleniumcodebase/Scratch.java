@@ -1,7 +1,11 @@
 package com.jaemzware.seleniumcodebase;
 
+import static com.jaemzware.seleniumcodebase.CodeBase.GetParameters;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.InvalidParameterException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,28 +21,37 @@ import org.openqa.selenium.WebElement;
 /**
  * @author jaemzware@hotmail.com
  */
-public class Scratch extends AutomationCodeBase {
+public class Scratch extends CodeBase {
+    static final String propertiesFile = "src/test/java/com/jaemzware/seleniumcodebase/selenium.properties";
     static Properties properties = new Properties();
 
-    // monster tamer
-    private final String monsterTamerDomain = "monster-tamer.com";
-    private final String monsterTamer404Xpath = "//h1[contains(text(),'404 Page')]";
-    private final String linksOnSpashPageXpath = "//a[@href and not(@href='') and not(contains(@href,'javascript:')) and not(contains(@href,'mailto:'))]";
+    private final String linksOnSplashPageXpath = "//a[@href and not(@href='') and not(contains(@href,'javascript:')) and not(contains(@href,'mailto:'))]";
 
     @Before
     public void BeforeTest() {
-        try {
+        try {// start the webdriver
+
             // properties file is in same directory as pom.xml
-            properties.load(new FileInputStream("src/test/java/com/jaemzware/seleniumcodebase/selenium.properties"));
+            properties.load(new FileInputStream(propertiesFile));
 
             // initialize verifification errors
             verificationErrors = new StringBuilder();
+            
+            String getParameterResult = GetParameters();
+            if(!getParameterResult.isEmpty()){
+                System.out.println(getParameterResult);
+                throw new InvalidParameterException();
+            }
 
-            // get input parameters HERE
-            GetParameters();
-        } catch (Exception ex) {
-            CustomStackTrace("BEFORE TESTS EXCEPTION", ex);
-            Assert.fail("BEFORE TESTS EXCEPTION:" + ex.getMessage());
+        } 
+        catch (InvalidParameterException ipex) {
+            Assert.fail("INVALID PARAMETERS FOUND");
+        }
+        catch (FileNotFoundException fnfex){
+            Assert.fail(propertiesFile+" NOT FOUND");
+        }
+        catch(IOException ioex){
+            Assert.fail(propertiesFile+" IO EXCEPTION");
         }
     }
 
@@ -121,8 +134,8 @@ public class Scratch extends AutomationCodeBase {
             Map<String, String> hrefs = new HashMap<String, String>();
             String hrefFound;
 
-            if (IsElementPresent(By.xpath(linksOnSpashPageXpath))) {
-                List<WebElement> internalAnchors = driver.findElements(By.xpath(linksOnSpashPageXpath));
+            if (IsElementPresent(By.xpath(linksOnSplashPageXpath))) {
+                List<WebElement> internalAnchors = driver.findElements(By.xpath(linksOnSplashPageXpath));
                 
                 for (WebElement we : internalAnchors) {
                     
@@ -146,7 +159,7 @@ public class Scratch extends AutomationCodeBase {
 
                 }
             } else {
-                System.out.println("WARNING: NO LINKS FOUND ON PAGE MATCHING XPATH:" + linksOnSpashPageXpath);
+                System.out.println("WARNING: NO LINKS FOUND ON PAGE MATCHING XPATH:" + linksOnSplashPageXpath);
             }
 
         //VISIT HREFS
