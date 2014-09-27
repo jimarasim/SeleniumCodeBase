@@ -77,7 +77,7 @@ public class CodeBase {
     protected static BrowserType browser = null;
 
     // default time IN SECONDS to wait when finding elements
-    protected int defaultImplicitWait = 20;
+    protected int defaultImplicitWait = 60;
 
     // verification errors that can occur during a test
     protected StringBuilder verificationErrors = new StringBuilder();
