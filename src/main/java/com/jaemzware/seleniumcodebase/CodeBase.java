@@ -78,6 +78,7 @@ public class CodeBase {
 
     // default time IN SECONDS to wait when finding elements
     protected int defaultImplicitWait = 60;
+    protected static final int quickWaitMilliSeconds = 5000;
 
     // verification errors that can occur during a test
     protected StringBuilder verificationErrors = new StringBuilder();
@@ -106,9 +107,9 @@ public class CodeBase {
                 .append(".info {background-color:#C0C0C0;color:#000000;}")
                 .append("</style>")
                 .append("</head>")
-                .append("<body><h3>")
+                .append("<body><h1>")
                 .append(titleHeaderString)
-                .append("</h3>");
+                .append("</h1>");
         // paypal
         returnString.append("<form action='https://www.paypal.com/cgi-bin/webscr' method='post' target='_top'>");
         returnString.append("<input type='hidden' name='cmd' value='_s-xclick'>");
@@ -359,35 +360,16 @@ public class CodeBase {
                 // get the desired capabilities
                 DesiredCapabilities cap;
                 
-                                    
-//ERROR LOGGING - TAKES LONG
-//                LoggingPreferences loggingprefs = new LoggingPreferences();
-
                 // desired browser
                 switch (browser) {
                 case CHROME:
                 case CHROMELINUX:
                 case CHROMEMAC:
                     cap = DesiredCapabilities.chrome();
-                    
-                
-//ERROR LOGGING - TAKES LONG
-//                    loggingprefs.enable(LogType.BROWSER, Level.ALL);
-//                    cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
-                    //ERROR LOGGING 
-                    
                     break;
                 case FIREFOX:
                 case FIREFOXLINUX:
                     cap = DesiredCapabilities.firefox();
-                    
-                
-//ERROR LOGGING - TAKES LONG
-//                    loggingprefs.enable(LogType.BROWSER, Level.ALL);
-//                    cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
-                    //ERROR LOGGING - TAKES LONG
-                    
-                    
                     break;
                 case SAFARI:
                     cap = DesiredCapabilities.safari();
@@ -404,6 +386,16 @@ public class CodeBase {
                 }
 
                 
+                //turn on debug logging if debug is specified. this takes longer
+                if(System.getProperty("logging")!=null){
+                    LoggingPreferences loggingprefs = new LoggingPreferences();
+                    loggingprefs.enable(LogType.BROWSER, Level.ALL);
+                    loggingprefs.enable(LogType.CLIENT, Level.ALL);
+                    loggingprefs.enable(LogType.DRIVER, Level.ALL);
+                    cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
+                    
+                }
+
                 // accept all ssl certificates by default
                 cap.setCapability("acceptSslCerts", true);
 
@@ -495,41 +487,64 @@ public class CodeBase {
                     driver = new ChromeDriver(options);
                 } else {
                     // get the chrome driver/start regular chrome
-                    // get the desired capabilities
-                    DesiredCapabilities cap = DesiredCapabilities.chrome();
                     
-//ERROR LOGGING - TAKES LONG
-//                    LoggingPreferences loggingprefs = new LoggingPreferences();
-//                    loggingprefs.enable(LogType.BROWSER, Level.ALL);
-//                    cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
-                    //ERROR LOGGING - TAKES LONG
+                    //turn on debug logging if debug is specified. this takes longer
+                    if(System.getProperty("logging")!=null){
+                        // get the desired capabilities
+                        DesiredCapabilities cap = DesiredCapabilities.chrome();
+                        
+                        LoggingPreferences loggingprefs = new LoggingPreferences();
+                        loggingprefs.enable(LogType.BROWSER, Level.ALL);
+                        loggingprefs.enable(LogType.CLIENT, Level.ALL);
+                        loggingprefs.enable(LogType.DRIVER, Level.ALL);
+                        cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
+                        
+                        driver = new ChromeDriver(cap);
+                    }
+                    else{
+                        driver = new ChromeDriver();
+                    }
                     
                     
-                    driver = new ChromeDriver(cap);
                 }
 
                 break;
             case FIREFOX:
             case FIREFOXLINUX:
-                
-                // get the desired capabilities
-                DesiredCapabilities cap = DesiredCapabilities.firefox();
+                if(System.getProperty("logging")!=null){
+                    // get the desired capabilities
+                    DesiredCapabilities cap = DesiredCapabilities.firefox();
 
-//ERROR LOGGING - TAKES LONG
-//                LoggingPreferences loggingprefs = new LoggingPreferences();
-//                loggingprefs.enable(LogType.BROWSER, Level.ALL);
-//                cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
-                //ERROR LOGGING - TAKES LONG
-                
-                // get the firefox driver/start firefox
-                driver = new FirefoxDriver(cap);
+                    LoggingPreferences loggingprefs = new LoggingPreferences();
+                    loggingprefs.enable(LogType.BROWSER, Level.ALL);
+                    loggingprefs.enable(LogType.CLIENT, Level.ALL);
+                    loggingprefs.enable(LogType.DRIVER, Level.ALL);
+                    cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
 
+                    driver = new FirefoxDriver(cap);
+                }
+                else{
+                    driver = new FirefoxDriver();
+                }
                 break;
             case SAFARI:
 
                 if (GetOsType().equals(OsType.MAC)) {
-                    // get the safari driver/start safari
-                    driver = new SafariDriver();
+                    if(System.getProperty("logging")!=null){
+                        // get the desired capabilities
+                        DesiredCapabilities cap = DesiredCapabilities.firefox();
+
+                        LoggingPreferences loggingprefs = new LoggingPreferences();
+                        loggingprefs.enable(LogType.BROWSER, Level.ALL);
+                        loggingprefs.enable(LogType.CLIENT, Level.ALL);
+                        loggingprefs.enable(LogType.DRIVER, Level.ALL);
+                        cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
+
+                        driver = new SafariDriver(cap);
+                    }
+                    else{
+                        driver = new SafariDriver();
+                    }
                 } else {
                     throw new Exception("SAFARI IS UNSUPPORTED NATIVELY ON THIS OS:" + GetOsType());
                 }
@@ -543,10 +558,24 @@ public class CodeBase {
                     // if we're on windows, just look for the windows driver regardless of version
                     System.setProperty("webdriver.ie.driver", relativePathToDrivers + "IEDriverServer.exe");
 
-                    // get the ie driver/start ie
-                    driver = new InternetExplorerDriver();
+                    if(System.getProperty("logging")!=null){
+                        // get the desired capabilities
+                        DesiredCapabilities cap = DesiredCapabilities.firefox();
+
+                        LoggingPreferences loggingprefs = new LoggingPreferences();
+                        loggingprefs.enable(LogType.BROWSER, Level.ALL);
+                        loggingprefs.enable(LogType.CLIENT, Level.ALL);
+                        loggingprefs.enable(LogType.DRIVER, Level.ALL);
+                        cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
+
+                        driver = new InternetExplorerDriver(cap);
+                    }
+                    else{
+                        driver = new InternetExplorerDriver();
+                    }
+                    
                 } else {
-                    throw new Exception("IE8, IE9, IE10, IE11 IS UNSUPPORTED NATIVELY ON THIS OS:" + GetOsType());
+                    throw new Exception("IE IS UNSUPPORTED NATIVELY ON THIS OS:" + GetOsType());
                 }
                 break;
             default:

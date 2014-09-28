@@ -19,6 +19,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.logging.LogEntries;
+import org.openqa.selenium.logging.LogEntry;
+import org.openqa.selenium.logging.LogType;
 
 /**
  * @author jaemzware@hotmail.com
@@ -180,26 +183,15 @@ public class Scratch extends CodeBase {
                 writer.println(fileWriteString);
                 
                 
-        //PAGE VERIFICATIONS
+        //ERROR LOGGING - TAKES LONG - ADD CAPABILITY WHEN CREATING driver BEFORE USING
+                if(System.getProperty("logging")!=null){
+                    writer.println(ExtractJSLogs());
+                }
                 
-//ERROR LOGGING - TAKES LONG - ADD CAPABILITY WHEN CREATING driver BEFORE USING
-                // write debug info to the html report
-//                if (browser.equals(BrowserType.CHROME) || 
-//                        browser.equals(BrowserType.CHROMELINUX) ||
-//                        browser.equals(BrowserType.CHROMEMAC) 
-//                        ||
-//                        browser.equals(BrowserType.FIREFOX) ||
-//                        browser.equals(BrowserType.FIREFOXLINUX) ||
-//                        browser.equals(BrowserType.FIREFOXMAC)
-//                        ) {
-//                    writer.println(ExtractJSLogs());
-//
-//                }
-                //ERROR LOGGING - TAKES LONG - ADD CAPABILITY WHEN CREATING driver BEFORE USING
                 
                 // make sure we're on a real page, and not an image
                 if (!href.endsWith(".jpg") && !href.endsWith(".gif") && !href.endsWith("rss2")) {
-                    // verify logo
+        //PAGE VERIFICATIONS                    
                     writer.println(VerifyXpathOnCurrentPage(logoxpath));
                 }
 
@@ -224,7 +216,9 @@ public class Scratch extends CodeBase {
         //COMPLETE WRITING REPORT WEB PAGE
             writer.println(HtmlReportFooter());
 
-            System.out.println("INDEX FILE WRITTEN:" + jenkinsReportPath + fileName);
+            System.out.println("INDEX FILE WRITTEN:" + fileName);
+            System.out.println("INDEX FILE COPIED (IF RUN FROM JENKINS):" + jenkinsReportPath + fileName);
+            
 
         } catch (Exception ex) {
             ScreenShot();
@@ -387,74 +381,74 @@ public class Scratch extends CodeBase {
     }
 
 //ERROR LOGGING - TAKES LONG - ADD CAPABILITY WHEN CREATING driver BEFORE USING
-//    private String ExtractJSLogs() {
-//        StringBuilder logString = new StringBuilder();
-//        logString.append("<table>");
-//        
-//        LogEntries browserLog = driver.manage().logs().get(LogType.BROWSER);
-//        if(browserLog.getAll().size()>0){
-//            logString.append("<tr><td colspan=2><h3>BROWSER</h3></td></tr>");
-//            logString.append("<tr><td>LEVEL</td><td>MESSAGE</td></tr>");
-//            logString.append(WriteLogEntryRows(browserLog));
-//        }
-//        else{
-//            logString.append("<tr><td colspan=2>No BROWSER log entries found.</td></tr>");
-//        }
-//        
-//        LogEntries clientLog = driver.manage().logs().get(LogType.CLIENT);
-//        if(clientLog.getAll().size()>0){
-//            logString.append("<tr><td colspan=2><h3>CLIENT</h3></td></tr>");
-//            logString.append("<tr><td>LEVEL</td><td>MESSAGE</td></tr>");
-//            logString.append(WriteLogEntryRows(clientLog));
-//        }
-//        else{
-//            logString.append("<tr><td colspan=2>No CLIENT log entries found.</td></tr>");
-//        }
-//        
-//        LogEntries driverLog = driver.manage().logs().get(LogType.DRIVER);
-//        if(driverLog.getAll().size()>0){
-//            logString.append("<tr><td colspan=2><h3>DRIVER</h3></td></tr>");
-//            logString.append("<tr><td>LEVEL</td><td>MESSAGE</td></tr>");
-//            logString.append(WriteLogEntryRows(driverLog));
-//        }
-//        else{
-//            logString.append("<tr><td colspan=2>No DRIVER log entries found.</td></tr>");
-//        }
-//        
-//        
-//        
-//        logString.append("</table>");
-//        return logString.toString();
-//    }
+    private String ExtractJSLogs() {
+        StringBuilder logString = new StringBuilder();
+        logString.append("<table>");
+        
+        LogEntries browserLog = driver.manage().logs().get(LogType.BROWSER);
+        if(browserLog.getAll().size()>0){
+            logString.append("<tr><td colspan=2><h3>BROWSER</h3></td></tr>");
+            logString.append("<tr><td>LEVEL</td><td>MESSAGE</td></tr>");
+            logString.append(WriteLogEntryRows(browserLog));
+        }
+        else{
+            logString.append("<tr><td colspan=2>No BROWSER log entries found.</td></tr>");
+        }
+        
+        LogEntries clientLog = driver.manage().logs().get(LogType.CLIENT);
+        if(clientLog.getAll().size()>0){
+            logString.append("<tr><td colspan=2><h3>CLIENT</h3></td></tr>");
+            logString.append("<tr><td>LEVEL</td><td>MESSAGE</td></tr>");
+            logString.append(WriteLogEntryRows(clientLog));
+        }
+        else{
+            logString.append("<tr><td colspan=2>No CLIENT log entries found.</td></tr>");
+        }
+        
+        LogEntries driverLog = driver.manage().logs().get(LogType.DRIVER);
+        if(driverLog.getAll().size()>0){
+            logString.append("<tr><td colspan=2><h3>DRIVER</h3></td></tr>");
+            logString.append("<tr><td>LEVEL</td><td>MESSAGE</td></tr>");
+            logString.append(WriteLogEntryRows(driverLog));
+        }
+        else{
+            logString.append("<tr><td colspan=2>No DRIVER log entries found.</td></tr>");
+        }
+        
+        
+        
+        logString.append("</table>");
+        return logString.toString();
+    }
     
 //ERROR LOGGING - TAKES LONG - ADD CAPABILITY WHEN CREATING driver BEFORE USING
-//    private String WriteLogEntryRows(LogEntries entries)
-//    {
-//        StringBuilder logEntryRows = new StringBuilder();
-//        
-//        String errorLevel = "";
-//        for (LogEntry entry : entries) {
-//            errorLevel = entry.getLevel().toString();
-//            logEntryRows.append("<tr>");
-//
-//            // error level color coding
-//            if (errorLevel.contains("SEVERE")) {
-//                logEntryRows.append("<td class='severe'><b>");
-//            } else if (errorLevel.contains("WARNING")) {
-//                logEntryRows.append("<td class='warning'><b>");
-//            } else if (errorLevel.contains("INFO")) {
-//                logEntryRows.append("<td class='info'><b>");
-//            } else if (errorLevel.contains("FINE")) {
-//                logEntryRows.append("<td class='info'><b>");
-//            } else {
-//                logEntryRows.append("<td><b>");
-//            }
-//            logEntryRows.append(errorLevel).append("</b></td>");
-//            logEntryRows.append("<td>").append(entry.getMessage()).append("</td></tr>");
-//        }
-//        
-//        return logEntryRows.toString();
-//    }
+    private String WriteLogEntryRows(LogEntries entries)
+    {
+        StringBuilder logEntryRows = new StringBuilder();
+        
+        String errorLevel;
+        for (LogEntry entry : entries) {
+            errorLevel = entry.getLevel().toString();
+            logEntryRows.append("<tr>");
+
+            // error level color coding
+            if (errorLevel.contains("SEVERE")) {
+                logEntryRows.append("<td class='severe'><b>");
+            } else if (errorLevel.contains("WARNING")) {
+                logEntryRows.append("<td class='warning'><b>");
+            } else if (errorLevel.contains("INFO")) {
+                logEntryRows.append("<td class='info'><b>");
+            } else if (errorLevel.contains("FINE")) {
+                logEntryRows.append("<td class='info'><b>");
+            } else {
+                logEntryRows.append("<td><b>");
+            }
+            logEntryRows.append(errorLevel).append("</b></td>");
+            logEntryRows.append("<td>").append(entry.getMessage()).append("</td></tr>");
+        }
+        
+        return logEntryRows.toString();
+    }
     
     
 
