@@ -115,24 +115,10 @@ public class Scratch extends CodeBase {
             // write stats to html report
             writer.println(fileWriteString);
 
-            
-            
-//ERROR LOGGING - TAKES LONG - ADD CAPABILITY WHEN CREATING driver BEFORE USING
-            // write debug info to the html report
-//            if (browser.equals(BrowserType.CHROME) || 
-//                    browser.equals(BrowserType.CHROMELINUX) ||
-//                    browser.equals(BrowserType.CHROMEMAC) 
-//                    ||
-//                    browser.equals(BrowserType.FIREFOX) ||
-//                    browser.equals(BrowserType.FIREFOXLINUX) ||
-//                    browser.equals(BrowserType.FIREFOXMAC)
-//                    ) {
-//                writer.println(ExtractJSLogs());
-//
-//            }
-            //ERROR LOGGING - TAKES LONG - ADD CAPABILITY WHEN CREATING driver BEFORE USING
-            
-            
+        //LOGGING
+            if(System.getProperty("logging")!=null){
+                writer.println(ExtractJSLogs());
+            }
             
             // verify logo
             writer.println(VerifyXpathOnCurrentPage(logoxpath));
