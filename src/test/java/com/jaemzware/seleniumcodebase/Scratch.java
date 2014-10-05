@@ -404,17 +404,17 @@ public class Scratch extends CodeBase {
         else{
             logString.append("<tr><td colspan=2>No CLIENT log entries found.</td></tr>");
         }
-        
-        LogEntries driverLog = driver.manage().logs().get(LogType.DRIVER);
-        if(driverLog.getAll().size()>0){
-            logString.append("<tr><td colspan=2><h3>DRIVER</h3></td></tr>");
-            logString.append("<tr><td>LEVEL</td><td>MESSAGE</td></tr>");
-            logString.append(WriteLogEntryRows(driverLog));
-        }
-        else{
-            logString.append("<tr><td colspan=2>No DRIVER log entries found.</td></tr>");
-        }
-        
+//        
+//        LogEntries driverLog = driver.manage().logs().get(LogType.DRIVER);
+//        if(driverLog.getAll().size()>0){
+//            logString.append("<tr><td colspan=2><h3>DRIVER</h3></td></tr>");
+//            logString.append("<tr><td>LEVEL</td><td>MESSAGE</td></tr>");
+//            logString.append(WriteLogEntryRows(driverLog));
+//        }
+//        else{
+//            logString.append("<tr><td colspan=2>No DRIVER log entries found.</td></tr>");
+//        }
+//        
         
         
         logString.append("</table>");
