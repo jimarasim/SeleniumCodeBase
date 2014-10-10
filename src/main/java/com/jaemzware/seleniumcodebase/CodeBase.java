@@ -455,10 +455,10 @@ public class CodeBase {
                                                                                                                // WINDOWS
                     break;
                 case MAC:
-                    System.setProperty("webdriver.chrome.driver", relativePathToDrivers + "chromedriver"); // FOR MAC
+                    System.setProperty("webdriver.chrome.driver", relativePathToDrivers + "chromedrivermac"); // FOR MAC
                     break;
                 case UNIX:
-                    System.setProperty("webdriver.chrome.driver", relativePathToDrivers + "chromedriver"); // FOR unix
+                    System.setProperty("webdriver.chrome.driver", relativePathToDrivers + "chromedriverlinux64"); // FOR unix
                     break;
                 default:
                     throw new Exception("-Dbrowser=" + browser + " IS UNSUPPORTED NATIVELY ON THIS OS:" + GetOsType());
