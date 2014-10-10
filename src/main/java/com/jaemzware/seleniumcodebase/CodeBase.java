@@ -42,6 +42,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
 import org.apache.commons.lang.StringUtils;
+import org.openqa.selenium.Platform;
 
 /**
  * CodeBase
@@ -531,21 +532,19 @@ public class CodeBase {
             case SAFARI:
 
                 if (GetOsType().equals(OsType.MAC)) {
+                    DesiredCapabilities cap = DesiredCapabilities.safari();
+                    cap.setPlatform(Platform.MAC);
+                    
                     if(System.getProperty("logging")!=null){
-                        // get the desired capabilities
-                        DesiredCapabilities cap = DesiredCapabilities.firefox();
-
                         LoggingPreferences loggingprefs = new LoggingPreferences();
                         loggingprefs.enable(LogType.BROWSER, Level.ALL);
                         loggingprefs.enable(LogType.CLIENT, Level.ALL);
                         loggingprefs.enable(LogType.DRIVER, Level.ALL);
                         cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
-
-                        driver = new SafariDriver(cap);
                     }
-                    else{
-                        driver = new SafariDriver();
-                    }
+                    
+                    driver = new SafariDriver(cap);
+                    
                 } else {
                     throw new Exception("SAFARI IS UNSUPPORTED NATIVELY ON THIS OS:" + GetOsType());
                 }
