@@ -337,9 +337,13 @@ public class CodeBase {
                 // set desired capabilites for running safari on iphone simulator through appium
                 DesiredCapabilities cap = new DesiredCapabilities();
                 cap.setCapability("platformName", "iOS");
-                cap.setCapability("deviceName", "iPhone Simulator");
-                // cap.setCapability("device", "iPad Simulator");
-                cap.setCapability("app", "safari");
+                cap.setCapability("platformVersion", "8.1");
+//                cap.setCapability("deviceName", "iPhone Simulator"); //IPHONE
+                cap.setCapability("deviceName", "iPad Simulator"); //IPAD
+                cap.setCapability("browserName", "Safari");
+                
+//                cap.setCapability("device", "iPad Simulator"); //OLD CAPABILITY NAME
+//                cap.setCapability("app", "safari"); //OLD CAPABILITY NAME
 
                 // try to get the appium remote web driver
                 driver = new RemoteWebDriver(new URL("http://" + appiumHub + "/wd/hub"), cap);
