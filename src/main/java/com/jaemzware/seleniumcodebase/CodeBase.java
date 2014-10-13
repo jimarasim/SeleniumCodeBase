@@ -338,9 +338,10 @@ public class CodeBase {
                 DesiredCapabilities cap = new DesiredCapabilities();
                 cap.setCapability("platformName", "iOS");
                 cap.setCapability("platformVersion", "8.0");
-                cap.setCapability("deviceName", "iPhone Simulator"); //IPHONE
-//                cap.setCapability("deviceName", "iPad Simulator"); //IPAD
+                cap.setCapability("deviceName", "iPhone 5"); //IPHONE
                 cap.setCapability("browserName", "Safari");
+//                cap.setCapability("deviceName", "iPhone Simulator"); //OLD IPHONE name
+//                cap.setCapability("deviceName", "iPad Simulator"); //OLD IPAD name
                 
 //                cap.setCapability("device", "iPad Simulator"); //OLD CAPABILITY NAME
 //                cap.setCapability("app", "safari"); //OLD CAPABILITY NAME
