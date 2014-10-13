@@ -337,9 +337,9 @@ public class CodeBase {
                 // set desired capabilites for running safari on iphone simulator through appium
                 DesiredCapabilities cap = new DesiredCapabilities();
                 cap.setCapability("platformName", "iOS");
-                cap.setCapability("platformVersion", "8.1");
-//                cap.setCapability("deviceName", "iPhone Simulator"); //IPHONE
-                cap.setCapability("deviceName", "iPad Simulator"); //IPAD
+                cap.setCapability("platformVersion", "8.0");
+                cap.setCapability("deviceName", "iPhone Simulator"); //IPHONE
+//                cap.setCapability("deviceName", "iPad Simulator"); //IPAD
                 cap.setCapability("browserName", "Safari");
                 
 //                cap.setCapability("device", "iPad Simulator"); //OLD CAPABILITY NAME
