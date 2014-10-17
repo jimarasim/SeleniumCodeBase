@@ -335,16 +335,18 @@ public class CodeBase {
         if (driver == null && browser == BrowserType.APPIUM) {
             try {
                 // set desired capabilites for running safari on iphone simulator through appium
+                //http://appium.io/slate/en/v1.1.0/?ruby#appium-server-capabilities
                 DesiredCapabilities cap = new DesiredCapabilities();
-                cap.setCapability("platformName", "iOS");
+                cap.setCapability("automationName","Appium"); //or Selendroid
+                cap.setCapability("platformName", "iOS"); //or Android, or FirefoxOS
                 cap.setCapability("platformVersion", "8.0");
-                cap.setCapability("deviceName", "iPhone 5"); //IPHONE
                 cap.setCapability("browserName", "Safari");
-//                cap.setCapability("deviceName", "iPhone Simulator"); //OLD IPHONE name
+                cap.setCapability("deviceName", "iPhone Simulator"); //OLD IPHONE name
 //                cap.setCapability("deviceName", "iPad Simulator"); //OLD IPAD name
+//                cap.setCapability("deviceName", "iPhone 5"); //new way?
                 
 //                cap.setCapability("device", "iPad Simulator"); //OLD CAPABILITY NAME
-//                cap.setCapability("app", "safari"); //OLD CAPABILITY NAME
+                cap.setCapability("app", "safari"); //OLD CAPABILITY NAME
 
                 // try to get the appium remote web driver
                 driver = new RemoteWebDriver(new URL("http://" + appiumHub + "/wd/hub"), cap);
