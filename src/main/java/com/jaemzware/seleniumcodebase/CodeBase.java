@@ -54,7 +54,7 @@ public class CodeBase {
     protected static WebDriver driver = null;
 
     // selenium grid hub
-    protected static final String seleniumGridHub = "64.90.58.161";
+    protected static final String seleniumGridHub = "localhost";
 
     // jenkins report folder url
     protected static final String jenkinsReportHeader = "";
