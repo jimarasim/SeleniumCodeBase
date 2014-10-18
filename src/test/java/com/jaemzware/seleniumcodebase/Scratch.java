@@ -116,7 +116,8 @@ public class Scratch extends CodeBase {
             writer.println(fileWriteString);
 
         //LOGGING
-            if(System.getProperty("logging")!=null){
+            if(System.getProperty("logging")==null || browser.equals(BrowserType.APPIUM)){
+            } else {
                 writer.println(ExtractJSLogs());
             }
             
@@ -170,7 +171,9 @@ public class Scratch extends CodeBase {
                 
                 
         //ERROR LOGGING - TAKES LONG - ADD CAPABILITY WHEN CREATING driver BEFORE USING
-                if(System.getProperty("logging")!=null){
+                if(System.getProperty("logging")!=null || browser.equals(BrowserType.APPIUM)){}
+                else
+                {
                     writer.println(ExtractJSLogs());
                 }
                 
