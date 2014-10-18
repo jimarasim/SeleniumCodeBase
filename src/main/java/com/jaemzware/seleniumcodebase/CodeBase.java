@@ -415,12 +415,13 @@ public class CodeBase {
                 // desired version (as set by grid node)
                 cap.setVersion(browser.version);
 
-                System.out.println("ATTEMPTING TO LAUNCH SELENIUM GRID NODE FOR:" + browser.browserName + " VERSION:"
+                System.out.println("FINDING SELENIUM GRID NODE:" + browser.browserName + " VERSION:"
                         + browser.version + " PLATFORM:" + browser.platform.toString());
-                System.out.println("USE -Dnogrid TO SKIP AND LAUNCH NATIVE (NON-GRID)");
 
                 // get the grid node
-                driver = new RemoteWebDriver(new URL("http://" + seleniumGridHub + ":4444/wd/hub"), cap);
+                String gridHubFullPath = "http://" + seleniumGridHub + ":4444/wd/hub";
+                System.out.println("CONTACTING SELENIUM GRID [USE -Dnogrid TO SKIP AND LAUNCH NATIVE (NON-GRID)] ");
+                driver = new RemoteWebDriver(new URL(gridHubFullPath), cap);
 
                 // augment the driver so that screenshots can be taken
                 driver = new Augmenter().augment(driver);
