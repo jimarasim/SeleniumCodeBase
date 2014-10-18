@@ -159,7 +159,7 @@ public class Scratch extends CodeBase {
 
         //VISIT HREFS
             // visit each href, report load time, and make sure the page has the logo
-            int maxVisits = (aNumber!=null)?Integer.parseInt(aNumber):0; //check if the max number was specified
+            int maxVisits = (aNumber!=null||!aNumber.isEmpty())?Integer.parseInt(aNumber):0; //check if the max number was specified
             int visitCount = 0;
             for (String href : hrefs.keySet()) {
 
