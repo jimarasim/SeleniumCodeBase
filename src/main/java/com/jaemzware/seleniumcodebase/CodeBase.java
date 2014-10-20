@@ -8,6 +8,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
@@ -497,22 +498,36 @@ public class CodeBase {
                     driver = new ChromeDriver(options);
                 } else {
                     // get the chrome driver/start regular chrome
+                    // get the desired capabilities
+                    DesiredCapabilities cap = DesiredCapabilities.chrome();
                     
+                    //use in cognito browser 
+//                    ChromeOptions options = new ChromeOptions();
+//                    options.addArguments("-incognito");
+//                    cap.setCapability(ChromeOptions.CAPABILITY, options);
+//                    opens incognito browser, but the throws the error:
+//                    java.lang.AssertionError: unknown error: No current window
+                    //JavaScript stack:
+                    //Error: No current window
+                    //    at checkForExtensionError (chrome-extension://aapnijgdinlhnhlmodcfapnahmbfebeb/background.js:14:17)
+                    //    at Object.callback (chrome-extension://aapnijgdinlhnhlmodcfapnahmbfebeb/background.js:67:5)
+                    //    at safeCallbackApply (extensions::sendRequest:22:15)
+                    //    at handleResponse (extensions::sendRequest:77:7)
+                    //  (Session info: chrome=38.0.2125.104)
+                    //  (Driver info: chromedriver=2.9.248307,platform=Mac OS X 10.9.5 x86_64) (WARNING: The server did not provide any stacktrace information)
+                    //                    
                     //turn on debug logging if debug is specified. this takes longer
                     if(System.getProperty("logging")!=null){
-                        // get the desired capabilities
-                        DesiredCapabilities cap = DesiredCapabilities.chrome();
-                        
                         LoggingPreferences loggingprefs = new LoggingPreferences();
                         loggingprefs.enable(LogType.BROWSER, Level.ALL);
-                        loggingprefs.enable(LogType.CLIENT, Level.ALL);
+//                        loggingprefs.enable(LogType.CLIENT, Level.ALL); //chrome doesnt support this logging type
                         loggingprefs.enable(LogType.DRIVER, Level.ALL);
                         cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
                         
                         driver = new ChromeDriver(cap);
                     }
                     else{
-                        driver = new ChromeDriver();
+                        driver = new ChromeDriver(cap);
                     }
                     
                     
@@ -605,21 +620,6 @@ public class CodeBase {
         if (browser != BrowserType.APPIUM) {
             // maximize the window
             driver.manage().window().maximize();
-
-            // maximize the window back up approach - TESTING
-            // driver.manage().window().setPosition(new Point(0,0));
-            // java.awt.Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-            // org.openqa.selenium.Dimension maxWindowSize = new
-            // org.openqa.selenium.Dimension((int)screenSize.getWidth(), (int)screenSize.getHeight());
-            // driver.manage().window().setSize(maxWindowSize);
-
-            // full screen window, if this is not mac, try to get full screen mode (WORKS ON WINDOWS AND LINUX).
-            // verified with firefox and ie, but not chrome
-            // if(browser.platform!=Platform.MAC)
-            // {
-            // driver.get("http://seleniumhq.org");
-            // driver.findElement(By.tagName("body")).sendKeys(Keys.F11);
-            // }
         }
 
         // set the main window handle
