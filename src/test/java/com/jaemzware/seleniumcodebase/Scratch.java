@@ -186,13 +186,13 @@ public class Scratch extends CodeBase {
 
         //REST REQUEST THE PAGE
                 // save off the page for later analysis, don't die if this doesn't work though
-                try{
-                    RestRequest(href);
-                }
-                catch(Exception ex){
-                    System.out.println("WARNING: REST REQUEST FAILED FOR:"+href);
-                    writer.println("<span class='warning'>WARNING: REST REQUEST FAILED FOR:"+href+"</span>");
-                }
+//                try{
+//                    RestRequest(href);
+//                }
+//                catch(Exception ex){
+//                    System.out.println("WARNING: REST REQUEST FAILED FOR:"+href);
+//                    writer.println("<span class='warning'>WARNING: REST REQUEST FAILED FOR:"+href+"</span>");
+//                }
 
                 
                 //check the desired image count, and break if it's been reached
