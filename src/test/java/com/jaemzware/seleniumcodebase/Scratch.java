@@ -163,6 +163,13 @@ public class Scratch extends CodeBase {
             int visitCount = 0;
             for (String href : hrefs.keySet()) {
 
+                // make sure we're on a real page, and not an image
+                if (    href.endsWith(".jpg") || 
+                        href.endsWith(".gif") || 
+                        href.endsWith("rss2")) {
+                    continue;
+                }
+                
                 // go to the href
                 fileWriteString = driverGetWithTime(href);
 
@@ -177,12 +184,8 @@ public class Scratch extends CodeBase {
                     writer.println(ExtractJSLogs());
                 }
                 
+                writer.println(VerifyXpathOnCurrentPage(logoxpath));
                 
-                // make sure we're on a real page, and not an image
-                if (!href.endsWith(".jpg") && !href.endsWith(".gif") && !href.endsWith("rss2")) {
-        //PAGE VERIFICATIONS                    
-                    writer.println(VerifyXpathOnCurrentPage(logoxpath));
-                }
 
         //REST REQUEST THE PAGE
                 // save off the page for later analysis, don't die if this doesn't work though
