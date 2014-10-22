@@ -340,7 +340,7 @@ public class CodeBase {
                 DesiredCapabilities cap = new DesiredCapabilities();
                 cap.setCapability("automationName","Appium"); //or Selendroid
                 cap.setCapability("platformName", "iOS"); //or Android, or FirefoxOS
-                cap.setCapability("platformVersion", "8.0");
+                cap.setCapability("platformVersion", "8.1");
                 cap.setCapability("browserName", "Safari");
                 cap.setCapability("deviceName", "iPhone Simulator"); //OLD IPHONE name
 //                cap.setCapability("deviceName", "iPad Simulator"); //OLD IPAD name
