@@ -178,9 +178,8 @@ public class Scratch extends CodeBase {
                 
                 
         //ERROR LOGGING - TAKES LONG - ADD CAPABILITY WHEN CREATING driver BEFORE USING
-                if(System.getProperty("logging")!=null || browser.equals(BrowserType.APPIUM)){}
-                else
-                {
+                if(System.getProperty("logging")==null || browser.equals(BrowserType.APPIUM)){
+                } else {
                     writer.println(ExtractJSLogs());
                 }
                 
