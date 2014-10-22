@@ -126,7 +126,7 @@ public class Scratch extends CodeBase {
 
         //GET HREFS
             // get all non-empty/non-javascript href on the page that contain the baseurl
-            Map<String, String> hrefs = new HashMap<String, String>();
+            Map<String, String> hrefs = new HashMap<>();
             String hrefFound;
 
             if (IsElementPresent(By.xpath(linksOnSplashPageXpath))) {
@@ -318,7 +318,9 @@ public class Scratch extends CodeBase {
             String tagString;
             String imageSrc;
             
-            List<WebElement> xpathElementMatches = driver.findElements(By.xpath(xpathToVerify));
+            List<WebElement> xpathElementMatches = driver.findElements(By.xpath(xpathToVerify+"/name()"));
+//            List<WebElement> xpathElementMatches = driver.findElements(By.xpath("name("+xpathToVerify+")"));
+
             
             for(WebElement we: xpathElementMatches){
                 try{
