@@ -11,10 +11,10 @@ import org.openqa.selenium.Platform;
 public enum BrowserType {
     CHROME("chrome","",Platform.WINDOWS), 
     CHROMELINUX("chrome","",Platform.LINUX),
-    CHROMEMAC ("chrome","",Platform.MAC),
+    CHROMEMAC ("chromemac","",Platform.MAC),
     FIREFOX("firefox","",Platform.WINDOWS),
     FIREFOXLINUX("firefoxlinux","",Platform.LINUX),
-    FIREFOXMAC("firefox","",Platform.MAC),
+    FIREFOXMAC("firefoxmac","",Platform.MAC),
     SAFARI("safari","7",Platform.MAC),
     IE8("InternetExplorer","8",Platform.WINDOWS), 
     IE9("InternetExplorer","9",Platform.WINDOWS), 
