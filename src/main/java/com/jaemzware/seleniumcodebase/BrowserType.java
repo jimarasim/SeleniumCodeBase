@@ -9,9 +9,11 @@ import org.openqa.selenium.Platform;
 
 
 public enum BrowserType {
+    
+    //MAKE SURE THESE ARE ALL HANDLED IN THE GRID AND NON-GRID CASES
     CHROME("chrome","",Platform.WINDOWS), 
     CHROMELINUX("chrome","",Platform.LINUX),
-    CHROMEMAC ("chromemac","",Platform.MAC),
+    CHROMEMAC ("chrome","",Platform.MAC),
     FIREFOX("firefox","",Platform.WINDOWS),
     FIREFOXLINUX("firefoxlinux","",Platform.LINUX),
     FIREFOXMAC("firefoxmac","",Platform.MAC),
