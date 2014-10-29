@@ -378,6 +378,7 @@ public class CodeBase {
                     break;
                 case FIREFOX:
                 case FIREFOXLINUX:
+                case FIREFOXMAC:
                     cap = DesiredCapabilities.firefox();
                     break;
                 case SAFARI:
@@ -535,6 +536,7 @@ public class CodeBase {
                 break;
             case FIREFOX:
             case FIREFOXLINUX:
+            case FIREFOXMAC:
                 if(System.getProperty("logging")!=null){
                     // get the desired capabilities
                     DesiredCapabilities cap = DesiredCapabilities.firefox();
