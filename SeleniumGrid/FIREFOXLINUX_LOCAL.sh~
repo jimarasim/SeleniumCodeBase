@@ -1,0 +1,21 @@
+B
+B
+B
+B
+Bi
+B
+B
+
+C
+C
+C
+C
+C
+C
+C
+C
+C
+C
+C
+C
+java -jar selenium-server-standalone-2.44.0.jar -role node -browser platform=MAC,browserName=firefoxmac,maxInstances=5,seleniumProtocol=WebDriver,acceptSslCerts=true -hub http://localhost:4444/grid/register -port 5558
