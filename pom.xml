@@ -107,13 +107,18 @@
   </dependencies>
   <!--
   
+GRID / LOGGING
 mvn -Dtest=Scratch#VerifyLogos -DaNumber=3 -Dbrowser=CHROME -Dinput=http://seattlerules.com -Duserid=seattlerules.com -DaString=//a -Dnogrid -Dlogging test 
 mvn -Dtest=Scratch#VerifyLogos -DaNumber=1 -Dbrowser=SAFARI -Dinput=http://seattlerules.com -Duserid=seattlerules.com -DaString=//a -Dnogrid -Dlogging test 
 mvn -Dtest=Scratch#VerifyLogos -DaNumber=1 -Dbrowser=APPIUM -Dinput=http://seattlerules.com -Duserid=seattlerules.com -DaString=//a -Dnogrid -Dlogging test 
 mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=APPIUM -Dinput=http://seattlerules.com -Duserid=seattlerules.com -DaString=//a -Dnogrid -Dlogging test 
 mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=CHROME -Dinput=http://seattlerules.com -Duserid=seattlerules.com -DaString=//a -Dnogrid -Dlogging test 
 mvn -Dtest=Scratch#VerifyLogos -DaNumber=2 -Dbrowser=APPIUM -Dinput=http://shop.nordstrom.com/ -Duserid=nordstrom.com -DaString=//a -Dnogrid -Dlogging test 
-NO LOGGING (FASTER):
+
+NOGRID / LOGGING
+mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=CHROMEMAC -Dinput=http://www.nintendo.com/ -Duserid=http://www.nintendo.com -DaString="//a[@class='icon-nintendo']" -Dlogging test
+
+NOGRID / NOLOGGING (FASTER):
 mvn -Dtest=Scratch#VerifyLogos -DaNumber=2 -Dbrowser=CHROME -Dinput=http://shop.nordstrom.com/ -Duserid=nordstrom.com -DaString=//a -Dnogrid test 
 
 mvn -Dtest=Scratch#MakeRestRequest -Dbrowser=CHROME -Dinput=https://seattlerules.com -Dnogrid test
