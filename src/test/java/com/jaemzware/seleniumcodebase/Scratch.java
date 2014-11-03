@@ -18,10 +18,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.logging.LogType;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * @author jaemzware@hotmail.com
@@ -29,9 +32,33 @@ import org.openqa.selenium.logging.LogType;
 public class Scratch extends CodeBase {
     static final String propertiesFile = "src/test/java/com/jaemzware/seleniumcodebase/selenium.properties";
     static Properties properties = new Properties();
+    static final int sleepForNextPage = 3000;
 
     private final String linksOnSplashPageXpath = "//a[@href and not(@href='') and not(contains(@href,'javascript:')) and not(contains(@href,'mailto:'))]";
 
+    /**
+     * This method waits for the google search page to change, when paging through results
+     * @param oldUrl - old value of what should be at resultStatsTextXpath
+     * @param urlWithParms - informational only just used to print out to console, what page is being loaded
+     * @throws Exception 
+     */
+    private void WaitForPageChange(String oldUrl, String urlWithParms) throws Exception{
+            final String waitTillUrlIsNot=oldUrl; //string to wait for to change when the page is loaded
+            
+            // wait for links to be loaded by waiting for the resultStatsText to change
+            (new WebDriverWait(driver, defaultImplicitWait)).until(new ExpectedCondition<Boolean>() {
+                @Override
+                public Boolean apply(WebDriver d) {
+                    return !driver.getCurrentUrl().equals(waitTillUrlIsNot);
+                }
+            });
+            
+            //hardcoded wait (i hate these) to avoid stale element references later.
+            Thread.sleep(sleepForNextPage);
+     
+    }
+    
+    
     @Before
     public void BeforeTest() {
         try {// start the webdriver
@@ -109,8 +136,12 @@ public class Scratch extends CodeBase {
             // write the html header in the web page
             writer.println(HtmlReportHeader("jaemzware-verifylogos [baseurl:"+baseurl+" starturl:"+starturl+" logoxpath:"+logoxpath+"]"));
 
+            //get current page to detect change
+            String oldUrl=driver.getCurrentUrl();
+            
             // navigate to the starting page
             fileWriteString = driverGetWithTime(starturl);
+            WaitForPageChange(oldUrl, starturl);
 
             // write stats to html report
             writer.println(fileWriteString);
@@ -170,8 +201,11 @@ public class Scratch extends CodeBase {
                     continue;
                 }
                 
+                oldUrl=driver.getCurrentUrl();
+            
                 // go to the href
                 fileWriteString = driverGetWithTime(href);
+                WaitForPageChange(oldUrl, href);
 
                 // write stats to html report
                 writer.println(fileWriteString);
