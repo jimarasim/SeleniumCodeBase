@@ -63,7 +63,7 @@ public class CodeBase {
 
     // appium hub
     private static final String appiumHub = "10.1.10.155:4723";
-    private static final String appiumHubLocal = "localhost:4723";
+    private static final String appiumHubLocal = "0.0.0.0:4723";
 
     // recognized command line variables
     protected static String userid = null; // for tests that need to authenticate
