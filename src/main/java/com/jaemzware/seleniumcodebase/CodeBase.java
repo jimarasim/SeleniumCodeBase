@@ -27,6 +27,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -40,9 +41,6 @@ import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
-
-import org.apache.commons.lang.StringUtils;
-import org.openqa.selenium.Platform;
 
 /**
  * CodeBase
@@ -73,8 +71,7 @@ public class CodeBase {
     protected static String aNumber = null; // for specifying a generic number for usage or comparison (Sql.java), will
                                             // fail if not integer parseable
     protected static String aString = null; // for specifiying a generic string for usage or comparison (Sql.java)
-    
-    
+
     protected static EnvironmentType environment = null;
     protected static BrowserType browser = null;
 
@@ -99,19 +96,12 @@ public class CodeBase {
         StringBuilder returnString = new StringBuilder();
 
         // standard header
-        returnString.append("<html><head><title>")
-                .append(titleHeaderString)
-                .append("</title>")
-                .append("<style>")
+        returnString.append("<html><head><title>").append(titleHeaderString).append("</title>").append("<style>")
                 .append("table td, table th {border: 1px solid black;text-align:left;vertical-align:top;}")
                 .append(".warning {background-color:#C0C0C0;color:#FFFF00;}")
                 .append(".severe {background-color:#C0C0C0;color:#FF0000;}")
-                .append(".info {background-color:#C0C0C0;color:#000000;}")
-                .append("</style>")
-                .append("</head>")
-                .append("<body><h1>")
-                .append(titleHeaderString)
-                .append("</h1>");
+                .append(".info {background-color:#C0C0C0;color:#000000;}").append("</style>").append("</head>")
+                .append("<body><h1>").append(titleHeaderString).append("</h1>");
         // paypal
         returnString.append("<form action='https://www.paypal.com/cgi-bin/webscr' method='post' target='_top'>");
         returnString.append("<input type='hidden' name='cmd' value='_s-xclick'>");
@@ -132,8 +122,7 @@ public class CodeBase {
      */
     protected String HtmlReportFooter() {
         StringBuilder returnString = new StringBuilder();
-        
-        
+
         returnString.append("<hr>");
 
         returnString
@@ -149,7 +138,6 @@ public class CodeBase {
                 .append("<img alt='' border='0' src='https://www.paypalobjects.com/en_US/i/scr/pixel.gif' width='1' height='1'>");
         returnString.append("</form>");
 
-        
         return (returnString.toString());
     }
 
@@ -157,28 +145,29 @@ public class CodeBase {
      * This function gets the command line parameters. Will be called by StartDriver to be backwards compatible.
      * Separated out so that tests can get the parameters without having to start the driver
      * 
-     * @return String indicating whether GetParameters() succeeded in obtaining valid values. An empty string will be returned if there were no errors
+     * @return String indicating whether GetParameters() succeeded in obtaining valid values. An empty string will be
+     *         returned if there were no errors
      */
     protected static String GetParameters() {
         System.out.println("COMMAND LINE PARAMETERS");
 
-    //USERID
+        // USERID
         // get userid specified on command line
         String useridParm = System.getProperty("userid");
-        
-        if(useridParm==null||useridParm.isEmpty()){
+
+        if (useridParm == null || useridParm.isEmpty()) {
             System.out.println("-Duserid NOT SPECIFIED.");
         } else {
             userid = useridParm;
 
             System.out.println("-Duserid:" + userid);
         }
-    
-    //PASSWORD
+
+        // PASSWORD
         // get password specified on command line
         String passwordParm = System.getProperty("password");
-        
-        if(passwordParm==null||passwordParm.isEmpty()){
+
+        if (passwordParm == null || passwordParm.isEmpty()) {
             System.out.println("-Dpassword NOT SPECIFIED.");
         } else {
             password = passwordParm;
@@ -186,11 +175,11 @@ public class CodeBase {
             System.out.println("-Dpassword:********");
         }
 
-    //INPUT
+        // INPUT
         // get input specified on command line
         String inputParm = System.getProperty("input");
-        
-        if(inputParm==null||inputParm.isEmpty()){
+
+        if (inputParm == null || inputParm.isEmpty()) {
             System.out.println("-Dinput NOT SPECIFIED.");
         } else {
             input = inputParm;
@@ -198,11 +187,11 @@ public class CodeBase {
             System.out.println("-Dinput:" + input);
         }
 
-    //ANUMBER
+        // ANUMBER
         // get aNumber specified on command line
         String aNumberParm = System.getProperty("aNumber");
-        
-        if(aNumberParm==null||aNumberParm.isEmpty()) {
+
+        if (aNumberParm == null || aNumberParm.isEmpty()) {
             System.out.println("-DaNumber NOT SPECIFIED.");
         } else {
             // make sure aNumber is parseable
@@ -213,17 +202,18 @@ public class CodeBase {
 
                 System.out.println("-DaNumber:" + aNumber);
             } catch (NumberFormatException nfx) {
-                return "-DaNumber:" + aNumberParm + " SPECIFIED IS NOT A PARSEABLE INT. RETURNING FALSE (MAY BE IGNORED BY SOME TESTS)";
-                
+                return "-DaNumber:" + aNumberParm
+                        + " SPECIFIED IS NOT A PARSEABLE INT. RETURNING FALSE (MAY BE IGNORED BY SOME TESTS)";
+
             }
 
         }
 
-    //ASTRING
+        // ASTRING
         // get aString specified on command line
         String aStringParm = System.getProperty("aString");
-        
-        if(aStringParm==null||aStringParm.isEmpty()){
+
+        if (aStringParm == null || aStringParm.isEmpty()) {
             System.out.println("-DaString NOT SPECIFIED.");
         } else {
             aString = aStringParm;
@@ -231,11 +221,11 @@ public class CodeBase {
             System.out.println("-DaString:" + aString);
         }
 
-    //BROWSER
+        // BROWSER
         // get browser type specified on command line
         String browserParm = System.getProperty("browser");
 
-        if(browserParm==null||browserParm.isEmpty()){
+        if (browserParm == null || browserParm.isEmpty()) {
             // if browser is not specified, output which one is being used by default
             System.out.println("-Dbrowser NOT SPECIFIED.");
         } else {
@@ -245,26 +235,26 @@ public class CodeBase {
                 System.out.println("-Dbrowser:" + browserParm);
             } catch (IllegalArgumentException ex) {
                 StringBuilder invalidBrowserMessage = new StringBuilder();
-                
+
                 invalidBrowserMessage.append("INVALID BROWSER (-Dbrowser) SPECIFIED:");
                 invalidBrowserMessage.append(browserParm);
                 invalidBrowserMessage.append(" VALID VALUES:");
-                
+
                 BrowserType allBrowsers[] = BrowserType.values();
-                for(BrowserType validBrowser:allBrowsers){
+                for (BrowserType validBrowser : allBrowsers) {
                     invalidBrowserMessage.append(validBrowser);
                     invalidBrowserMessage.append(" ");
                 }
-                    
+
                 return invalidBrowserMessage.toString();
             }
         }
 
-    //ENVIRONMENT
+        // ENVIRONMENT
         // get environment type specified on command line
         String environmentParm = System.getProperty("environment");
 
-        if(environmentParm==null||environmentParm.isEmpty()){
+        if (environmentParm == null || environmentParm.isEmpty()) {
             // if environment is not specified, output which one is being used by default
             System.out.println("-Denvironment NOT SPECIFIED. USING DEFAULT:" + environment);
         } else {
@@ -274,17 +264,17 @@ public class CodeBase {
                 System.out.println("-Denvironment:" + environmentParm);
             } catch (IllegalArgumentException ex) {
                 StringBuilder invalidEnvironmentMessage = new StringBuilder();
-                
+
                 invalidEnvironmentMessage.append("INVALID ENVIRONMENT (-Denvironment) SPECIFIED:");
                 invalidEnvironmentMessage.append(environmentParm);
                 invalidEnvironmentMessage.append(" VALID VALUES:");
-                
+
                 EnvironmentType allEnvironments[] = EnvironmentType.values();
-                for(EnvironmentType validEnvironment:allEnvironments){
+                for (EnvironmentType validEnvironment : allEnvironments) {
                     invalidEnvironmentMessage.append(validEnvironment);
                     invalidEnvironmentMessage.append(" ");
                 }
-                    
+
                 return invalidEnvironmentMessage.toString();
             }
         }
@@ -299,7 +289,7 @@ public class CodeBase {
      */
     protected void StartDriver() throws Exception {
 
-//        StartDriver("../");
+        // StartDriver("../");
         StartDriver("SeleniumGrid/");
     }
 
@@ -324,33 +314,32 @@ public class CodeBase {
      */
     protected static void StartDriver(String relativePathToDrivers) throws Exception {
 
-        if(browser==null){
+        if (browser == null) {
             throw new Exception("BROWSER (-Dbrowser) NOT SPECIFIED");
         }
-            
-        
+
         // LAUNCH APPIUM BROWSER IF AVAILABLE, AND DRIVER HASN'T BEEN SET
         // APPIUM (http://appium.io/) IS A TOOL FOR DRIVING MOBILE APPS WITH SELENIUM
         // SO FAR THIS ONLY USES THE MOBILE SAFARI APP
         // check if the request is for appium
-        if (driver == null && (browser == BrowserType.APPIUM||browser == BrowserType.APPIUMLOCAL)) {
+        if (driver == null && (browser == BrowserType.APPIUM || browser == BrowserType.APPIUMLOCAL)) {
             try {
                 // set desired capabilites for running safari on iphone simulator through appium
-                //http://appium.io/slate/en/v1.1.0/?ruby#appium-server-capabilities
+                // http://appium.io/slate/en/v1.1.0/?ruby#appium-server-capabilities
                 DesiredCapabilities cap = new DesiredCapabilities();
-                cap.setCapability("automationName","Appium"); //or Selendroid
-                cap.setCapability("platformName", "iOS"); //or Android, or FirefoxOS
+                cap.setCapability("automationName", "Appium"); // or Selendroid
+                cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
                 cap.setCapability("platformVersion", "8.1");
                 cap.setCapability("browserName", "Safari");
-                cap.setCapability("deviceName", "iPhone Simulator"); //OLD IPHONE name
-//                cap.setCapability("deviceName", "iPad Simulator"); //OLD IPAD name
-//                cap.setCapability("deviceName", "iPhone 5"); //new way?
-                
-//                cap.setCapability("device", "iPad Simulator"); //OLD CAPABILITY NAME
-                cap.setCapability("app", "safari"); //OLD CAPABILITY NAME
+                cap.setCapability("deviceName", "iPhone Simulator"); // OLD IPHONE name
+                // cap.setCapability("deviceName", "iPad Simulator"); //OLD IPAD name
+                // cap.setCapability("deviceName", "iPhone 5"); //new way?
+
+                // cap.setCapability("device", "iPad Simulator"); //OLD CAPABILITY NAME
+                cap.setCapability("app", "safari"); // OLD CAPABILITY NAME
 
                 // try to get the appium remote web driver
-                String appiumHubToUse = (browser == BrowserType.APPIUMLOCAL)?appiumHub:appiumHubLocal;
+                String appiumHubToUse = (browser == BrowserType.APPIUMLOCAL) ? appiumHub : appiumHubLocal;
                 driver = new RemoteWebDriver(new URL("http://" + appiumHubToUse + "/wd/hub"), cap);
 
                 // augment the driver so that screenshots can be taken
@@ -370,7 +359,7 @@ public class CodeBase {
 
                 // get the desired capabilities
                 DesiredCapabilities cap;
-                
+
                 // desired browser
                 switch (browser) {
                 case CHROME:
@@ -397,9 +386,8 @@ public class CodeBase {
                             + " VALID: CHROME,CHROMELINUX,CHROMEMAC,FIREFOX,FIREFOXLINUX,SAFARI,IE8,IE9,IE10,IE11");
                 }
 
-                
-                //turn on debug logging if debug is specified. this takes longer
-                if(System.getProperty("logging")==null || browser.equals(BrowserType.APPIUM)){
+                // turn on debug logging if debug is specified. this takes longer
+                if (System.getProperty("logging") == null || browser.equals(BrowserType.APPIUM)) {
                 } else {
                     LoggingPreferences loggingprefs = new LoggingPreferences();
                     loggingprefs.enable(LogType.BROWSER, Level.ALL);
@@ -420,8 +408,8 @@ public class CodeBase {
                 // desired version (as set by grid node)
                 cap.setVersion(browser.version);
 
-                System.out.println("FINDING SELENIUM GRID NODE:" + browser.browserName + " VERSION:"
-                        + browser.version + " PLATFORM:" + browser.platform.toString());
+                System.out.println("FINDING SELENIUM GRID NODE:" + browser.browserName + " VERSION:" + browser.version
+                        + " PLATFORM:" + browser.platform.toString());
 
                 // get the grid node
                 String gridHubFullPath = "http://" + seleniumGridHub + ":4444/wd/hub";
@@ -470,7 +458,8 @@ public class CodeBase {
                     System.setProperty("webdriver.chrome.driver", relativePathToDrivers + "chromedrivermac"); // FOR MAC
                     break;
                 case UNIX:
-                    System.setProperty("webdriver.chrome.driver", relativePathToDrivers + "chromedriverlinux64"); // FOR unix
+                    System.setProperty("webdriver.chrome.driver", relativePathToDrivers + "chromedriverlinux64"); // FOR
+                                                                                                                  // unix
                     break;
                 default:
                     throw new Exception("-Dbrowser=" + browser + " IS UNSUPPORTED NATIVELY ON THIS OS:" + GetOsType());
@@ -502,44 +491,44 @@ public class CodeBase {
                     // get the chrome driver/start regular chrome
                     // get the desired capabilities
                     DesiredCapabilities cap = DesiredCapabilities.chrome();
-                    
-                    //use in cognito browser 
-//                    ChromeOptions options = new ChromeOptions();
-//                    options.addArguments("-incognito");
-//                    cap.setCapability(ChromeOptions.CAPABILITY, options);
-//                    opens incognito browser, but the throws the error:
-//                    java.lang.AssertionError: unknown error: No current window
-                    //JavaScript stack:
-                    //Error: No current window
-                    //    at checkForExtensionError (chrome-extension://aapnijgdinlhnhlmodcfapnahmbfebeb/background.js:14:17)
-                    //    at Object.callback (chrome-extension://aapnijgdinlhnhlmodcfapnahmbfebeb/background.js:67:5)
-                    //    at safeCallbackApply (extensions::sendRequest:22:15)
-                    //    at handleResponse (extensions::sendRequest:77:7)
-                    //  (Session info: chrome=38.0.2125.104)
-                    //  (Driver info: chromedriver=2.9.248307,platform=Mac OS X 10.9.5 x86_64) (WARNING: The server did not provide any stacktrace information)
-                    //                    
-                    //turn on debug logging if debug is specified. this takes longer
-                    if(System.getProperty("logging")!=null){
+
+                    // use in cognito browser
+                    // ChromeOptions options = new ChromeOptions();
+                    // options.addArguments("-incognito");
+                    // cap.setCapability(ChromeOptions.CAPABILITY, options);
+                    // opens incognito browser, but the throws the error:
+                    // java.lang.AssertionError: unknown error: No current window
+                    // JavaScript stack:
+                    // Error: No current window
+                    // at checkForExtensionError
+                    // (chrome-extension://aapnijgdinlhnhlmodcfapnahmbfebeb/background.js:14:17)
+                    // at Object.callback (chrome-extension://aapnijgdinlhnhlmodcfapnahmbfebeb/background.js:67:5)
+                    // at safeCallbackApply (extensions::sendRequest:22:15)
+                    // at handleResponse (extensions::sendRequest:77:7)
+                    // (Session info: chrome=38.0.2125.104)
+                    // (Driver info: chromedriver=2.9.248307,platform=Mac OS X 10.9.5 x86_64) (WARNING: The server did
+                    // not provide any stacktrace information)
+                    //
+                    // turn on debug logging if debug is specified. this takes longer
+                    if (System.getProperty("logging") != null) {
                         LoggingPreferences loggingprefs = new LoggingPreferences();
                         loggingprefs.enable(LogType.BROWSER, Level.ALL);
-//                        loggingprefs.enable(LogType.CLIENT, Level.ALL); //chrome doesnt support this logging type
+                        // loggingprefs.enable(LogType.CLIENT, Level.ALL); //chrome doesnt support this logging type
                         loggingprefs.enable(LogType.DRIVER, Level.ALL);
                         cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
-                        
+
+                        driver = new ChromeDriver(cap);
+                    } else {
                         driver = new ChromeDriver(cap);
                     }
-                    else{
-                        driver = new ChromeDriver(cap);
-                    }
-                    
-                    
+
                 }
 
                 break;
             case FIREFOX:
             case FIREFOXLINUX:
             case FIREFOXMAC:
-                if(System.getProperty("logging")!=null){
+                if (System.getProperty("logging") != null) {
                     // get the desired capabilities
                     DesiredCapabilities cap = DesiredCapabilities.firefox();
 
@@ -550,8 +539,7 @@ public class CodeBase {
                     cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
 
                     driver = new FirefoxDriver(cap);
-                }
-                else{
+                } else {
                     driver = new FirefoxDriver();
                 }
                 break;
@@ -560,17 +548,17 @@ public class CodeBase {
                 if (GetOsType().equals(OsType.MAC)) {
                     DesiredCapabilities cap = DesiredCapabilities.safari();
                     cap.setPlatform(Platform.MAC);
-                    
-                    if(System.getProperty("logging")!=null){
+
+                    if (System.getProperty("logging") != null) {
                         LoggingPreferences loggingprefs = new LoggingPreferences();
                         loggingprefs.enable(LogType.BROWSER, Level.ALL);
                         loggingprefs.enable(LogType.CLIENT, Level.ALL);
                         loggingprefs.enable(LogType.DRIVER, Level.ALL);
                         cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
                     }
-                    
+
                     driver = new SafariDriver(cap);
-                    
+
                 } else {
                     throw new Exception("SAFARI IS UNSUPPORTED NATIVELY ON THIS OS:" + GetOsType());
                 }
@@ -584,7 +572,7 @@ public class CodeBase {
                     // if we're on windows, just look for the windows driver regardless of version
                     System.setProperty("webdriver.ie.driver", relativePathToDrivers + "IEDriverServer.exe");
 
-                    if(System.getProperty("logging")!=null){
+                    if (System.getProperty("logging") != null) {
                         // get the desired capabilities
                         DesiredCapabilities cap = DesiredCapabilities.firefox();
 
@@ -595,11 +583,10 @@ public class CodeBase {
                         cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
 
                         driver = new InternetExplorerDriver(cap);
-                    }
-                    else{
+                    } else {
                         driver = new InternetExplorerDriver();
                     }
-                    
+
                 } else {
                     throw new Exception("IE IS UNSUPPORTED NATIVELY ON THIS OS:" + GetOsType());
                 }
@@ -864,7 +851,20 @@ public class CodeBase {
             Multipart mp = (Multipart) messages[0].getContent();
             for (int j = 0; j < mp.getCount(); j++) {
                 if (mp.getBodyPart(j).isMimeType("text/plain")) {
+                    System.out.println("text/plain found");
                     firstMessage = (String) mp.getBodyPart(j).getContent();
+                } else if (mp.getBodyPart(j).isMimeType("text/html")) {
+                    System.out.println("RESEARCH-TEXT/HTML FOUND. COUNT:" + j);
+                    firstMessage = (String) mp.getBodyPart(j).getContent();
+                    System.out.println("RESEARCH-FIRSTMESSAGE:" + firstMessage);
+                    String indexFile = WriteHtmlContentToFile(firstMessage);
+
+                    if (indexFile != null) {
+                        return indexFile;
+                    } else {
+                        throw new Exception("COULD NOT WRITE EMAIL INDEX FILE");
+                    }
+
                 } else {
                     System.out.println("CONTENT TYPE:" + mp.getBodyPart(j).getContentType());
                 }
@@ -880,8 +880,40 @@ public class CodeBase {
         return firstMessage;
     }
 
+    /**
+     * This method writes html content to a file, so it can be viewed later
+     * 
+     * @param htmlContent
+     */
+    private static String WriteHtmlContentToFile(String htmlContent) {
+
+        PrintWriter writer = null;
+        String fileName = null;
+
+        try {
+            fileName = "Index-" + getDateStamp() + ".htm";
+
+            writer = new PrintWriter(fileName, "UTF-8");
+
+            writer.println(htmlContent);
+        } catch (Exception ex) {
+            System.out.println("WARNING: COULD NOT WRITE EMAIL RESPONSE IN HTM FILE:" + ex.getMessage());
+        } finally {
+            // WRITE THE FILE
+            // write the file if it was created
+            if (writer != null) {
+                writer.flush();
+                writer.close();
+
+                System.out.println("WROTE RESPONSE TO:" + fileName);
+            }
+        }
+
+        return fileName;
+    }
+
     // get a unique datestamp string
-    protected String getDateStamp() {
+    protected static String getDateStamp() {
         // generate a unique file name
         DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
         Date date = new Date();
