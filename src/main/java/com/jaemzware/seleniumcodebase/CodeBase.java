@@ -63,6 +63,7 @@ public class CodeBase {
 
     // appium hub
     private static final String appiumHub = "10.1.10.155:4723";
+    private static final String appiumHubLocal = "localhost:4723";
 
     // recognized command line variables
     protected static String userid = null; // for tests that need to authenticate
@@ -332,7 +333,7 @@ public class CodeBase {
         // APPIUM (http://appium.io/) IS A TOOL FOR DRIVING MOBILE APPS WITH SELENIUM
         // SO FAR THIS ONLY USES THE MOBILE SAFARI APP
         // check if the request is for appium
-        if (driver == null && browser == BrowserType.APPIUM) {
+        if (driver == null && (browser == BrowserType.APPIUM||browser == BrowserType.APPIUMLOCAL)) {
             try {
                 // set desired capabilites for running safari on iphone simulator through appium
                 //http://appium.io/slate/en/v1.1.0/?ruby#appium-server-capabilities
@@ -349,7 +350,8 @@ public class CodeBase {
                 cap.setCapability("app", "safari"); //OLD CAPABILITY NAME
 
                 // try to get the appium remote web driver
-                driver = new RemoteWebDriver(new URL("http://" + appiumHub + "/wd/hub"), cap);
+                String appiumHubToUse = (browser == BrowserType.APPIUMLOCAL)?appiumHub:appiumHubLocal;
+                driver = new RemoteWebDriver(new URL("http://" + appiumHubToUse + "/wd/hub"), cap);
 
                 // augment the driver so that screenshots can be taken
                 driver = new Augmenter().augment(driver);

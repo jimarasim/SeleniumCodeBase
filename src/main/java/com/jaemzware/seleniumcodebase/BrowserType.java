@@ -25,6 +25,7 @@ public enum BrowserType {
     IPHONE6("IPHONE","6",Platform.WINDOWS),
     IPAD4("IPAD","4",Platform.WINDOWS),
     ANDROID402("ANDROID","4.0.2",Platform.WINDOWS),
+    APPIUMLOCAL("","",Platform.MAC),
     APPIUM("","",Platform.MAC);
     
     public final String browserName;
