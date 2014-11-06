@@ -62,7 +62,7 @@ public class CodeBase {
     protected static final String jenkinsReportPath = "http://www.jaemzware.com/jenkinsArtifacts/";
 
     // appium hub
-    private static final String appiumHub = "localhost:4723";
+    private static final String appiumHub = "10.1.10.155:4723";
 
     // recognized command line variables
     protected static String userid = null; // for tests that need to authenticate
