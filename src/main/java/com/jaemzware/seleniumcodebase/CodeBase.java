@@ -961,15 +961,7 @@ public class CodeBase {
 
             String response = HttpGetReturnResponse(url);
 
-            // System.out.println(response);
-
-            // recreate web page
-            String fileName = "Index-RestRequest-" + getDateStamp() + ".htm";
-            PrintWriter writer = new PrintWriter(fileName, "UTF-8");
-            writer.println(response);
-            writer.flush();
-            writer.close();
-            System.out.println("WROTE RESPONSE TO:" + fileName);
+            CodeBase.WriteHtmlContentToFile(response);
         } catch (Exception ex) {
             CustomStackTrace("RestRequest EXCEPTION", ex);
             throw new Exception(ex);
