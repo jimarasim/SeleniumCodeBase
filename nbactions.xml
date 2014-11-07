@@ -7,7 +7,7 @@
                 <goal>surefire:test</goal>
                 <goal>-Dtest=Scratch#VerifyLogos</goal>
                 <goal>-DaNumber=3</goal>
-                <goal>-Dbrowser=CHROME</goal>
+                <goal>-Dbrowser=APPIUMLOCAL</goal>
                 <goal>-Dinput=https://seattlerules.com</goal>
                 <goal>-Duserid=seattlerules.com</goal>
                 <goal>-DaString=//a</goal>
@@ -34,7 +34,7 @@
                 <goal>surefire:test</goal>
                 <goal>-Dtest=Scratch#VerifyLogos</goal>
                 <goal>-DaNumber=3</goal>
-                <goal>-Dbrowser=CHROME</goal>
+                <goal>-Dbrowser=APPIUMLOCAL</goal>
                 <goal>-Dinput=https://seattlerules.com</goal>
                 <goal>-Duserid=seattlerules.com</goal>
                 <goal>-DaString=//a</goal>

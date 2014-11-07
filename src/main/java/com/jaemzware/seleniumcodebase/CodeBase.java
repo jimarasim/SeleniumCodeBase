@@ -61,7 +61,7 @@ public class CodeBase {
 
     // appium hub
     private static final String appiumHub = "10.1.10.155:4723";
-    private static final String appiumHubLocal = "0.0.0.0:4723";
+    private static final String appiumHubLocal = "localhost:4723";//127.0.0.1:4723"; //10.195.15.184
 
     // recognized command line variables
     protected static String userid = null; // for tests that need to authenticate
@@ -339,7 +339,7 @@ public class CodeBase {
                 cap.setCapability("app", "safari"); // OLD CAPABILITY NAME
 
                 // try to get the appium remote web driver
-                String appiumHubToUse = (browser == BrowserType.APPIUMLOCAL) ? appiumHub : appiumHubLocal;
+                String appiumHubToUse = (browser == BrowserType.APPIUMLOCAL) ? appiumHubLocal : appiumHub;
                 driver = new RemoteWebDriver(new URL("http://" + appiumHubToUse + "/wd/hub"), cap);
 
                 // augment the driver so that screenshots can be taken
@@ -602,12 +602,15 @@ public class CodeBase {
         // start with no cookies
 
         // safari 7.0.1 doesn't like this for some reason
-        if (browser != BrowserType.SAFARI) {
+        if (browser != BrowserType.SAFARI && 
+                browser != BrowserType.APPIUM && 
+                browser != BrowserType.APPIUMLOCAL) {
             driver.manage().deleteAllCookies();
         }
 
         // maximize browser (not supported by appium)
-        if (browser != BrowserType.APPIUM) {
+        if (browser != BrowserType.APPIUM && 
+                browser != BrowserType.APPIUMLOCAL) {
             // maximize the window
             driver.manage().window().maximize();
         }
