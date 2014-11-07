@@ -885,7 +885,7 @@ public class CodeBase {
      * 
      * @param htmlContent
      */
-    private static String WriteHtmlContentToFile(String htmlContent) {
+    protected static String WriteHtmlContentToFile(String htmlContent) {
 
         PrintWriter writer = null;
         String fileName = null;

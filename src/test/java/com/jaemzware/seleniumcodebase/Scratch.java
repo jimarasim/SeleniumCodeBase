@@ -1,7 +1,5 @@
 package com.jaemzware.seleniumcodebase;
 
-import static com.jaemzware.seleniumcodebase.CodeBase.GetParameters;
-import static com.jaemzware.seleniumcodebase.CodeBase.driver;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -38,27 +36,29 @@ public class Scratch extends CodeBase {
 
     /**
      * This method waits for the google search page to change, when paging through results
-     * @param oldUrl - old value of what should be at resultStatsTextXpath
-     * @param urlWithParms - informational only just used to print out to console, what page is being loaded
-     * @throws Exception 
+     * 
+     * @param oldUrl
+     *            - old value of what should be at resultStatsTextXpath
+     * @param urlWithParms
+     *            - informational only just used to print out to console, what page is being loaded
+     * @throws Exception
      */
-    private void WaitForPageChange(String oldUrl, String urlWithParms) throws Exception{
-            final String waitTillUrlIsNot=oldUrl; //string to wait for to change when the page is loaded
-            
-            // wait for links to be loaded by waiting for the resultStatsText to change
-            (new WebDriverWait(driver, defaultImplicitWait)).until(new ExpectedCondition<Boolean>() {
-                @Override
-                public Boolean apply(WebDriver d) {
-                    return !driver.getCurrentUrl().equals(waitTillUrlIsNot);
-                }
-            });
-            
-            //hardcoded wait (i hate these) to avoid stale element references later.
-            Thread.sleep(sleepForNextPage);
-     
+    private void WaitForPageChange(String oldUrl, String urlWithParms) throws Exception {
+        final String waitTillUrlIsNot = oldUrl; // string to wait for to change when the page is loaded
+
+        // wait for links to be loaded by waiting for the resultStatsText to change
+        (new WebDriverWait(driver, defaultImplicitWait)).until(new ExpectedCondition<Boolean>() {
+            @Override
+            public Boolean apply(WebDriver d) {
+                return !driver.getCurrentUrl().equals(waitTillUrlIsNot);
+            }
+        });
+
+        // hardcoded wait (i hate these) to avoid stale element references later.
+        Thread.sleep(sleepForNextPage);
+
     }
-    
-    
+
     @Before
     public void BeforeTest() {
         try {// start the webdriver
@@ -68,22 +68,19 @@ public class Scratch extends CodeBase {
 
             // initialize verifification errors
             verificationErrors = new StringBuilder();
-            
+
             String getParameterResult = GetParameters();
-            if(!getParameterResult.isEmpty()){
+            if (!getParameterResult.isEmpty()) {
                 System.out.println(getParameterResult);
                 throw new InvalidParameterException();
             }
 
-        } 
-        catch (InvalidParameterException ipex) {
+        } catch (InvalidParameterException ipex) {
             Assert.fail("INVALID PARAMETERS FOUND");
-        }
-        catch (FileNotFoundException fnfex){
-            Assert.fail(propertiesFile+" NOT FOUND");
-        }
-        catch(IOException ioex){
-            Assert.fail(propertiesFile+" IO EXCEPTION");
+        } catch (FileNotFoundException fnfex) {
+            Assert.fail(propertiesFile + " NOT FOUND");
+        } catch (IOException ioex) {
+            Assert.fail(propertiesFile + " IO EXCEPTION");
         }
     }
 
@@ -142,6 +139,11 @@ public class Scratch extends CodeBase {
             // navigate to the starting page
             fileWriteString = driverGetWithTime(starturl);
             WaitForPageChange(oldUrl, starturl);
+            
+            // save off starting page
+            System.out.println("SAVING STARTING PAGE");
+            String htmlContent = driver.getPageSource();
+            WriteHtmlContentToFile(htmlContent);
 
             // write stats to html report
             writer.println(fileWriteString);
@@ -263,23 +265,22 @@ public class Scratch extends CodeBase {
     public void CheckGmail() {
         // uses app password for gmail. app name "Scratch" https://support.google.com/accounts/answer/185833
         try {
-            
-            //check for required parameters
-            if(input==null){
+
+            // check for required parameters
+            if (input == null) {
                 throw new Exception("SEARCH STRING NOT SPECIFIED (-Dinput)");
             }
-            
-            if(userid==null){
+
+            if (userid == null) {
                 throw new Exception("USERID NOT SPECIFIED (-Duserid)");
             }
-            
-            if(password==null){
+
+            if (password == null) {
                 throw new Exception("PASSWORD NOT SPECIFIED (-Dpassword)");
             }
-            
-            System.out.println(GetFirstEmailMessageForSearchTerm("imap.gmail.com", userid, password,
-                        "Inbox", input, 30000));
-            
+
+            System.out.println(GetFirstEmailMessageForSearchTerm("imap.gmail.com", userid, password, "Inbox", input,
+                    30000));
 
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
@@ -323,19 +324,19 @@ public class Scratch extends CodeBase {
 
     /**
      * This method verifies logoxpath is on the currentpage
+     * 
      * @param xpathToVerify
      */
-    private String VerifyXpathOnCurrentPage(String xpathToVerify){
-        
-        StringBuilder outputString=new StringBuilder();
-        
+    private String VerifyXpathOnCurrentPage(String xpathToVerify) {
+
+        StringBuilder outputString = new StringBuilder();
+
         String href = driver.getCurrentUrl();
-        
+
         // if logo is not present, don't assert/fail, just add a verification error,
         // so all links get checked regardless of ones that fail
         if (!IsElementPresent(By.xpath(xpathToVerify), 2000)) {
-            verificationErrors.append("URL:").append(href).append(" MISSING LOGO:").append(xpathToVerify)
-                    .append("\n");
+            verificationErrors.append("URL:").append(href).append(" MISSING LOGO:").append(xpathToVerify).append("\n");
 
             // write error to html report
             outputString.append("<br /><p class='severe'>PAGE MISSING LOGO XPATH:");
@@ -346,53 +347,54 @@ public class Scratch extends CodeBase {
             outputString.append(href);
             outputString.append("</a><br />");
 
-        }
-        else{
+        } else {
             outputString.append("<table><th>XPATH MATCHES FOR:").append(xpathToVerify).append("</th>");
             String tagString;
             String imageSrc;
-            
-            List<WebElement> xpathElementMatches = driver.findElements(By.xpath(xpathToVerify));
-//            List<WebElement> xpathElementMatches = driver.findElements(By.xpath("name("+xpathToVerify+")"));
 
-            
-            for(WebElement we: xpathElementMatches){
-                try{
+            List<WebElement> xpathElementMatches = driver.findElements(By.xpath(xpathToVerify));
+            // List<WebElement> xpathElementMatches = driver.findElements(By.xpath("name("+xpathToVerify+")"));
+
+            for (WebElement we : xpathElementMatches) {
+                try {
                     tagString = we.getTagName();
-                }
-                catch(Exception ex){
-                    System.out.println("WARNING: EXCEPTION GETTING TAG STRING SRC FROM XPATH ELEMENT."+ex.getMessage());
-                    outputString.append("<span class='warning'>WARNING: EXCEPTION GETTING TAG STRING FROM XPATH ELEMENT:").append(ex.getMessage()).append("</span>");
+                } catch (Exception ex) {
+                    System.out.println("WARNING: EXCEPTION GETTING TAG STRING SRC FROM XPATH ELEMENT."
+                            + ex.getMessage());
+                    outputString
+                            .append("<span class='warning'>WARNING: EXCEPTION GETTING TAG STRING FROM XPATH ELEMENT:")
+                            .append(ex.getMessage()).append("</span>");
                     break;
                 }
 
                 outputString.append("<tr>");
                 outputString.append("<td>");
-                if(tagString.toLowerCase().equals("img")){
-                    
-                    try{
+                if (tagString.toLowerCase().equals("img")) {
+
+                    try {
                         imageSrc = we.getAttribute("src");
-                    }
-                    catch(Exception ex){
-                        System.out.println("WARNING: EXCEPTION GETTING IMAGE SRC FROM XPATH ELEMENT."+ex.getMessage());
-                        outputString.append("<span class='warning'>WARNING: EXCEPTION GETTING IMAGE SRC FROM XPATH ELEMENT:").append(ex.getMessage()).append("</span>");
+                    } catch (Exception ex) {
+                        System.out
+                                .println("WARNING: EXCEPTION GETTING IMAGE SRC FROM XPATH ELEMENT." + ex.getMessage());
+                        outputString
+                                .append("<span class='warning'>WARNING: EXCEPTION GETTING IMAGE SRC FROM XPATH ELEMENT:")
+                                .append(ex.getMessage()).append("</span>");
                         break;
                     }
-                    
-                    if(imageSrc!=null && !imageSrc.isEmpty()){
+
+                    if (imageSrc != null && !imageSrc.isEmpty()) {
                         outputString.append("<img src='").append(imageSrc).append("' />");
-                    }
-                    else{
+                    } else {
                         outputString.append("<p class='warning'>WARNING: IMAGE SRC IS EMPTY</p>");
                     }
-                }
-                else{
-                    try{
+                } else {
+                    try {
                         outputString.append(we.getText());
-                    }
-                    catch(Exception ex){
-                        System.out.println("WARNING: EXCEPTION GETTING TEXT FROM XPATH ELEMENT:"+ex.getMessage());
-                        outputString.append("<span class='warning'>WARNING: EXCEPTION GETTING TEXT FROM XPATH ELEMENT:").append(ex.getMessage()).append("</span>");
+                    } catch (Exception ex) {
+                        System.out.println("WARNING: EXCEPTION GETTING TEXT FROM XPATH ELEMENT:" + ex.getMessage());
+                        outputString
+                                .append("<span class='warning'>WARNING: EXCEPTION GETTING TEXT FROM XPATH ELEMENT:")
+                                .append(ex.getMessage()).append("</span>");
                         break;
                     }
                 }
@@ -402,56 +404,52 @@ public class Scratch extends CodeBase {
             outputString.append("</table>");
 
         }
-        
+
         return outputString.toString();
     }
 
-//ERROR LOGGING - TAKES LONG - ADD CAPABILITY WHEN CREATING driver BEFORE USING
+    // ERROR LOGGING - TAKES LONG - ADD CAPABILITY WHEN CREATING driver BEFORE USING
     private String ExtractJSLogs() {
         StringBuilder logString = new StringBuilder();
         logString.append("<table>");
-        
+
         LogEntries browserLog = driver.manage().logs().get(LogType.BROWSER);
-        if(browserLog.getAll().size()>0){
+        if (browserLog.getAll().size() > 0) {
             logString.append("<tr><td colspan=2><h3>BROWSER</h3></td></tr>");
             logString.append("<tr><td>LEVEL</td><td>MESSAGE</td></tr>");
             logString.append(WriteLogEntryRows(browserLog));
-        }
-        else{
+        } else {
             logString.append("<tr><td colspan=2>No BROWSER log entries found.</td></tr>");
         }
-        
+
         LogEntries clientLog = driver.manage().logs().get(LogType.CLIENT);
-        if(clientLog.getAll().size()>0){
+        if (clientLog.getAll().size() > 0) {
             logString.append("<tr><td colspan=2><h3>CLIENT</h3></td></tr>");
             logString.append("<tr><td>LEVEL</td><td>MESSAGE</td></tr>");
             logString.append(WriteLogEntryRows(clientLog));
-        }
-        else{
+        } else {
             logString.append("<tr><td colspan=2>No CLIENT log entries found.</td></tr>");
         }
-//        
-//        LogEntries driverLog = driver.manage().logs().get(LogType.DRIVER);
-//        if(driverLog.getAll().size()>0){
-//            logString.append("<tr><td colspan=2><h3>DRIVER</h3></td></tr>");
-//            logString.append("<tr><td>LEVEL</td><td>MESSAGE</td></tr>");
-//            logString.append(WriteLogEntryRows(driverLog));
-//        }
-//        else{
-//            logString.append("<tr><td colspan=2>No DRIVER log entries found.</td></tr>");
-//        }
-//        
-        
-        
+        //
+        // LogEntries driverLog = driver.manage().logs().get(LogType.DRIVER);
+        // if(driverLog.getAll().size()>0){
+        // logString.append("<tr><td colspan=2><h3>DRIVER</h3></td></tr>");
+        // logString.append("<tr><td>LEVEL</td><td>MESSAGE</td></tr>");
+        // logString.append(WriteLogEntryRows(driverLog));
+        // }
+        // else{
+        // logString.append("<tr><td colspan=2>No DRIVER log entries found.</td></tr>");
+        // }
+        //
+
         logString.append("</table>");
         return logString.toString();
     }
-    
-//ERROR LOGGING - TAKES LONG - ADD CAPABILITY WHEN CREATING driver BEFORE USING
-    private String WriteLogEntryRows(LogEntries entries)
-    {
+
+    // ERROR LOGGING - TAKES LONG - ADD CAPABILITY WHEN CREATING driver BEFORE USING
+    private String WriteLogEntryRows(LogEntries entries) {
         StringBuilder logEntryRows = new StringBuilder();
-        
+
         String errorLevel;
         for (LogEntry entry : entries) {
             errorLevel = entry.getLevel().toString();
@@ -472,10 +470,8 @@ public class Scratch extends CodeBase {
             logEntryRows.append(errorLevel).append("</b></td>");
             logEntryRows.append("<td>").append(entry.getMessage()).append("</td></tr>");
         }
-        
+
         return logEntryRows.toString();
     }
-    
-    
 
 }
