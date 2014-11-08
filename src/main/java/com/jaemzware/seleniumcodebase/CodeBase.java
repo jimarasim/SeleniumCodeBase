@@ -492,23 +492,6 @@ public class CodeBase {
                     // get the desired capabilities
                     DesiredCapabilities cap = DesiredCapabilities.chrome();
 
-                    // use in cognito browser
-                    // ChromeOptions options = new ChromeOptions();
-                    // options.addArguments("-incognito");
-                    // cap.setCapability(ChromeOptions.CAPABILITY, options);
-                    // opens incognito browser, but the throws the error:
-                    // java.lang.AssertionError: unknown error: No current window
-                    // JavaScript stack:
-                    // Error: No current window
-                    // at checkForExtensionError
-                    // (chrome-extension://aapnijgdinlhnhlmodcfapnahmbfebeb/background.js:14:17)
-                    // at Object.callback (chrome-extension://aapnijgdinlhnhlmodcfapnahmbfebeb/background.js:67:5)
-                    // at safeCallbackApply (extensions::sendRequest:22:15)
-                    // at handleResponse (extensions::sendRequest:77:7)
-                    // (Session info: chrome=38.0.2125.104)
-                    // (Driver info: chromedriver=2.9.248307,platform=Mac OS X 10.9.5 x86_64) (WARNING: The server did
-                    // not provide any stacktrace information)
-                    //
                     // turn on debug logging if debug is specified. this takes longer
                     if (System.getProperty("logging") != null) {
                         LoggingPreferences loggingprefs = new LoggingPreferences();
