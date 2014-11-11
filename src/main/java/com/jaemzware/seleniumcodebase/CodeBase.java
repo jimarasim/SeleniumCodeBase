@@ -53,6 +53,7 @@ public class CodeBase {
 
     // selenium grid hub
     protected static final String seleniumGridHub = "localhost";
+    protected static String aHubPort = "4444";
 
     // jenkins report folder url
     protected static final String jenkinsReportHeader = "";
@@ -221,6 +222,17 @@ public class CodeBase {
             System.out.println("-DaString:" + aString);
         }
 
+        // AHUBPORT
+        // get aHubPort specified on command line (for selenium grid hub), FOR WHEN IT'S DIFFERENT THAN 4444
+        String aHubPortParm = System.getProperty("aHubPort");
+
+        if (aHubPortParm == null || aHubPortParm.isEmpty()) {
+            System.out.println("-DaHubPort NOT SPECIFIED. USING DEFAULT.");
+        } else {
+            aHubPort = aHubPortParm;
+        }
+        System.out.println("-DaHubPort:" + aHubPort);
+        
         // BROWSER
         // get browser type specified on command line
         String browserParm = System.getProperty("browser");
@@ -412,7 +424,7 @@ public class CodeBase {
                         + " PLATFORM:" + browser.platform.toString());
 
                 // get the grid node
-                String gridHubFullPath = "http://" + seleniumGridHub + ":4444/wd/hub";
+                String gridHubFullPath = "http://" + seleniumGridHub + ":"+aHubPort+"/wd/hub";
                 System.out.println("CONTACTING SELENIUM GRID [USE -Dnogrid TO SKIP AND LAUNCH NATIVE (NON-GRID)] ");
                 driver = new RemoteWebDriver(new URL(gridHubFullPath), cap);
 
