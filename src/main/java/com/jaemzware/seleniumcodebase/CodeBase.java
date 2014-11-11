@@ -2,8 +2,10 @@ package com.jaemzware.seleniumcodebase;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DateFormat;
@@ -655,7 +657,7 @@ public class CodeBase {
      * IsElementPresent method, that allows one to specify how long to try finding the element
      * 
      * @param locatorKey
-     * @param waitTime
+     * @param waitTimeMillis
      * @return
      */
     protected boolean IsElementPresent(By locatorKey, int waitTimeMillis) {
@@ -664,11 +666,7 @@ public class CodeBase {
             driver.manage().timeouts().implicitlyWait(waitTimeMillis, TimeUnit.MILLISECONDS);
 
             // look for elements
-            if (driver.findElements(locatorKey).size() > 0) {
-                return true;
-            } else {
-                return false;
-            }
+            return driver.findElements(locatorKey).size() > 0;
         } catch (Exception ex) {
             return false;
         } finally {
@@ -682,7 +680,6 @@ public class CodeBase {
      * This method takes a screenshot, and puts it in the current working directory Made static so screenshot can be
      * taken from StartDriver
      * 
-     * @throws Exception
      */
     protected static void ScreenShot() {
         String fileName = "";
@@ -735,6 +732,7 @@ public class CodeBase {
      * 
      * @param url
      * @return
+     * @throws java.lang.Exception
      */
     protected String HttpGetReturnResponse(String url) throws Exception {
         // HTTPCLIENT/REST EXAMPLES
@@ -777,7 +775,9 @@ public class CodeBase {
      *            - the folder to search for messages in (e.g. "Inbox")
      * @param bodySearchTerm
      *            - the search term for matching messages to be returned
+     * @param millisToWait
      * @return
+     * @throws java.lang.Exception
      */
     protected String GetFirstEmailMessageForSearchTerm(String mailServer, String user, String password,
             String folderName, String bodySearchTerm, int millisToWait) throws Exception {
@@ -882,6 +882,7 @@ public class CodeBase {
      * This method writes html content to a file, so it can be viewed later
      * 
      * @param htmlContent
+     * @return 
      */
     protected static String WriteHtmlContentToFile(String htmlContent) {
 
@@ -894,7 +895,7 @@ public class CodeBase {
             writer = new PrintWriter(fileName, "UTF-8");
 
             writer.println(htmlContent);
-        } catch (Exception ex) {
+        } catch (FileNotFoundException | UnsupportedEncodingException ex) {
             System.out.println("WARNING: COULD NOT WRITE EMAIL RESPONSE IN HTM FILE:" + ex.getMessage());
         } finally {
             // WRITE THE FILE
