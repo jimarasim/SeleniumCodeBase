@@ -43,9 +43,11 @@ public class Scratch extends CodeBase {
      *            - informational only just used to print out to console, what page is being loaded
      * @throws Exception
      */
-    private void WaitForPageChange(String oldUrl, String urlWithParms) throws Exception {
+    private void WaitForPageChange(String oldUrl) throws Exception {
         final String waitTillUrlIsNot = oldUrl; // string to wait for to change when the page is loaded
 
+        System.out.println("WAITING FOR PAGE TO CHANGE FROM:"+oldUrl);
+        
         // wait for links to be loaded by waiting for the resultStatsText to change
         (new WebDriverWait(driver, defaultImplicitWait)).until(new ExpectedCondition<Boolean>() {
             @Override
@@ -56,6 +58,8 @@ public class Scratch extends CodeBase {
 
         // hardcoded wait (i hate these) to avoid stale element references later.
         Thread.sleep(sleepForNextPage);
+        
+        System.out.println("PAGE CHANGED FROM:"+oldUrl+" TO:"+driver.getCurrentUrl());
 
     }
 
@@ -138,7 +142,7 @@ public class Scratch extends CodeBase {
             
             // navigate to the starting page
             fileWriteString = driverGetWithTime(starturl);
-            WaitForPageChange(oldUrl, starturl);
+            WaitForPageChange(oldUrl);
             
             // save off starting page
             System.out.println("SAVING STARTING PAGE");
@@ -156,6 +160,7 @@ public class Scratch extends CodeBase {
             }
             
             // verify logo
+            System.out.println("VERIFYING LOGO AT:"+logoxpath+" ON:"+starturl);
             writer.println(VerifyXpathOnCurrentPage(logoxpath));
 
         //GET HREFS
@@ -163,38 +168,48 @@ public class Scratch extends CodeBase {
             Map<String, String> hrefs = new HashMap<>();
             String hrefFound;
 
+            //getting all internal hrefs
+            System.out.println("GETTING ALL INTERNAL ANCHORS MATCHING XPATH:"+linksOnSplashPageXpath+" ON:"+starturl);
             if (IsElementPresent(By.xpath(linksOnSplashPageXpath))) {
+                
+                System.out.println("FINDING ANCHOR ELEMENTS");
                 List<WebElement> internalAnchors = driver.findElements(By.xpath(linksOnSplashPageXpath));
                 
                 for (WebElement we : internalAnchors) {
-                    
                     try {
-                        we.getAttribute("href");
+                        hrefFound = we.getAttribute("href");
                     } catch (Exception ex) {
                         System.out.println("WARNING: EXCEPTION GETTING HREF FROM LIST.");
                         writer.println("<span class='warning'>WARNING: EXCEPTION GETTING HREF FROM LIST</span>");
                         break;
                     }
-                    hrefFound = we.getAttribute("href");
 
-                    // only get hrefs that contain the base url
-                    if (hrefFound.contains(baseurl)) {
+                    // only get hrefs that contain the base url, and html like pages
+                    if (hrefFound.toLowerCase().contains(baseurl) && 
+                            !hrefFound.toLowerCase().contains("rss") &&
+                            !hrefFound.toLowerCase().contains("javascript") &&
+                            !hrefFound.toLowerCase().contains(".jpg") &&
+                            !hrefFound.toLowerCase().contains(".jpeg") &&
+                            !hrefFound.toLowerCase().contains(".png") &&
+                            !hrefFound.toLowerCase().contains(".gif")) {
                         hrefs.put(hrefFound, starturl);
                         System.out.println("WILL VISIT:" + hrefFound);
                     } else {
                         System.out
-                                .println("SKIPPING: FOUND URL:" + hrefFound + " DOES NOT CONTAIN BASE URL:" + baseurl);
+                                .println("SKIPPING: URL:" + hrefFound+" ON:"+starturl + " DOES NOT CONTAIN BASE URL:" + baseurl);
                     }
 
                 }
             } else {
-                System.out.println("WARNING: NO LINKS FOUND ON PAGE MATCHING XPATH:" + linksOnSplashPageXpath);
+                System.out.println("WARNING: NO LINKS FOUND ON PAGE MATCHING XPATH:" + linksOnSplashPageXpath+" ON:"+starturl);
             }
 
         //VISIT HREFS
             // visit each href, report load time, and make sure the page has the logo
             int maxVisits = (aNumber!=null||!aNumber.isEmpty())?Integer.parseInt(aNumber):0; //check if the max number was specified
             int visitCount = 0;
+            
+            System.out.println("VISITING HREFS FOUND AT XPATH:"+linksOnSplashPageXpath+" ON:"+starturl);
             for (String href : hrefs.keySet()) {
 
                 // make sure we're on a real page, and not an image
@@ -208,7 +223,7 @@ public class Scratch extends CodeBase {
             
                 // go to the href
                 fileWriteString = driverGetWithTime(href);
-                WaitForPageChange(oldUrl, href);
+                WaitForPageChange(oldUrl);
 
                 // write stats to html report
                 writer.println(fileWriteString);
@@ -219,9 +234,11 @@ public class Scratch extends CodeBase {
                         browser.equals(BrowserType.APPIUM) || 
                         browser.equals(BrowserType.APPIUMLOCAL)){
                 } else {
+                    System.out.println("WRITING OUT LOGS FOR:"+href);
                     writer.println(ExtractJSLogs());
                 }
                 
+                System.out.println("VERIFYING LOGO AT:"+logoxpath+" ON:"+href);
                 writer.println(VerifyXpathOnCurrentPage(logoxpath));
                 
                 //check the desired image count, and break if it's been reached
@@ -232,6 +249,7 @@ public class Scratch extends CodeBase {
             }
 
         //COMPLETE WRITING REPORT WEB PAGE
+            System.out.println("WRITING REPORT FOOTER");
             writer.println(HtmlReportFooter());
 
             System.out.println("INDEX FILE WRITTEN:" + fileName);
