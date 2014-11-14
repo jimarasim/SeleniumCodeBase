@@ -43,6 +43,7 @@ import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.safari.SafariOptions;
 
 /**
  * CodeBase
@@ -64,7 +65,7 @@ public class CodeBase {
 
     // appium hub
     private static final String appiumHub = "10.1.10.155:4723";
-    private static final String appiumHubLocal = "localhost:4723";//127.0.0.1:4723"; //10.195.15.184
+    private static final String appiumHubLocal = "localhost:4723";// 127.0.0.1:4723"; //10.195.15.184
 
     // recognized command line variables
     protected static String userid = null; // for tests that need to authenticate
@@ -234,7 +235,7 @@ public class CodeBase {
             aHubPort = aHubPortParm;
         }
         System.out.println("-DaHubPort:" + aHubPort);
-        
+
         // BROWSER
         // get browser type specified on command line
         String browserParm = System.getProperty("browser");
@@ -388,6 +389,12 @@ public class CodeBase {
                     break;
                 case SAFARI:
                     cap = DesiredCapabilities.safari();
+
+                    // start safari clean (delete all cookies doesn't work)
+                    SafariOptions safariOptions = new SafariOptions();
+                    safariOptions.setUseCleanSession(true);
+                    cap.setCapability(SafariOptions.CAPABILITY, safariOptions);
+
                     break;
                 case IE8:
                 case IE9:
@@ -426,7 +433,7 @@ public class CodeBase {
                         + " PLATFORM:" + browser.platform.toString());
 
                 // get the grid node
-                String gridHubFullPath = "http://" + seleniumGridHub + ":"+aHubPort+"/wd/hub";
+                String gridHubFullPath = "http://" + seleniumGridHub + ":" + aHubPort + "/wd/hub";
                 System.out.println("CONTACTING SELENIUM GRID [USE -Dnogrid TO SKIP AND LAUNCH NATIVE (NON-GRID)] ");
                 driver = new RemoteWebDriver(new URL(gridHubFullPath), cap);
 
@@ -546,6 +553,11 @@ public class CodeBase {
                     DesiredCapabilities cap = DesiredCapabilities.safari();
                     cap.setPlatform(Platform.MAC);
 
+                    // start safari clean (delete all cookies doesn't work)
+                    SafariOptions safariOptions = new SafariOptions();
+                    safariOptions.setUseCleanSession(true);
+                    cap.setCapability(SafariOptions.CAPABILITY, safariOptions);
+
                     if (System.getProperty("logging") != null) {
                         LoggingPreferences loggingprefs = new LoggingPreferences();
                         loggingprefs.enable(LogType.BROWSER, Level.ALL);
@@ -599,15 +611,12 @@ public class CodeBase {
         // start with no cookies
 
         // safari 7.0.1 doesn't like this for some reason
-        if (browser != BrowserType.SAFARI && 
-                browser != BrowserType.APPIUM && 
-                browser != BrowserType.APPIUMLOCAL) {
+        if (browser != BrowserType.SAFARI && browser != BrowserType.APPIUM && browser != BrowserType.APPIUMLOCAL) {
             driver.manage().deleteAllCookies();
         }
 
         // maximize browser (not supported by appium)
-        if (browser != BrowserType.APPIUM && 
-                browser != BrowserType.APPIUMLOCAL) {
+        if (browser != BrowserType.APPIUM && browser != BrowserType.APPIUMLOCAL) {
             // maximize the window
             driver.manage().window().maximize();
         }
@@ -679,7 +688,6 @@ public class CodeBase {
     /**
      * This method takes a screenshot, and puts it in the current working directory Made static so screenshot can be
      * taken from StartDriver
-     * 
      */
     protected static void ScreenShot() {
         String fileName = "";
@@ -882,7 +890,7 @@ public class CodeBase {
      * This method writes html content to a file, so it can be viewed later
      * 
      * @param htmlContent
-     * @return 
+     * @return
      */
     protected static String WriteHtmlContentToFile(String htmlContent) {
 
