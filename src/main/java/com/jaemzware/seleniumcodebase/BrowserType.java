@@ -22,8 +22,8 @@ public enum BrowserType {
     IE9("InternetExplorer","9",Platform.WINDOWS), 
     IE10("InternetExplorer","10",Platform.WINDOWS),
     IE11("InternetExplorer","11",Platform.WINDOWS),
-    IPHONE6("IPHONE","6",Platform.WINDOWS),
-    IPAD4("IPAD","4",Platform.WINDOWS),
+    IPHONE6("IPHONE","6",Platform.MAC),
+    IPAD4("IPAD","4",Platform.MAC),
     ANDROID402("ANDROID","4.0.2",Platform.WINDOWS),
     APPIUMLOCAL("","",Platform.MAC),
     APPIUM("","",Platform.MAC);

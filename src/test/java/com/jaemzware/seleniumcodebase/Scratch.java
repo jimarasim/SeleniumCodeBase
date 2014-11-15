@@ -144,6 +144,8 @@ public class Scratch extends CodeBase {
             fileWriteString = driverGetWithTime(starturl);
             WaitForPageChange(oldUrl);
             
+            ScreenShot();
+            
             // save off starting page
             System.out.println("SAVING STARTING PAGE");
             String htmlContent = driver.getPageSource();
@@ -224,6 +226,8 @@ public class Scratch extends CodeBase {
                 // go to the href
                 fileWriteString = driverGetWithTime(href);
                 WaitForPageChange(oldUrl);
+                
+                ScreenShot();
 
                 // write stats to html report
                 writer.println(fileWriteString);
