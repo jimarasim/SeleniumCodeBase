@@ -55,7 +55,7 @@ public class CodeBase {
     protected static WebDriver driver = null;
 
     // selenium grid hub
-    protected static final String seleniumGridHub = "localhost";
+    protected static String aHubServer = "localhost";
     protected static String aHubPort = "4444";
 
     // jenkins report folder url
@@ -64,7 +64,7 @@ public class CodeBase {
     protected static final String jenkinsReportPath = "http://www.jaemzware.com/jenkinsArtifacts/";
 
     // appium hub
-    private static final String appiumHub = "10.1.10.155:4723";
+    private static final String appiumHub = "localhost:4723";
     private static final String appiumHubLocal = "localhost:4723";// 127.0.0.1:4723"; //10.195.15.184
 
     // recognized command line variables
@@ -225,16 +225,27 @@ public class CodeBase {
             System.out.println("-DaString:" + aString);
         }
 
+        // AHUBSERVER
+        // get aHubServer specified on command line (for selenium grid hub), FOR WHEN IT'S DIFFERENT THAN LOCALHOST
+        String aHubServerParm = System.getProperty("aHubServer");
+
+        if (aHubServerParm == null || aHubServerParm.isEmpty()) {
+            System.out.println("-DaHubServer NOT SPECIFIED. USING DEFAULT aHubServer:"+aHubServer);
+        } else {
+            aHubServer = aHubServerParm;
+            System.out.println("-DaHubServer SPECIFIED. aHubServer:" + aHubServer);
+        }
+        
         // AHUBPORT
         // get aHubPort specified on command line (for selenium grid hub), FOR WHEN IT'S DIFFERENT THAN 4444
         String aHubPortParm = System.getProperty("aHubPort");
 
         if (aHubPortParm == null || aHubPortParm.isEmpty()) {
-            System.out.println("-DaHubPort NOT SPECIFIED. USING DEFAULT.");
+            System.out.println("-DaHubPort NOT SPECIFIED. USING DEFAULT aHubPort:"+aHubPort);
         } else {
             aHubPort = aHubPortParm;
+            System.out.println("-DaHubPort SPECIFIED. aHubPort:" + aHubPort);
         }
-        System.out.println("-DaHubPort:" + aHubPort);
 
         // BROWSER
         // get browser type specified on command line
@@ -434,7 +445,7 @@ public class CodeBase {
                         + " PLATFORM:" + browser.platform.toString());
 
                 // get the grid node
-                String gridHubFullPath = "http://" + seleniumGridHub + ":" + aHubPort + "/wd/hub";
+                String gridHubFullPath = "http://" + aHubServer + ":" + aHubPort + "/wd/hub";
                 System.out.println("CONTACTING SELENIUM GRID [USE -Dnogrid TO SKIP AND LAUNCH NATIVE (NON-GRID)] ");
                 driver = new RemoteWebDriver(new URL(gridHubFullPath), cap);
 
