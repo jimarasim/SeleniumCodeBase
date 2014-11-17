@@ -64,8 +64,8 @@ public class CodeBase {
     protected static final String jenkinsReportPath = "http://www.jaemzware.com/jenkinsArtifacts/";
 
     // appium hub
-    private static final String appiumHub = "localhost:4723";
-    private static final String appiumHubLocal = "localhost:4723";// 127.0.0.1:4723"; //10.195.15.184
+//    private static final String appiumHub = "localhost:4723";
+//    private static final String appiumHubLocal = "localhost:4723";// 127.0.0.1:4723"; //10.195.15.184
 
     // recognized command line variables
     protected static String userid = null; // for tests that need to authenticate
@@ -348,35 +348,35 @@ public class CodeBase {
         // APPIUM (http://appium.io/) IS A TOOL FOR DRIVING MOBILE APPS WITH SELENIUM
         // SO FAR THIS ONLY USES THE MOBILE SAFARI APP
         // check if the request is for appium
-        if (driver == null && (browser == BrowserType.APPIUM || browser == BrowserType.APPIUMLOCAL)) {
-            try {
-                // set desired capabilites for running safari on iphone simulator through appium
-                // http://appium.io/slate/en/v1.1.0/?ruby#appium-server-capabilities
-                DesiredCapabilities cap = new DesiredCapabilities();
-                cap.setCapability("automationName", "Appium"); // or Selendroid
-                cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
-                cap.setCapability("platformVersion", "8.1");
-                cap.setCapability("browserName", "Safari");
-                cap.setCapability("deviceName", "iJaemzware");
-                cap.setCapability("udid","88ff683cec637c3f1279386620b5397d48bc8341"); //get this udid for phone from itunes, click device, then click serial number
-//                cap.setCapability("deviceName", "iPhone Simulator");
-//                cap.setCapability("deviceName", "iPad Simulator"); 
-
-                // cap.setCapability("device", "iPad Simulator"); //OLD CAPABILITY NAME
-                cap.setCapability("app", "safari"); // OLD CAPABILITY NAME
-
-                // try to get the appium remote web driver
-                String appiumHubToUse = (browser == BrowserType.APPIUMLOCAL) ? appiumHubLocal : appiumHub;
-                driver = new RemoteWebDriver(new URL("http://" + appiumHubToUse + "/wd/hub"), cap);
-
-                // augment the driver so that screenshots can be taken
-                driver = new Augmenter().augment(driver);
-
-                System.out.println("SUCCESSFULLY LAUNCHED APPIUM");
-            } catch (MalformedURLException ex) {
-                throw new Exception("APPIUM:" + ex.getMessage());
-            }
-        }
+//        if (driver == null && (browser == BrowserType.APPIUM)) {
+//            try {
+//                // set desired capabilites for running safari on iphone simulator through appium
+//                // http://appium.io/slate/en/v1.1.0/?ruby#appium-server-capabilities
+//                DesiredCapabilities cap = new DesiredCapabilities();
+//                cap.setCapability("automationName", "Appium"); // or Selendroid
+//                cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
+//                cap.setCapability("platformVersion", "8.1");
+//                cap.setCapability("browserName", "Safari");
+//                cap.setCapability("deviceName", "iJaemzware");
+//                cap.setCapability("udid","88ff683cec637c3f1279386620b5397d48bc8341"); //get this udid for phone from itunes, click device, then click serial number
+////                cap.setCapability("deviceName", "iPhone Simulator");
+////                cap.setCapability("deviceName", "iPad Simulator"); 
+//
+//                // cap.setCapability("device", "iPad Simulator"); //OLD CAPABILITY NAME
+//                cap.setCapability("app", "safari"); // OLD CAPABILITY NAME
+//
+//                // try to get the appium remote web driver
+//                String appiumHubToUse = appiumHub;
+//                driver = new RemoteWebDriver(new URL("http://" + appiumHubToUse + "/wd/hub"), cap);
+//
+//                // augment the driver so that screenshots can be taken
+//                driver = new Augmenter().augment(driver);
+//
+//                System.out.println("SUCCESSFULLY LAUNCHED APPIUM");
+//            } catch (MalformedURLException ex) {
+//                throw new Exception("APPIUM:" + ex.getMessage());
+//            }
+//        }
 
         // LAUNCH GRID BROWSER IF AVAILABLE, AND DRIVER HASN'T BEEN SET
         // try to get the browser on selenium grid
@@ -389,57 +389,72 @@ public class CodeBase {
 
                 // desired browser
                 switch (browser) {
-                case CHROME:
-                case CHROMELINUX:
-                case CHROMEMAC:
-                    cap = DesiredCapabilities.chrome();
-                    break;
-                case FIREFOX:
-                case FIREFOXLINUX:
-                case FIREFOXMAC:
-                    cap = DesiredCapabilities.firefox();
-                    break;
-                case SAFARI:
-                    cap = DesiredCapabilities.safari();
+                    case APPIUM:
+                        cap = new DesiredCapabilities();
+                        cap.setCapability("automationName", "Appium"); // or Selendroid
+                        cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
+                        cap.setCapability("platformVersion", "8.1");
+                        cap.setCapability("browserName", "Safari");
+                        cap.setCapability("deviceName", "iPhone Simulator"); //"iPad Simulator"
+                        cap.setCapability("app", "safari"); 
+                        
+//                      cap.setCapability("deviceName", "iJaemzware");
+//                      cap.setCapability("udid","88ff683cec637c3f1279386620b5397d48bc8341"); //get this udid for phone from itunes, click device, then click serial number
 
-                    // start safari clean (delete all cookies doesn't work)
-                    SafariOptions safariOptions = new SafariOptions();
-                    safariOptions.setUseCleanSession(true);
-                    cap.setCapability(SafariOptions.CAPABILITY, safariOptions);
+                        break;
+                    case CHROME:
+                    case CHROMELINUX:
+                    case CHROMEMAC:
+                        cap = DesiredCapabilities.chrome();
+                        break;
+                    case FIREFOX:
+                    case FIREFOXLINUX:
+                    case FIREFOXMAC:
+                        cap = DesiredCapabilities.firefox();
+                        break;
+                    case SAFARI:
+                        cap = DesiredCapabilities.safari();
 
-                    break;
-                case IE8:
-                case IE9:
-                case IE10:
-                case IE11:
-                    cap = DesiredCapabilities.internetExplorer();
-                    break;
-                default:
-                    throw new Exception("UNSUPPORTED FOR GRID -Dbrowser=" + browser
-                            + " VALID: CHROME,CHROMELINUX,CHROMEMAC,FIREFOX,FIREFOXLINUX,SAFARI,IE8,IE9,IE10,IE11");
+                        // start safari clean (delete all cookies doesn't work)
+                        SafariOptions safariOptions = new SafariOptions();
+                        safariOptions.setUseCleanSession(true);
+                        cap.setCapability(SafariOptions.CAPABILITY, safariOptions);
+
+                        break;
+                    case IE8:
+                    case IE9:
+                    case IE10:
+                    case IE11:
+                        cap = DesiredCapabilities.internetExplorer();
+                        break;
+                    default:
+                        throw new Exception("NOT CONFIGURED TO LAUNCH THIS BROWSER ON GRID. -Dbrowser:\" + browser");
                 }
 
-                // turn on debug logging if debug is specified. this takes longer
-                if (System.getProperty("logging") == null || browser.equals(BrowserType.APPIUM)) {
-                } else {
-                    LoggingPreferences loggingprefs = new LoggingPreferences();
-                    loggingprefs.enable(LogType.BROWSER, Level.ALL);
-                    loggingprefs.enable(LogType.CLIENT, Level.ALL);
-                    loggingprefs.enable(LogType.DRIVER, Level.ALL);
-                    cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
+                //don't do any this for appium
+                if(browser!=BrowserType.APPIUM){
+                    // turn on debug logging if debug is specified. this takes longer
+                    if (System.getProperty("logging") == null || browser.equals(BrowserType.APPIUM)) {
+                    } else {
+                        LoggingPreferences loggingprefs = new LoggingPreferences();
+                        loggingprefs.enable(LogType.BROWSER, Level.ALL);
+                        loggingprefs.enable(LogType.CLIENT, Level.ALL);
+                        loggingprefs.enable(LogType.DRIVER, Level.ALL);
+                        cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
+                    }
+
+                    // accept all ssl certificates by default
+                    cap.setCapability("acceptSslCerts", true);
+
+                    // set desired platform (as specified by grid node)
+                    cap.setPlatform(browser.platform);
+
+                    // desired browser name (as set by grid node)
+                    cap.setBrowserName(browser.browserName);
+
+                    // desired version (as set by grid node)
+                    cap.setVersion(browser.version);
                 }
-
-                // accept all ssl certificates by default
-                cap.setCapability("acceptSslCerts", true);
-
-                // set desired platform (as specified by grid node)
-                cap.setPlatform(browser.platform);
-
-                // desired browser name (as set by grid node)
-                cap.setBrowserName(browser.browserName);
-
-                // desired version (as set by grid node)
-                cap.setVersion(browser.version);
 
                 System.out.println("FINDING SELENIUM GRID NODE:" + browser.browserName + " VERSION:" + browser.version
                         + " PLATFORM:" + browser.platform.toString());
@@ -477,9 +492,9 @@ public class CodeBase {
             case CHROMELINUX:
             case CHROMEMAC:
             case CHROME:
-            case IPHONE6: // CHROME EMULATOR
-            case IPAD4: // CHROME EMULATOR
-            case ANDROID402: // CHROME EMULATOR
+            case CHROMEIPHONE6: // CHROME EMULATOR
+            case CHROMEIPAD4: // CHROME EMULATOR
+            case CHROMEANDROID402: // CHROME EMULATOR
 
                 // chrome uses a different driver binary depending on what os we're on
                 switch (GetOsType()) {
@@ -498,22 +513,22 @@ public class CodeBase {
                     throw new Exception("-Dbrowser=" + browser + " IS UNSUPPORTED NATIVELY ON THIS OS:" + GetOsType());
                 }
 
-                // USE CHROME OPTIONS TO SET THE USER AGENT IF REQUESTED (e.g. IPHONE6)
-                if (browser.equals(BrowserType.IPHONE6)) {
+                // USE CHROME OPTIONS TO SET THE USER AGENT IF REQUESTED (e.g. CHROMEIPHONE6)
+                if (browser.equals(BrowserType.CHROMEIPHONE6)) {
                     ChromeOptions options = new ChromeOptions();
 
                     // iphone ios6
                     options.addArguments("--user-agent=Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25");
 
                     driver = new ChromeDriver(options);
-                } else if (browser.equals(BrowserType.IPAD4)) {
+                } else if (browser.equals(BrowserType.CHROMEIPAD4)) {
                     ChromeOptions options = new ChromeOptions();
 
                     // ipad ios4
                     options.addArguments("--user-agent=Mozilla/5.0 (iPad; CPU OS 4_3_2 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8H7 Safari/6533.18.5");
 
                     driver = new ChromeDriver(options);
-                } else if (browser.equals(BrowserType.ANDROID402)) {
+                } else if (browser.equals(BrowserType.CHROMEANDROID402)) {
                     ChromeOptions options = new ChromeOptions();
 
                     // android 4.0.2
@@ -613,8 +628,7 @@ public class CodeBase {
                 }
                 break;
             default:
-                throw new Exception("UNSUPPORTED -Dbrowser:" + browser
-                        + " VALID BROWSERS (NOGRID):FIREFOX,CHROME,SAFARI,IE8,IE9,IE10,IE11");
+                throw new Exception("NOT CONFIGURED TO LAUNCH THIS BROWSER LOCALLY. MUST USE GRID -Dbrowser:" + browser);
             }
 
             System.out.println("SUCCESSFULLY LAUNCHED LOCAL BROWSER FOR:" + browser + " ON:" + GetOsType());
@@ -623,12 +637,12 @@ public class CodeBase {
         // start with no cookies
 
         // safari 7.0.1 doesn't like this for some reason
-        if (browser != BrowserType.SAFARI && browser != BrowserType.APPIUM && browser != BrowserType.APPIUMLOCAL) {
+        if (browser != BrowserType.SAFARI && browser != BrowserType.APPIUM) {
             driver.manage().deleteAllCookies();
         }
 
         // maximize browser (not supported by appium)
-        if (browser != BrowserType.APPIUM && browser != BrowserType.APPIUMLOCAL) {
+        if (browser != BrowserType.APPIUM) {
             // maximize the window
             driver.manage().window().maximize();
         }
