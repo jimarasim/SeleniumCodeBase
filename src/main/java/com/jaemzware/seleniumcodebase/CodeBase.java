@@ -347,10 +347,9 @@ public class CodeBase {
                 cap.setCapability("platformVersion", "8.1");
                 cap.setCapability("browserName", "Safari");
                 cap.setCapability("deviceName", "iJaemzware");
-                cap.setCapability("udid","88ff683cec637c3f1279386620b5397d48bc8341");
-//                cap.setCapability("deviceName", "iPhone Simulator"); // OLD IPHONE name
-                // cap.setCapability("deviceName", "iPad Simulator"); //OLD IPAD name
-                // cap.setCapability("deviceName", "iPhone 5"); //new way?
+                cap.setCapability("udid","88ff683cec637c3f1279386620b5397d48bc8341"); //get this udid for phone from itunes, click device, then click serial number
+//                cap.setCapability("deviceName", "iPhone Simulator");
+//                cap.setCapability("deviceName", "iPad Simulator"); 
 
                 // cap.setCapability("device", "iPad Simulator"); //OLD CAPABILITY NAME
                 cap.setCapability("app", "safari"); // OLD CAPABILITY NAME
