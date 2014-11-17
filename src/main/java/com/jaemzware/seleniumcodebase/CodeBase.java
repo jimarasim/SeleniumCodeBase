@@ -346,7 +346,9 @@ public class CodeBase {
                 cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
                 cap.setCapability("platformVersion", "8.1");
                 cap.setCapability("browserName", "Safari");
-                cap.setCapability("deviceName", "iPhone Simulator"); // OLD IPHONE name
+                cap.setCapability("deviceName", "iJaemzware");
+                cap.setCapability("udid","88ff683cec637c3f1279386620b5397d48bc8341");
+//                cap.setCapability("deviceName", "iPhone Simulator"); // OLD IPHONE name
                 // cap.setCapability("deviceName", "iPad Simulator"); //OLD IPAD name
                 // cap.setCapability("deviceName", "iPhone 5"); //new way?
 
