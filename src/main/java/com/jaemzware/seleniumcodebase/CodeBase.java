@@ -61,7 +61,8 @@ public class CodeBase {
     // jenkins report folder url
     protected static final String jenkinsReportHeader = "";
     protected static final String jenkinsReportFooter = "";
-    protected static final String jenkinsReportPath = "http://www.jaemzware.com/jenkinsArtifacts/";
+    protected static final String jenkinsReportPath = "http://50.251.226.90:8080/";
+    
 
     // appium hub
 //    private static final String appiumHub = "localhost:4723";
