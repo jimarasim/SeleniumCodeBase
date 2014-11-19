@@ -62,6 +62,7 @@ public class CodeBase {
     protected static final String jenkinsReportHeader = "";
     protected static final String jenkinsReportFooter = "";
     protected static final String jenkinsReportPath = "http://50.251.226.90:8080/";
+    protected static final String jenkinsReportPathInternal = "http://10.1.10.156:8080/";
     
 
     // appium hub
