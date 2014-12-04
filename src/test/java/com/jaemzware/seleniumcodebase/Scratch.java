@@ -177,6 +177,10 @@ public class Scratch extends CodeBase {
                 System.out.println("FINDING ANCHOR ELEMENTS");
                 List<WebElement> internalAnchors = driver.findElements(By.xpath(linksOnSplashPageXpath));
                 
+                if(internalAnchors.size()<1){
+                    throw new Exception("NO LINKS FOUND AT XPATH:"+linksOnSplashPageXpath+" ON PAGE:"+starturl);
+                }
+                
                 for (WebElement we : internalAnchors) {
                     try {
                         hrefFound = we.getAttribute("href");
