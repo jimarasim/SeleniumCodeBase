@@ -126,6 +126,7 @@ VERIFYLOGOS-GRID / LOGGING SAMPLES:
 VERIFYLOGOS-NOGRID / LOGGING SAMPLES:
     mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=CHROME -Dinput=http://joeypaintbrush.com/ -Duserid=joeypaintbrush.com -DaString="//a[contains(text(),'Home')]" -Dlogging -Dnogrid test
     mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=CHROME -Dinput=https://www.blackmarketskates.seattlerules.com/theshop -Duserid=blackmarketskates.seattlerules.com -DaString="//a[contains(text(),'SHOP')]" -Dlogging -Dnogrid test
+    mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=CHROMEIPHONE6 -Dinput=https://www.blackmarketskates.seattlerules.com/theshop -Duserid=blackmarketskates.seattlerules.com -DaString="//a[contains(text(),'SHOP')]" -Dlogging -Dnogrid test
     mvn -Dtest=Scratch#VerifyLogos -DaNumber=3 -Dbrowser=CHROME -Dinput=http:s//seattlerules.com -Duserid=seattlerules.com -DaString=//a -Dnogrid -Dlogging test 
     mvn -Dtest=Scratch#VerifyLogos -DaNumber=1 -Dbrowser=SAFARI -Dinput=https://seattlerules.com -Duserid=seattlerules.com -DaString=//a -Dnogrid -Dlogging test 
     mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=CHROME -Dinput=https://seattlerules.com -Duserid=seattlerules.com -DaString=//a -Dnogrid -Dlogging test 
