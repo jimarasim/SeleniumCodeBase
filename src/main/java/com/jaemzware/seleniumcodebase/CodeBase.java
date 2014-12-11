@@ -961,9 +961,10 @@ public class CodeBase {
      * get a url and print out the load time
      * 
      * @param href
+     * @throws Exception when driver can't get
      * @return html formatted output
      */
-    protected String driverGetWithTime(String href) {
+    protected String driverGetWithTime(String href) throws Exception{
         long startTime;
 
         String htmlOutput = "";
