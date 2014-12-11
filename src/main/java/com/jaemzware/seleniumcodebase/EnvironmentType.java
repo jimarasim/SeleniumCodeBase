@@ -6,5 +6,5 @@ package com.jaemzware.seleniumcodebase;
  * @author arasim
  */
 public enum EnvironmentType {
-    craigslist, ebay, tnaboard, backpage, google
+    craigslist, ebay, tnaboard, backpage, google, bbc
 }
