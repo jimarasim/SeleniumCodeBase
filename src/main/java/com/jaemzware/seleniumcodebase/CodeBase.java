@@ -926,7 +926,7 @@ public class CodeBase {
         String fileName = null;
 
         try {
-            fileName = "Index-" + getDateStamp() + ".htm";
+            fileName = "Index-RestRequest" + getDateStamp() + ".htm";
 
             writer = new PrintWriter(fileName, "UTF-8");
 
