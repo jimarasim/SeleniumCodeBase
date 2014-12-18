@@ -83,7 +83,7 @@ public class CodeBase {
 
     // default time IN SECONDS to wait when finding elements
     protected int defaultImplicitWait = 60;
-    protected static final int quickWaitMilliSeconds = 15000;
+    protected static final int quickWaitMilliSeconds = 5000;
 
     // verification errors that can occur during a test
     protected StringBuilder verificationErrors = new StringBuilder();
