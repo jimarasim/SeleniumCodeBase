@@ -976,7 +976,12 @@ public class CodeBase {
         // mark start time to report how long it takes to load the page
         startTime = System.currentTimeMillis();
 
-        driver.get(href);
+        try{
+            driver.get(href);
+        }
+        catch(Exception ex){
+            throw new Exception("DRIVER.GET FAILED. EXCEPTION:"+ex.getMessage());
+        }
 
         // print out load time, this can be used in splunk
         String loadTimeStatement = "LOADTIME(ms):" + (System.currentTimeMillis() - startTime);
