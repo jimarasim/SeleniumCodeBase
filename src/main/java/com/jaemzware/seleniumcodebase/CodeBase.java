@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -61,7 +60,7 @@ public class CodeBase {
     // jenkins report folder url
     protected static final String jenkinsReportHeader = "";
     protected static final String jenkinsReportFooter = "";
-    protected static final String jenkinsReportPath = "http://50.251.226.90:8080/";
+    protected static final String jenkinsReportPath = "http://jaemzware.com:8080/";
     protected static final String jenkinsReportPathInternal = "http://10.1.10.156:8080/";
 
     // recognized command line variables
@@ -360,13 +359,11 @@ public class CodeBase {
                         cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
                         cap.setCapability("platformVersion", "8.1");
                         cap.setCapability("browserName", "Safari");
-                        cap.setCapability("deviceName", "iPhone Simulator"); //"iPad Simulator"
-                        cap.setCapability("app", "safari"); 
-                        
+//                      cap.setCapability("deviceName", "iPhone Simulator"); //"iPad Simulator"
+                        cap.setCapability("app", "/Users/jimarasim/Downloads/installed/jaemzware/iOSDev/Scratch/Scratch.ipa"); 
+                        cap.setCapability("udid","88ff683cec637c3f1279386620b5397d48bc8341"); //get this udid for phone from itunes, click device, then click serial number
+                        cap.setCapability("deviceName", "iJaemzware"); //"iPad Simulator"
                         System.out.println("ASSUMING APPIUM IS STARTED.  IF THIS FAILS, IT MIGHT NOT BE.");
-//                      cap.setCapability("deviceName", "iJaemzware");
-//                      cap.setCapability("udid","88ff683cec637c3f1279386620b5397d48bc8341"); //get this udid for phone from itunes, click device, then click serial number
-
                         break;
                     case CHROME:
                     case CHROMELINUX:
@@ -610,10 +607,11 @@ public class CodeBase {
         if (browser != BrowserType.APPIUM) {
             // maximize the window
             driver.manage().window().maximize();
+            
+            // set the main window handle
+            mainWindowHandle = driver.getWindowHandle();
         }
 
-        // set the main window handle
-        mainWindowHandle = driver.getWindowHandle();
 
     }
 
