@@ -63,11 +63,6 @@ public class CodeBase {
     protected static final String jenkinsReportFooter = "";
     protected static final String jenkinsReportPath = "http://50.251.226.90:8080/";
     protected static final String jenkinsReportPathInternal = "http://10.1.10.156:8080/";
-    
-
-    // appium hub
-//    private static final String appiumHub = "localhost:4723";
-//    private static final String appiumHubLocal = "localhost:4723";// 127.0.0.1:4723"; //10.195.15.184
 
     // recognized command line variables
     protected static String userid = null; // for tests that need to authenticate
@@ -347,44 +342,11 @@ public class CodeBase {
             throw new Exception("BROWSER (-Dbrowser) NOT SPECIFIED");
         }
 
-        // LAUNCH APPIUM BROWSER IF AVAILABLE, AND DRIVER HASN'T BEEN SET
-        // APPIUM (http://appium.io/) IS A TOOL FOR DRIVING MOBILE APPS WITH SELENIUM
-        // SO FAR THIS ONLY USES THE MOBILE SAFARI APP
-        // check if the request is for appium
-//        if (driver == null && (browser == BrowserType.APPIUM)) {
-//            try {
-//                // set desired capabilites for running safari on iphone simulator through appium
-//                // http://appium.io/slate/en/v1.1.0/?ruby#appium-server-capabilities
-//                DesiredCapabilities cap = new DesiredCapabilities();
-//                cap.setCapability("automationName", "Appium"); // or Selendroid
-//                cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
-//                cap.setCapability("platformVersion", "8.1");
-//                cap.setCapability("browserName", "Safari");
-//                cap.setCapability("deviceName", "iJaemzware");
-//                cap.setCapability("udid","88ff683cec637c3f1279386620b5397d48bc8341"); //get this udid for phone from itunes, click device, then click serial number
-////                cap.setCapability("deviceName", "iPhone Simulator");
-////                cap.setCapability("deviceName", "iPad Simulator"); 
-//
-//                // cap.setCapability("device", "iPad Simulator"); //OLD CAPABILITY NAME
-//                cap.setCapability("app", "safari"); // OLD CAPABILITY NAME
-//
-//                // try to get the appium remote web driver
-//                String appiumHubToUse = appiumHub;
-//                driver = new RemoteWebDriver(new URL("http://" + appiumHubToUse + "/wd/hub"), cap);
-//
-//                // augment the driver so that screenshots can be taken
-//                driver = new Augmenter().augment(driver);
-//
-//                System.out.println("SUCCESSFULLY LAUNCHED APPIUM");
-//            } catch (MalformedURLException ex) {
-//                throw new Exception("APPIUM:" + ex.getMessage());
-//            }
-//        }
-
         // LAUNCH GRID BROWSER IF AVAILABLE, AND DRIVER HASN'T BEEN SET
         // try to get the browser on selenium grid
         // don't do this if -Dnogrid is specified though
-        if (driver == null && System.getProperty("nogrid") == null) {
+        if (driver == null && 
+                System.getProperty("nogrid") == null) {
             try {
 
                 // get the desired capabilities
@@ -401,6 +363,7 @@ public class CodeBase {
                         cap.setCapability("deviceName", "iPhone Simulator"); //"iPad Simulator"
                         cap.setCapability("app", "safari"); 
                         
+                        System.out.println("ASSUMING APPIUM IS STARTED.  IF THIS FAILS, IT MIGHT NOT BE.");
 //                      cap.setCapability("deviceName", "iJaemzware");
 //                      cap.setCapability("udid","88ff683cec637c3f1279386620b5397d48bc8341"); //get this udid for phone from itunes, click device, then click serial number
 
@@ -485,9 +448,8 @@ public class CodeBase {
                 driver = null;
             }
         }
-
         // LAUNCH LOCAL BROWSER, IF DRIVER HASN'T BEEN SET
-        if (driver == null) {
+        else {
             System.out.println("ATTEMPTING TO LAUNCH LOCAL BROWSER:" + browser + " ON:" + GetOsType());
 
             switch (browser) {
@@ -927,7 +889,7 @@ public class CodeBase {
         String fileName = null;
 
         try {
-            fileName = "Index-RestRequest" + getDateStamp() + ".htm";
+            fileName = "Index-WriteHtmlContent" + getDateStamp() + ".htm";
 
             writer = new PrintWriter(fileName, "UTF-8");
 

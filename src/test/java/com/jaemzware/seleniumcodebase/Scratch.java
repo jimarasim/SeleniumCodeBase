@@ -30,7 +30,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class Scratch extends CodeBase {
     static final String propertiesFile = "src/test/java/com/jaemzware/seleniumcodebase/selenium.properties";
     static Properties properties = new Properties();
-    static final int sleepForNextPage = 3000;
+    static final int sleepForNextPage = 2000;
 
     private final String linksOnSplashPageXpath = "//a[@href and not(@href='') and not(contains(@href,'javascript:')) and not(contains(@href,'mailto:'))]";
 
@@ -147,9 +147,9 @@ public class Scratch extends CodeBase {
 //            ScreenShot();
             
             // save off starting page
-            System.out.println("SAVING STARTING PAGE");
-            String htmlContent = driver.getPageSource();
-            WriteHtmlContentToFile(htmlContent);
+//            System.out.println("SAVING STARTING PAGE");
+//            String htmlContent = driver.getPageSource();
+//            WriteHtmlContentToFile(htmlContent);
 
             // write stats to html report
             writer.println(fileWriteString);
