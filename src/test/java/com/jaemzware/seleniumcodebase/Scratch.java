@@ -57,7 +57,7 @@ public class Scratch extends CodeBase {
         });
 
         // hardcoded wait (i hate these) to avoid stale element references later.
-        Thread.sleep(sleepForNextPage);
+//        Thread.sleep(sleepForNextPage);
         
         System.out.println("PAGE CHANGED FROM:"+oldUrl+" TO:"+driver.getCurrentUrl());
 
