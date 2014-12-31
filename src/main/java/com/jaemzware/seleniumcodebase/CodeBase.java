@@ -362,14 +362,23 @@ public class CodeBase {
                         cap.setCapability("deviceName", "iPhone Simulator"); //"iPad Simulator"
                         System.out.println("ASSUMING APPIUM IS STARTED.  IF THIS FAILS, IT MIGHT NOT BE.");
                         break;
-                    case APPIUMSCRATCH:
+                    case APPIUMDEVICE:
                         cap = new DesiredCapabilities();
                         cap.setCapability("automationName", "Appium"); // or Selendroid
                         cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
                         cap.setCapability("platformVersion", "8.1");
-                            cap.setCapability("app", "/Users/jimarasim/Downloads/installed/jaemzware/iOSDev/Scratch/Scratch.ipa"); 
+                        cap.setCapability("app", "/Users/jimarasim/Downloads/installed/jaemzware/iOSDev/Scratch/Scratch.ipa"); 
                         cap.setCapability("udid","88ff683cec637c3f1279386620b5397d48bc8341"); //get this udid for phone from itunes, click device, then click serial number
                         cap.setCapability("deviceName", "iJaemzware"); //"iPad Simulator"
+                        System.out.println("ASSUMING APPIUM IS STARTED.  IF THIS FAILS, IT MIGHT NOT BE.");
+                        break;
+                    case APPIUMSIMULATOR:
+                        cap = new DesiredCapabilities();
+                        cap.setCapability("automationName", "Appium"); // or Selendroid
+                        cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
+                        cap.setCapability("platformVersion", "8.1");
+                        cap.setCapability("app", "/Users/jimarasim/Downloads/installed/jaemzware/iOSDev/Scratch/Scratch.ipa"); 
+                        cap.setCapability("deviceName", "iPhone Simulator"); //"iPad Simulator"
                         System.out.println("ASSUMING APPIUM IS STARTED.  IF THIS FAILS, IT MIGHT NOT BE.");
                         break;
                     case CHROME:
