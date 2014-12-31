@@ -402,9 +402,9 @@ public class CodeBase {
                 }
 
                 //don't do any this for appium
-                if(browser!=BrowserType.APPIUM){
+                if(!browser.toString().contains("APPIUM")){
                     // turn on debug logging if debug is specified. this takes longer
-                    if (System.getProperty("logging") == null || browser.equals(BrowserType.APPIUM)) {
+                    if (System.getProperty("logging") == null || browser.toString().contains("APPIUM")) {
                     } else {
                         LoggingPreferences loggingprefs = new LoggingPreferences();
                         loggingprefs.enable(LogType.BROWSER, Level.ALL);
@@ -606,12 +606,13 @@ public class CodeBase {
         // start with no cookies
 
         // safari 7.0.1 doesn't like this for some reason
-        if (browser != BrowserType.SAFARI && browser != BrowserType.APPIUM) {
+        if (browser != BrowserType.SAFARI && 
+                !browser.toString().contains("APPIUM")) {
             driver.manage().deleteAllCookies();
         }
 
         // maximize browser (not supported by appium)
-        if (browser != BrowserType.APPIUM) {
+        if (!browser.toString().contains("APPIUM")) {
             // maximize the window
             driver.manage().window().maximize();
             

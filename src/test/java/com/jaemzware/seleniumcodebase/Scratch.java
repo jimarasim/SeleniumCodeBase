@@ -88,6 +88,22 @@ public class Scratch extends CodeBase {
         }
     }
 
+    @Test 
+    public void IosScratchAppClickButton(){
+        try{
+            
+            StartDriver();
+            
+            List<WebElement> elements = driver.findElements(By.xpath("//*"));
+            for(WebElement web:elements){
+                System.out.println("TAG:"+web.getTagName()+" TEXT:"+web.getText());
+            }
+        }
+        catch(Exception ex){
+            
+        }
+    }
+    
     @Test
     public void VerifyLogos() {
 
@@ -155,7 +171,7 @@ public class Scratch extends CodeBase {
             writer.println(fileWriteString);
 
         //LOGGING
-            if(System.getProperty("logging")==null || browser.equals(BrowserType.APPIUM)){
+            if(System.getProperty("logging")==null || browser.toString().contains("APPIUM")){
                 System.out.println("LOGGING DISABLED AND/OR APPIUM SPECIFIED, WHICH DOES NOT WORK WITH LOGGING");
             } else {
                 writer.println(ExtractJSLogs());
@@ -239,7 +255,7 @@ public class Scratch extends CodeBase {
                 
         //ERROR LOGGING - TAKES LONG - ADD CAPABILITY WHEN CREATING driver BEFORE USING
                 if(System.getProperty("logging")==null || 
-                        browser.equals(BrowserType.APPIUM) ){
+                        browser.toString().contains("APPIUM") ){
                 } else {
                     System.out.println("WRITING OUT LOGS FOR:"+href);
                     writer.println(ExtractJSLogs());
