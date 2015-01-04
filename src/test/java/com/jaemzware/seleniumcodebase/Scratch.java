@@ -35,7 +35,7 @@ public class Scratch extends CodeBase {
     private final String linksOnSplashPageXpath = "//a[@href and not(@href='') and not(contains(@href,'javascript:')) and not(contains(@href,'mailto:'))]";
 
     /**
-     * This method waits for the google search page to change, when paging through results
+     * This method waits for the page to change, when paging through results
      * 
      * @param oldUrl
      *            - old value of what should be at resultStatsTextXpath
@@ -55,9 +55,6 @@ public class Scratch extends CodeBase {
                 return !driver.getCurrentUrl().equals(waitTillUrlIsNot);
             }
         });
-
-        // hardcoded wait (i hate these) to avoid stale element references later.
-//        Thread.sleep(sleepForNextPage);
         
         System.out.println("PAGE CHANGED FROM:"+oldUrl+" TO:"+driver.getCurrentUrl());
 
