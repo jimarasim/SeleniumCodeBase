@@ -78,7 +78,7 @@ public class CodeBase {
     // default time IN SECONDS to wait when finding elements
     protected int defaultImplicitWait = 60;
     protected static final int quickWaitMilliSeconds = 5000;
-    protected static final int waitForPageLoadMilliSeconds = 20000;
+    protected static int waitForPageLoadMilliSeconds = 0;  //can be overridden from comand line
 
     // verification errors that can occur during a test
     protected StringBuilder verificationErrors = new StringBuilder();
@@ -152,6 +152,25 @@ public class CodeBase {
     protected static String GetParameters() {
         System.out.println("COMMAND LINE PARAMETERS");
 
+        // USERID
+        // get userid specified on command line
+        String waitForPageLoadMilliSecondsParm = System.getProperty("waitForPageLoadMilliSeconds");
+
+        if (waitForPageLoadMilliSecondsParm == null || waitForPageLoadMilliSecondsParm.isEmpty()) {
+            System.out.println("-DwaitForPageLoadMilliSeconds NOT SPECIFIED.");
+        } else {
+            // make sure aNumber is parseable
+            try {
+                waitForPageLoadMilliSeconds = Integer.parseInt(waitForPageLoadMilliSecondsParm);
+
+                System.out.println("-DwaitForPageLoadMilliSeconds:" + waitForPageLoadMilliSeconds);
+            } catch (NumberFormatException nfx) {
+                return "-DwaitForPageLoadMilliSecondsParm:" + waitForPageLoadMilliSecondsParm
+                        + " SPECIFIED IS NOT A PARSEABLE INT. RETURNING THIS STRING TO INDICATE FAILURE (MAY BE IGNORED BY SOME TESTS)";
+
+            }
+        }
+        
         // USERID
         // get userid specified on command line
         String useridParm = System.getProperty("userid");
@@ -953,6 +972,7 @@ public class CodeBase {
         // mark start time to report how long it takes to load the page
         startTime = System.currentTimeMillis();
 
+        // LOAD THE URL
         try{
             driver.get(href);
         }
@@ -960,10 +980,14 @@ public class CodeBase {
             throw new Exception("DRIVER.GET FAILED. EXCEPTION:"+ex.getMessage());
         }
 
-        // print out load time, this can be used in splunk
+        // PRINT OUT LOAD TIME
         String loadTimeStatement = "LOADTIME(ms):" + (System.currentTimeMillis() - startTime);
         System.out.println(loadTimeStatement);
         htmlOutput += "<br />" + loadTimeStatement;
+        
+        //OVERRIDEABLE SLEEP
+        System.out.println("SLEEP FROM COMMAND LINE PARAMETER: -DwaitForPageLoadMilliSeconds (IF SPECIFIED; OTHERWISE SOME DEFAULT)"+waitForPageLoadMilliSeconds+"ms");
+        Thread.sleep(waitForPageLoadMilliSeconds);
 
         return (htmlOutput);
 
