@@ -77,7 +77,7 @@ public class CodeBase {
 
     // default time IN SECONDS to wait when finding elements
     protected int defaultImplicitWait = 60;
-    protected static final int quickWaitMilliSeconds = 5000;
+    protected static final int quickWaitMilliSeconds = 5000;  //TODO: PHASING OUT IN PREFERENCE OF COMMAND OVERRIDEABLE waitForPageLoadMilliSeconds
     protected static int waitForPageLoadMilliSeconds = 0;  //can be overridden from comand line
 
     // verification errors that can occur during a test
@@ -471,7 +471,7 @@ public class CodeBase {
                 if (ex.getMessage().contains("Error forwarding")) {
                     System.out.println("SELENIUM GRID NODE 'browserName=" + browser.browserName + ",version="
                             + browser.version + "' NOT LAUNCHED EXCEPTION:" + ex.getMessage());
-                } else if (ex.getMessage().contains("Could not start a new session")) {
+                } else if (ex.getMessage().contains("COULD NOT START A NEW SESSION")) {
                     System.out.println("SELENIUM GRID HUB NOT LAUNCHED EXCEPTION:" + ex.getMessage());
                 } else {
                     System.out.println("SELENIUM GRID CONNECTION EXCEPTION:" + ex.getMessage());
@@ -988,6 +988,9 @@ public class CodeBase {
         //OVERRIDEABLE SLEEP
         System.out.println("SLEEP FROM COMMAND LINE PARAMETER: -DwaitForPageLoadMilliSeconds (IF SPECIFIED; OTHERWISE SOME DEFAULT)"+waitForPageLoadMilliSeconds+"ms");
         Thread.sleep(waitForPageLoadMilliSeconds);
+        
+        //SWITCH BACK TO MAIN WINDOW IN CASE THERE'S A POPUP
+        driver.switchTo().window(mainWindowHandle);
 
         return (htmlOutput);
 
