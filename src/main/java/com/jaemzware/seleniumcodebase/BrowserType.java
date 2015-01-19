@@ -25,9 +25,9 @@ public enum BrowserType {
     CHROMEIPHONE6("IPHONE","6",Platform.MAC),
     CHROMEIPAD4("IPAD","4",Platform.MAC),
     CHROMEANDROID402("ANDROID","4.0.2",Platform.WINDOWS),
-    APPIUMDEVICE("","",Platform.MAC),
-    APPIUMSIMULATOR("","",Platform.MAC),
-    APPIUM("","",Platform.MAC);
+    APPIUMSIMULATORAPPSAFARI("","",Platform.MAC),
+    APPIUMSIMULATORAPPSCRATCH("","",Platform.MAC),
+    APPIUMDEVICEAPPSCRATCH("","",Platform.MAC);
     
     public final String browserName;
     public final String version;

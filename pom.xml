@@ -132,12 +132,11 @@ VERIFYLOGOS-NOGRID / LOGGING SAMPLES:
     mvn -Dtest=Scratch#VerifyLogos -DaNumber=1 -Dbrowser=SAFARI -Dinput=https://seattlerules.com -Duserid=seattlerules.com -DaString=//a -Dnogrid -Dlogging test 
     mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=CHROME -Dinput=https://seattlerules.com -Duserid=seattlerules.com -DaString=//a -Dnogrid -Dlogging test 
 VERIFYLOGOS-APPIUM / LOGGING SAMPLES
-    mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=APPIUM -Dinput=http://seattlerules.com -Duserid=seattlerules.com -DaString=//a[@title='Seattle Rules'] -Dlogging -DaHubPort=4723 -DaHubServer=localhost test 
-    mvn -Dtest=Scratch#VerifyLogos -DaNumber=1 -Dbrowser=APPIUM -Dinput=http://seattlerules.com -Duserid=seattlerules.com -DaString=//a[@title='Seattle Rules'] -Dlogging -DaHubPort=4723 -DaHubServer=localhost test 
-    mvn -Dtest=Scratch#VerifyLogos -DaNumber=5 -Dbrowser=APPIUM -Dinput=http://seattlerules.com -Duserid=seattlerules.com -DaString=//a[@title='Seattle Rules'] -Dlogging -DaHubPort=4723 -DaHubServer=localhost test 
-
-    mvn -Dtest=Scratch#IosScratchAppClickButton -Dbrowser=APPIUMDEVICE -DaHubPort=4723 -DaHubServer=localhost test
-    mvn -Dtest=Scratch#IosScratchAppClickButton -Dbrowser=APPIUMSIMULATOR -DaHubPort=4723 -DaHubServer=localhost test
+    mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=APPIUMSIMULATORAPPSAFARI -Dinput=http://seattlerules.com -Duserid=seattlerules.com -DaString=//a[@title='Seattle Rules'] -Dlogging -DaHubPort=4723 -DaHubServer=localhost test 
+    mvn -Dtest=Scratch#VerifyLogos -DaNumber=1 -Dbrowser=APPIUMSIMULATORAPPSAFARI -Dinput=http://seattlerules.com -Duserid=seattlerules.com -DaString=//a[@title='Seattle Rules'] -Dlogging -DaHubPort=4723 -DaHubServer=localhost test 
+    mvn -Dtest=Scratch#VerifyLogos -DaNumber=5 -Dbrowser=APPIUMSIMULATORAPPSAFARI -Dinput=http://seattlerules.com -Duserid=seattlerules.com -DaString=//a[@title='Seattle Rules'] -Dlogging -DaHubPort=4723 -DaHubServer=localhost test 
+    mvn -Dtest=Scratch#IosScratchAppClickButton -Dbrowser=APPIUMDEVICEAPPSCRATCH -DaHubPort=4723 -DaHubServer=localhost test
+    mvn -Dtest=Scratch#IosScratchAppClickButton -Dbrowser=APPIUMSIMULATORAPPSCRATCH -DaHubPort=4723 -DaHubServer=localhost test
 
 mvn -Dtest=Scratch#MakeRestRequest -Dbrowser=CHROME -Dinput=https://seattlerules.com -Dnogrid test
 mvn -Dtest=Scratch#CheckGmail -Dinput=Disney -Duserid=jaemzware -Dpassword=g00g73G00G73 test
