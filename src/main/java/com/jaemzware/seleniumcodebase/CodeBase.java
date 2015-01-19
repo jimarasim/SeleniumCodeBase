@@ -356,6 +356,7 @@ public class CodeBase {
      */
     protected static void StartDriver(String relativePathToDrivers) throws Exception {
 
+        //make sure a browser was specified
         if (browser == null) {
             throw new Exception("BROWSER (-Dbrowser) NOT SPECIFIED");
         }
@@ -474,7 +475,7 @@ public class CodeBase {
                 } else if (ex.getMessage().contains("COULD NOT START A NEW SESSION")) {
                     System.out.println("SELENIUM GRID HUB NOT LAUNCHED EXCEPTION:" + ex.getMessage());
                 } else {
-                    System.out.println("SELENIUM GRID CONNECTION EXCEPTION:" + ex.getMessage());
+                    System.out.println("SELENIUM GRID CONNECTION EXCEPTION. VERIFY ONE IS STARTED AT SERVER:"+aHubServer+" PORT:"+aHubPort+" MESSAGE:" + ex.getMessage() );
                 }
 
                 driver = null;
@@ -990,7 +991,10 @@ public class CodeBase {
         Thread.sleep(waitForPageLoadMilliSeconds);
         
         //SWITCH BACK TO MAIN WINDOW IN CASE THERE'S A POPUP
-        driver.switchTo().window(mainWindowHandle);
+        //DON'T DO THIS IF APPIUM THOUGH
+        if(!browser.toString().contains("APPIUM")){
+            driver.switchTo().window(mainWindowHandle);
+        }
 
         return (htmlOutput);
 

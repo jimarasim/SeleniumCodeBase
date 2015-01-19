@@ -6,13 +6,15 @@
                 <goal>test-compile</goal>
                 <goal>surefire:test</goal>
                 <goal>-Dtest=Scratch#VerifyLogos</goal>
-                <goal>-DaNumber=3</goal>
-                <goal>-Dbrowser=APPIUM</goal>
-                <goal>-Dinput=https://seattlerules.com</goal>
+                <goal>-DaNumber=0</goal>
+                <goal>-Dbrowser=APPIUMSIMULATORAPPSAFARI</goal>
+                <goal>-Dinput=http://seattlerules.com</goal>
                 <goal>-Duserid=seattlerules.com</goal>
                 <goal>-DaString=//a</goal>
-                <goal>-Dnogrid</goal>
                 <goal>-Dlogging</goal>
+                <goal>-DaHubPort=4723</goal>
+                <goal>-DaHubServer=localhost</goal>
+                
                 
                 
                 
@@ -33,13 +35,15 @@
                 <goal>test-compile</goal>
                 <goal>surefire:test</goal>
                 <goal>-Dtest=Scratch#VerifyLogos</goal>
-                <goal>-DaNumber=3</goal>
-                <goal>-Dbrowser=APPIUM</goal>
-                <goal>-Dinput=https://seattlerules.com</goal>
+                <goal>-DaNumber=0</goal>
+                <goal>-Dbrowser=APPIUMSIMULATORAPPSAFARI</goal>
+                <goal>-Dinput=http://seattlerules.com</goal>
                 <goal>-Duserid=seattlerules.com</goal>
                 <goal>-DaString=//a</goal>
-                <goal>-Dnogrid</goal>
                 <goal>-Dlogging</goal>
+                <goal>-DaHubPort=4723</goal>
+                <goal>-DaHubServer=localhost</goal>
+                
                 
                 
                 
