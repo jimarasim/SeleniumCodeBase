@@ -1026,8 +1026,7 @@ public class CodeBase {
     protected void ScrollPage(){
         
         try{
-            JavascriptExecutor jse = (JavascriptExecutor)driver;
-            jse.executeScript("window.scrollBy(0,250)", "");
+            ((JavascriptExecutor)driver).executeScript("window.scrollBy(0,100)", "");
             Thread.sleep(waitForPageLoadMilliSeconds);
         }
         catch(Exception ex){
