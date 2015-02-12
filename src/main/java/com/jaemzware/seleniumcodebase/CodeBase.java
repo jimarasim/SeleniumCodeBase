@@ -27,6 +27,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.TakesScreenshot;
@@ -1019,5 +1020,24 @@ public class CodeBase {
         return (returnString.toString());
     }
 
-    
+    /**
+     * this method just scrolls the page down a couple times
+     */
+    protected void ScrollPage(){
+        
+        try{
+            JavascriptExecutor jse = (JavascriptExecutor)driver;
+            jse.executeScript("window.scrollBy(0,250)", "");
+            Thread.sleep(waitForPageLoadMilliSeconds);
+        }
+        catch(Exception ex){
+            System.out.println("WARNING: EXCEPTION SCROLLING:"+ex.getMessage());
+        }
+        
+        
+        
+        
+        
+        
+    }
 }
