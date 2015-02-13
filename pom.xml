@@ -122,8 +122,7 @@ VERIFYLOGOS-OPTIONAL PARAMETERS:
     -DaHubServer    port to use for selenium grid server, when not localhost
     -DwaitForPageLoadMilliSeconds   time to wait after a page has loaded. 
 VERIFYLOGOS-GRID / LOGGING SAMPLES:
-    mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=CHROMEMAC -Dinput=http://www.nintendo.com/ -Duserid=http://www.nintendo.com -DaString="//a[@class='icon-nintendo']" -Dlogging test
-    mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=CHROMEMAC -Dinput=http://disney.com/ -Duserid=disney.com -DaString="//*[@id='logo']" -Dlogging test
+    mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=CHROME -Dinput=http://disney.com/ -Duserid=disney.com -DaString="//*[contains(@id,'logo')]" -Dlogging -Dnogrid -DwaitForPageLoadMilliSeconds=7000 test
 VERIFYLOGOS-NOGRID / LOGGING SAMPLES:
     mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=CHROME -Dinput=http://joeypaintbrush.com/ -Duserid=joeypaintbrush.com -DaString="//a[contains(text(),'Home')]" -Dlogging -Dnogrid test
     mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=CHROME -Dinput=https://www.blackmarketskates.seattlerules.com/theshop -Duserid=blackmarketskates.seattlerules.com -DaString="//a[contains(text(),'SHOP')]" -Dlogging -Dnogrid test
