@@ -43,7 +43,8 @@ public class Scratch extends CodeBase {
      *            - informational only just used to print out to console, what page is being loaded
      * @throws Exception
      */
-    private void WaitForPageChange(String oldUrl) throws Exception {
+    private void WaitForPageChange(String oldUrl)  {
+        try{
         final String waitTillUrlIsNot = oldUrl; // string to wait for to change when the page is loaded
 
         System.out.println("WAITING FOR PAGE TO CHANGE FROM:"+oldUrl);
@@ -57,6 +58,12 @@ public class Scratch extends CodeBase {
         });
         
         System.out.println("PAGE CHANGED FROM:"+oldUrl+" TO:"+driver.getCurrentUrl());
+        }
+        catch(Exception ex){
+            ScreenShot();
+            CustomStackTrace("WAITFORPAGECHANGE EXCEPTION", ex);
+            System.out.println("WARNING: WAITFORPAGE CHANGE FAILED, MOVING ON. EXCEPTION:"+ex.getMessage());
+        }
 
     }
 
