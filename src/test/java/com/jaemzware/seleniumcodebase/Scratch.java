@@ -49,7 +49,7 @@ public class Scratch extends CodeBase {
         System.out.println("WAITING FOR PAGE TO CHANGE FROM:"+oldUrl);
         
         // wait for links to be loaded by waiting for the resultStatsText to change
-        (new WebDriverWait(driver, defaultImplicitWait)).until(new ExpectedCondition<Boolean>() {
+        (new WebDriverWait(driver, waitForPageLoadMilliSeconds)).until(new ExpectedCondition<Boolean>() {
             @Override
             public Boolean apply(WebDriver d) {
                 return !driver.getCurrentUrl().equals(waitTillUrlIsNot);
