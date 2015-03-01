@@ -1022,7 +1022,6 @@ public class CodeBase {
 
     /**
      * this method just scrolls the page down a  times
-     * @param pixels - number of pixels to scroll
      */
     protected void ScrollPage(){
         

@@ -261,6 +261,9 @@ public class Scratch extends CodeBase {
                 if((maxVisits>0) && (++visitCount>maxVisits-1)){
                     break;
                 }
+                
+                //scroll the page for fun
+                ScrollPage();
 
             }
 
