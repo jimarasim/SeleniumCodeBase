@@ -1037,17 +1037,23 @@ public class CodeBase {
             Object innerHeight = ((JavascriptExecutor)driver).executeScript("return window.innerHeight");
             System.out.println("innerHeight:"+innerHeight.toString());
             
-            ((JavascriptExecutor)driver).executeScript("window.scrollBy(0,"+innerHeight.toString()+")");
-            Thread.sleep(waitForPageLoadMilliSeconds);
+            while(Integer.parseInt(pageYOffset.toString()) < Integer.parseInt(documentHeight.toString())){
+                ((JavascriptExecutor)driver).executeScript("window.scrollBy(0,"+innerHeight.toString()+")");
+                Thread.sleep(waitForPageLoadMilliSeconds);
+                
+                documentHeight = ((JavascriptExecutor)driver).executeScript("return Math.max( document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight )");
+                System.out.println("documentHeight:"+documentHeight.toString());
+
+                pageYOffset = ((JavascriptExecutor)driver).executeScript("return window.pageYOffset");
+                System.out.println("pageYOffset:"+pageYOffset.toString());
+
+                innerHeight = ((JavascriptExecutor)driver).executeScript("return window.innerHeight");
+                System.out.println("innerHeight:"+innerHeight.toString());
+            }
             
-            documentHeight = ((JavascriptExecutor)driver).executeScript("return Math.max( document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight )");
-            System.out.println("documentHeight:"+documentHeight.toString());
             
-            pageYOffset = ((JavascriptExecutor)driver).executeScript("return window.pageYOffset");
-            System.out.println("pageYOffset:"+pageYOffset.toString());
             
-            innerHeight = ((JavascriptExecutor)driver).executeScript("return window.innerHeight");
-            System.out.println("innerHeight:"+innerHeight.toString());
+            
             
         }
         catch(Exception ex){
