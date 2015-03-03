@@ -257,10 +257,13 @@ public class Scratch extends CodeBase {
                 System.out.println("VERIFYING LOGO AT:"+logoxpath+" ON:"+href);
                 writer.println(VerifyXpathOnCurrentPage(logoxpath));
                 
+                ScrollPage();
+                
                 //check the desired image count, and break if it's been reached
                 if((maxVisits>0) && (++visitCount>maxVisits-1)){
                     break;
                 }
+                
             }
 
         //COMPLETE WRITING REPORT WEB PAGE
