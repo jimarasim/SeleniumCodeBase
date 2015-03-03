@@ -1037,7 +1037,8 @@ public class CodeBase {
             Object innerHeight = ((JavascriptExecutor)driver).executeScript("return window.innerHeight");
             System.out.println("innerHeight:"+innerHeight.toString());
             
-            while(Integer.parseInt(pageYOffset.toString()) < Integer.parseInt(documentHeight.toString())){
+            while(Integer.parseInt(pageYOffset.toString()) < 
+                    (Integer.parseInt(documentHeight.toString())-Integer.parseInt(innerHeight.toString())-1)){
                 ((JavascriptExecutor)driver).executeScript("window.scrollBy(0,"+innerHeight.toString()+")");
                 Thread.sleep(waitForPageLoadMilliSeconds);
                 
