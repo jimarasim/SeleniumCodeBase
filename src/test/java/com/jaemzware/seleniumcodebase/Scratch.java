@@ -92,6 +92,11 @@ public class Scratch extends CodeBase {
         }
     }
 
+    @Test
+    public void DemonstrateJunitFailureInJenkins(){
+        Assert.fail("THIS TEST FAILED");
+    }
+    
     @Test 
     public void IosScratchAppClickButton(){
         try{

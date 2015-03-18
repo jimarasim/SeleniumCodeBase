@@ -139,5 +139,7 @@ VERIFYLOGOS-APPIUM / LOGGING SAMPLES
 
 mvn -Dtest=Scratch#MakeRestRequest -Dbrowser=CHROME -Dinput=https://seattlerules.com -Dnogrid test
 mvn -Dtest=Scratch#CheckGmail -Dinput=Disney -Duserid=jaemzware -Dpassword=g00g73G00G73 test
+
+mvn -Dtest=Scratch#DemonstrateJunitFailureInJenkins -Dnogrid test
   -->
 </project>
