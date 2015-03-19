@@ -54,10 +54,14 @@ public class CodeBase {
     // the one and only driver object
     protected static WebDriver driver = null;
 
-    // selenium grid hub
+    // selenium grid hub defaults
     protected static String aHubServer = "localhost";
     protected static String aHubPort = "4444";
 
+    // appium app and udid defaults
+    protected static String appiumApp = null;
+    protected static String appiumUdid = null;
+    
     // jenkins report folder url
     protected static final String jenkinsReportHeader = "";
     protected static final String jenkinsReportFooter = "";
@@ -97,8 +101,8 @@ public class CodeBase {
     protected static String GetParameters() {
         System.out.println("COMMAND LINE PARAMETERS");
 
-        // USERID
-        // get userid specified on command line
+        // WAITFORPAGELOADMILLISECONDS
+        // get waitForPageLoadMilliSeconds specified on command line
         String waitForPageLoadMilliSecondsParm = System.getProperty("waitForPageLoadMilliSeconds");
 
         if (waitForPageLoadMilliSecondsParm == null || waitForPageLoadMilliSecondsParm.isEmpty()) {
@@ -114,6 +118,31 @@ public class CodeBase {
                         + " SPECIFIED IS NOT A PARSEABLE INT. RETURNING THIS STRING TO INDICATE FAILURE (MAY BE IGNORED BY SOME TESTS)";
 
             }
+        }
+        
+        // APPIUMAPPPARM
+        // get appiumApp specified on command line
+        String appiumAppParm = System.getProperty("appiumApp");
+
+        if (appiumAppParm == null || appiumAppParm.isEmpty()) {
+            System.out.println("-DappiumApp NOT SPECIFIED.");
+        } else {
+            appiumApp = appiumAppParm;
+
+            System.out.println("-DappiumApp:" + appiumApp);
+        }
+        
+        
+        // APPIUMUDID
+        // get appiumUdid specified on command line
+        String appiumUdidParm = System.getProperty("appiumUdid");
+
+        if (appiumUdidParm == null || appiumUdidParm.isEmpty()) {
+            System.out.println("-DappiumUdid NOT SPECIFIED.");
+        } else {
+            appiumUdid = appiumUdidParm;
+
+            System.out.println("-DappiumUdid:" + appiumUdid);
         }
         
         // USERID
@@ -328,21 +357,31 @@ public class CodeBase {
                         System.out.println("ASSUMING APPIUM IS STARTED.  IF THIS FAILS, IT MIGHT NOT BE.");
                         break;
                     case APPIUMSIMULATORAPPSCRATCH: //NATIVE APP IN SIMULATOR
+                        //MAKE SURE APP IS SPECIFIED
+                        if(appiumApp==null){
+                            throw new Exception("MUST SPECIFY APP -DappiumApp WHEN USING APPIUMSIMULATORAPPSCRATCH");
+                        }
                         cap = new DesiredCapabilities();
                         cap.setCapability("automationName", "Appium"); // or Selendroid
                         cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
                         cap.setCapability("platformVersion", "8.2");
-                        cap.setCapability("app", "/Users/jameskarasim/Documents/STATIC/jaemzware/iOSDev/Scratch/Scratch.ipa"); 
+                        cap.setCapability("app", appiumApp); 
                         cap.setCapability("deviceName", "iPhone Simulator"); //"iPad Simulator"
                         System.out.println("ASSUMING APPIUM IS STARTED.  IF THIS FAILS, IT MIGHT NOT BE.");
                         break;
                     case APPIUMDEVICEAPPSCRATCH: //NATIVE APP ON REAL DEVICE
+                        //MAKE SURE APP AND DEVICE UDID WERE SPECIFIED
+                        if(appiumApp==null || appiumUdid==null){
+                            throw new Exception("MUST SPECIFY APP -DappiumApp AND DEVICE -DappiumUdid WHEN USING APPIUMDEVICEAPPSCRATCH");
+                        }
                         cap = new DesiredCapabilities();
                         cap.setCapability("automationName", "Appium"); // or Selendroid
                         cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
                         cap.setCapability("platformVersion", "8.2");
-                        cap.setCapability("app", "/Users/jameskarasim/Documents/STATIC/jaemzware/iOSDev/Scratch/Scratch.ipa"); 
-                        cap.setCapability("udid","88ff683cec637c3f1279386620b5397d48bc8341"); //get this udid for phone from itunes, click device, then click serial number
+//                        cap.setCapability("app", "/Users/jameskarasim/Documents/STATIC/jaemzware/iOSDev/Scratch/Scratch.ipa");
+                        cap.setCapability("app", appiumApp);
+//                        cap.setCapability("udid","88ff683cec637c3f1279386620b5397d48bc8341"); //get this udid for phone from itunes, click device, then click serial number
+                        cap.setCapability("udid",appiumUdid); //get this udid for phone from itunes, click device, then click serial number
                         cap.setCapability("deviceName", "iJaemzware"); //"iPad Simulator"
                         System.out.println("ASSUMING APPIUM IS STARTED.  IF THIS FAILS, IT MIGHT NOT BE.");
                         break;
