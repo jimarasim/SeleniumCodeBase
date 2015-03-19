@@ -103,10 +103,10 @@ public class Scratch extends CodeBase {
             
             StartDriver();
             
-            List<WebElement> elements = driver.findElements(By.xpath("//*"));
-            for(WebElement web:elements){
-                System.out.println("TAG:"+web.getTagName()+" TEXT:"+web.getText());
-            }
+//            List<WebElement> elements = driver.findElements(By.xpath("//*"));
+//            for(WebElement web:elements){
+//                System.out.println("TAG:"+web.getTagName()+" TEXT:"+web.getText());
+//            }
         }
         catch(Exception ex){
             
