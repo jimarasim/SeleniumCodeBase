@@ -115,7 +115,7 @@ VERIFYLOGOS-REQUIRED PARMETERS:
     -Duserid       baseurl of pages to follow, found on -Dinput
     -DaString      xpath of logo to check presence of
 VERIFYLOGOS-OPTIONAL PARAMETERS:
-    -DaNumber      maximum of pages to cycle through while paging. 0 or unspecified means all
+    -DaNumber       maximum of pages to cycle through while paging. 0 or unspecified means all, FOR TESTS that call paging (not verifylogos, yet)
     -Dlogging       log browser and other warnings (takes longer) if not specified, no logging is performed (faster
     -Dnogrid        launch browser locally, and not through selenium grid. if not specified, will try selenium grid first
     -DaHubPort      port to use for selenium grid server, when not 4444, like 4723 for appium
@@ -124,7 +124,7 @@ VERIFYLOGOS-OPTIONAL PARAMETERS:
     -DappiumApp     path to ios app ipa file, if using appium to test a native app APPIUMSIMULATORAPPSCRATCH APPIUMDEVICEAPPSCRATCH
     -DappiumUdid    path to ios device udid, if using appium ot test a device instead of a simulator APPIUMDEVICEAPPSCRATCH
 VERIFYLOGOS-GRID / LOGGING SAMPLES:
-    mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=CHROME -Dinput=http://disney.com/ -Duserid=disney.com -DaString="//*[contains(@id,'logo')]" -Dlogging -Dnogrid -DwaitForPageLoadMilliSeconds=7000 test
+    mvn -Dtest=Scratch#VerifyLogos -Dbrowser=FIREFOX -Dinput=http://disney.com/ -DaNumber=0 -Duserid=disney.com -DaString="//*[contains(@id,'logo')]" -Dlogging -DaHubServer=localhost -DaHubPort=4445 test
 VERIFYLOGOS-NOGRID / LOGGING SAMPLES:
     mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=CHROME -Dinput=http://joeypaintbrush.com/ -Duserid=joeypaintbrush.com -DaString="//a[contains(text(),'Home')]" -Dlogging -Dnogrid test
     mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=CHROME -Dinput=https://www.blackmarketskates.com -Duserid=blackmarketskates.com -DaString="//a[contains(text(),'Black Market Skates')]" -Dlogging -Dnogrid -DwaitForPageLoadMilliSeconds=5000 test
