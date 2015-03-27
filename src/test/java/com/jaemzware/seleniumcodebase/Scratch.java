@@ -276,8 +276,8 @@ public class Scratch extends CodeBase {
             writer.println(HtmlReportFooter());
 
             System.out.println("INDEX FILE WRITTEN:" + fileName);
-            System.out.println("INDEX FILE COPIED:"+jenkinsReportPath+fileName);
-            System.out.println("INDEX FILE COPIED:"+jenkinsReportPathInternal+fileName);
+//            System.out.println("INDEX FILE COPIED:"+jenkinsReportPath+fileName);
+//            System.out.println("INDEX FILE COPIED:"+jenkinsReportPathInternal+fileName);
             
 
         } catch (Exception ex) {
