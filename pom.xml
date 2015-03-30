@@ -132,12 +132,15 @@ VERIFYLOGOS-NOGRID / LOGGING SAMPLES:
     mvn -Dtest=Scratch#VerifyLogos -DaNumber=3 -Dbrowser=CHROME -Dinput=http:s//seattlerules.com -Duserid=seattlerules.com -DaString=//a -Dnogrid -Dlogging test 
     mvn -Dtest=Scratch#VerifyLogos -DaNumber=1 -Dbrowser=SAFARI -Dinput=https://seattlerules.com -Duserid=seattlerules.com -DaString=//a -Dnogrid -Dlogging test 
     mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=CHROME -Dinput=https://seattlerules.com -Duserid=seattlerules.com -DaString=//a -Dnogrid -Dlogging test 
-VERIFYLOGOS-APPIUM / LOGGING SAMPLES
+IOS-SAFARI-VERIFYLOGOS-APPIUM / LOGGING SAMPLES
     mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=APPIUMSIMULATORAPPSAFARI -Dinput=http://seattlerules.com -Duserid=seattlerules.com -DaString=//a[@title='Seattle Rules'] -Dlogging -DaHubPort=4723 -DaHubServer=localhost test 
     mvn -Dtest=Scratch#VerifyLogos -DaNumber=1 -Dbrowser=APPIUMSIMULATORAPPSAFARI -Dinput=http://seattlerules.com -Duserid=seattlerules.com -DaString=//a[@title='Seattle Rules'] -Dlogging -DaHubPort=4723 -DaHubServer=localhost test 
     mvn -Dtest=Scratch#VerifyLogos -DaNumber=5 -Dbrowser=APPIUMSIMULATORAPPSAFARI -Dinput=http://seattlerules.com -Duserid=seattlerules.com -DaString=//a[@title='Seattle Rules'] -Dlogging -DaHubPort=4723 -DaHubServer=localhost test 
+IOS-SCRATCH-APP-PLAYGROUND
     mvn -Dtest=Scratch#IosScratchAppClickButton -Dbrowser=APPIUMDEVICEAPPSCRATCH -DaHubPort=4723 -DaHubServer=localhost -DappiumApp=/Users/jameskarasim/Documents/STATIC/jaemzware/iOSDev/Scratch/Scratch.ipa -DappiumUdid=88ff683cec637c3f1279386620b5397d48bc8341 test
     mvn -Dtest=Scratch#IosScratchAppClickButton -Dbrowser=APPIUMSIMULATORAPPSCRATCH -DaHubPort=4723 -DaHubServer=localhost -DappiumApp=/Users/jameskarasim/Documents/STATIC/jaemzware/iOSDev/Scratch/Scratch.ipa test
+    mvn -Dtest=Scratch#IosScratchAppClickButton -Dbrowser=APPIUMSIMULATORAPPSCRATCH -DaHubPort=4723 -DaHubServer=localhost -DappiumApp=/Users/jimarasim/Downloads/installed/jaemzware/iOSDev/Scratch/Scratch.ipa test
+    
 
 mvn -Dtest=Scratch#MakeRestRequest -Dbrowser=CHROME -Dinput=https://seattlerules.com -Dnogrid test
 mvn -Dtest=Scratch#CheckGmail -Dinput=Disney -Duserid=jaemzware -Dpassword=g00g73G00G73 test
