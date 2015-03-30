@@ -1065,8 +1065,6 @@ public class CodeBase {
     protected void ScrollPage(){
         
         try{
-            String pageYOffsetString = "0";
-            
             Object documentHeight = ((JavascriptExecutor)driver).executeScript("return Math.max( document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight )");
             System.out.println("documentHeight:"+documentHeight.toString());
             
