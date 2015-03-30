@@ -82,8 +82,8 @@ public class CodeBase {
 
     // default time IN SECONDS to wait when finding elements
     protected int defaultImplicitWait = 60;
-    protected static final int quickWaitMilliSeconds = 5000;  //TODO: PHASING OUT IN PREFERENCE OF COMMAND OVERRIDEABLE waitForPageLoadMilliSeconds
-    protected static int waitForPageLoadMilliSeconds = 0;  //can be overridden from comand line
+    protected static final int quickWaitMilliSeconds = 5000;  //TODO: PHASING OUT IN PREFERENCE OF COMMAND OVERRIDEABLE waitAfterPageLoadMilliSeconds
+    protected static int waitAfterPageLoadMilliSeconds = 0;  //can be overridden from comand line
 
     // verification errors that can occur during a test
     protected StringBuilder verificationErrors = new StringBuilder();
@@ -101,20 +101,20 @@ public class CodeBase {
     protected static String GetParameters() {
         System.out.println("COMMAND LINE PARAMETERS");
 
-        // WAITFORPAGELOADMILLISECONDS
-        // get waitForPageLoadMilliSeconds specified on command line
-        String waitForPageLoadMilliSecondsParm = System.getProperty("waitForPageLoadMilliSeconds");
+        // WAITAFTERPAGELOADMILLISECONDS
+        // get waitAfterPageLoadMilliSeconds specified on command line
+        String waitAfterPageLoadMilliSecondsParm = System.getProperty("waitAfterPageLoadMilliSeconds");
 
-        if (waitForPageLoadMilliSecondsParm == null || waitForPageLoadMilliSecondsParm.isEmpty()) {
-            System.out.println("-DwaitForPageLoadMilliSeconds NOT SPECIFIED.");
+        if (waitAfterPageLoadMilliSecondsParm == null || waitAfterPageLoadMilliSecondsParm.isEmpty()) {
+            System.out.println("-DwaitAfterPageLoadMilliSeconds NOT SPECIFIED.");
         } else {
             // make sure aNumber is parseable
             try {
-                waitForPageLoadMilliSeconds = Integer.parseInt(waitForPageLoadMilliSecondsParm);
+                waitAfterPageLoadMilliSeconds = Integer.parseInt(waitAfterPageLoadMilliSecondsParm);
 
-                System.out.println("-DwaitForPageLoadMilliSeconds:" + waitForPageLoadMilliSeconds);
+                System.out.println("-DwaitAfterPageLoadMilliSeconds:" + waitAfterPageLoadMilliSeconds);
             } catch (NumberFormatException nfx) {
-                return "-DwaitForPageLoadMilliSecondsParm:" + waitForPageLoadMilliSecondsParm
+                return "-DwaitAfterPageLoadMilliSecondsParm:" + waitAfterPageLoadMilliSecondsParm
                         + " SPECIFIED IS NOT A PARSEABLE INT. RETURNING THIS STRING TO INDICATE FAILURE (MAY BE IGNORED BY SOME TESTS)";
 
             }
@@ -959,6 +959,8 @@ public class CodeBase {
 
         // LOAD THE URL
         try{
+            //this sets the timeout for get. implicitly wait is just for findelements
+            driver.manage().timeouts().pageLoadTimeout(defaultImplicitWait, TimeUnit.SECONDS);
             driver.get(href);
         }
         catch(Exception ex){
@@ -971,8 +973,8 @@ public class CodeBase {
         htmlOutput += "<br />" + loadTimeStatement;
         
         //OVERRIDEABLE SLEEP
-        System.out.println("SLEEP FROM COMMAND LINE PARAMETER: -DwaitForPageLoadMilliSeconds (IF SPECIFIED; OTHERWISE SOME DEFAULT)"+waitForPageLoadMilliSeconds+"ms");
-        Thread.sleep(waitForPageLoadMilliSeconds);
+        System.out.println("SLEEP FROM COMMAND LINE PARAMETER: -DwaitAfterPageLoadMilliSeconds (IF SPECIFIED; OTHERWISE SOME DEFAULT)"+waitAfterPageLoadMilliSeconds+"ms");
+        Thread.sleep(waitAfterPageLoadMilliSeconds);
         
         //SWITCH BACK TO MAIN WINDOW IN CASE THERE'S A POPUP
         //DON'T DO THIS IF APPIUM THOUGH
@@ -1077,7 +1079,7 @@ public class CodeBase {
             while(Integer.parseInt(pageYOffset.toString()) < 
                     (Integer.parseInt(documentHeight.toString())-Integer.parseInt(innerHeight.toString())-1)){
                 ((JavascriptExecutor)driver).executeScript("window.scrollBy(0,"+innerHeight.toString()+")");
-                Thread.sleep(waitForPageLoadMilliSeconds);
+                Thread.sleep(waitAfterPageLoadMilliSeconds);
                 
                 documentHeight = ((JavascriptExecutor)driver).executeScript("return Math.max( document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight )");
                 System.out.println("documentHeight:"+documentHeight.toString());
@@ -1088,10 +1090,6 @@ public class CodeBase {
                 innerHeight = ((JavascriptExecutor)driver).executeScript("return window.innerHeight");
                 System.out.println("innerHeight:"+innerHeight.toString());
             }
-            
-            
-            
-            
             
         }
         catch(Exception ex){

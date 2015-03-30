@@ -120,14 +120,14 @@ VERIFYLOGOS-OPTIONAL PARAMETERS:
     -Dnogrid        launch browser locally, and not through selenium grid. if not specified, will try selenium grid first
     -DaHubPort      port to use for selenium grid server, when not 4444, like 4723 for appium
     -DaHubServer    port to use for selenium grid server or appium, when not localhost
-    -DwaitForPageLoadMilliSeconds   time to wait after a page has loaded. 
+    -DwaitAfterPageLoadMilliSeconds   time to wait after a page has loaded. 
     -DappiumApp     path to ios app ipa file, if using appium to test a native app APPIUMSIMULATORAPPSCRATCH APPIUMDEVICEAPPSCRATCH
     -DappiumUdid    path to ios device udid, if using appium ot test a device instead of a simulator APPIUMDEVICEAPPSCRATCH
 VERIFYLOGOS-GRID / LOGGING SAMPLES:
     mvn -Dtest=Scratch#VerifyLogos -Dbrowser=FIREFOX -Dinput=http://disney.com/ -DaNumber=0 -Duserid=disney.com -DaString="//*[contains(@id,'logo')]" -Dlogging -DaHubServer=localhost -DaHubPort=4445 test
 VERIFYLOGOS-NOGRID / LOGGING SAMPLES:
     mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=CHROME -Dinput=http://joeypaintbrush.com/ -Duserid=joeypaintbrush.com -DaString="//a[contains(text(),'Home')]" -Dlogging -Dnogrid test
-    mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=CHROME -Dinput=https://www.blackmarketskates.com -Duserid=blackmarketskates.com -DaString="//a[contains(text(),'Black Market Skates')]" -Dlogging -Dnogrid -DwaitForPageLoadMilliSeconds=5000 test
+    mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=CHROME -Dinput=https://www.blackmarketskates.com -Duserid=blackmarketskates.com -DaString="//a[contains(text(),'Black Market Skates')]" -Dlogging -Dnogrid -DwaitAfterPageLoadMilliSeconds=5000 test
     mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=CHROME -Dinput=http://disney.com/ -Duserid=disney.com -DaString="//a[contains(@title,'Disney')]" -Dlogging -Dnogrid test    
     mvn -Dtest=Scratch#VerifyLogos -DaNumber=3 -Dbrowser=CHROME -Dinput=http:s//seattlerules.com -Duserid=seattlerules.com -DaString=//a -Dnogrid -Dlogging test 
     mvn -Dtest=Scratch#VerifyLogos -DaNumber=1 -Dbrowser=SAFARI -Dinput=https://seattlerules.com -Duserid=seattlerules.com -DaString=//a -Dnogrid -Dlogging test 
