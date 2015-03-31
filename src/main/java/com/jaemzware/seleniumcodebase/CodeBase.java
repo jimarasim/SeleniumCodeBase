@@ -1067,7 +1067,10 @@ public class CodeBase {
     protected void ScrollPage(){
         
         try{
-            Object documentHeight = ((JavascriptExecutor)driver).executeScript("return Math.max( document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight )");
+            Object documentHeight = ((JavascriptExecutor)driver).executeScript("return Math.max( document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight );");
+            
+            if(documentHeight==null)return;
+            
             System.out.println("documentHeight:"+documentHeight.toString());
             
             Object pageYOffset = ((JavascriptExecutor)driver).executeScript("return window.pageYOffset");
@@ -1082,6 +1085,7 @@ public class CodeBase {
                 Thread.sleep(waitAfterPageLoadMilliSeconds);
                 
                 documentHeight = ((JavascriptExecutor)driver).executeScript("return Math.max( document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight )");
+                if(documentHeight==null)return;
                 System.out.println("documentHeight:"+documentHeight.toString());
 
                 pageYOffset = ((JavascriptExecutor)driver).executeScript("return window.pageYOffset");
@@ -1093,7 +1097,7 @@ public class CodeBase {
             
         }
         catch(Exception ex){
-            System.out.println("WARNING: EXCEPTION SCROLLING:"+ex.getMessage());
+            CustomStackTrace("WARNING: EXCEPTION SCROLLING",ex);
         }
     }
 }
