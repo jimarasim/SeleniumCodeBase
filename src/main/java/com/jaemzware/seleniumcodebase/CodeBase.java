@@ -1088,7 +1088,14 @@ public class CodeBase {
                 if(documentHeight==null)return;
                 System.out.println("documentHeight:"+documentHeight.toString());
 
-                pageYOffset = ((JavascriptExecutor)driver).executeScript("return window.pageYOffset");
+                //make sure the page scrolled.  there was one case in fark where it didn't, so just break if that happens
+                Object newPageYOffset = ((JavascriptExecutor)driver).executeScript("return window.pageYOffset");
+                if(newPageYOffset.toString().equals(pageYOffset.toString())){
+                    break;
+                }
+                else{
+                    pageYOffset=newPageYOffset;
+                }
                 System.out.println("pageYOffset:"+pageYOffset.toString());
 
                 innerHeight = ((JavascriptExecutor)driver).executeScript("return window.innerHeight");
