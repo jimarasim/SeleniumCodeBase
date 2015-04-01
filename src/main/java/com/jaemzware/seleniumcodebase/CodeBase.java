@@ -1067,11 +1067,16 @@ public class CodeBase {
     protected void ScrollPage(){
         
         try{
-            Object documentHeight = ((JavascriptExecutor)driver).executeScript("return Math.max( document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight );");
+            Object documentHeight = ((JavascriptExecutor)driver).executeScript("return Math.max( document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight )");
             
-            if(documentHeight==null)return;
-            
-            System.out.println("documentHeight:"+documentHeight.toString());
+            //not sure why, but this get null sometimes
+            if(documentHeight==null){
+                System.out.println("JAVASCRIPT TO RETRIEVE documentHeight RETURNED A NULL VALUE");
+                return;
+            }
+            else{
+                System.out.println("documentHeight:"+documentHeight.toString());
+            }
             
             Object pageYOffset = ((JavascriptExecutor)driver).executeScript("return window.pageYOffset");
             System.out.println("pageYOffset:"+pageYOffset.toString());
@@ -1085,18 +1090,26 @@ public class CodeBase {
                 Thread.sleep(waitAfterPageLoadMilliSeconds);
                 
                 documentHeight = ((JavascriptExecutor)driver).executeScript("return Math.max( document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight )");
-                if(documentHeight==null)return;
-                System.out.println("documentHeight:"+documentHeight.toString());
+                
+                //not sure why, but this get null sometimes
+                if(documentHeight==null){
+                    System.out.println("JAVASCRIPT TO RETRIEVE documentHeight RETURNED A NULL VALUE");
+                    return;
+                }
+                else{
+                    System.out.println("documentHeight:"+documentHeight.toString());
+                }
 
                 //make sure the page scrolled.  there was one case in fark where it didn't, so just break if that happens
                 Object newPageYOffset = ((JavascriptExecutor)driver).executeScript("return window.pageYOffset");
                 if(newPageYOffset.toString().equals(pageYOffset.toString())){
+                    System.out.println("NEW PAGE Y OFFSET IS THE SAME, BREAKING SCROLL");
                     break;
                 }
                 else{
                     pageYOffset=newPageYOffset;
+                    System.out.println("pageYOffset:"+pageYOffset.toString());
                 }
-                System.out.println("pageYOffset:"+pageYOffset.toString());
 
                 innerHeight = ((JavascriptExecutor)driver).executeScript("return window.innerHeight");
                 System.out.println("innerHeight:"+innerHeight.toString());
@@ -1104,7 +1117,7 @@ public class CodeBase {
             
         }
         catch(Exception ex){
-            CustomStackTrace("WARNING: EXCEPTION SCROLLING",ex);
+            CustomStackTrace("SCROLLING EXCEPTION",ex);
         }
     }
 }
