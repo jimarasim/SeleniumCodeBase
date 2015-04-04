@@ -1067,6 +1067,8 @@ public class CodeBase {
     protected void ScrollPage(){
         
         try{
+            
+            //get the total height of the web page
             Object documentHeight = ((JavascriptExecutor)driver).executeScript("return Math.max( document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight )");
             
             //not sure why, but this get null sometimes
@@ -1078,30 +1080,20 @@ public class CodeBase {
                 System.out.println("documentHeight:"+documentHeight.toString());
             }
             
+            //get the y distance that is scrolled down
             Object pageYOffset = ((JavascriptExecutor)driver).executeScript("return window.pageYOffset");
             System.out.println("pageYOffset:"+pageYOffset.toString());
             
+            //get the height of the visible web page
             Object innerHeight = ((JavascriptExecutor)driver).executeScript("return window.innerHeight");
             System.out.println("innerHeight:"+innerHeight.toString());
             
+            //scroll down till at the bottom
             while(Integer.parseInt(pageYOffset.toString()) < 
                     (Integer.parseInt(documentHeight.toString())-Integer.parseInt(innerHeight.toString())-1)){
                 
                 ((JavascriptExecutor)driver).executeScript("window.scrollBy(0,"+innerHeight.toString()+")");
                 
-                Thread.sleep(waitAfterPageLoadMilliSeconds);
-                
-                documentHeight = ((JavascriptExecutor)driver).executeScript("return Math.max( document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight )");
-                
-                //not sure why, but this get null sometimes
-                if(documentHeight==null){
-                    System.out.println("JAVASCRIPT TO RETRIEVE documentHeight RETURNED A NULL VALUE");
-                    return;
-                }
-                else{
-                    System.out.println("documentHeight:"+documentHeight.toString());
-                }
-
                 //make sure the page scrolled.  there was one case in fark where it didn't, so just break if that happens
                 Object newPageYOffset = ((JavascriptExecutor)driver).executeScript("return window.pageYOffset");
                 if(newPageYOffset.toString().equals(pageYOffset.toString())){
@@ -1115,6 +1107,9 @@ public class CodeBase {
 
                 innerHeight = ((JavascriptExecutor)driver).executeScript("return window.innerHeight");
                 System.out.println("innerHeight:"+innerHeight.toString());
+                
+                //sleep for a sec
+                Thread.sleep(waitAfterPageLoadMilliSeconds);
             }
             
         }
