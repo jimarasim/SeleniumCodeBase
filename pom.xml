@@ -142,6 +142,7 @@ IOS-SCRATCH-APP-SIMULATOR-jaemzmac
     mvn -Dtest=Scratch#IosScratchAppClickButton -Dbrowser=APPIUMSIMULATORAPPSCRATCH -DaHubPort=4723 -DaHubServer=localhost -DappiumApp=/Users/jameskarasim/Documents/STATIC/jaemzware/iOSDev/Scratch/Scratch.ipa test
 IOS-SCRATCH-APP-SIMULATOR-jaemzmacbook
     mvn -Dtest=Scratch#IosScratchAppClickButton -Dbrowser=APPIUMSIMULATORAPPSCRATCH -DaHubPort=4723 -DaHubServer=localhost -DappiumApp=/Users/jimarasim/Downloads/installed/jaemzware/iOSDev/Scratch/Scratch.ipa test
+    mvn -Dtest=Scratch#IosScratchAppClickButton -Dbrowser=APPIUMSIMULATORAPPSCRATCH -DaHubPort=4723 -DaHubServer=localhost -DappiumApp=/Users/jameskarasim/Documents/STATIC/jaemzware/iOSDev/groceryshoppingtime/groceryshoppingtime.ipa
     
 
 mvn -Dtest=Scratch#MakeRestRequest -Dbrowser=CHROME -Dinput=https://seattlerules.com -Dnogrid test
