@@ -1086,7 +1086,9 @@ public class CodeBase {
             
             while(Integer.parseInt(pageYOffset.toString()) < 
                     (Integer.parseInt(documentHeight.toString())-Integer.parseInt(innerHeight.toString())-1)){
+                
                 ((JavascriptExecutor)driver).executeScript("window.scrollBy(0,"+innerHeight.toString()+")");
+                
                 Thread.sleep(waitAfterPageLoadMilliSeconds);
                 
                 documentHeight = ((JavascriptExecutor)driver).executeScript("return Math.max( document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight )");
