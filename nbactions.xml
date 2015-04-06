@@ -8,7 +8,7 @@
                 <goal>-Dtest=Scratch#VerifyLogos</goal>
                 <goal>-DaNumber=0</goal>
                 <goal>-Dbrowser=APPIUMSIMULATORAPPSAFARI</goal>
-                <goal>-Dinput=https://seattlerules.com</goal>
+                <goal>-Dinput=seattlerules.com</goal>
                 <goal>-Duserid=seattlerules.com</goal>
                 <goal>-DaString=//a</goal>
                 <goal>-Dlogging</goal>
@@ -42,7 +42,7 @@
                 <goal>-Dtest=Scratch#VerifyLogos</goal>
                 <goal>-DaNumber=0</goal>
                 <goal>-Dbrowser=APPIUMSIMULATORAPPSAFARI</goal>
-                <goal>-Dinput=https://seattlerules.com</goal>
+                <goal>-Dinput=seattlerules.com</goal>
                 <goal>-Duserid=seattlerules.com</goal>
                 <goal>-DaString=//a</goal>
                 <goal>-Dlogging</goal>

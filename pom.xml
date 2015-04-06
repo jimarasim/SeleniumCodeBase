@@ -127,7 +127,7 @@ VERIFYLOGOS-GRID / LOGGING SAMPLES:
 VERIFYLOGOS-NOGRID / LOGGING SAMPLES:
     mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=CHROME -Dinput=https://www.blackmarketskates.com -Duserid=blackmarketskates.com -DaString="//a[contains(text(),'Black Market Skates')]" -Dlogging -Dnogrid -DwaitAfterPageLoadMilliSeconds=5000 test
 IOS-SAFARI-SIMULATOR-VERIFYLOGOS-APPIUM / LOGGING SAMPLES
-    mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=APPIUMSIMULATORAPPSAFARI -Dinput=https://seattlerules.com -Duserid=seattlerules.com -DaString="//a[@title='Seattle Rules']" -Dlogging -DaHubPort=4723 -DaHubServer=localhost test 
+    mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=APPIUMSIMULATORAPPSAFARI -Dinput=https://seattlerules.com -Duserid=seattlerules.com -DaString=//a[@title='Seattle Rules'] -Dlogging -DaHubPort=4723 -DaHubServer=localhost test 
 IOS-SCRATCH-APP-DEVICE
     mvn -Dtest=Scratch#IosScratchAppClickButton -Dbrowser=APPIUMDEVICEAPPSCRATCH -DaHubPort=4723 -DaHubServer=localhost -DappiumApp=/Users/jameskarasim/Documents/STATIC/jaemzware/iOSDev/Scratch/Scratch.ipa -DappiumUdid=88ff683cec637c3f1279386620b5397d48bc8341 test
 IOS-SCRATCH-APP-SIMULATOR-jaemzmac

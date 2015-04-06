@@ -982,8 +982,10 @@ public class CodeBase {
 
         // LOAD THE URL
         try{
-            //this sets the timeout for get. implicitly wait is just for findelements
-            driver.manage().timeouts().pageLoadTimeout(defaultImplicitWait, TimeUnit.SECONDS);
+            //this sets the timeout for get. implicitly wait is just for findelements. DON'T DO FOR APPIM
+            if(!browser.toString().contains("APPIUM")){
+                driver.manage().timeouts().pageLoadTimeout(defaultImplicitWait, TimeUnit.SECONDS);
+            }
             driver.get(href);
         }
         catch(Exception ex){
