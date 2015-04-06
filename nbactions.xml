@@ -5,11 +5,16 @@
             <goals>
                 <goal>test-compile</goal>
                 <goal>surefire:test</goal>
-                <goal>-Dtest=Scratch#IosScratchAppClickButton</goal>
-                <goal>-Dbrowser=APPIUMSIMULATORAPPSCRATCH</goal>
+                <goal>-Dtest=Scratch#VerifyLogos</goal>
+                <goal>-DaNumber=0</goal>
+                <goal>-Dbrowser=APPIUMSIMULATORAPPSAFARI</goal>
+                <goal>-Dinput=https://seattlerules.com</goal>
+                <goal>-Duserid=seattlerules.com</goal>
+                <goal>-DaString=//a</goal>
+                <goal>-Dlogging</goal>
                 <goal>-DaHubPort=4723</goal>
                 <goal>-DaHubServer=localhost</goal>
-                <goal>-DappiumApp=/Users/jameskarasim/Documents/STATIC/jaemzware/iOSDev/Scratch/Scratch.ipa</goal>
+                
                 
                 
                 
@@ -34,11 +39,16 @@
             <goals>
                 <goal>test-compile</goal>
                 <goal>surefire:test</goal>
-                <goal>-Dtest=Scratch#IosScratchAppClickButton</goal>
-                <goal>-Dbrowser=APPIUMSIMULATORAPPSCRATCH</goal>
+                <goal>-Dtest=Scratch#VerifyLogos</goal>
+                <goal>-DaNumber=0</goal>
+                <goal>-Dbrowser=APPIUMSIMULATORAPPSAFARI</goal>
+                <goal>-Dinput=https://seattlerules.com</goal>
+                <goal>-Duserid=seattlerules.com</goal>
+                <goal>-DaString=//a</goal>
+                <goal>-Dlogging</goal>
                 <goal>-DaHubPort=4723</goal>
                 <goal>-DaHubServer=localhost</goal>
-                <goal>-DappiumApp=/Users/jameskarasim/Documents/STATIC/jaemzware/iOSDev/Scratch/Scratch.ipa</goal>
+                
                 
                 
                 

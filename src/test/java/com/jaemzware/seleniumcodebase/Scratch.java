@@ -21,8 +21,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.logging.LogType;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * @author jaemzware@hotmail.com
@@ -34,38 +32,6 @@ public class Scratch extends CodeBase {
 
     private final String linksOnSplashPageXpath = "//a[@href and not(@href='') and not(contains(@href,'javascript:')) and not(contains(@href,'mailto:'))]";
 
-    /**
-     * This method waits for the page to change, when paging through results
-     * 
-     * @param oldUrl
-     *            - old value of what should be at resultStatsTextXpath
-     * @param urlWithParms
-     *            - informational only just used to print out to console, what page is being loaded
-     * @throws Exception
-     */
-    private void WaitForPageChange(String oldUrl)  {
-        try{
-        final String waitTillUrlIsNot = oldUrl; // string to wait for to change when the page is loaded
-
-        System.out.println("WAITING FOR PAGE TO CHANGE FROM:"+oldUrl);
-        
-        // wait for links to be loaded by waiting for the resultStatsText to change
-        (new WebDriverWait(driver, waitAfterPageLoadMilliSeconds)).until(new ExpectedCondition<Boolean>() {
-            @Override
-            public Boolean apply(WebDriver d) {
-                return !driver.getCurrentUrl().equals(waitTillUrlIsNot);
-            }
-        });
-        
-        System.out.println("PAGE CHANGED FROM:"+oldUrl+" TO:"+driver.getCurrentUrl());
-        }
-        catch(Exception ex){
-            ScreenShot();
-            CustomStackTrace("WAITFORPAGECHANGE EXCEPTION", ex);
-            System.out.println("WARNING: WAITFORPAGE CHANGE FAILED, MOVING ON. EXCEPTION:"+ex.getMessage());
-        }
-
-    }
 
     @Before
     public void BeforeTest() {
@@ -103,10 +69,10 @@ public class Scratch extends CodeBase {
             
             StartDriver();
             
-//            List<WebElement> elements = driver.findElements(By.xpath("//*"));
-//            for(WebElement web:elements){
-//                System.out.println("TAG:"+web.getTagName()+" TEXT:"+web.getText());
-//            }
+            List<WebElement> elements = driver.findElements(By.xpath("//*"));
+            for(WebElement web:elements){
+                System.out.println("TAG:"+web.getTagName()+" TEXT:"+web.getText());
+            }
         }
         catch(Exception ex){
             
@@ -122,8 +88,6 @@ public class Scratch extends CodeBase {
         String fileWriteString;
 
         try {
-
-
             // open browser
             StartDriver();
             
@@ -161,20 +125,22 @@ public class Scratch extends CodeBase {
 
             // write the html header in the web page
             writer.println(HtmlReportHeader("jaemzware-verifylogos [baseurl:"+baseurl+" starturl:"+starturl+" logoxpath:"+logoxpath+"]"));
-
-            //get current page to detect change
-            String oldUrl=driver.getCurrentUrl();
             
-            // navigate to the starting page
+        // NAVIGATE TO THE STARTING PAGE
+            System.out.println("STARTURL:"+starturl);
             fileWriteString = driverGetWithTime(starturl);
 
             // write stats to html report
             writer.println(fileWriteString);
 
         //LOGGING
-            if(System.getProperty("logging")==null || browser.toString().contains("APPIUM")){
-                System.out.println("LOGGING DISABLED AND/OR APPIUM SPECIFIED, WHICH DOES NOT WORK WITH LOGGING");
-            } else {
+            if(System.getProperty("logging")==null){
+                System.out.println("LOGGING DISABLED - USE -Dlogging TO SEE BROWSER ERRORS AND WARNINGS");
+            } 
+            else if(browser.toString().contains("APPIUM")){
+                System.out.println("LOGGING NOT SUPPORTED WITH APPIUM");
+            }
+            else {
                 writer.println(ExtractJSLogs());
             }
             
@@ -242,7 +208,7 @@ public class Scratch extends CodeBase {
                     continue;
                 }
                 
-                oldUrl=driver.getCurrentUrl();
+                String oldUrl=driver.getCurrentUrl();
             
                 // go to the href
                 fileWriteString = driverGetWithTime(href);
@@ -275,8 +241,6 @@ public class Scratch extends CodeBase {
             writer.println(HtmlReportFooter());
 
             System.out.println("INDEX FILE WRITTEN:" + fileName);
-//            System.out.println("INDEX FILE COPIED:"+jenkinsReportPath+fileName);
-//            System.out.println("INDEX FILE COPIED:"+jenkinsReportPathInternal+fileName);
             
 
         } catch (Exception ex) {

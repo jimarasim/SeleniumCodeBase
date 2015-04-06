@@ -44,6 +44,8 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * CodeBase
@@ -353,7 +355,7 @@ public class CodeBase {
                         cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
                         cap.setCapability("platformVersion", "8.2");
                         cap.setCapability("browserName", "Safari");
-                        cap.setCapability("deviceName", "iPhone Simulator"); //"iPad Simulator"
+                        cap.setCapability("deviceName", "iPad Simulator"); //"iPhone Simulator"
                         System.out.println("ASSUMING APPIUM IS STARTED.  IF THIS FAILS, IT MIGHT NOT BE.");
                         break;
                     case APPIUMSIMULATORAPPSCRATCH: //NATIVE APP IN SIMULATOR
@@ -378,9 +380,7 @@ public class CodeBase {
                         cap.setCapability("automationName", "Appium"); // or Selendroid
                         cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
                         cap.setCapability("platformVersion", "8.2");
-//                        cap.setCapability("app", "/Users/jameskarasim/Documents/STATIC/jaemzware/iOSDev/Scratch/Scratch.ipa");
                         cap.setCapability("app", appiumApp);
-//                        cap.setCapability("udid","88ff683cec637c3f1279386620b5397d48bc8341"); //get this udid for phone from itunes, click device, then click serial number
                         cap.setCapability("udid",appiumUdid); //get this udid for phone from itunes, click device, then click serial number
                         cap.setCapability("deviceName", "iJaemzware"); //"iPad Simulator"
                         System.out.println("ASSUMING APPIUM IS STARTED.  IF THIS FAILS, IT MIGHT NOT BE.");
@@ -417,15 +417,21 @@ public class CodeBase {
                 //don't do any this for appium
                 if(!browser.toString().contains("APPIUM")){
                     // turn on debug logging if debug is specified. this takes longer
-                    if (System.getProperty("logging") == null || browser.toString().contains("APPIUM")) {
+                    if (System.getProperty("logging") == null){
+                        System.out.println("-Dlogging NOT SPECIFIED");
+                    }
+                    else if(browser.toString().contains("APPIUM")){
+                        System.out.println("-Dlogging NOT SUPPORTED WITH APPIUM");
                     } else {
                         LoggingPreferences loggingprefs = new LoggingPreferences();
                         loggingprefs.enable(LogType.BROWSER, Level.ALL);
                         loggingprefs.enable(LogType.CLIENT, Level.ALL);
                         loggingprefs.enable(LogType.DRIVER, Level.ALL);
                         cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
+                        
+                        System.out.println("-Dlogging SPECIFIED");
                     }
-
+                    
                     // accept all ssl certificates by default
                     cap.setCapability("acceptSslCerts", true);
 
@@ -482,7 +488,6 @@ public class CodeBase {
                 switch (GetOsType()) {
                 case WINDOWS:
                     System.setProperty("webdriver.chrome.driver", relativePathToDrivers + "chromedriver.exe"); // FOR
-                                                                                                               // WINDOWS
                     break;
                 case MAC:
                     System.setProperty("webdriver.chrome.driver", relativePathToDrivers + "chromedrivermac"); // FOR MAC
@@ -524,14 +529,18 @@ public class CodeBase {
 
                     // turn on debug logging if debug is specified. this takes longer
                     if (System.getProperty("logging") != null) {
+                        //chrome doesnt support this logging type CLIENT
                         LoggingPreferences loggingprefs = new LoggingPreferences();
                         loggingprefs.enable(LogType.BROWSER, Level.ALL);
-                        // loggingprefs.enable(LogType.CLIENT, Level.ALL); //chrome doesnt support this logging type
                         loggingprefs.enable(LogType.DRIVER, Level.ALL);
                         cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
+                        
+                        System.out.println("-Dlogging SPECIFIED");
 
                         driver = new ChromeDriver(cap);
                     } else {
+                        System.out.println("-Dlogging NOT SPECIFIED");
+                        
                         driver = new ChromeDriver(cap);
                     }
 
@@ -550,9 +559,13 @@ public class CodeBase {
                     loggingprefs.enable(LogType.CLIENT, Level.ALL);
                     loggingprefs.enable(LogType.DRIVER, Level.ALL);
                     cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
+                    
+                    System.out.println("-Dlogging SPECIFIED");
 
                     driver = new FirefoxDriver(cap);
                 } else {
+                    System.out.println("-Dlogging NOT SPECIFIED");
+                    
                     driver = new FirefoxDriver();
                 }
                 break;
@@ -573,6 +586,11 @@ public class CodeBase {
                         loggingprefs.enable(LogType.CLIENT, Level.ALL);
                         loggingprefs.enable(LogType.DRIVER, Level.ALL);
                         cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
+                        
+                        System.out.println("-Dlogging SPECIFIED");
+                    }
+                    else{
+                        System.out.println("-Dlogging NOT SPECIFIED");
                     }
 
                     driver = new SafariDriver(cap);
@@ -599,9 +617,14 @@ public class CodeBase {
                         loggingprefs.enable(LogType.CLIENT, Level.ALL);
                         loggingprefs.enable(LogType.DRIVER, Level.ALL);
                         cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
+                        
+                        System.out.println("-Dlogging SPECIFIED");
 
                         driver = new InternetExplorerDriver(cap);
                     } else {
+                        
+                        System.out.println("-Dlogging NOT SPECIFIED");
+                        
                         driver = new InternetExplorerDriver();
                     }
 
@@ -1116,5 +1139,39 @@ public class CodeBase {
         catch(Exception ex){
             CustomStackTrace("SCROLLING EXCEPTION",ex);
         }
+    }
+    
+    
+    /**
+     * This method waits for the page to change, when paging through results
+     * 
+     * @param oldUrl
+     *            - old value of what should be at resultStatsTextXpath
+     * @param urlWithParms
+     *            - informational only just used to print out to console, what page is being loaded
+     * @throws Exception
+     */
+    protected void WaitForPageChange(String oldUrl)  {
+        try{
+        final String waitTillUrlIsNot = oldUrl; // string to wait for to change when the page is loaded
+
+        System.out.println("WAITING FOR PAGE TO CHANGE FROM:"+oldUrl);
+        
+        // wait for links to be loaded by waiting for the resultStatsText to change
+        (new WebDriverWait(driver, waitAfterPageLoadMilliSeconds)).until(new ExpectedCondition<Boolean>() {
+            @Override
+            public Boolean apply(WebDriver d) {
+                return !driver.getCurrentUrl().equals(waitTillUrlIsNot);
+            }
+        });
+        
+        System.out.println("PAGE CHANGED FROM:"+oldUrl+" TO:"+driver.getCurrentUrl());
+        }
+        catch(Exception ex){
+            ScreenShot();
+            CustomStackTrace("WAITFORPAGECHANGE EXCEPTION", ex);
+            System.out.println("WARNING: WAITFORPAGE CHANGE FAILED, MOVING ON. EXCEPTION:"+ex.getMessage());
+        }
+
     }
 }
