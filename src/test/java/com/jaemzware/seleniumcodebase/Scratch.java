@@ -91,8 +91,10 @@ public class Scratch extends CodeBase {
             // open browser
             StartDriver();
             
-            //set implicit wait
-            driver.manage().timeouts().implicitlyWait(defaultImplicitWait, TimeUnit.SECONDS);
+            if(!browser.toString().contains("APPIUM")){
+                //set implicit wait
+                driver.manage().timeouts().implicitlyWait(defaultImplicitWait, TimeUnit.SECONDS);
+            }
 
         //GET PARAMETERS
             // get START url

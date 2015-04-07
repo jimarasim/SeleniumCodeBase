@@ -738,16 +738,21 @@ public class CodeBase {
      */
     protected boolean IsElementPresent(By locatorKey, int waitTimeMillis) {
         try {
-            // throttle wait time when looking for elements that should already be on the page
-            driver.manage().timeouts().implicitlyWait(waitTimeMillis, TimeUnit.MILLISECONDS);
-
+            //implictlywait cant' work with appium
+            if(!browser.toString().contains("APPIUM")){
+                // throttle wait time when looking for elements that should already be on the page
+                driver.manage().timeouts().implicitlyWait(waitTimeMillis, TimeUnit.MILLISECONDS);
+            }
+            
             // look for elements
             return driver.findElements(locatorKey).size() > 0;
         } catch (Exception ex) {
             return false;
         } finally {
-            // throttle implicit wait time back up
-            driver.manage().timeouts().implicitlyWait(defaultImplicitWait, TimeUnit.SECONDS);
+            if(!browser.toString().contains("APPIUM")){
+                // throttle implicit wait time back up
+                driver.manage().timeouts().implicitlyWait(defaultImplicitWait, TimeUnit.SECONDS);
+            }
         }
 
     }
