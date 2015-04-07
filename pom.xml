@@ -142,8 +142,12 @@ IOS-SCRATCH-APP-SIMULATOR-jaemzmac
     mvn -Dtest=Scratch#IosScratchAppClickButton -Dbrowser=APPIUMSIMULATORAPPSCRATCH -DaHubPort=4723 -DaHubServer=localhost -DappiumApp=/Users/jameskarasim/Documents/STATIC/jaemzware/iOSDev/Scratch/Scratch.ipa test
 IOS-SCRATCH-APP-SIMULATOR-jaemzmacbook
     mvn -Dtest=Scratch#IosScratchAppClickButton -Dbrowser=APPIUMSIMULATORAPPSCRATCH -DaHubPort=4723 -DaHubServer=localhost -DappiumApp=/Users/jimarasim/Downloads/installed/jaemzware/iOSDev/Scratch/Scratch.ipa test
-    mvn -Dtest=Scratch#IosScratchAppClickButton -Dbrowser=APPIUMSIMULATORAPPSCRATCH -DaHubPort=4723 -DaHubServer=localhost -DappiumApp=/Users/jameskarasim/Documents/STATIC/jaemzware/iOSDev/groceryshoppingtime/groceryshoppingtime.ipa
     
+APPIUMGROCERYSHOPPINGTIMESIMULATOR jaemzmacbook
+    mvn -Dtest=Scratch#IosScratchAppClickButton -Dbrowser=APPIUMGROCERYSHOPPINGTIMESIMULATOR -DaHubPort=4723 -DaHubServer=localhost -DappiumApp=/Users/jameskarasim/Documents/STATIC/jaemzware/iOSDev/groceryshoppingtime/groceryshoppingtime.ipa test
+    
+APPIUMGROCERYSHOPPINGTIMEDEVICE
+    mvn -Dtest=Scratch#IosScratchAppClickButton -Dbrowser=APPIUMGROCERYSHOPPINGTIMEDEVICE -DaHubPort=4723 -DaHubServer=localhost -DappiumApp=/Users/jameskarasim/Documents/STATIC/jaemzware/iOSDev/Scratch/Scratch.ipa -DappiumUdid=88ff683cec637c3f1279386620b5397d48bc8341 test
 
 mvn -Dtest=Scratch#MakeRestRequest -Dbrowser=CHROME -Dinput=https://seattlerules.com -Dnogrid test
 mvn -Dtest=Scratch#CheckGmail -Dinput=Disney -Duserid=jaemzware -Dpassword=g00g73G00G73 test

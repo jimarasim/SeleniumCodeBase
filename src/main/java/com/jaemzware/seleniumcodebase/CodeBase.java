@@ -347,6 +347,7 @@ public class CodeBase {
 
                 // desired browser
                 switch (browser) {
+                    
                     case APPIUMSIMULATORAPPSAFARI: //SAFARI APP IN SIMULATOR
                         cap = new DesiredCapabilities();
                         cap.setCapability("automationName", "Appium"); // or Selendroid
@@ -367,6 +368,7 @@ public class CodeBase {
                         cap.setCapability("platformVersion", "8.2");
                         cap.setCapability("app", appiumApp); 
                         cap.setCapability("deviceName", "iPhone Simulator"); //"iPad Simulator"
+                        
                         System.out.println("ASSUMING APPIUM IS STARTED.  IF THIS FAILS, IT MIGHT NOT BE.");
                         break;
                     case APPIUMDEVICEAPPSCRATCH: //NATIVE APP ON REAL DEVICE
@@ -378,11 +380,40 @@ public class CodeBase {
                         cap.setCapability("automationName", "Appium"); // or Selendroid
                         cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
                         cap.setCapability("platformVersion", "8.2");
-//                        cap.setCapability("app", "/Users/jameskarasim/Documents/STATIC/jaemzware/iOSDev/Scratch/Scratch.ipa");
                         cap.setCapability("app", appiumApp);
-//                        cap.setCapability("udid","88ff683cec637c3f1279386620b5397d48bc8341"); //get this udid for phone from itunes, click device, then click serial number
                         cap.setCapability("udid",appiumUdid); //get this udid for phone from itunes, click device, then click serial number
-                        cap.setCapability("deviceName", "iJaemzware"); //"iPad Simulator"
+                        cap.setCapability("deviceName", "iJaemzware"); 
+                        System.out.println("ASSUMING APPIUM IS STARTED.  IF THIS FAILS, IT MIGHT NOT BE.");
+                        break;
+                   case APPIUMGROCERYSHOPPINGTIMEDEVICE:
+                       //MAKE SURE APP AND DEVICE UDID WERE SPECIFIED
+                        if(appiumApp==null || appiumUdid==null){
+                            throw new Exception("MUST SPECIFY APP -DappiumApp AND DEVICE -DappiumUdid WHEN USING APPIUMDEVICEAPPSCRATCH");
+                        }
+                        cap = new DesiredCapabilities();
+                        cap.setCapability("automationName", "Appium"); // or Selendroid
+                        cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
+                        cap.setCapability("platformVersion", "8.2");
+                        cap.setCapability("app", appiumApp);
+                        cap.setCapability("udid",appiumUdid); //get this udid for phone from itunes, click device, then click serial number
+                        cap.setCapability("deviceName", "iJaemzware"); 
+                        System.out.println("ASSUMING APPIUM IS STARTED.  IF THIS FAILS, IT MIGHT NOT BE.");
+                        break;
+                   case APPIUMGROCERYSHOPPINGTIMESIMULATOR:
+                        //MAKE SURE APP IS SPECIFIED
+                        if(appiumApp==null){
+                            throw new Exception("MUST SPECIFY APP -DappiumApp WHEN USING APPIUMSIMULATORAPPSCRATCH");
+                        }
+                        cap = new DesiredCapabilities();
+                        cap.setCapability("automationName", "Appium"); // or Selendroid
+                        cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
+                        cap.setCapability("platformVersion", "8.2");
+                        cap.setCapability("app", appiumApp); 
+                        cap.setCapability("deviceName", "iPhone Simulator"); //"iPad Simulator"
+                        
+                        //TODO - TRYING STUFF - CODE REVIEW
+                        cap.setCapability("fullReset", true); 
+                        
                         System.out.println("ASSUMING APPIUM IS STARTED.  IF THIS FAILS, IT MIGHT NOT BE.");
                         break;
                     case CHROME:
@@ -395,6 +426,7 @@ public class CodeBase {
                     case FIREFOXMAC:
                         cap = DesiredCapabilities.firefox();
                         break;
+                    
                     case SAFARI:
                         cap = DesiredCapabilities.safari();
 
