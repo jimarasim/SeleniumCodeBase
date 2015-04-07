@@ -1028,6 +1028,7 @@ public class CodeBase {
             driver.get(href);
         }
         catch(Exception ex){
+            ex.printStackTrace();
             throw new Exception("DRIVER.GET FAILED. EXCEPTION:"+ex.getMessage());
         }
 
