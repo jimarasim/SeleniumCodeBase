@@ -126,6 +126,7 @@ VERIFYLOGOS-OPTIONAL PARAMETERS:
 
 GRID-VERIFYLOGOS / LOGGING SAMPLES:
 mvn -Dtest=Scratch#VerifyLogos -Dbrowser=FIREFOX -Dinput=http://disney.com/ -DaNumber=0 -Duserid=disney.com -DaString="//*[contains(@id,'logo')]" -Dlogging -DaHubServer=localhost -DaHubPort=4445 test
+mvn -Dtest=Scratch#VerifyLogos -Dbrowser=CHROME -Dinput=http://disney.com/ -DaNumber=0 -Duserid=disney.com -DaString="//*[contains(@id,'logo')]" -DwaitAfterPageLoadMilliSeconds=5000 -Dlogging -Dnogrid test
 
 
 
