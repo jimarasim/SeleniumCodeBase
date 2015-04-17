@@ -494,10 +494,10 @@ public class CodeBase {
                         + " PLATFORM:" + browser.platform.toString());
             } catch (Exception ex) {
                 if (ex.getMessage().contains("Error forwarding")) {
-                    System.out.println("SELENIUM GRID NODE 'browserName=" + browser.browserName + ",version="
+                    System.out.println(">>>>>>>>>SELENIUM GRID NODE<<<<<<<<< 'browserName=" + browser.browserName + ",version="
                             + browser.version + "' NOT LAUNCHED EXCEPTION:" + ex.getMessage());
                 } else if (ex.getMessage().contains("COULD NOT START A NEW SESSION")) {
-                    System.out.println("SELENIUM GRID HUB NOT LAUNCHED EXCEPTION:" + ex.getMessage());
+                    System.out.println(">>>>>>>>>SELENIUM GRID HUB NOT LAUNCHED EXCEPTION:<<<<<<<<<" + ex.getMessage());
                 } else {
                     System.out.println("SELENIUM GRID CONNECTION EXCEPTION. VERIFY ONE IS STARTED AT SERVER:"+aHubServer+" PORT:"+aHubPort+" MESSAGE:" + ex.getMessage() );
                 }
