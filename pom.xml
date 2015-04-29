@@ -128,27 +128,29 @@ GRID-VERIFYLOGOS / LOGGING SAMPLES:
 mvn -Dtest=Scratch#VerifyLogos -Dbrowser=FIREFOX -Dinput=http://disney.com/ -DaNumber=0 -Duserid=disney.com -DaString="//*[contains(@id,'logo')]" -Dlogging -DaHubServer=localhost -DaHubPort=4445 test
 mvn -Dtest=Scratch#VerifyLogos -Dbrowser=CHROME -Dinput=http://disney.com/ -DaNumber=0 -Duserid=disney.com -DaString="//*[contains(@id,'logo')]" -DwaitAfterPageLoadMilliSeconds=5000 -Dlogging -Dnogrid test
 
-
-
 NOGRID-VERIFYLOGOS / LOGGING SAMPLES:
-    mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=CHROME -Dinput=https://www.blackmarketskates.com -Duserid=blackmarketskates.com -DaString="//a[contains(text(),'Black Market Skates')]" -Dlogging -Dnogrid -DwaitAfterPageLoadMilliSeconds=5000 test
+mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=CHROME -Dinput=https://www.blackmarketskates.com -Duserid=blackmarketskates.com -DaString="//a[contains(text(),'Black Market Skates')]" -Dlogging -Dnogrid -DwaitAfterPageLoadMilliSeconds=5000 test
 
-
+APPIUM
 APPIUMSIMULATORAPPSAFARI-IOS-SAFARI-SIMULATOR-VERIFYLOGOS / LOGGING SAMPLES
-    mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=APPIUMSIMULATORAPPSAFARI -Dinput=https://seattlerules.com -Duserid=seattlerules.com -DaString=//a[@title='Seattle Rules'] -Dlogging -DaHubPort=4723 -DaHubServer=localhost test 
-APPIUMSIMULATORAPPSCRATCH-IOS-SCRATCH-APP-SIMULATOR-jaemzmac
-    mvn -Dtest=Scratch#IosScratchAppClickButton -Dbrowser=APPIUMSIMULATORAPPSCRATCH -DaHubPort=4723 -DaHubServer=localhost -DappiumApp=/Users/jameskarasim/Documents/STATIC/jaemzware/iOSDev/Scratch/Scratch.ipa test
-APPIUMSIMULATORAPPSCRATCH-IOS-SCRATCH-APP-SIMULATOR-jaemzmacbook
-    mvn -Dtest=Scratch#IosScratchAppClickButton -Dbrowser=APPIUMSIMULATORAPPSCRATCH -DaHubPort=4723 -DaHubServer=localhost -DappiumApp=/Users/jameskarasim/Documents/STATIC/jaemzware/iOSDev/groceryshoppingtime/groceryshoppingtime.ipa
-APPIUMDEVICEAPPSCRATCH-IOS-SCRATCH-APP-DEVICE
-    mvn -Dtest=Scratch#IosScratchAppClickButton -Dbrowser=APPIUMDEVICEAPPSCRATCH -DaHubPort=4723 -DaHubServer=localhost -DappiumApp=/Users/jameskarasim/Documents/STATIC/jaemzware/iOSDev/Scratch/Scratch.ipa -DappiumUdid=88ff683cec637c3f1279386620b5397d48bc8341 test
+mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=APPIUMSIMULATORAPPSAFARI -Dinput=https://seattlerules.com -Duserid=seattlerules.com -DaString=//a[@title='Seattle Rules'] -Dlogging -DaHubPort=4723 -DaHubServer=localhost test 
+APPIUMSIMULATORAPPSCRATCH-IOS-SCRATCH-APP-SIMULATOR 
+[VERIFY -DappiumApp PATH EXISTS]
+mvn -Dtest=Scratch#IosScratchAppClickButton -Dbrowser=APPIUMSIMULATORAPPSCRATCH -DaHubPort=4723 -DaHubServer=localhost -DappiumApp=/Users/jameskarasim/Documents/STATIC/jaemzware/iOSDev/Scratch/Scratch.ipa test
+APPIUMSIMULATORAPPSCRATCH-IOS-SCRATCH-APP-SIMULATOR 
+[VERIFY -DappiumApp PATH EXISTS]
+mvn -Dtest=Scratch#IosScratchAppClickButton -Dbrowser=APPIUMSIMULATORAPPSCRATCH -DaHubPort=4723 -DaHubServer=localhost -DappiumApp=/Users/jameskarasim/Documents/STATIC/jaemzware/iOSDev/groceryshoppingtime/groceryshoppingtime.ipa
+APPIUMDEVICEAPPSCRATCH-IOS-SCRATCH-APP-DEVICE  
+[VERIFY -DappiumApp PATH EXISTS]
+mvn -Dtest=Scratch#IosScratchAppClickButton -Dbrowser=APPIUMDEVICEAPPSCRATCH -DaHubPort=4723 -DaHubServer=localhost -DappiumApp=/Users/jameskarasim/Documents/STATIC/jaemzware/iOSDev/Scratch/Scratch.ipa -DappiumUdid=88ff683cec637c3f1279386620b5397d48bc8341 test
 
 
+UTILITIES
 MAKERESTREQUEST-NOGRID    
-    mvn -Dtest=Scratch#MakeRestRequest -Dbrowser=CHROME -Dinput=https://seattlerules.com -Dnogrid test
+mvn -Dtest=Scratch#MakeRestRequest -Dbrowser=CHROME -Dinput=https://seattlerules.com -Dnogrid test
 CHECKGMAIL
-    mvn -Dtest=Scratch#CheckGmail -Dinput=Disney -Duserid=jaemzware -Dpassword=g00g73G00G73 test
+mvn -Dtest=Scratch#CheckGmail -Dinput=Disney -Duserid=jaemzware -Dpassword=g00g73G00G73 test
 JUNIT EXAMPLE FOR JENKINS
-    mvn -Dtest=Scratch#DemonstrateJunitFailureInJenkins -Dnogrid test
+mvn -Dtest=Scratch#DemonstrateJunitFailureInJenkins -Dnogrid test
   -->
 </project>

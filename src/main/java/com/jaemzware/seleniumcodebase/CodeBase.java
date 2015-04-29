@@ -63,6 +63,7 @@ public class CodeBase {
     // appium app and udid defaults
     protected static String appiumApp = null;
     protected static String appiumUdid = null;
+    protected static final String iosTargetVersion = "8.3";
     
     // jenkins report folder url
     protected static final String jenkinsReportHeader = "";
@@ -354,7 +355,7 @@ public class CodeBase {
                         cap = new DesiredCapabilities();
                         cap.setCapability("automationName", "Appium"); // or Selendroid
                         cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
-                        cap.setCapability("platformVersion", "8.2");
+                        cap.setCapability("platformVersion", iosTargetVersion);
                         cap.setCapability("browserName", "Safari");
                         cap.setCapability("deviceName", "iPad Simulator"); //"iPhone Simulator"
                         System.out.println("ASSUMING APPIUM IS STARTED.  IF THIS FAILS, IT MIGHT NOT BE.");
@@ -367,7 +368,7 @@ public class CodeBase {
                         cap = new DesiredCapabilities();
                         cap.setCapability("automationName", "Appium"); // or Selendroid
                         cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
-                        cap.setCapability("platformVersion", "8.2");
+                        cap.setCapability("platformVersion", iosTargetVersion);
                         cap.setCapability("app", appiumApp); 
                         cap.setCapability("deviceName", "iPhone Simulator"); //"iPad Simulator"
                         
@@ -381,7 +382,7 @@ public class CodeBase {
                         cap = new DesiredCapabilities();
                         cap.setCapability("automationName", "Appium"); // or Selendroid
                         cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
-                        cap.setCapability("platformVersion", "8.2");
+                        cap.setCapability("platformVersion", iosTargetVersion);
                         cap.setCapability("app", appiumApp);
                         cap.setCapability("udid",appiumUdid); //get this udid for phone from itunes, click device, then click serial number
                         cap.setCapability("deviceName", "iJaemzware"); 
@@ -395,7 +396,7 @@ public class CodeBase {
                         cap = new DesiredCapabilities();
                         cap.setCapability("automationName", "Appium"); // or Selendroid
                         cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
-                        cap.setCapability("platformVersion", "8.2");
+                        cap.setCapability("platformVersion", iosTargetVersion);
                         cap.setCapability("app", appiumApp);
                         cap.setCapability("udid",appiumUdid); //get this udid for phone from itunes, click device, then click serial number
                         cap.setCapability("deviceName", "iJaemzware"); 
@@ -409,7 +410,7 @@ public class CodeBase {
                         cap = new DesiredCapabilities();
                         cap.setCapability("automationName", "Appium"); // or Selendroid
                         cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
-                        cap.setCapability("platformVersion", "8.2");
+                        cap.setCapability("platformVersion", iosTargetVersion);
                         cap.setCapability("app", appiumApp); 
                         cap.setCapability("deviceName", "iPhone Simulator"); //"iPad Simulator"
                         
