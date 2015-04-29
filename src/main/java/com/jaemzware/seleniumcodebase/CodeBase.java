@@ -351,16 +351,24 @@ public class CodeBase {
                 // desired browser
                 switch (browser) {
                     
-                    case APPIUMSIMULATORAPPSAFARI: //SAFARI APP IN SIMULATOR
+                    case APPIUMSAFARISIMULATOR: 
                         cap = new DesiredCapabilities();
                         cap.setCapability("automationName", "Appium"); // or Selendroid
                         cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
                         cap.setCapability("platformVersion", iosTargetVersion);
                         cap.setCapability("browserName", "Safari");
                         cap.setCapability("deviceName", "iPad Simulator"); //"iPhone Simulator"
-                        System.out.println("ASSUMING APPIUM IS STARTED.  IF THIS FAILS, IT MIGHT NOT BE.");
                         break;
-                    case APPIUMSIMULATORAPPSCRATCH: //NATIVE APP IN SIMULATOR
+                    case APPIUMSAFARIDEVICE:
+                        cap = new DesiredCapabilities();
+                        cap.setCapability("automationName", "Appium"); // or Selendroid
+                        cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
+                        cap.setCapability("platformVersion", iosTargetVersion);
+                        cap.setCapability("browserName", "Safari");
+                        cap.setCapability("udid",appiumUdid); //get this udid for phone from itunes, click device, then click serial number
+                        cap.setCapability("deviceName", "iJaemzware"); //"iPhone Simulator"
+                        break;
+                    case APPIUMAPPSIMULATOR: 
                         //MAKE SURE APP IS SPECIFIED
                         if(appiumApp==null){
                             throw new Exception("MUST SPECIFY APP -DappiumApp WHEN USING APPIUMSIMULATORAPPSCRATCH");
@@ -372,9 +380,8 @@ public class CodeBase {
                         cap.setCapability("app", appiumApp); 
                         cap.setCapability("deviceName", "iPhone Simulator"); //"iPad Simulator"
                         
-                        System.out.println("ASSUMING APPIUM IS STARTED.  IF THIS FAILS, IT MIGHT NOT BE.");
                         break;
-                    case APPIUMDEVICEAPPSCRATCH: //NATIVE APP ON REAL DEVICE
+                    case APPIUMAPPDEVICE: 
                         //MAKE SURE APP AND DEVICE UDID WERE SPECIFIED
                         if(appiumApp==null || appiumUdid==null){
                             throw new Exception("MUST SPECIFY APP -DappiumApp AND DEVICE -DappiumUdid WHEN USING APPIUMDEVICEAPPSCRATCH");
@@ -386,38 +393,6 @@ public class CodeBase {
                         cap.setCapability("app", appiumApp);
                         cap.setCapability("udid",appiumUdid); //get this udid for phone from itunes, click device, then click serial number
                         cap.setCapability("deviceName", "iJaemzware"); 
-                        System.out.println("ASSUMING APPIUM IS STARTED.  IF THIS FAILS, IT MIGHT NOT BE.");
-                        break;
-                   case APPIUMGROCERYSHOPPINGTIMEDEVICE:
-                       //MAKE SURE APP AND DEVICE UDID WERE SPECIFIED
-                        if(appiumApp==null || appiumUdid==null){
-                            throw new Exception("MUST SPECIFY APP -DappiumApp AND DEVICE -DappiumUdid WHEN USING APPIUMDEVICEAPPSCRATCH");
-                        }
-                        cap = new DesiredCapabilities();
-                        cap.setCapability("automationName", "Appium"); // or Selendroid
-                        cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
-                        cap.setCapability("platformVersion", iosTargetVersion);
-                        cap.setCapability("app", appiumApp);
-                        cap.setCapability("udid",appiumUdid); //get this udid for phone from itunes, click device, then click serial number
-                        cap.setCapability("deviceName", "iJaemzware"); 
-                        System.out.println("ASSUMING APPIUM IS STARTED.  IF THIS FAILS, IT MIGHT NOT BE.");
-                        break;
-                   case APPIUMGROCERYSHOPPINGTIMESIMULATOR:
-                        //MAKE SURE APP IS SPECIFIED
-                        if(appiumApp==null){
-                            throw new Exception("MUST SPECIFY APP -DappiumApp WHEN USING APPIUMSIMULATORAPPSCRATCH");
-                        }
-                        cap = new DesiredCapabilities();
-                        cap.setCapability("automationName", "Appium"); // or Selendroid
-                        cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
-                        cap.setCapability("platformVersion", iosTargetVersion);
-                        cap.setCapability("app", appiumApp); 
-                        cap.setCapability("deviceName", "iPhone Simulator"); //"iPad Simulator"
-                        
-                        //TODO - TRYING STUFF - CODE REVIEW
-                        cap.setCapability("fullReset", true); 
-                        
-                        System.out.println("ASSUMING APPIUM IS STARTED.  IF THIS FAILS, IT MIGHT NOT BE.");
                         break;
                     case CHROME:
                     case CHROMELINUX:
@@ -500,7 +475,7 @@ public class CodeBase {
                 } else if (ex.getMessage().contains("COULD NOT START A NEW SESSION")) {
                     System.out.println(">>>>>>>>>SELENIUM GRID HUB NOT LAUNCHED EXCEPTION:<<<<<<<<<" + ex.getMessage());
                 } else {
-                    System.out.println("SELENIUM GRID CONNECTION EXCEPTION. VERIFY ONE IS STARTED AT SERVER:"+aHubServer+" PORT:"+aHubPort+" MESSAGE:" + ex.getMessage() );
+                    System.out.println(">>>>>>>>>SELENIUM GRID HUB CONNECTION EXCEPTION. VERIFY ONE IS STARTED AT SERVER:"+aHubServer+" PORT:"+aHubPort+" MESSAGE:" + ex.getMessage() );
                 }
 
                 driver = null;
@@ -674,21 +649,22 @@ public class CodeBase {
             System.out.println("SUCCESSFULLY LAUNCHED LOCAL BROWSER FOR:" + browser + " ON:" + GetOsType());
         }
 
-        // start with no cookies
+        if(driver!=null){
 
-        // safari 7.0.1 doesn't like this for some reason
-        if (browser != BrowserType.SAFARI && 
-                !browser.toString().contains("APPIUM")) {
-            driver.manage().deleteAllCookies();
-        }
+            // safari 7.0.1 doesn't like this for some reason
+            if (browser != BrowserType.SAFARI && 
+                    !browser.toString().contains("APPIUM")) {
+                driver.manage().deleteAllCookies();
+            }
 
-        // maximize browser (not supported by appium)
-        if (!browser.toString().contains("APPIUM")) {
-            // maximize the window
-            driver.manage().window().maximize();
-            
-            // set the main window handle
-            mainWindowHandle = driver.getWindowHandle();
+            // maximize browser (not supported by appium)
+            if (!browser.toString().contains("APPIUM")) {
+                // maximize the window
+                driver.manage().window().maximize();
+
+                // set the main window handle
+                mainWindowHandle = driver.getWindowHandle();
+            }
         }
 
 

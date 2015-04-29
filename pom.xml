@@ -132,18 +132,18 @@ NOGRID-VERIFYLOGOS / LOGGING SAMPLES:
 mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=CHROME -Dinput=https://www.blackmarketskates.com -Duserid=blackmarketskates.com -DaString="//a[contains(text(),'Black Market Skates')]" -Dlogging -Dnogrid -DwaitAfterPageLoadMilliSeconds=5000 test
 
 APPIUM
-APPIUMSIMULATORAPPSAFARI-IOS-SAFARI-SIMULATOR-VERIFYLOGOS / LOGGING SAMPLES
-mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=APPIUMSIMULATORAPPSAFARI -Dinput=https://seattlerules.com -Duserid=seattlerules.com -DaString=//a[@title='Seattle Rules'] -Dlogging -DaHubPort=4723 -DaHubServer=localhost test 
-APPIUMSIMULATORAPPSCRATCH-IOS-SCRATCH-APP-SIMULATOR 
-[VERIFY -DappiumApp PATH EXISTS]
-mvn -Dtest=Scratch#IosScratchAppClickButton -Dbrowser=APPIUMSIMULATORAPPSCRATCH -DaHubPort=4723 -DaHubServer=localhost -DappiumApp=/Users/jameskarasim/Documents/STATIC/jaemzware/iOSDev/Scratch/Scratch.ipa test
-APPIUMSIMULATORAPPSCRATCH-IOS-SCRATCH-APP-SIMULATOR 
-[VERIFY -DappiumApp PATH EXISTS]
-mvn -Dtest=Scratch#IosScratchAppClickButton -Dbrowser=APPIUMSIMULATORAPPSCRATCH -DaHubPort=4723 -DaHubServer=localhost -DappiumApp=/Users/jameskarasim/Documents/STATIC/jaemzware/iOSDev/groceryshoppingtime/groceryshoppingtime.ipa
-APPIUMDEVICEAPPSCRATCH-IOS-SCRATCH-APP-DEVICE  
-[VERIFY -DappiumApp PATH EXISTS]
-mvn -Dtest=Scratch#IosScratchAppClickButton -Dbrowser=APPIUMDEVICEAPPSCRATCH -DaHubPort=4723 -DaHubServer=localhost -DappiumApp=/Users/jameskarasim/Documents/STATIC/jaemzware/iOSDev/Scratch/Scratch.ipa -DappiumUdid=88ff683cec637c3f1279386620b5397d48bc8341 test
-
+APPIUMSAFARISIMULATOR:
+    mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=APPIUMSAFARISIMULATOR -Dinput=https://seattlerules.com -Duserid=seattlerules.com -DaString=//a[@title='Seattle Rules'] -Dlogging -DaHubPort=4723 -DaHubServer=localhost test 
+APPIUMSAFARIDEVICE
+    [VERIFY -DappiumUdid UDID EXISTS (e.g. 88ff683cec637c3f1279386620b5397d48bc8341)]
+    mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=APPIUMSAFARIDEVICE -DaHubPort=4723 -DaHubServer=localhost -DappiumUdid=88ff683cec637c3f1279386620b5397d48bc8341 -Dinput=https://seattlerules.com -Duserid=seattlerules.com -DaString=//a[@title='Seattle Rules'] -Dlogging test
+APPIUMAPPSIMULATOR
+    [VERIFY -DappiumApp PATH EXISTS]
+    mvn -Dtest=Scratch#IosScratchAppClickButton -Dbrowser=APPIUMAPPSIMULATOR -DaHubPort=4723 -DaHubServer=localhost -DappiumApp=/Users/jameskarasim/Documents/STATIC/jaemzware/iOSDev/Scratch/Scratch.ipa test
+APPIUMAPPDEVICE 
+    [VERIFY -DappiumApp PATH EXISTS (e.g. =/Users/jameskarasim/Documents/STATIC/jaemzware/iOSDev/Scratch/Scratch.ipa]
+    [VERIFY -DappiumUdid UDID EXISTS (e.g. 88ff683cec637c3f1279386620b5397d48bc8341)]
+    mvn -Dtest=Scratch#IosScratchAppClickButton -Dbrowser=APPIUMAPPDEVICE -DaHubPort=4723 -DaHubServer=localhost -DappiumApp=/Users/jameskarasim/Documents/STATIC/jaemzware/iOSDev/Scratch/Scratch.ipa -DappiumUdid=88ff683cec637c3f1279386620b5397d48bc8341 test
 
 UTILITIES
 MAKERESTREQUEST-NOGRID    
