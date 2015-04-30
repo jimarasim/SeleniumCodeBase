@@ -357,7 +357,7 @@ public class CodeBase {
                         cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
                         cap.setCapability("platformVersion", iosTargetVersion);
                         cap.setCapability("browserName", "Safari");
-                        cap.setCapability("deviceName", "iPad Simulator"); //"iPhone Simulator"
+                        cap.setCapability("deviceName", "iPhone Simulator"); 
                         break;
                     case APPIUMSAFARIDEVICE:
                         cap = new DesiredCapabilities();
