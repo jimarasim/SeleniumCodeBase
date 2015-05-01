@@ -142,7 +142,7 @@ public class Scratch extends CodeBase {
             
             //take a screenshot andn print it out
             String screenshotFilePath= ScreenShot();
-            String screenshotFilename = screenshotFilePath.substring(screenshotFilePath.lastIndexOf("/"));
+            String screenshotFilename = screenshotFilePath.substring(screenshotFilePath.lastIndexOf("/")+1);
             writer.println("<a href='"+screenshotFilename+"' target='_blank'><img src='"+screenshotFilename+"' /></a><br /><br />");
 
             // write stats to html report
@@ -258,7 +258,7 @@ public class Scratch extends CodeBase {
 
         //COMPLETE WRITING REPORT WEB PAGE
             writer.println(HtmlReportFooter());
-            System.out.println("INDEX FILE WRITTEN:" + fileName + " http://10.1.10.156/jenkinsArtifacts/"+ fileName + " http://jaemzware.com/jenkinsArtifacts/"+fileName);
+            System.out.println("INDEX FILE WRITTEN:" + fileName + " <br /><b>INTERNAL COPY: http://10.1.10.156/jenkinsArtifacts/"+ fileName + " <br />EXTERNAL COPY: http://jaemzware.com/jenkinsArtifacts/"+fileName);
             
 
         } catch (Exception ex) {
