@@ -1012,7 +1012,7 @@ public class CodeBase {
         String htmlOutput = "";
 
         System.out.println("GETTING:" + href);
-        htmlOutput += "<br /><h1>GETTING:<a href='" + href + "' target='_blank'>" + href + "</a></h1>";
+        htmlOutput += "<br />JUST GOT:<a href='" + href + "' target='_blank'>" + href + "</a>";
 
         // mark start time to report how long it takes to load the page
         startTime = System.currentTimeMillis();
