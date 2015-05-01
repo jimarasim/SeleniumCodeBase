@@ -143,7 +143,7 @@ public class Scratch extends CodeBase {
             //take a screenshot andn print it out
             String screenshotFilePath= ScreenShot();
             String screenshotFilename = screenshotFilePath.substring(screenshotFilePath.lastIndexOf("/"));
-            writer.println("STARTURL:"+starturl+"<a href='"+screenshotFilename+"'>"+screenshotFilename+"</a><br />");
+            writer.println("<a href='"+screenshotFilename+"' target='_blank'><img src='"+screenshotFilename+"' /></a><br /><br />");
 
             // write stats to html report
             writer.println(fileWriteString);
