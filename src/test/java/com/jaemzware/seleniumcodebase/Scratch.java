@@ -141,7 +141,8 @@ public class Scratch extends CodeBase {
             fileWriteString = driverGetWithTime(starturl);
             
             //take a screenshot andn print it out
-            String screenshotFilename = ScreenShot();
+            String screenshotFilePath= ScreenShot();
+            String screenshotFilename = screenshotFilePath.substring(screenshotFilePath.lastIndexOf("/"));
             writer.println("STARTURL:"+starturl+"<a href='"+screenshotFilename+"'>"+screenshotFilename+"</a><br />");
 
             // write stats to html report
@@ -228,7 +229,8 @@ public class Scratch extends CodeBase {
                 fileWriteString = driverGetWithTime(href);
                 
                 //take a screenshot andn print it out
-                screenshotFilename = ScreenShot();
+                screenshotFilePath = ScreenShot();
+                screenshotFilename = screenshotFilePath.substring(screenshotFilePath.lastIndexOf("/")+1);
                 writer.println("HREF:"+href+"<a href='"+screenshotFilename+"'>"+screenshotFilename+"</a><br /><img src='"+screenshotFilename+"' alt='SCREENSHOT' /><br />");
 
                 // write stats to html report
