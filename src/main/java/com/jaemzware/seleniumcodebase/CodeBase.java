@@ -64,6 +64,7 @@ public class CodeBase {
     protected static String appiumApp = null;
     protected static String appiumUdid = null;
     protected static String appiumIosTargetVersion = null;
+    protected static String appiumIosDeviceName = null;
     
     // jenkins report folder url
     protected static final String jenkinsReportHeader = "";
@@ -104,7 +105,6 @@ public class CodeBase {
     protected static String GetParameters() {
         System.out.println("COMMAND LINE PARAMETERS");
 
-        // WAITAFTERPAGELOADMILLISECONDS
         // get waitAfterPageLoadMilliSeconds specified on command line
         String waitAfterPageLoadMilliSecondsParm = System.getProperty("waitAfterPageLoadMilliSeconds");
 
@@ -123,7 +123,6 @@ public class CodeBase {
             }
         }
         
-        // APPIUMAPPPARM
         // get appiumApp specified on command line
         String appiumAppParm = System.getProperty("appiumApp");
 
@@ -135,8 +134,6 @@ public class CodeBase {
             System.out.println("-DappiumApp:" + appiumApp);
         }
         
-        
-        // APPIUMUDID
         // get appiumUdid specified on command line
         String appiumUdidParm = System.getProperty("appiumUdid");
 
@@ -148,8 +145,7 @@ public class CodeBase {
             System.out.println("-DappiumUdid:" + appiumUdid);
         }
         
-        // APPIUMUDID
-        // get appiumUdid specified on command line
+        // get appiumIosTargetVersion specified on command line
         String appiumIosTargetVersionParm = System.getProperty("appiumIosTargetVersion");
 
         if (appiumIosTargetVersionParm == null || appiumIosTargetVersionParm.isEmpty()) {
@@ -158,6 +154,17 @@ public class CodeBase {
             appiumIosTargetVersion = appiumIosTargetVersionParm;
 
             System.out.println("-DappiumIosTargetVersion:" + appiumIosTargetVersion);
+        }
+        
+        // get appiumIosDeviceName specified on the command line
+        String appiumIosDeviceNameParm = System.getProperty("appiumIosDeviceName");
+
+        if (appiumIosDeviceNameParm == null || appiumIosDeviceNameParm.isEmpty()) {
+            System.out.println("-DappiumIosDeviceName NOT SPECIFIED.");
+        } else {
+            appiumIosDeviceName = appiumIosDeviceNameParm;
+
+            System.out.println("-DappiumIosDeviceName:" + appiumIosDeviceName);
         }
         
         // USERID
@@ -369,7 +376,7 @@ public class CodeBase {
                         cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
                         cap.setCapability("platformVersion", appiumIosTargetVersion);
                         cap.setCapability("browserName", "Safari");
-                        cap.setCapability("deviceName", "iPhone Simulator"); 
+                        cap.setCapability("deviceName", appiumIosDeviceName); 
                         break;
                     case APPIUMSAFARIDEVICE:
                         cap = new DesiredCapabilities();
@@ -378,7 +385,7 @@ public class CodeBase {
                         cap.setCapability("platformVersion", appiumIosTargetVersion);
                         cap.setCapability("browserName", "Safari");
                         cap.setCapability("udid",appiumUdid); //get this udid for phone from itunes, click device, then click serial number
-                        cap.setCapability("deviceName", "iJaemzware"); //"iPhone Simulator"
+                        cap.setCapability("deviceName", appiumIosDeviceName); //"iPhone Simulator"
                         break;
                     case APPIUMAPPSIMULATOR: 
                         //MAKE SURE APP IS SPECIFIED
@@ -390,7 +397,7 @@ public class CodeBase {
                         cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
                         cap.setCapability("platformVersion", appiumIosTargetVersion);
                         cap.setCapability("app", appiumApp); 
-                        cap.setCapability("deviceName", "iPhone Simulator"); //"iPad Simulator"
+                        cap.setCapability("deviceName", appiumIosDeviceName); //"iPad Simulator"
                         
                         break;
                     case APPIUMAPPDEVICE: 
@@ -404,7 +411,7 @@ public class CodeBase {
                         cap.setCapability("platformVersion", appiumIosTargetVersion);
                         cap.setCapability("app", appiumApp);
                         cap.setCapability("udid",appiumUdid); //get this udid for phone from itunes, click device, then click serial number
-                        cap.setCapability("deviceName", "iJaemzware"); 
+                        cap.setCapability("deviceName", appiumIosDeviceName); 
                         break;
                     case CHROME:
                     case CHROMELINUX:

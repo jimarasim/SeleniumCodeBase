@@ -122,7 +122,8 @@ VERIFYLOGOS-OPTIONAL PARAMETERS:
     -DwaitAfterPageLoadMilliSeconds   time to wait after a page has loaded. 
     -DappiumApp     path to ios app ipa file, if using appium to test a native app APPIUMSIMULATORAPPSCRATCH APPIUMDEVICEAPPSCRATCH
     -DappiumUdid    path to ios device udid, if using appium ot test a device instead of a simulator APPIUMDEVICEAPPSCRATCH
-
+    -DappiumIosTargetVersion    version of ios to use
+    -DappiumIosDeviceName  name of ios simulator to use
 
 GRID-VERIFYLOGOS / LOGGING SAMPLES:
 mvn -Dtest=Scratch#VerifyLogos -Dbrowser=FIREFOX -Dinput=http://disney.com/ -DaNumber=0 -Duserid=disney.com -DaString="//*[contains(@id,'logo')]" -Dlogging -DaHubServer=localhost -DaHubPort=4445 test
@@ -132,8 +133,7 @@ NOGRID-VERIFYLOGOS / LOGGING SAMPLES:
 mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=CHROME -Dinput=https://www.blackmarketskates.com -Duserid=blackmarketskates.com -DaString="//a[contains(text(),'Black Market Skates')]" -Dlogging -Dnogrid -DwaitAfterPageLoadMilliSeconds=5000 test
 
 APPIUM
-APPIUMSAFARISIMULATOR:
-    mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=APPIUMSAFARISIMULATOR -Dinput=https://seattlerules.com -Duserid=seattlerules.com -DaString=//a[@title='Seattle Rules'] -Dlogging -DaHubPort=4723 -DaHubServer=localhost test 
+APPIUMSAFARISIMULATOR: see ass.sh
 APPIUMSAFARIDEVICE
     [VERIFY -DappiumUdid UDID EXISTS (e.g. 88ff683cec637c3f1279386620b5397d48bc8341)]
     mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=APPIUMSAFARIDEVICE -DaHubPort=4723 -DaHubServer=localhost -DappiumUdid=88ff683cec637c3f1279386620b5397d48bc8341 -Dinput=https://seattlerules.com -Duserid=seattlerules.com -DaString=//a[@title='Seattle Rules'] -Dlogging test

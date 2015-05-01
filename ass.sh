@@ -11,10 +11,11 @@
 #-DaHubPort      port to use for selenium grid server, when not 4444, like 4723 for appium
 #-DaHubServer    port to use for selenium grid server or appium, when not localhost
 #-DwaitAfterPageLoadMilliSeconds   time to wait after a page has loaded.
-#-DappiumApp     path to ios app ipa file, if using appium to test a native app APPIUMSIMULATORAPPSCRATCH APPIUMDEVICEAPPSCRATCH
-#-DappiumUdid    path to ios device udid, if using appium ot test a device instead of a simulator APPIUMDEVICEAPPSCRATCH
+#-DappiumApp     path to ios app ipa file, if using appium to test a native app
+#-DappiumUdid    path to ios device udid, if using appium ot test a device instead of a simulator
 #-DappiumIosTargetVersion    version of ios to use
+#-DappiumIosDeviceName  name of  of ios to use
 
 
 
-mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=APPIUMSAFARISIMULATOR -Dinput=https://seattlerules.com -Duserid=seattlerules.com -DaString=//a[@title='Seattle Rules'] -Dlogging -DaHubPort=4723 -DaHubServer=localhost -DappiumIosTargetVersion=8.2 test
+mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=APPIUMSAFARISIMULATOR -Dinput=https://seattlerules.com -Duserid=seattlerules.com -DaString=//a[@title='Seattle Rules'] -DaHubPort=4723 -DaHubServer=localhost -DappiumIosTargetVersion=8.3 -DappiumIosDeviceName="iPhone 6 Plus" test
