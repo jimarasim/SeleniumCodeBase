@@ -757,7 +757,7 @@ public class CodeBase {
      * This method takes a screenshot, and puts it in the current working directory Made static so screenshot can be
      * taken from StartDriver
      */
-    protected static void ScreenShot() {
+    protected static String ScreenShot() {
         String fileName = "";
 
         try {
@@ -783,6 +783,8 @@ public class CodeBase {
         }
 
         System.out.println("SCREENSHOT:" + fileName);
+        
+        return fileName;
     }
 
     /**
@@ -1034,7 +1036,7 @@ public class CodeBase {
         htmlOutput += "<br />" + loadTimeStatement;
         
         //OVERRIDEABLE SLEEP
-        System.out.println("SLEEP FROM COMMAND LINE PARAMETER: -DwaitAfterPageLoadMilliSeconds (IF SPECIFIED; OTHERWISE SOME DEFAULT)"+waitAfterPageLoadMilliSeconds+"ms");
+        System.out.println("VARIABLE SLEEP: -DwaitAfterPageLoadMilliSeconds:"+waitAfterPageLoadMilliSeconds+"ms");
         Thread.sleep(waitAfterPageLoadMilliSeconds);
         
         //SWITCH BACK TO MAIN WINDOW IN CASE THERE'S A POPUP
