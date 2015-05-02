@@ -1012,7 +1012,6 @@ public class CodeBase {
         String htmlOutput = "";
 
         System.out.println("GETTING:" + href);
-        htmlOutput += "<br />JUST GOT:<a href='" + href + "' target='_blank'>" + href + "</a>";
 
         // mark start time to report how long it takes to load the page
         startTime = System.currentTimeMillis();
@@ -1026,14 +1025,26 @@ public class CodeBase {
             driver.get(href);
         }
         catch(Exception ex){
-            ex.printStackTrace();
             throw new Exception("DRIVER.GET FAILED. EXCEPTION:"+ex.getMessage());
         }
 
         // PRINT OUT LOAD TIME
-        String loadTimeStatement = "LOADTIME(ms):" + (System.currentTimeMillis() - startTime);
+        String loadTimeStatement = Long.toString(System.currentTimeMillis() - startTime);
         System.out.println(loadTimeStatement);
-        htmlOutput += "<br />" + loadTimeStatement;
+        
+        //format an html report response for this driver get call
+        htmlOutput += "<hr>";
+        htmlOutput += "<table style='border:1px solid black;'>";
+        htmlOutput += "<tr><td style='border:1px solid black;'>LOADED:</td><td style='border:1px solid black;'><a href='" + href + "' target='_blank'>" + href + "</a></td></tr>";
+        htmlOutput += "<tr><td style='border:1px solid black;'>TIME(milliseconds):</td><td style='border:1px solid black;'>" + loadTimeStatement + "</td></tr>";
+        htmlOutput += "</table>";
+        htmlOutput += "<hr>";
+        
+        // TAKE A SCREENSHOT
+        String screenshotFilePath= ScreenShot();
+        String screenshotFilename = screenshotFilePath.substring(screenshotFilePath.lastIndexOf("/")+1);
+        htmlOutput +=  "<a href='"+href+"' target='_blank'><img src='"+screenshotFilename+"' /></a><br /><br />";
+        
         
         //OVERRIDEABLE SLEEP
         System.out.println("VARIABLE SLEEP: -DwaitAfterPageLoadMilliSeconds:"+waitAfterPageLoadMilliSeconds+"ms");

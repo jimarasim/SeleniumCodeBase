@@ -141,7 +141,7 @@ public class Scratch extends CodeBase {
             fileWriteString = driverGetWithTime(starturl);
             
             //take a screenshot andn print it out
-            writer.println(TakeScreenshotAndReturnMarkup(starturl));
+//            writer.println(TakeScreenshotAndReturnMarkup(starturl));
 
             // write stats to html report
             writer.println(fileWriteString);
@@ -226,8 +226,8 @@ public class Scratch extends CodeBase {
                 // go to the href
                 fileWriteString = driverGetWithTime(href);
                 
-                //take a screenshot andn print it out
-                writer.println(TakeScreenshotAndReturnMarkup(href));
+//                //take a screenshot andn print it out
+//                writer.println(TakeScreenshotAndReturnMarkup(href));
 
                 // write stats to html report
                 writer.println(fileWriteString);
@@ -488,11 +488,11 @@ public class Scratch extends CodeBase {
 
         return logEntryRows.toString();
     }
-    
-    private String TakeScreenshotAndReturnMarkup(String currentPage){
-        String screenshotFilePath= ScreenShot();
-        String screenshotFilename = screenshotFilePath.substring(screenshotFilePath.lastIndexOf("/")+1);
-        return "<a href='"+currentPage+"' target='_blank'><img src='"+screenshotFilename+"' /></a><br /><br />";
-    }
+//    
+//    private String TakeScreenshotAndReturnMarkup(String currentPage){
+//        String screenshotFilePath= ScreenShot();
+//        String screenshotFilename = screenshotFilePath.substring(screenshotFilePath.lastIndexOf("/")+1);
+//        return "<a href='"+currentPage+"' target='_blank'><img src='"+screenshotFilename+"' /></a><br /><br />";
+//    }
 
 }
