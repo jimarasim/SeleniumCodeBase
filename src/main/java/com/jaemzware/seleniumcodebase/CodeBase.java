@@ -1045,7 +1045,6 @@ public class CodeBase {
         String screenshotFilename = screenshotFilePath.substring(screenshotFilePath.lastIndexOf("/")+1);
         htmlOutput +=  "<a href='"+href+"' target='_blank'><img src='"+screenshotFilename+"' /></a><br /><br />";
         
-        
         //OVERRIDEABLE SLEEP
         System.out.println("VARIABLE SLEEP: -DwaitAfterPageLoadMilliSeconds:"+waitAfterPageLoadMilliSeconds+"ms");
         Thread.sleep(waitAfterPageLoadMilliSeconds);

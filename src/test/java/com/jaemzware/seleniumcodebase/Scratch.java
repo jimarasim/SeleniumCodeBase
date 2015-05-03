@@ -168,6 +168,9 @@ public class Scratch extends CodeBase {
 
             //getting all internal hrefs
             System.out.println("GETTING ALL INTERNAL ANCHORS MATCHING XPATH:"+linksOnSplashPageXpath+" ON:"+starturl);
+            
+//            Thread.sleep(30000);
+            
             if (IsElementPresent(By.xpath(linksOnSplashPageXpath))) {
                 
                 System.out.println("FINDING ANCHOR ELEMENTS");
