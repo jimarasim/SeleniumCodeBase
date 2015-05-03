@@ -64,7 +64,7 @@ public class CodeBase {
     protected static String appiumApp = null;
     protected static String appiumUdid = null;
     protected static String appiumIosTargetVersion = null;
-    protected static String appiumIosDeviceName = null;
+    protected static String appiumIosDeviceName = "iPhone 6";
     
     // jenkins report folder url
     protected static final String jenkinsReportHeader = "";
