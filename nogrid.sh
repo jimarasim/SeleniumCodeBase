@@ -18,4 +18,4 @@
 
 
 
-mvn -Dtest=Scratch#VerifyLogos -Dbrowser=CHROME -Dinput=http://disney.com/ -DaNumber=4 -Duserid=disney.com -DaString="//*[contains(@id,'logo')]" -DwaitAfterPageLoadMilliSeconds=0 -Dlogging -Dnogrid test
+mvn -Dtest=Scratch#VerifyLogos -Dbrowser=CHROME -Dinput=http://disney.com/ -DaNumber=0 -Duserid=disney.com -DaString="//*[contains(@id,'logo')]" -DwaitAfterPageLoadMilliSeconds=0 -Dlogging -Dnogrid test
