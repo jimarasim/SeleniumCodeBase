@@ -139,10 +139,7 @@ public class Scratch extends CodeBase {
         // NAVIGATE TO THE STARTING PAGE
             System.out.println("STARTURL:"+starturl);
             fileWriteString = driverGetWithTime(starturl);
-            
-            //take a screenshot andn print it out
-//            writer.println(TakeScreenshotAndReturnMarkup(starturl));
-
+           
             // write stats to html report
             writer.println(fileWriteString);
 

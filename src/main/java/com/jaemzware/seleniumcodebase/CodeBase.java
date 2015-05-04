@@ -385,7 +385,7 @@ public class CodeBase {
                         cap.setCapability("platformVersion", appiumIosTargetVersion);
                         cap.setCapability("browserName", "Safari");
                         cap.setCapability("udid",appiumUdid); //get this udid for phone from itunes, click device, then click serial number
-                        cap.setCapability("deviceName", appiumIosDeviceName); //"iPhone Simulator"
+                        cap.setCapability("deviceName", appiumIosDeviceName); 
                         break;
                     case APPIUMAPPSIMULATOR: 
                         //MAKE SURE APP IS SPECIFIED
@@ -1009,7 +1009,8 @@ public class CodeBase {
     protected String driverGetWithTime(String href) throws Exception{
         long startTime;
 
-        String htmlOutput = "";
+        //this is for the APPIUM WORKaround, as the driver get appears to return before the page is loaded
+        final String oldUrl = driver.getCurrentUrl(); 
 
         System.out.println("GETTING:" + href);
 
@@ -1019,10 +1020,20 @@ public class CodeBase {
         // LOAD THE URL
         try{
             //this sets the timeout for get. implicitly wait is just for findelements. DON'T DO FOR APPIM
+            //APPIUM DOESNT LIKE THIS CALL
             if(!browser.toString().contains("APPIUM")){
                 driver.manage().timeouts().pageLoadTimeout(defaultImplicitWait, TimeUnit.SECONDS);
             }
+            
             driver.get(href);
+            
+            //i think get is returning in appium before the page is loaded on appium, so wait expclicitly for page to change
+            (new WebDriverWait(driver, defaultImplicitWait)).until(new ExpectedCondition<Boolean>() {
+                @Override
+                public Boolean apply(WebDriver d) {
+                    return !driver.getCurrentUrl().equals(oldUrl);
+                }
+            }); 
         }
         catch(Exception ex){
             throw new Exception("DRIVER.GET FAILED. EXCEPTION:"+ex.getMessage());
@@ -1033,6 +1044,7 @@ public class CodeBase {
         System.out.println(loadTimeStatement);
         
         //format an html report response for this driver get call
+        String htmlOutput = "";
         htmlOutput += "<hr>";
         htmlOutput += "<table style='border:1px solid black;'>";
         htmlOutput += "<tr><td style='border:1px solid black;'>LOADED:</td><td style='border:1px solid black;'><a href='" + href + "' target='_blank'>" + href + "</a></td></tr>";
