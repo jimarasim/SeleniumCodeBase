@@ -73,10 +73,10 @@ public class Scratch extends CodeBase {
                 throw new Exception("DRIVER WAS NOT SET; SUITABLE DRIVER WAS NOT FOUND.  LOOK ABOVE FOR ISSUES REPORTED BY StartDrvier()");
             }
             
-            List<WebElement> elements = driver.findElements(By.xpath("//*"));
-            for(WebElement web:elements){
-                System.out.println("TAG:"+web.getTagName()+" TEXT:"+web.getText());
-            }
+//            List<WebElement> elements = driver.findElements(By.xpath("//*"));
+//            for(WebElement web:elements){
+//                System.out.println("TAG:"+web.getTagName()+" TEXT:"+web.getText());
+//            }
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
@@ -165,9 +165,7 @@ public class Scratch extends CodeBase {
 
             //getting all internal hrefs
             System.out.println("GETTING ALL INTERNAL ANCHORS MATCHING XPATH:"+linksOnSplashPageXpath+" ON:"+starturl);
-            
-//            Thread.sleep(30000);
-            
+                        
             if (IsElementPresent(By.xpath(linksOnSplashPageXpath))) {
                 
                 System.out.println("FINDING ANCHOR ELEMENTS");
@@ -226,9 +224,6 @@ public class Scratch extends CodeBase {
                 // go to the href
                 fileWriteString = driverGetWithTime(href);
                 
-//                //take a screenshot andn print it out
-//                writer.println(TakeScreenshotAndReturnMarkup(href));
-
                 // write stats to html report
                 writer.println(fileWriteString);
                 

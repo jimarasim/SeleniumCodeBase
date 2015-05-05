@@ -390,7 +390,7 @@ public class CodeBase {
                     case APPIUMAPPSIMULATOR: 
                         //MAKE SURE APP IS SPECIFIED
                         if(appiumApp==null){
-                            throw new Exception("MUST SPECIFY APP -DappiumApp WHEN USING APPIUMSIMULATORAPPSCRATCH");
+                            throw new Exception("MUST SPECIFY APP -DappiumApp WHEN USING APPIUMAPPSIMULATOR");
                         }
                         cap = new DesiredCapabilities();
                         cap.setCapability("automationName", "Appium"); // or Selendroid
@@ -403,7 +403,7 @@ public class CodeBase {
                     case APPIUMAPPDEVICE: 
                         //MAKE SURE APP AND DEVICE UDID WERE SPECIFIED
                         if(appiumApp==null || appiumUdid==null){
-                            throw new Exception("MUST SPECIFY APP -DappiumApp AND DEVICE -DappiumUdid WHEN USING APPIUMDEVICEAPPSCRATCH");
+                            throw new Exception("MUST SPECIFY APP -DappiumApp AND DEVICE -DappiumUdid WHEN USING APPIUMAPPDEVICE");
                         }
                         cap = new DesiredCapabilities();
                         cap.setCapability("automationName", "Appium"); // or Selendroid
