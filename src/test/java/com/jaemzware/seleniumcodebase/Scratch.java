@@ -87,7 +87,8 @@ public class Scratch extends CodeBase {
     public void VerifyLogos() {
 
         // create a file for the web page log
-        String fileName = "Index-VerifyLogos-" + getDateStamp() + ".htm";
+//        String fileName = "Index-VerifyLogos-" + getDateStamp() + ".htm";
+        String fileName = "index.htm";
         PrintWriter writer = null;
         String fileWriteString;
 
