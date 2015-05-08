@@ -1107,15 +1107,15 @@ public class CodeBase {
                 .append(".severe {background-color:#C0C0C0;color:#FF0000;}")
                 .append(".info {background-color:#C0C0C0;color:#000000;}").append("</style>").append("</head>")
                 .append("<body><h1>").append(titleHeaderString).append("</h1>");
-        // paypal
-        returnString.append("<form action='https://www.paypal.com/cgi-bin/webscr' method='post' target='_top'>");
-        returnString.append("<input type='hidden' name='cmd' value='_s-xclick'>");
-        returnString.append("<input type='hidden' name='hosted_button_id' value='NHYPV5J79879N'>");
-        returnString
-                .append("<input type='image' src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif' border='0' name='submit' alt='PayPal - The safer, easier way to pay online!'>");
-        returnString
-                .append("<img alt='' border='0' src='https://www.paypalobjects.com/en_US/i/scr/pixel.gif' width='1' height='1'>");
-        returnString.append("</form>");
+//        // paypal
+//        returnString.append("<form action='https://www.paypal.com/cgi-bin/webscr' method='post' target='_top'>");
+//        returnString.append("<input type='hidden' name='cmd' value='_s-xclick'>");
+//        returnString.append("<input type='hidden' name='hosted_button_id' value='NHYPV5J79879N'>");
+//        returnString
+//                .append("<input type='image' src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif' border='0' name='submit' alt='PayPal - The safer, easier way to pay online!'>");
+//        returnString
+//                .append("<img alt='' border='0' src='https://www.paypalobjects.com/en_US/i/scr/pixel.gif' width='1' height='1'>");
+//        returnString.append("</form>");
 
         return (returnString.toString());
     }
@@ -1134,14 +1134,14 @@ public class CodeBase {
                 .append("<a href='mailto:jaemzware@hotmail.com' target='_blank'>jaemzware@hotmail.com</a><br /><a href='https://www.linkedin.com/pub/james-arasim/15/991/424'>LinkedIn</a>");
 
         // paypal
-        returnString.append("<form action='https://www.paypal.com/cgi-bin/webscr' method='post' target='_top'>");
-        returnString.append("<input type='hidden' name='cmd' value='_s-xclick'>");
-        returnString.append("<input type='hidden' name='hosted_button_id' value='NHYPV5J79879N'>");
-        returnString
-                .append("<input type='image' src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif' border='0' name='submit' alt='PayPal - The safer, easier way to pay online!'>");
-        returnString
-                .append("<img alt='' border='0' src='https://www.paypalobjects.com/en_US/i/scr/pixel.gif' width='1' height='1'>");
-        returnString.append("</form>");
+//        returnString.append("<form action='https://www.paypal.com/cgi-bin/webscr' method='post' target='_top'>");
+//        returnString.append("<input type='hidden' name='cmd' value='_s-xclick'>");
+//        returnString.append("<input type='hidden' name='hosted_button_id' value='NHYPV5J79879N'>");
+//        returnString
+//                .append("<input type='image' src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif' border='0' name='submit' alt='PayPal - The safer, easier way to pay online!'>");
+//        returnString
+//                .append("<img alt='' border='0' src='https://www.paypalobjects.com/en_US/i/scr/pixel.gif' width='1' height='1'>");
+//        returnString.append("</form>");
 
         return (returnString.toString());
     }
