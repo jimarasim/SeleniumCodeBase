@@ -26,11 +26,11 @@ import org.openqa.selenium.logging.LogType;
  * @author jaemzware@hotmail.com
  */
 public class Scratch extends CodeBase {
-    static final String propertiesFile = "src/test/java/com/jaemzware/seleniumcodebase/selenium.properties";
+    static final String propertiesFile = 
+            "src/test/java/com/jaemzware/seleniumcodebase/selenium.properties";
     static Properties properties = new Properties();
-    static final int sleepForNextPage = 2000;
-
-    private final String linksOnSplashPageXpath = "//a[@href and not(@href='') and not(contains(@href,'javascript:')) and not(contains(@href,'mailto:'))]";
+    private final String linksOnSplashPageXpath = 
+            "//a[@href and not(@href='') and not(contains(@href,'javascript:')) and not(contains(@href,'mailto:'))]";
 
 
     @Before
@@ -43,6 +43,9 @@ public class Scratch extends CodeBase {
             // initialize verifification errors
             verificationErrors = new StringBuilder();
 
+            // get the command line parameters that were specified
+            // an error string will be returned if something went wrong
+            // an empty string will be returned if everything is ok
             String getParameterResult = GetParameters();
             if (!getParameterResult.isEmpty()) {
                 System.out.println(getParameterResult);
@@ -67,10 +70,10 @@ public class Scratch extends CodeBase {
     public void IosScratchAppClickButton(){
         try{
             
-            StartDriver();
+            StartAppiumDriver();
             
             if(driver==null){
-                throw new Exception("DRIVER WAS NOT SET; SUITABLE DRIVER WAS NOT FOUND.  LOOK ABOVE FOR ISSUES REPORTED BY StartDrvier()");
+                throw new Exception("DRIVER WAS NOT SET; A SUITABLE DRIVER WAS NOT FOUND.  LOOK ABOVE FOR ISSUES REPORTED BY StartDrvier()");
             }
             
 //            List<WebElement> elements = driver.findElements(By.xpath("//*"));

@@ -72,22 +72,10 @@ public class CodeBase {
     protected static final String jenkinsReportPath = "http://jaemzware.com:8080/";
     protected static final String jenkinsReportPathInternal = "http://10.1.10.156:8080/";
 
-    // recognized command line variables
-    protected static String userid = null; // for tests that need to authenticate
-    protected static String password = null; // for tests that need to authenticate
-    protected static String input = null; // for specifying input files (ReadTermResultFromInputXls) or sql statements
-                                          // (Sql.java)
-    protected static String aNumber = null; // for specifying a generic number for usage or comparison (Sql.java), will
-                                            // fail if not integer parseable
-    protected static String aString = null; // for specifiying a generic string for usage or comparison (Sql.java)
-
-    protected static EnvironmentType environment = null;
-    protected static BrowserType browser = null;
-
     // default time IN SECONDS to wait when finding elements
     protected int defaultImplicitWait = 60;
     protected static final int quickWaitMilliSeconds = 5000;  //TODO: PHASING OUT IN PREFERENCE OF COMMAND OVERRIDEABLE waitAfterPageLoadMilliSeconds
-    protected static int waitAfterPageLoadMilliSeconds = 0;  //can be overridden from comand line
+    protected static int waitAfterPageLoadMilliSeconds = 0;  //can be overridden from comand line -DwaitAfterPageLoadMilliSeconds=10000
 
     // verification errors that can occur during a test
     protected StringBuilder verificationErrors = new StringBuilder();
@@ -95,6 +83,15 @@ public class CodeBase {
     // save off main window handle, for when dealing with popups
     protected static String mainWindowHandle;
 
+    // recognized command line variables
+    protected static String userid = null; // for tests that need to authenticate
+    protected static String password = null; // for tests that need to authenticate
+    protected static String input = null; // for specifying input files (ReadTermResultFromInputXls) or sql statements
+    protected static String aNumber = null; // for specifying a generic number, will fail if not integer parseable
+    protected static String aString = null; // for specifiying a generic string for usage or comparison (Sql.java)
+    protected static EnvironmentType environment = null;
+    protected static BrowserType browser = null;
+    
     /**
      * This function gets the command line parameters.
      * Separated out so that tests can get the parameters without having to start the driver
@@ -356,10 +353,15 @@ public class CodeBase {
         if (browser == null) {
             throw new Exception("BROWSER (-Dbrowser) NOT SPECIFIED");
         }
+        
+        //make sure browser specified wasn't for appium
+        if(browser.toString().contains("APPIUM")){
+            throw new Exception("APPIUM BROWSER TYPES (YOU SPECIFIED:"+browser.toString()+" ARE NOT SUPPORTED BY StartDriver. CALL StartAppiumDriver instead");
+        }
 
-        // LAUNCH GRID BROWSER IF AVAILABLE, AND DRIVER HASN'T BEEN SET
-        // try to get the browser on selenium grid
-        // don't do this if -Dnogrid is specified though
+        /**
+         * LAUNCH GRID BROWSER IF AVAILABLE, AND DRIVER HASN'T BEEN SET
+         */
         if (driver == null && 
                 System.getProperty("nogrid") == null) {
             try {
@@ -367,52 +369,11 @@ public class CodeBase {
                 // get the desired capabilities
                 DesiredCapabilities cap;
 
+                /**
+                 * SET BROWSER SPECIFIC CAPABILITIES
+                 */
                 // desired browser
                 switch (browser) {
-                    
-                    case APPIUMSAFARISIMULATOR: 
-                        cap = new DesiredCapabilities();
-                        cap.setCapability("automationName", "Appium"); // or Selendroid
-                        cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
-                        cap.setCapability("platformVersion", appiumIosTargetVersion);
-                        cap.setCapability("browserName", "Safari");
-                        cap.setCapability("deviceName", appiumIosDeviceName); 
-                        break;
-                    case APPIUMSAFARIDEVICE:
-                        cap = new DesiredCapabilities();
-                        cap.setCapability("automationName", "Appium"); // or Selendroid
-                        cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
-                        cap.setCapability("platformVersion", appiumIosTargetVersion);
-                        cap.setCapability("browserName", "Safari");
-                        cap.setCapability("udid",appiumUdid); //get this udid for phone from itunes, click device, then click serial number
-                        cap.setCapability("deviceName", appiumIosDeviceName); 
-                        break;
-                    case APPIUMAPPSIMULATOR: 
-                        //MAKE SURE APP IS SPECIFIED
-                        if(appiumApp==null){
-                            throw new Exception("MUST SPECIFY APP -DappiumApp WHEN USING APPIUMAPPSIMULATOR");
-                        }
-                        cap = new DesiredCapabilities();
-                        cap.setCapability("automationName", "Appium"); // or Selendroid
-                        cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
-                        cap.setCapability("platformVersion", appiumIosTargetVersion);
-                        cap.setCapability("app", appiumApp); 
-                        cap.setCapability("deviceName", appiumIosDeviceName); //"iPad Simulator"
-                        
-                        break;
-                    case APPIUMAPPDEVICE: 
-                        //MAKE SURE APP AND DEVICE UDID WERE SPECIFIED
-                        if(appiumApp==null || appiumUdid==null){
-                            throw new Exception("MUST SPECIFY APP -DappiumApp AND DEVICE -DappiumUdid WHEN USING APPIUMAPPDEVICE");
-                        }
-                        cap = new DesiredCapabilities();
-                        cap.setCapability("automationName", "Appium"); // or Selendroid
-                        cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
-                        cap.setCapability("platformVersion", appiumIosTargetVersion);
-                        cap.setCapability("app", appiumApp);
-                        cap.setCapability("udid",appiumUdid); //get this udid for phone from itunes, click device, then click serial number
-                        cap.setCapability("deviceName", appiumIosDeviceName); 
-                        break;
                     case CHROME:
                     case CHROMELINUX:
                     case CHROMEMAC:
@@ -423,7 +384,6 @@ public class CodeBase {
                     case FIREFOXMAC:
                         cap = DesiredCapabilities.firefox();
                         break;
-                    
                     case SAFARI:
                         cap = DesiredCapabilities.safari();
 
@@ -440,39 +400,32 @@ public class CodeBase {
                         cap = DesiredCapabilities.internetExplorer();
                         break;
                     default:
-                        throw new Exception("NOT CONFIGURED TO LAUNCH THIS BROWSER ON GRID. -Dbrowser:\" + browser");
+                        throw new Exception("NOT CONFIGURED TO LAUNCH THIS BROWSER ON GRID, USING StartDriver.");
                 }
 
-                //don't do any this for appium
-                if(!browser.toString().contains("APPIUM")){
-                    // turn on debug logging if debug is specified. this takes longer
-                    if (System.getProperty("logging") == null){
-                        System.out.println("-Dlogging NOT SPECIFIED");
-                    }
-                    else if(browser.toString().contains("APPIUM")){
-                        System.out.println("-Dlogging NOT SUPPORTED WITH APPIUM");
-                    } else {
-                        LoggingPreferences loggingprefs = new LoggingPreferences();
-                        loggingprefs.enable(LogType.BROWSER, Level.ALL);
-                        loggingprefs.enable(LogType.CLIENT, Level.ALL);
-                        loggingprefs.enable(LogType.DRIVER, Level.ALL);
-                        cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
-                        
-                        System.out.println("-Dlogging SPECIFIED");
-                    }
-                    
-                    // accept all ssl certificates by default
-                    cap.setCapability("acceptSslCerts", true);
+                /**
+                 * SET LOGGING CAPABILITES
+                 */
+                // turn on debug logging if debug is specified. this takes longer
+                if (System.getProperty("logging") == null){
+                    System.out.println("-Dlogging NOT SPECIFIED");
+                } else {
+                    LoggingPreferences loggingprefs = new LoggingPreferences();
+                    loggingprefs.enable(LogType.BROWSER, Level.ALL);
+                    loggingprefs.enable(LogType.CLIENT, Level.ALL);
+                    loggingprefs.enable(LogType.DRIVER, Level.ALL);
+                    cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
 
-                    // set desired platform (as specified by grid node)
-                    cap.setPlatform(browser.platform);
-
-                    // desired browser name (as set by grid node)
-                    cap.setBrowserName(browser.browserName);
-
-                    // desired version (as set by grid node)
-                    cap.setVersion(browser.version);
+                    System.out.println("-Dlogging SPECIFIED");
                 }
+
+                /**
+                 * SET COMMON CAPABILITIES
+                 */
+                cap.setCapability("acceptSslCerts", true);// accept all ssl certificates by default
+                cap.setPlatform(browser.platform);// set desired platform (as specified by grid node)
+                cap.setBrowserName(browser.browserName);// desired browser name (as set by grid node)
+                cap.setVersion(browser.version);// desired version (as set by grid node)
 
                 System.out.println("FINDING SELENIUM GRID NODE:" + browser.browserName + " VERSION:" + browser.version
                         + " PLATFORM:" + browser.platform.toString());
@@ -489,12 +442,12 @@ public class CodeBase {
                         + " PLATFORM:" + browser.platform.toString());
             } catch (Exception ex) {
                 if (ex.getMessage().contains("Error forwarding")) {
-                    System.out.println(">>>>>>>>>SELENIUM GRID NODE<<<<<<<<< 'browserName=" + browser.browserName + ",version="
+                    System.out.println("SELENIUM GRID NODE 'browserName=" + browser.browserName + ",version="
                             + browser.version + "' NOT LAUNCHED EXCEPTION:" + ex.getMessage());
                 } else if (ex.getMessage().contains("COULD NOT START A NEW SESSION")) {
-                    System.out.println(">>>>>>>>>SELENIUM GRID HUB NOT LAUNCHED EXCEPTION:<<<<<<<<<" + ex.getMessage());
+                    System.out.println("SELENIUM GRID HUB NOT LAUNCHED EXCEPTION:" + ex.getMessage());
                 } else {
-                    System.out.println(">>>>>>>>>SELENIUM GRID HUB CONNECTION EXCEPTION. VERIFY ONE IS STARTED AT SERVER:"+aHubServer+" PORT:"+aHubPort+" MESSAGE:" + ex.getMessage() );
+                    System.out.println("SELENIUM GRID HUB CONNECTION EXCEPTION. VERIFY ONE IS STARTED AT SERVER:"+aHubServer+" PORT:"+aHubPort+" MESSAGE:" + ex.getMessage() );
                 }
 
                 driver = null;
@@ -676,19 +629,126 @@ public class CodeBase {
                 driver.manage().deleteAllCookies();
             }
 
-            // maximize browser (not supported by appium)
-            if (!browser.toString().contains("APPIUM")) {
-                // maximize the window
-                driver.manage().window().maximize();
+            // maximize the window
+            driver.manage().window().maximize();
 
-                // set the main window handle
-                mainWindowHandle = driver.getWindowHandle();
-            }
+            // set the main window handle
+            mainWindowHandle = driver.getWindowHandle();
         }
 
 
     }
 
+    
+    /** This function starts an appium driver
+     * 
+     */
+    protected static void StartAppiumDriver() throws Exception{
+        
+        /**
+         * VERIFY REQUIRED PARAMETERS
+         */
+        //make sure a browser was specified
+        if (browser == null) {
+            throw new Exception("BROWSER (-Dbrowser) NOT SPECIFIED");
+        }
+        
+        //make sure a target version was specified, and set it
+        if(appiumIosTargetVersion==null){
+            throw new Exception("MUST SPECIFY APP -DappiumIosTargetVersion");
+        }
+        
+        //make sure a device name was specified, and set it
+        if(appiumIosDeviceName==null){
+            throw new Exception("MUST SPECIFY APP -DappiumIosDeviceName");
+        }
+        
+        /**
+         * SET THE DESIRED CAPABILITIES
+         */
+        DesiredCapabilities cap = new DesiredCapabilities();
+        cap.setCapability("platformVersion", appiumIosTargetVersion);
+        cap.setCapability("automationName", "Appium"); // or Selendroid
+        cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
+        cap.setCapability("deviceName", appiumIosDeviceName); 
+
+        // set browser: in the SeleniumCodeBase parameter sense; i.e. app name for devices
+        switch (browser) {
+
+            case APPIUMSAFARISIMULATOR: 
+                
+                //set capability for a safari browser running on an ios simulator
+                cap.setCapability("browserName", "Safari");
+                break;
+            case APPIUMSAFARIDEVICE:
+                
+                //set capability for a safari browser running on a connected device
+                cap.setCapability("browserName", "Safari");
+                cap.setCapability("udid",appiumUdid); //get this udid for phone from itunes, click device, then click serial number
+                break;
+            case APPIUMAPPSIMULATOR: 
+                //MAKE SURE APP IS SPECIFIED
+                if(appiumApp==null){
+                    throw new Exception("MUST SPECIFY APP -DappiumIosTargetVersion -DappiumApp -DappiumIosTargetVersionWHEN USING APPIUMAPPSIMULATOR");
+                }
+                
+                cap.setCapability("app", appiumApp); 
+
+                break;
+            case APPIUMAPPDEVICE: 
+                //MAKE SURE APP AND DEVICE UDID WERE SPECIFIED
+                if(appiumApp==null ){
+                    throw new Exception("MUST SPECIFY APP -DappiumApp WHEN USING APPIUMAPPDEVICE");
+                }
+                
+                if(appiumUdid==null){
+                    throw new Exception("MUST SPECIFY APP DEVICE -DappiumUdid WHEN USING APPIUMAPPDEVICE");
+                }
+                
+                cap.setCapability("app", appiumApp);
+                cap.setCapability("udid",appiumUdid); //get this udid for phone from itunes, click device, then click serial number
+                break;
+            
+            default:
+                throw new Exception("NOT CONFIGURED TO LAUNCH THIS BROWSER ON APPIUM StartAppiumDriver");
+        }
+        
+        /**
+         * START THE DRIVER ON THE CORRECT APPIUM HUB
+         */
+        System.out.println("FINDING APPIUM HUB:" + 
+                browser.browserName + 
+                " VERSION:" + 
+                browser.version + 
+                " PLATFORM:" + browser.platform.toString());
+
+        // get the APPIUM HUB node
+        String gridHubFullPath = "http://" + aHubServer + ":" + aHubPort + "/wd/hub";
+        System.out.println("CONTACTING APPIUM HUB");
+        
+        try{
+           
+            driver = new RemoteWebDriver(new URL(gridHubFullPath), cap);
+            // augment the driver so that screenshots can be taken
+            driver = new Augmenter().augment(driver);
+            System.out.println("SUCCESSFULLY APPIUM HUB FOR:" + browser.browserName + " VERSION:" + browser.version
+                    + " PLATFORM:" + browser.platform.toString()); 
+        }
+        catch (Exception ex) {
+                if (ex.getMessage().contains("Error forwarding")) {
+                    System.out.println("APPIUM HUB 'browserName=" + browser.browserName + ",version="
+                            + browser.version + "' NOT LAUNCHED EXCEPTION:" + ex.getMessage());
+                } else if (ex.getMessage().contains("COULD NOT START A NEW APPIUM HUB SESSION")) {
+                    System.out.println("APPIUM HUB NOT LAUNCHED EXCEPTION:" + ex.getMessage());
+                } else {
+                    System.out.println("APPIUM HUB CONNECTION EXCEPTION. VERIFY ONE IS STARTED AT SERVER:"+aHubServer+" PORT:"+aHubPort+" MESSAGE:" + ex.getMessage() );
+                }
+
+                driver = null;
+            }
+    }
+    
+    
     /**
      * This method quits (and closes) the browser. It also sets it to null, in case the same test calls StartDriver
      * twice, for two different browsers.
@@ -698,6 +758,11 @@ public class CodeBase {
         driver = null;
     }
 
+    /** This method gets the current running operating system, for running local browsers -DnoGrid 
+     * 
+     * @return
+     * @throws Exception 
+     */
     private static OsType GetOsType() throws Exception {
         // get the os
         String os = System.getProperty("os.name").toLowerCase();

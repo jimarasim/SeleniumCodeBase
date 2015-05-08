@@ -104,6 +104,12 @@
       <version>2.45.0</version>
       <type>jar</type>
     </dependency>
+    <dependency>
+      <groupId>com.github.psorobka</groupId>
+      <artifactId>appium-maven-plugin</artifactId>
+      <version>1.0.0</version>
+      <type>jar</type>
+    </dependency>
   </dependencies>
   <!--
   
