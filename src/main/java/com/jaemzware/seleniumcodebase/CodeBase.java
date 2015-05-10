@@ -53,41 +53,34 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  * @author jaemzware@hotmail.com
  */
 public class CodeBase {
+    
     // the one and only driver object
     protected static WebDriver driver = null;
 
-    // selenium grid hub defaults
-    protected static String aHubServer = "localhost";
-    protected static String aHubPort = "4444";
-
-    // appium app and udid defaults
-    protected static String appiumApp = null;
-    protected static String appiumUdid = null;
-    protected static String appiumIosTargetVersion = null;
-    protected static String appiumIosDeviceName = "iPhone 6";
-    
-    // jenkins report folder url
-    protected static final String jenkinsReportHeader = "";
-    protected static final String jenkinsReportFooter = "";
-    protected static final String jenkinsReportPath = "http://jaemzware.com:8080/";
-    protected static final String jenkinsReportPathInternal = "http://10.1.10.156:8080/";
-
-    // recognized command line variables
+     // recognized command line variables
+    protected static EnvironmentType environment = null;
+    protected static BrowserType browser = null;
     protected static String userid = null; // for tests that need to authenticate
     protected static String password = null; // for tests that need to authenticate
     protected static String input = null; // for specifying input files (ReadTermResultFromInputXls) or sql statements
-                                          // (Sql.java)
-    protected static String aNumber = null; // for specifying a generic number for usage or comparison (Sql.java), will
-                                            // fail if not integer parseable
+    protected static String aNumber = null; // for specifying a generic number, will fail if not integer parseable
     protected static String aString = null; // for specifiying a generic string for usage or comparison (Sql.java)
-
-    protected static EnvironmentType environment = null;
-    protected static BrowserType browser = null;
+    protected static String report = null; // for specifiying a string unique for the report title
+    protected static String aHubServer = null;
+    protected static String aHubPort = null;
+    protected static String appiumApp = null;
+    protected static String appiumUdid = null;
+    protected static String appiumIosTargetVersion = null;
+    protected static String appiumIosDeviceName = null;
+    
+    // jenkins report folder url
+    protected static final String jenkinsReportPath = "http://jaemzware.com:8081/";
+    protected static final String jenkinsReportPathInternal = "http://10.1.10.156:8081/";
 
     // default time IN SECONDS to wait when finding elements
     protected int defaultImplicitWait = 60;
     protected static final int quickWaitMilliSeconds = 5000;  //TODO: PHASING OUT IN PREFERENCE OF COMMAND OVERRIDEABLE waitAfterPageLoadMilliSeconds
-    protected static int waitAfterPageLoadMilliSeconds = 0;  //can be overridden from comand line
+    protected static int waitAfterPageLoadMilliSeconds = 0;  //can be overridden from comand line -DwaitAfterPageLoadMilliSeconds=10000
 
     // verification errors that can occur during a test
     protected StringBuilder verificationErrors = new StringBuilder();
@@ -99,178 +92,27 @@ public class CodeBase {
      * This function gets the command line parameters.
      * Separated out so that tests can get the parameters without having to start the driver
      * 
-     * @return String indicating whether GetParameters() succeeded in obtaining valid values. An empty string will be
-     *         returned if there were no errors
+     * @return String indicating whether GetParameters() succeeded in obtaining valid values. 
+     * An empty string will be returned if there were no errors
      */
     protected static String GetParameters() {
-        System.out.println("COMMAND LINE PARAMETERS");
-
-        // get waitAfterPageLoadMilliSeconds specified on command line
-        String waitAfterPageLoadMilliSecondsParm = System.getProperty("waitAfterPageLoadMilliSeconds");
-
-        if (waitAfterPageLoadMilliSecondsParm == null || waitAfterPageLoadMilliSecondsParm.isEmpty()) {
-            System.out.println("-DwaitAfterPageLoadMilliSeconds NOT SPECIFIED.");
-        } else {
-            // make sure aNumber is parseable
-            try {
-                waitAfterPageLoadMilliSeconds = Integer.parseInt(waitAfterPageLoadMilliSecondsParm);
-
-                System.out.println("-DwaitAfterPageLoadMilliSeconds:" + waitAfterPageLoadMilliSeconds);
-            } catch (NumberFormatException nfx) {
-                return "-DwaitAfterPageLoadMilliSecondsParm:" + waitAfterPageLoadMilliSecondsParm
-                        + " SPECIFIED IS NOT A PARSEABLE INT. RETURNING THIS STRING TO INDICATE FAILURE (MAY BE IGNORED BY SOME TESTS)";
-
-            }
-        }
         
-        // get appiumApp specified on command line
-        String appiumAppParm = System.getProperty("appiumApp");
-
-        if (appiumAppParm == null || appiumAppParm.isEmpty()) {
-            System.out.println("-DappiumApp NOT SPECIFIED.");
-        } else {
-            appiumApp = appiumAppParm;
-
-            System.out.println("-DappiumApp:" + appiumApp);
-        }
-        
-        // get appiumUdid specified on command line
-        String appiumUdidParm = System.getProperty("appiumUdid");
-
-        if (appiumUdidParm == null || appiumUdidParm.isEmpty()) {
-            System.out.println("-DappiumUdid NOT SPECIFIED.");
-        } else {
-            appiumUdid = appiumUdidParm;
-
-            System.out.println("-DappiumUdid:" + appiumUdid);
-        }
-        
-        // get appiumIosTargetVersion specified on command line
-        String appiumIosTargetVersionParm = System.getProperty("appiumIosTargetVersion");
-
-        if (appiumIosTargetVersionParm == null || appiumIosTargetVersionParm.isEmpty()) {
-            System.out.println("-DappiumIosTargetVersion NOT SPECIFIED.");
-        } else {
-            appiumIosTargetVersion = appiumIosTargetVersionParm;
-
-            System.out.println("-DappiumIosTargetVersion:" + appiumIosTargetVersion);
-        }
-        
-        // get appiumIosDeviceName specified on the command line
-        String appiumIosDeviceNameParm = System.getProperty("appiumIosDeviceName");
-
-        if (appiumIosDeviceNameParm == null || appiumIosDeviceNameParm.isEmpty()) {
-            System.out.println("-DappiumIosDeviceName NOT SPECIFIED.");
-        } else {
-            appiumIosDeviceName = appiumIosDeviceNameParm;
-
-            System.out.println("-DappiumIosDeviceName:" + appiumIosDeviceName);
-        }
-        
-        // USERID
-        // get userid specified on command line
-        String useridParm = System.getProperty("userid");
-
-        if (useridParm == null || useridParm.isEmpty()) {
-            System.out.println("-Duserid NOT SPECIFIED.");
-        } else {
-            userid = useridParm;
-
-            System.out.println("-Duserid:" + userid);
-        }
-
-        // PASSWORD
-        // get password specified on command line
-        String passwordParm = System.getProperty("password");
-
-        if (passwordParm == null || passwordParm.isEmpty()) {
-            System.out.println("-Dpassword NOT SPECIFIED.");
-        } else {
-            password = passwordParm;
-
-            System.out.println("-Dpassword:********");
-        }
-
-        // INPUT
-        // get input specified on command line
-        String inputParm = System.getProperty("input");
-
-        if (inputParm == null || inputParm.isEmpty()) {
-            System.out.println("-Dinput NOT SPECIFIED.");
-        } else {
-            input = inputParm;
-
-            System.out.println("-Dinput:" + input);
-        }
-
-        // ANUMBER
-        // get aNumber specified on command line
-        String aNumberParm = System.getProperty("aNumber");
-
-        if (aNumberParm == null || aNumberParm.isEmpty()) {
-            System.out.println("-DaNumber NOT SPECIFIED.");
-        } else {
-            // make sure aNumber is parseable
-            try {
-                Integer.parseInt(aNumberParm);
-
-                aNumber = aNumberParm;
-
-                System.out.println("-DaNumber:" + aNumber);
-            } catch (NumberFormatException nfx) {
-                return "-DaNumber:" + aNumberParm
-                        + " SPECIFIED IS NOT A PARSEABLE INT. RETURNING FALSE (MAY BE IGNORED BY SOME TESTS)";
-
-            }
-
-        }
-
-        // ASTRING
-        // get aString specified on command line
-        String aStringParm = System.getProperty("aString");
-
-        if (aStringParm == null || aStringParm.isEmpty()) {
-            System.out.println("-DaString NOT SPECIFIED.");
-        } else {
-            aString = aStringParm;
-
-            System.out.println("-DaString:" + aString);
-        }
-
-        // AHUBSERVER
-        // get aHubServer specified on command line (for selenium grid hub), FOR WHEN IT'S DIFFERENT THAN LOCALHOST
         String aHubServerParm = System.getProperty("aHubServer");
-
-        if (aHubServerParm == null || aHubServerParm.isEmpty()) {
-            System.out.println("-DaHubServer NOT SPECIFIED. USING DEFAULT aHubServer:"+aHubServer);
-        } else {
+        if (aHubServerParm != null && !aHubServerParm.isEmpty()) {
             aHubServer = aHubServerParm;
-            System.out.println("-DaHubServer SPECIFIED. aHubServer:" + aHubServer);
         }
-        
-        // AHUBPORT
-        // get aHubPort specified on command line (for selenium grid hub), FOR WHEN IT'S DIFFERENT THAN 4444
+        System.out.println("-DaHubServer:" + aHubServer);
+
         String aHubPortParm = System.getProperty("aHubPort");
-
-        if (aHubPortParm == null || aHubPortParm.isEmpty()) {
-            System.out.println("-DaHubPort NOT SPECIFIED. USING DEFAULT aHubPort:"+aHubPort);
-        } else {
+        if (aHubPortParm != null && !aHubPortParm.isEmpty()) {
             aHubPort = aHubPortParm;
-            System.out.println("-DaHubPort SPECIFIED. aHubPort:" + aHubPort);
         }
+        System.out.println("-DaHubPort:" + aHubPort);
 
-        // BROWSER
-        // get browser type specified on command line
         String browserParm = System.getProperty("browser");
-
-        if (browserParm == null || browserParm.isEmpty()) {
-            // if browser is not specified, output which one is being used by default
-            System.out.println("-Dbrowser NOT SPECIFIED.");
-        } else {
+        if (browserParm != null && !browserParm.isEmpty()) {
             try {
                 browser = BrowserType.valueOf(browserParm);
-
-                System.out.println("-Dbrowser:" + browserParm);
             } catch (IllegalArgumentException ex) {
                 StringBuilder invalidBrowserMessage = new StringBuilder();
 
@@ -283,23 +125,41 @@ public class CodeBase {
                     invalidBrowserMessage.append(validBrowser);
                     invalidBrowserMessage.append(" ");
                 }
-
                 return invalidBrowserMessage.toString();
             }
         }
+        System.out.println("-Dbrowser:" + browserParm);
 
-        // ENVIRONMENT
-        // get environment type specified on command line
+        String appiumAppParm = System.getProperty("appiumApp");
+        if (appiumAppParm != null && !appiumAppParm.isEmpty()) {
+            appiumApp = appiumAppParm;
+        }
+        System.out.println("-DappiumApp:" + appiumApp);
+
+        
+        String appiumUdidParm = System.getProperty("appiumUdid");
+        if (appiumUdidParm != null && !appiumUdidParm.isEmpty()) {
+            appiumUdid = appiumUdidParm;
+        }
+        System.out.println("-DappiumUdid:" + appiumUdid);
+
+        
+        String appiumIosTargetVersionParm = System.getProperty("appiumIosTargetVersion");
+        if (appiumIosTargetVersionParm != null && !appiumIosTargetVersionParm.isEmpty()) {
+            appiumIosTargetVersion = appiumIosTargetVersionParm;
+        }
+        System.out.println("-DappiumIosTargetVersion:" + appiumIosTargetVersion);
+        
+        String appiumIosDeviceNameParm = System.getProperty("appiumIosDeviceName");
+        if (appiumIosDeviceNameParm != null && !appiumIosDeviceNameParm.isEmpty()) {
+            appiumIosDeviceName = appiumIosDeviceNameParm;
+        }
+        System.out.println("-DappiumIosDeviceName:" + appiumIosDeviceName);
+
         String environmentParm = System.getProperty("environment");
-
-        if (environmentParm == null || environmentParm.isEmpty()) {
-            // if environment is not specified, output which one is being used by default
-            System.out.println("-Denvironment NOT SPECIFIED. USING DEFAULT:" + environment);
-        } else {
+        if (environmentParm != null && !environmentParm.isEmpty()) {
             try {
                 environment = EnvironmentType.valueOf(environmentParm);
-
-                System.out.println("-Denvironment:" + environmentParm);
             } catch (IllegalArgumentException ex) {
                 StringBuilder invalidEnvironmentMessage = new StringBuilder();
 
@@ -312,10 +172,64 @@ public class CodeBase {
                     invalidEnvironmentMessage.append(validEnvironment);
                     invalidEnvironmentMessage.append(" ");
                 }
-
                 return invalidEnvironmentMessage.toString();
             }
         }
+        System.out.println("-Denvironment:" + environmentParm);
+
+        String waitAfterPageLoadMilliSecondsParm = System.getProperty("waitAfterPageLoadMilliSeconds");
+        if (waitAfterPageLoadMilliSecondsParm != null && !waitAfterPageLoadMilliSecondsParm.isEmpty()) {
+            try {
+                waitAfterPageLoadMilliSeconds = Integer.parseInt(waitAfterPageLoadMilliSecondsParm);
+            } catch (NumberFormatException nfx) {
+                return "-DwaitAfterPageLoadMilliSecondsParm:" + waitAfterPageLoadMilliSecondsParm
+                        + " SPECIFIED IS NOT A PARSEABLE INT. RETURNING THIS STRING TO INDICATE FAILURE (MAY BE IGNORED BY SOME TESTS)";
+
+            }
+        }
+        System.out.println("-DwaitAfterPageLoadMilliSeconds:" + waitAfterPageLoadMilliSeconds);
+        
+        String useridParm = System.getProperty("userid");
+        if (useridParm != null && !useridParm.isEmpty()) {
+            userid = useridParm;
+        }
+        System.out.println("-Duserid:" + userid);
+
+        String passwordParm = System.getProperty("password");
+        if (passwordParm != null && !passwordParm.isEmpty()) {
+            password = passwordParm;
+        }
+        System.out.println("-Dpassword:" + password);
+
+        String inputParm = System.getProperty("input");
+        if (inputParm != null && !inputParm.isEmpty()) {
+            input = inputParm;
+        }
+        System.out.println("-Dinput:" + input);
+
+        String aNumberParm = System.getProperty("aNumber");
+        if (aNumberParm != null && !aNumberParm.isEmpty()) {
+            try {
+                //VERIFY IT'S A NUMBER
+                Integer.parseInt(aNumberParm);
+                aNumber = aNumberParm;
+            } catch (NumberFormatException nfx) {
+                return "-DaNumber:" + aNumberParm + " MUST BE A NUMBER";
+            }
+        }
+        System.out.println("-DaNumber:" + aNumber);
+
+        String aStringParm = System.getProperty("aString");
+        if (aStringParm != null && !aStringParm.isEmpty()) {
+            aString = aStringParm;
+        }
+        System.out.println("-DaString:" + aString);
+        
+        String reportParm = System.getProperty("report");
+        if (reportParm != null && !reportParm.isEmpty()) {
+            report = reportParm;
+        }
+        System.out.println("-Dreport:" + report);
 
         return "";
     }
@@ -331,11 +245,6 @@ public class CodeBase {
         StartDriver("SeleniumGrid/");
     }
 
-    /**
-     * This function starts the desired web browser.
-     * 
-     * @throws Exception
-     */
     /**
      * This function starts the desired web browser
      * 
@@ -356,10 +265,15 @@ public class CodeBase {
         if (browser == null) {
             throw new Exception("BROWSER (-Dbrowser) NOT SPECIFIED");
         }
+        
+        //make sure browser specified wasn't for appium
+        if(browser.toString().contains("APPIUM")){
+            throw new Exception("APPIUM BROWSER TYPES (YOU SPECIFIED:"+browser.toString()+" ARE NOT SUPPORTED BY StartDriver. CALL StartAppiumDriver instead");
+        }
 
-        // LAUNCH GRID BROWSER IF AVAILABLE, AND DRIVER HASN'T BEEN SET
-        // try to get the browser on selenium grid
-        // don't do this if -Dnogrid is specified though
+        /**
+         * LAUNCH GRID BROWSER IF AVAILABLE, AND DRIVER HASN'T BEEN SET
+         */
         if (driver == null && 
                 System.getProperty("nogrid") == null) {
             try {
@@ -367,52 +281,11 @@ public class CodeBase {
                 // get the desired capabilities
                 DesiredCapabilities cap;
 
+                /**
+                 * SET BROWSER SPECIFIC CAPABILITIES
+                 */
                 // desired browser
                 switch (browser) {
-                    
-                    case APPIUMSAFARISIMULATOR: 
-                        cap = new DesiredCapabilities();
-                        cap.setCapability("automationName", "Appium"); // or Selendroid
-                        cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
-                        cap.setCapability("platformVersion", appiumIosTargetVersion);
-                        cap.setCapability("browserName", "Safari");
-                        cap.setCapability("deviceName", appiumIosDeviceName); 
-                        break;
-                    case APPIUMSAFARIDEVICE:
-                        cap = new DesiredCapabilities();
-                        cap.setCapability("automationName", "Appium"); // or Selendroid
-                        cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
-                        cap.setCapability("platformVersion", appiumIosTargetVersion);
-                        cap.setCapability("browserName", "Safari");
-                        cap.setCapability("udid",appiumUdid); //get this udid for phone from itunes, click device, then click serial number
-                        cap.setCapability("deviceName", appiumIosDeviceName); 
-                        break;
-                    case APPIUMAPPSIMULATOR: 
-                        //MAKE SURE APP IS SPECIFIED
-                        if(appiumApp==null){
-                            throw new Exception("MUST SPECIFY APP -DappiumApp WHEN USING APPIUMAPPSIMULATOR");
-                        }
-                        cap = new DesiredCapabilities();
-                        cap.setCapability("automationName", "Appium"); // or Selendroid
-                        cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
-                        cap.setCapability("platformVersion", appiumIosTargetVersion);
-                        cap.setCapability("app", appiumApp); 
-                        cap.setCapability("deviceName", appiumIosDeviceName); //"iPad Simulator"
-                        
-                        break;
-                    case APPIUMAPPDEVICE: 
-                        //MAKE SURE APP AND DEVICE UDID WERE SPECIFIED
-                        if(appiumApp==null || appiumUdid==null){
-                            throw new Exception("MUST SPECIFY APP -DappiumApp AND DEVICE -DappiumUdid WHEN USING APPIUMAPPDEVICE");
-                        }
-                        cap = new DesiredCapabilities();
-                        cap.setCapability("automationName", "Appium"); // or Selendroid
-                        cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
-                        cap.setCapability("platformVersion", appiumIosTargetVersion);
-                        cap.setCapability("app", appiumApp);
-                        cap.setCapability("udid",appiumUdid); //get this udid for phone from itunes, click device, then click serial number
-                        cap.setCapability("deviceName", appiumIosDeviceName); 
-                        break;
                     case CHROME:
                     case CHROMELINUX:
                     case CHROMEMAC:
@@ -423,7 +296,6 @@ public class CodeBase {
                     case FIREFOXMAC:
                         cap = DesiredCapabilities.firefox();
                         break;
-                    
                     case SAFARI:
                         cap = DesiredCapabilities.safari();
 
@@ -440,39 +312,32 @@ public class CodeBase {
                         cap = DesiredCapabilities.internetExplorer();
                         break;
                     default:
-                        throw new Exception("NOT CONFIGURED TO LAUNCH THIS BROWSER ON GRID. -Dbrowser:\" + browser");
+                        throw new Exception("NOT CONFIGURED TO LAUNCH THIS BROWSER ON GRID, USING StartDriver.");
                 }
 
-                //don't do any this for appium
-                if(!browser.toString().contains("APPIUM")){
-                    // turn on debug logging if debug is specified. this takes longer
-                    if (System.getProperty("logging") == null){
-                        System.out.println("-Dlogging NOT SPECIFIED");
-                    }
-                    else if(browser.toString().contains("APPIUM")){
-                        System.out.println("-Dlogging NOT SUPPORTED WITH APPIUM");
-                    } else {
-                        LoggingPreferences loggingprefs = new LoggingPreferences();
-                        loggingprefs.enable(LogType.BROWSER, Level.ALL);
-                        loggingprefs.enable(LogType.CLIENT, Level.ALL);
-                        loggingprefs.enable(LogType.DRIVER, Level.ALL);
-                        cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
-                        
-                        System.out.println("-Dlogging SPECIFIED");
-                    }
-                    
-                    // accept all ssl certificates by default
-                    cap.setCapability("acceptSslCerts", true);
+                /**
+                 * SET LOGGING CAPABILITES
+                 */
+                // turn on debug logging if debug is specified. this takes longer
+                if (System.getProperty("logging") == null){
+                    System.out.println("-Dlogging NOT SPECIFIED");
+                } else {
+                    LoggingPreferences loggingprefs = new LoggingPreferences();
+                    loggingprefs.enable(LogType.BROWSER, Level.ALL);
+                    loggingprefs.enable(LogType.CLIENT, Level.ALL);
+                    loggingprefs.enable(LogType.DRIVER, Level.ALL);
+                    cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
 
-                    // set desired platform (as specified by grid node)
-                    cap.setPlatform(browser.platform);
-
-                    // desired browser name (as set by grid node)
-                    cap.setBrowserName(browser.browserName);
-
-                    // desired version (as set by grid node)
-                    cap.setVersion(browser.version);
+                    System.out.println("-Dlogging SPECIFIED");
                 }
+
+                /**
+                 * SET COMMON CAPABILITIES
+                 */
+                cap.setCapability("acceptSslCerts", true);// accept all ssl certificates by default
+                cap.setPlatform(browser.platform);// set desired platform (as specified by grid node)
+                cap.setBrowserName(browser.browserName);// desired browser name (as set by grid node)
+                cap.setVersion(browser.version);// desired version (as set by grid node)
 
                 System.out.println("FINDING SELENIUM GRID NODE:" + browser.browserName + " VERSION:" + browser.version
                         + " PLATFORM:" + browser.platform.toString());
@@ -489,12 +354,12 @@ public class CodeBase {
                         + " PLATFORM:" + browser.platform.toString());
             } catch (Exception ex) {
                 if (ex.getMessage().contains("Error forwarding")) {
-                    System.out.println(">>>>>>>>>SELENIUM GRID NODE<<<<<<<<< 'browserName=" + browser.browserName + ",version="
+                    System.out.println("SELENIUM GRID NODE 'browserName=" + browser.browserName + ",version="
                             + browser.version + "' NOT LAUNCHED EXCEPTION:" + ex.getMessage());
                 } else if (ex.getMessage().contains("COULD NOT START A NEW SESSION")) {
-                    System.out.println(">>>>>>>>>SELENIUM GRID HUB NOT LAUNCHED EXCEPTION:<<<<<<<<<" + ex.getMessage());
+                    System.out.println("SELENIUM GRID HUB NOT LAUNCHED EXCEPTION:" + ex.getMessage());
                 } else {
-                    System.out.println(">>>>>>>>>SELENIUM GRID HUB CONNECTION EXCEPTION. VERIFY ONE IS STARTED AT SERVER:"+aHubServer+" PORT:"+aHubPort+" MESSAGE:" + ex.getMessage() );
+                    System.out.println("SELENIUM GRID HUB CONNECTION EXCEPTION. VERIFY ONE IS STARTED AT SERVER:"+aHubServer+" PORT:"+aHubPort+" MESSAGE:" + ex.getMessage() );
                 }
 
                 driver = null;
@@ -676,19 +541,125 @@ public class CodeBase {
                 driver.manage().deleteAllCookies();
             }
 
-            // maximize browser (not supported by appium)
-            if (!browser.toString().contains("APPIUM")) {
-                // maximize the window
-                driver.manage().window().maximize();
+            // maximize the window
+            driver.manage().window().maximize();
 
-                // set the main window handle
-                mainWindowHandle = driver.getWindowHandle();
-            }
+            // set the main window handle
+            mainWindowHandle = driver.getWindowHandle();
         }
 
 
     }
+    
+    /** This function starts an appium driver
+     * 
+     * @throws java.lang.Exception
+     */
+    protected static void StartAppiumDriver() throws Exception{
+        
+        /**
+         * VERIFY REQUIRED PARAMETERS
+         */
+        //make sure a browser was specified
+        if (browser == null) {
+            throw new Exception("BROWSER (-Dbrowser) NOT SPECIFIED");
+        }
+        
+        //make sure a target version was specified, and set it
+        if(appiumIosTargetVersion==null){
+            throw new Exception("MUST SPECIFY APP -DappiumIosTargetVersion");
+        }
+        
+        //make sure a device name was specified, and set it
+        if(appiumIosDeviceName==null){
+            throw new Exception("MUST SPECIFY APP -DappiumIosDeviceName");
+        }
+        
+        /**
+         * SET THE DESIRED CAPABILITIES
+         */
+        DesiredCapabilities cap = new DesiredCapabilities();
+        cap.setCapability("platformVersion", appiumIosTargetVersion);
+        cap.setCapability("automationName", "Appium"); // or Selendroid
+        cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
+        cap.setCapability("deviceName", appiumIosDeviceName); 
 
+        // set browser: in the SeleniumCodeBase parameter sense; i.e. app name for devices
+        switch (browser) {
+
+            case APPIUMSAFARISIMULATOR: 
+                
+                //set capability for a safari browser running on an ios simulator
+                cap.setCapability("browserName", "Safari");
+                break;
+            case APPIUMSAFARIDEVICE:
+                
+                //set capability for a safari browser running on a connected device
+                cap.setCapability("browserName", "Safari");
+                cap.setCapability("udid",appiumUdid); //get this udid for phone from itunes, click device, then click serial number
+                break;
+            case APPIUMAPPSIMULATOR: 
+                //MAKE SURE APP IS SPECIFIED
+                if(appiumApp==null){
+                    throw new Exception("MUST SPECIFY APP -DappiumIosTargetVersion -DappiumApp -DappiumIosTargetVersionWHEN USING APPIUMAPPSIMULATOR");
+                }
+                
+                cap.setCapability("app", appiumApp); 
+
+                break;
+            case APPIUMAPPDEVICE: 
+                //MAKE SURE APP AND DEVICE UDID WERE SPECIFIED
+                if(appiumApp==null ){
+                    throw new Exception("MUST SPECIFY APP -DappiumApp WHEN USING APPIUMAPPDEVICE");
+                }
+                
+                if(appiumUdid==null){
+                    throw new Exception("MUST SPECIFY APP DEVICE -DappiumUdid WHEN USING APPIUMAPPDEVICE");
+                }
+                
+                cap.setCapability("app", appiumApp);
+                cap.setCapability("udid",appiumUdid); //get this udid for phone from itunes, click device, then click serial number
+                break;
+            
+            default:
+                throw new Exception("NOT CONFIGURED TO LAUNCH THIS BROWSER ON APPIUM StartAppiumDriver");
+        }
+        
+        /**
+         * START THE DRIVER ON THE CORRECT APPIUM HUB
+         */
+        System.out.println("FINDING APPIUM HUB:" + 
+                browser.browserName + 
+                " VERSION:" + 
+                browser.version + 
+                " PLATFORM:" + browser.platform.toString());
+
+        // get the APPIUM HUB node
+        String gridHubFullPath = "http://" + aHubServer + ":" + aHubPort + "/wd/hub";
+        System.out.println("CONTACTING APPIUM HUB");
+        
+        try{
+           
+            driver = new RemoteWebDriver(new URL(gridHubFullPath), cap);
+            // augment the driver so that screenshots can be taken
+            driver = new Augmenter().augment(driver);
+            System.out.println("SUCCESSFULLY APPIUM HUB FOR:" + browser.browserName + " VERSION:" + browser.version
+                    + " PLATFORM:" + browser.platform.toString()); 
+        }
+        catch (Exception ex) {
+                if (ex.getMessage().contains("Error forwarding")) {
+                    System.out.println("APPIUM HUB 'browserName=" + browser.browserName + ",version="
+                            + browser.version + "' NOT LAUNCHED EXCEPTION:" + ex.getMessage());
+                } else if (ex.getMessage().contains("COULD NOT START A NEW APPIUM HUB SESSION")) {
+                    System.out.println("APPIUM HUB NOT LAUNCHED EXCEPTION:" + ex.getMessage());
+                } else {
+                    System.out.println("APPIUM HUB CONNECTION EXCEPTION. VERIFY ONE IS STARTED AT SERVER:"+aHubServer+" PORT:"+aHubPort+" MESSAGE:" + ex.getMessage() );
+                }
+
+                driver = null;
+            }
+    }
+    
     /**
      * This method quits (and closes) the browser. It also sets it to null, in case the same test calls StartDriver
      * twice, for two different browsers.
@@ -698,6 +669,11 @@ public class CodeBase {
         driver = null;
     }
 
+    /** This method gets the current running operating system, for running local browsers -DnoGrid 
+     * 
+     * @return
+     * @throws Exception 
+     */
     private static OsType GetOsType() throws Exception {
         // get the os
         String os = System.getProperty("os.name").toLowerCase();
@@ -756,6 +732,7 @@ public class CodeBase {
     /**
      * This method takes a screenshot, and puts it in the current working directory Made static so screenshot can be
      * taken from StartDriver
+     * @return file name of the screenshot
      */
     protected static String ScreenShot() {
         String fileName = "";
@@ -989,7 +966,10 @@ public class CodeBase {
         return fileName;
     }
 
-    // get a unique datestamp string
+    /**
+     * get a unique datestamp string
+     * @return 
+     */
     protected static String getDateStamp() {
         // generate a unique file name
         DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
@@ -1089,7 +1069,6 @@ public class CodeBase {
         }
     }
 
-    
     /**
      * compose and return an html string for an html page to the body opener
      * 
@@ -1149,6 +1128,7 @@ public class CodeBase {
     /**
      * this method just scrolls the page down a  times
      */
+    @SuppressWarnings("SleepWhileInLoop")
     protected void ScrollPage(){
         
         try{
@@ -1198,11 +1178,10 @@ public class CodeBase {
             }
             
         }
-        catch(Exception ex){
+        catch(NumberFormatException | InterruptedException ex){
             CustomStackTrace("SCROLLING EXCEPTION",ex);
         }
     }
-    
     
     /**
      * This method waits for the page to change, when paging through results
