@@ -53,24 +53,29 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  * @author jaemzware@hotmail.com
  */
 public class CodeBase {
+    
     // the one and only driver object
     protected static WebDriver driver = null;
 
-    // selenium grid hub defaults
-    protected static String aHubServer = "localhost";
-    protected static String aHubPort = "4444";
-
-    // appium app and udid defaults
+     // recognized command line variables
+    protected static EnvironmentType environment = null;
+    protected static BrowserType browser = null;
+    protected static String userid = null; // for tests that need to authenticate
+    protected static String password = null; // for tests that need to authenticate
+    protected static String input = null; // for specifying input files (ReadTermResultFromInputXls) or sql statements
+    protected static String aNumber = null; // for specifying a generic number, will fail if not integer parseable
+    protected static String aString = null; // for specifiying a generic string for usage or comparison (Sql.java)
+    protected static String report = null; // for specifiying a string unique for the report title
+    protected static String aHubServer = null;
+    protected static String aHubPort = null;
     protected static String appiumApp = null;
     protected static String appiumUdid = null;
     protected static String appiumIosTargetVersion = null;
-    protected static String appiumIosDeviceName = "iPhone 6";
+    protected static String appiumIosDeviceName = null;
     
     // jenkins report folder url
-    protected static final String jenkinsReportHeader = "";
-    protected static final String jenkinsReportFooter = "";
-    protected static final String jenkinsReportPath = "http://jaemzware.com:8080/";
-    protected static final String jenkinsReportPathInternal = "http://10.1.10.156:8080/";
+    protected static final String jenkinsReportPath = "http://jaemzware.com:8081/";
+    protected static final String jenkinsReportPathInternal = "http://10.1.10.156:8081/";
 
     // default time IN SECONDS to wait when finding elements
     protected int defaultImplicitWait = 60;
@@ -83,191 +88,31 @@ public class CodeBase {
     // save off main window handle, for when dealing with popups
     protected static String mainWindowHandle;
 
-    // recognized command line variables
-    protected static String userid = null; // for tests that need to authenticate
-    protected static String password = null; // for tests that need to authenticate
-    protected static String input = null; // for specifying input files (ReadTermResultFromInputXls) or sql statements
-    protected static String aNumber = null; // for specifying a generic number, will fail if not integer parseable
-    protected static String aString = null; // for specifiying a generic string for usage or comparison (Sql.java)
-    protected static EnvironmentType environment = null;
-    protected static BrowserType browser = null;
-    
     /**
      * This function gets the command line parameters.
      * Separated out so that tests can get the parameters without having to start the driver
      * 
-     * @return String indicating whether GetParameters() succeeded in obtaining valid values. An empty string will be
-     *         returned if there were no errors
+     * @return String indicating whether GetParameters() succeeded in obtaining valid values. 
+     * An empty string will be returned if there were no errors
      */
     protected static String GetParameters() {
-        System.out.println("COMMAND LINE PARAMETERS");
-
-        // get waitAfterPageLoadMilliSeconds specified on command line
-        String waitAfterPageLoadMilliSecondsParm = System.getProperty("waitAfterPageLoadMilliSeconds");
-
-        if (waitAfterPageLoadMilliSecondsParm == null || waitAfterPageLoadMilliSecondsParm.isEmpty()) {
-            System.out.println("-DwaitAfterPageLoadMilliSeconds NOT SPECIFIED.");
-        } else {
-            // make sure aNumber is parseable
-            try {
-                waitAfterPageLoadMilliSeconds = Integer.parseInt(waitAfterPageLoadMilliSecondsParm);
-
-                System.out.println("-DwaitAfterPageLoadMilliSeconds:" + waitAfterPageLoadMilliSeconds);
-            } catch (NumberFormatException nfx) {
-                return "-DwaitAfterPageLoadMilliSecondsParm:" + waitAfterPageLoadMilliSecondsParm
-                        + " SPECIFIED IS NOT A PARSEABLE INT. RETURNING THIS STRING TO INDICATE FAILURE (MAY BE IGNORED BY SOME TESTS)";
-
-            }
-        }
         
-        // get appiumApp specified on command line
-        String appiumAppParm = System.getProperty("appiumApp");
-
-        if (appiumAppParm == null || appiumAppParm.isEmpty()) {
-            System.out.println("-DappiumApp NOT SPECIFIED.");
-        } else {
-            appiumApp = appiumAppParm;
-
-            System.out.println("-DappiumApp:" + appiumApp);
-        }
-        
-        // get appiumUdid specified on command line
-        String appiumUdidParm = System.getProperty("appiumUdid");
-
-        if (appiumUdidParm == null || appiumUdidParm.isEmpty()) {
-            System.out.println("-DappiumUdid NOT SPECIFIED.");
-        } else {
-            appiumUdid = appiumUdidParm;
-
-            System.out.println("-DappiumUdid:" + appiumUdid);
-        }
-        
-        // get appiumIosTargetVersion specified on command line
-        String appiumIosTargetVersionParm = System.getProperty("appiumIosTargetVersion");
-
-        if (appiumIosTargetVersionParm == null || appiumIosTargetVersionParm.isEmpty()) {
-            System.out.println("-DappiumIosTargetVersion NOT SPECIFIED.");
-        } else {
-            appiumIosTargetVersion = appiumIosTargetVersionParm;
-
-            System.out.println("-DappiumIosTargetVersion:" + appiumIosTargetVersion);
-        }
-        
-        // get appiumIosDeviceName specified on the command line
-        String appiumIosDeviceNameParm = System.getProperty("appiumIosDeviceName");
-
-        if (appiumIosDeviceNameParm == null || appiumIosDeviceNameParm.isEmpty()) {
-            System.out.println("-DappiumIosDeviceName NOT SPECIFIED.");
-        } else {
-            appiumIosDeviceName = appiumIosDeviceNameParm;
-
-            System.out.println("-DappiumIosDeviceName:" + appiumIosDeviceName);
-        }
-        
-        // USERID
-        // get userid specified on command line
-        String useridParm = System.getProperty("userid");
-
-        if (useridParm == null || useridParm.isEmpty()) {
-            System.out.println("-Duserid NOT SPECIFIED.");
-        } else {
-            userid = useridParm;
-
-            System.out.println("-Duserid:" + userid);
-        }
-
-        // PASSWORD
-        // get password specified on command line
-        String passwordParm = System.getProperty("password");
-
-        if (passwordParm == null || passwordParm.isEmpty()) {
-            System.out.println("-Dpassword NOT SPECIFIED.");
-        } else {
-            password = passwordParm;
-
-            System.out.println("-Dpassword:********");
-        }
-
-        // INPUT
-        // get input specified on command line
-        String inputParm = System.getProperty("input");
-
-        if (inputParm == null || inputParm.isEmpty()) {
-            System.out.println("-Dinput NOT SPECIFIED.");
-        } else {
-            input = inputParm;
-
-            System.out.println("-Dinput:" + input);
-        }
-
-        // ANUMBER
-        // get aNumber specified on command line
-        String aNumberParm = System.getProperty("aNumber");
-
-        if (aNumberParm == null || aNumberParm.isEmpty()) {
-            System.out.println("-DaNumber NOT SPECIFIED.");
-        } else {
-            // make sure aNumber is parseable
-            try {
-                Integer.parseInt(aNumberParm);
-
-                aNumber = aNumberParm;
-
-                System.out.println("-DaNumber:" + aNumber);
-            } catch (NumberFormatException nfx) {
-                return "-DaNumber:" + aNumberParm
-                        + " SPECIFIED IS NOT A PARSEABLE INT. RETURNING FALSE (MAY BE IGNORED BY SOME TESTS)";
-
-            }
-
-        }
-
-        // ASTRING
-        // get aString specified on command line
-        String aStringParm = System.getProperty("aString");
-
-        if (aStringParm == null || aStringParm.isEmpty()) {
-            System.out.println("-DaString NOT SPECIFIED.");
-        } else {
-            aString = aStringParm;
-
-            System.out.println("-DaString:" + aString);
-        }
-
-        // AHUBSERVER
-        // get aHubServer specified on command line (for selenium grid hub), FOR WHEN IT'S DIFFERENT THAN LOCALHOST
         String aHubServerParm = System.getProperty("aHubServer");
-
-        if (aHubServerParm == null || aHubServerParm.isEmpty()) {
-            System.out.println("-DaHubServer NOT SPECIFIED. USING DEFAULT aHubServer:"+aHubServer);
-        } else {
+        if (aHubServerParm != null && !aHubServerParm.isEmpty()) {
             aHubServer = aHubServerParm;
-            System.out.println("-DaHubServer SPECIFIED. aHubServer:" + aHubServer);
         }
-        
-        // AHUBPORT
-        // get aHubPort specified on command line (for selenium grid hub), FOR WHEN IT'S DIFFERENT THAN 4444
+        System.out.println("-DaHubServer:" + aHubServer);
+
         String aHubPortParm = System.getProperty("aHubPort");
-
-        if (aHubPortParm == null || aHubPortParm.isEmpty()) {
-            System.out.println("-DaHubPort NOT SPECIFIED. USING DEFAULT aHubPort:"+aHubPort);
-        } else {
+        if (aHubPortParm != null && !aHubPortParm.isEmpty()) {
             aHubPort = aHubPortParm;
-            System.out.println("-DaHubPort SPECIFIED. aHubPort:" + aHubPort);
         }
+        System.out.println("-DaHubPort:" + aHubPort);
 
-        // BROWSER
-        // get browser type specified on command line
         String browserParm = System.getProperty("browser");
-
-        if (browserParm == null || browserParm.isEmpty()) {
-            // if browser is not specified, output which one is being used by default
-            System.out.println("-Dbrowser NOT SPECIFIED.");
-        } else {
+        if (browserParm != null && !browserParm.isEmpty()) {
             try {
                 browser = BrowserType.valueOf(browserParm);
-
-                System.out.println("-Dbrowser:" + browserParm);
             } catch (IllegalArgumentException ex) {
                 StringBuilder invalidBrowserMessage = new StringBuilder();
 
@@ -280,23 +125,41 @@ public class CodeBase {
                     invalidBrowserMessage.append(validBrowser);
                     invalidBrowserMessage.append(" ");
                 }
-
                 return invalidBrowserMessage.toString();
             }
         }
+        System.out.println("-Dbrowser:" + browserParm);
 
-        // ENVIRONMENT
-        // get environment type specified on command line
+        String appiumAppParm = System.getProperty("appiumApp");
+        if (appiumAppParm != null && !appiumAppParm.isEmpty()) {
+            appiumApp = appiumAppParm;
+        }
+        System.out.println("-DappiumApp:" + appiumApp);
+
+        
+        String appiumUdidParm = System.getProperty("appiumUdid");
+        if (appiumUdidParm != null && !appiumUdidParm.isEmpty()) {
+            appiumUdid = appiumUdidParm;
+        }
+        System.out.println("-DappiumUdid:" + appiumUdid);
+
+        
+        String appiumIosTargetVersionParm = System.getProperty("appiumIosTargetVersion");
+        if (appiumIosTargetVersionParm != null && !appiumIosTargetVersionParm.isEmpty()) {
+            appiumIosTargetVersion = appiumIosTargetVersionParm;
+        }
+        System.out.println("-DappiumIosTargetVersion:" + appiumIosTargetVersion);
+        
+        String appiumIosDeviceNameParm = System.getProperty("appiumIosDeviceName");
+        if (appiumIosDeviceNameParm != null && !appiumIosDeviceNameParm.isEmpty()) {
+            appiumIosDeviceName = appiumIosDeviceNameParm;
+        }
+        System.out.println("-DappiumIosDeviceName:" + appiumIosDeviceName);
+
         String environmentParm = System.getProperty("environment");
-
-        if (environmentParm == null || environmentParm.isEmpty()) {
-            // if environment is not specified, output which one is being used by default
-            System.out.println("-Denvironment NOT SPECIFIED. USING DEFAULT:" + environment);
-        } else {
+        if (environmentParm != null && !environmentParm.isEmpty()) {
             try {
                 environment = EnvironmentType.valueOf(environmentParm);
-
-                System.out.println("-Denvironment:" + environmentParm);
             } catch (IllegalArgumentException ex) {
                 StringBuilder invalidEnvironmentMessage = new StringBuilder();
 
@@ -309,10 +172,64 @@ public class CodeBase {
                     invalidEnvironmentMessage.append(validEnvironment);
                     invalidEnvironmentMessage.append(" ");
                 }
-
                 return invalidEnvironmentMessage.toString();
             }
         }
+        System.out.println("-Denvironment:" + environmentParm);
+
+        String waitAfterPageLoadMilliSecondsParm = System.getProperty("waitAfterPageLoadMilliSeconds");
+        if (waitAfterPageLoadMilliSecondsParm != null && !waitAfterPageLoadMilliSecondsParm.isEmpty()) {
+            try {
+                waitAfterPageLoadMilliSeconds = Integer.parseInt(waitAfterPageLoadMilliSecondsParm);
+            } catch (NumberFormatException nfx) {
+                return "-DwaitAfterPageLoadMilliSecondsParm:" + waitAfterPageLoadMilliSecondsParm
+                        + " SPECIFIED IS NOT A PARSEABLE INT. RETURNING THIS STRING TO INDICATE FAILURE (MAY BE IGNORED BY SOME TESTS)";
+
+            }
+        }
+        System.out.println("-DwaitAfterPageLoadMilliSeconds:" + waitAfterPageLoadMilliSeconds);
+        
+        String useridParm = System.getProperty("userid");
+        if (useridParm != null && !useridParm.isEmpty()) {
+            userid = useridParm;
+        }
+        System.out.println("-Duserid:" + userid);
+
+        String passwordParm = System.getProperty("password");
+        if (passwordParm != null && !passwordParm.isEmpty()) {
+            password = passwordParm;
+        }
+        System.out.println("-Dpassword:" + password);
+
+        String inputParm = System.getProperty("input");
+        if (inputParm != null && !inputParm.isEmpty()) {
+            input = inputParm;
+        }
+        System.out.println("-Dinput:" + input);
+
+        String aNumberParm = System.getProperty("aNumber");
+        if (aNumberParm != null && !aNumberParm.isEmpty()) {
+            try {
+                //VERIFY IT'S A NUMBER
+                Integer.parseInt(aNumberParm);
+                aNumber = aNumberParm;
+            } catch (NumberFormatException nfx) {
+                return "-DaNumber:" + aNumberParm + " MUST BE A NUMBER";
+            }
+        }
+        System.out.println("-DaNumber:" + aNumber);
+
+        String aStringParm = System.getProperty("aString");
+        if (aStringParm != null && !aStringParm.isEmpty()) {
+            aString = aStringParm;
+        }
+        System.out.println("-DaString:" + aString);
+        
+        String reportParm = System.getProperty("report");
+        if (reportParm != null && !reportParm.isEmpty()) {
+            report = reportParm;
+        }
+        System.out.println("-Dreport:" + report);
 
         return "";
     }
@@ -328,11 +245,6 @@ public class CodeBase {
         StartDriver("SeleniumGrid/");
     }
 
-    /**
-     * This function starts the desired web browser.
-     * 
-     * @throws Exception
-     */
     /**
      * This function starts the desired web browser
      * 
@@ -638,10 +550,10 @@ public class CodeBase {
 
 
     }
-
     
     /** This function starts an appium driver
      * 
+     * @throws java.lang.Exception
      */
     protected static void StartAppiumDriver() throws Exception{
         
@@ -748,7 +660,6 @@ public class CodeBase {
             }
     }
     
-    
     /**
      * This method quits (and closes) the browser. It also sets it to null, in case the same test calls StartDriver
      * twice, for two different browsers.
@@ -821,6 +732,7 @@ public class CodeBase {
     /**
      * This method takes a screenshot, and puts it in the current working directory Made static so screenshot can be
      * taken from StartDriver
+     * @return file name of the screenshot
      */
     protected static String ScreenShot() {
         String fileName = "";
@@ -1054,7 +966,10 @@ public class CodeBase {
         return fileName;
     }
 
-    // get a unique datestamp string
+    /**
+     * get a unique datestamp string
+     * @return 
+     */
     protected static String getDateStamp() {
         // generate a unique file name
         DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
@@ -1154,7 +1069,6 @@ public class CodeBase {
         }
     }
 
-    
     /**
      * compose and return an html string for an html page to the body opener
      * 
@@ -1214,6 +1128,7 @@ public class CodeBase {
     /**
      * this method just scrolls the page down a  times
      */
+    @SuppressWarnings("SleepWhileInLoop")
     protected void ScrollPage(){
         
         try{
@@ -1263,11 +1178,10 @@ public class CodeBase {
             }
             
         }
-        catch(Exception ex){
+        catch(NumberFormatException | InterruptedException ex){
             CustomStackTrace("SCROLLING EXCEPTION",ex);
         }
     }
-    
     
     /**
      * This method waits for the page to change, when paging through results

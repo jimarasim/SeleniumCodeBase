@@ -89,9 +89,7 @@ public class Scratch extends CodeBase {
     @Test
     public void VerifyLogos() {
 
-        // create a file for the web page log
-//        String fileName = "Index-VerifyLogos-" + getDateStamp() + ".htm";
-        String fileName = "index.htm";
+        String fileName = "index"+report+".htm";
         PrintWriter writer = null;
         String fileWriteString;
 
@@ -108,7 +106,7 @@ public class Scratch extends CodeBase {
                 driver.manage().timeouts().implicitlyWait(defaultImplicitWait, TimeUnit.SECONDS);
             }
 
-        //GET PARAMETERS
+            //VERIFY REQUIRED PARAMETERS WERE SET
             // get START url
             String starturl = new String();
             if (input != null && !input.isEmpty()) {
@@ -133,7 +131,7 @@ public class Scratch extends CodeBase {
                 throw new Exception("LOGOXPATH NOT SPECIFIED (-DaString");
             }
             
-        //CREATE A REPORT WEB PAGE
+            //CREATE A REPORT WEB PAGE
             // create the web page
             writer = new PrintWriter(fileName, "UTF-8");
 
@@ -251,24 +249,17 @@ public class Scratch extends CodeBase {
                 
             }
 
-        //COMPLETE WRITING REPORT WEB PAGE
-            
+            //COMPLETE WRITING REPORT WEB PAGE
             System.out.println("INDEX FILE WRITTEN:" + fileName);
             System.out.println("INTERNAL COPY: http://10.1.10.156/jenkinsArtifacts/"+ fileName);
             System.out.println("EXTERNAL COPY: http://jaemzware.com/jenkinsArtifacts/"+fileName);
             
             writer.println(HtmlReportFooter());
-            
-
         } catch (Exception ex) {
             ScreenShot();
             System.out.println("VERIFY LOGOS EXCEPTION:"+ex.getMessage());
-//            CustomStackTrace("VerifyLogos EXCEPTION", ex);
-//            Assert.fail(ex.getMessage());
         } finally {
-            
-            //WRITE THE FILE
-            // write the file if it was created
+            //WRITE THE FILE IF CREATED
             if (writer != null) {
                 writer.flush();
                 writer.close();
@@ -277,10 +268,10 @@ public class Scratch extends CodeBase {
     }
 
     @Test
-    public void VerifyLogosIos() {
+    public void VerifyLogosAppium() {
 
         // create a file for the web page log
-        String fileName = "index.htm"; //        String fileName = "Index-VerifyLogos-" + getDateStamp() + ".htm";
+        String fileName = "index"+report+".htm"; //        String fileName = "Index-VerifyLogos-" + getDateStamp() + ".htm";
         PrintWriter writer = null;
         String fileWriteString;
 
@@ -297,8 +288,7 @@ public class Scratch extends CodeBase {
                 driver.manage().timeouts().implicitlyWait(defaultImplicitWait, TimeUnit.SECONDS);
             }
 
-        //GET PARAMETERS
-            // get START url
+            //VERIFY REQUIRED PARAMETERS WERE SET
             String starturl = new String();
             if (input != null && !input.isEmpty()) {
                 starturl = input;
@@ -322,21 +312,21 @@ public class Scratch extends CodeBase {
                 throw new Exception("LOGOXPATH NOT SPECIFIED (-DaString");
             }
             
-        //CREATE A REPORT WEB PAGE
+            //CREATE A REPORT WEB PAGE
             // create the web page
             writer = new PrintWriter(fileName, "UTF-8");
 
             // write the html header in the web page
             writer.println(HtmlReportHeader("jaemzware-verifylogos [baseurl:"+baseurl+" starturl:"+starturl+" logoxpath:"+logoxpath+"]"));
             
-        // NAVIGATE TO THE STARTING PAGE
+            // NAVIGATE TO THE STARTING PAGE
             System.out.println("STARTURL:"+starturl);
             fileWriteString = driverGetWithTime(starturl);
            
             // write stats to html report
             writer.println(fileWriteString);
 
-        //LOGGING
+            //LOGGING
             if(System.getProperty("logging")==null){
                 System.out.println("LOGGING DISABLED - USE -Dlogging TO SEE BROWSER ERRORS AND WARNINGS");
             } 
@@ -351,7 +341,7 @@ public class Scratch extends CodeBase {
             System.out.println("VERIFYING LOGO AT:"+logoxpath+" ON:"+starturl);
             writer.println(VerifyXpathOnCurrentPage(logoxpath));
 
-        //GET HREFS
+            //GET HREFS
             // get all non-empty/non-javascript href on the page that contain the baseurl
             Map<String, String> hrefs = new HashMap<>();
             String hrefFound;
@@ -382,6 +372,7 @@ public class Scratch extends CodeBase {
                             !hrefFound.toLowerCase().contains("feed") &&
                             !hrefFound.toLowerCase().contains("rss") &&
                             !hrefFound.toLowerCase().contains("javascript") &&
+                            !hrefFound.toLowerCase().contains(".rss2") &&
                             !hrefFound.toLowerCase().contains(".jpg") &&
                             !hrefFound.toLowerCase().contains(".jpeg") &&
                             !hrefFound.toLowerCase().contains(".png") &&
@@ -398,20 +389,13 @@ public class Scratch extends CodeBase {
                 System.out.println("WARNING: NO LINKS FOUND ON PAGE MATCHING XPATH:" + linksOnSplashPageXpath+" ON:"+starturl);
             }
 
-        //VISIT HREFS
+            //VISIT HREFS
             // visit each href, report load time, and make sure the page has the logo
             int maxVisits = (aNumber!=null||!aNumber.isEmpty())?Integer.parseInt(aNumber):0; //check if the max number was specified
             int visitCount = 0;
             
-            System.out.println("VISITING HREFS FOUND AT XPATH:"+linksOnSplashPageXpath+" ON:"+starturl);
+            System.out.println("VISITING HREFS AT XPATH:"+linksOnSplashPageXpath+" ON:"+starturl);
             for (String href : hrefs.keySet()) {
-
-                // make sure we're on a real page, and not an image
-                if (    href.endsWith(".jpg") || 
-                        href.endsWith(".gif") || 
-                        href.endsWith("rss2")) {
-                    continue;
-                }
                 
                 String oldUrl=driver.getCurrentUrl();
             
@@ -421,7 +405,6 @@ public class Scratch extends CodeBase {
                 // write stats to html report
                 writer.println(fileWriteString);
                 
-        //ERROR LOGGING - TAKES LONG - ADD CAPABILITY WHEN CREATING driver BEFORE USING
                 if(System.getProperty("logging")==null || 
                         browser.toString().contains("APPIUM") ){
                 } else {
@@ -440,13 +423,18 @@ public class Scratch extends CodeBase {
                 
             }
 
-        //COMPLETE WRITING REPORT WEB PAGE
-            
-            System.out.println("INDEX FILE WRITTEN:" + fileName);
-            System.out.println("INTERNAL COPY: http://10.1.10.156/jenkinsArtifacts/"+ fileName);
-            System.out.println("EXTERNAL COPY: http://jaemzware.com/jenkinsArtifacts/"+fileName);
+        
+            /**
+             * COMPLETE WRITING REPORT WEB PAGE
+             */
             
             writer.println(HtmlReportFooter());
+            
+            System.out.println("=================================================");
+            System.out.println("INDEX FILE:" + fileName);
+            System.out.println("INTERNAL COPY: "+jenkinsReportPathInternal+fileName);
+            System.out.println("EXTERNAL COPY: "+jenkinsReportPath+fileName);
+            System.out.println("=================================================");
             
 
         } catch (Exception ex) {
