@@ -622,7 +622,7 @@ public class Scratch extends CodeBase {
         } else {
             logString.append("<tr><td colspan=2>No CLIENT log entries found.</td></tr>");
         }
-        //
+        //TODO: TRY THIS AGAIN
         // LogEntries driverLog = driver.manage().logs().get(LogType.DRIVER);
         // if(driverLog.getAll().size()>0){
         // logString.append("<tr><td colspan=2><h3>DRIVER</h3></td></tr>");
@@ -665,11 +665,6 @@ public class Scratch extends CodeBase {
 
         return logEntryRows.toString();
     }
-//    
-//    private String TakeScreenshotAndReturnMarkup(String currentPage){
-//        String screenshotFilePath= ScreenShot();
-//        String screenshotFilename = screenshotFilePath.substring(screenshotFilePath.lastIndexOf("/")+1);
-//        return "<a href='"+currentPage+"' target='_blank'><img src='"+screenshotFilename+"' /></a><br /><br />";
-//    }
+
 
 }
