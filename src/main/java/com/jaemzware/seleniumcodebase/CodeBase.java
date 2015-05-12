@@ -58,7 +58,7 @@ public class CodeBase {
     protected static WebDriver driver = null;
 
      // recognized command line variables
-    protected static EnvironmentType environment = null;
+    protected static EnvironmentType environment = EnvironmentType.craigslist;
     protected static BrowserType browser = null;
     protected static String userid = null; // for tests that need to authenticate
     protected static String password = null; // for tests that need to authenticate
