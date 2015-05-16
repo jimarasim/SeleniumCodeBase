@@ -81,6 +81,10 @@ public class CodeBase {
     protected static String bodyTextXpath = null;
     protected static String nextLinkXpath = null;
     
+    //command line variables for BoardScrub#BuildPageOfFoundLinks and Scratch#VerifyLogos
+    protected static String noImages = null;
+    protected static String logging = null;
+    
     // jenkins report folder url
     protected static final String jenkinsReportPath = "http://jaemzware.com:8081/";
     protected static final String jenkinsReportPathInternal = "http://10.1.10.156:8081/";
@@ -239,6 +243,13 @@ public class CodeBase {
         }
         System.out.println("-Dreport:" + report);
         
+        noImages = System.getProperty("noImages");
+        System.out.println("-DnoImages:" + noImages);
+        
+        logging = System.getProperty("logging");
+        System.out.println("-Dlogging:" + logging);
+        
+        
     /**
      * command line variables for BoardScrub#BuildPageOfFoundLinks specifically
      */
@@ -371,7 +382,7 @@ public class CodeBase {
                  * SET LOGGING CAPABILITES
                  */
                 // turn on debug logging if debug is specified. this takes longer
-                if (System.getProperty("logging") == null){
+                if (logging == null){
                     System.out.println("-Dlogging NOT SPECIFIED");
                 } else {
                     LoggingPreferences loggingprefs = new LoggingPreferences();
@@ -474,7 +485,7 @@ public class CodeBase {
                     DesiredCapabilities cap = DesiredCapabilities.chrome();
 
                     // turn on debug logging if debug is specified. this takes longer
-                    if (System.getProperty("logging") != null) {
+                    if (logging != null) {
                         //chrome doesnt support this logging type CLIENT
                         LoggingPreferences loggingprefs = new LoggingPreferences();
                         loggingprefs.enable(LogType.BROWSER, Level.ALL);
@@ -496,7 +507,7 @@ public class CodeBase {
             case FIREFOX:
             case FIREFOXLINUX:
             case FIREFOXMAC:
-                if (System.getProperty("logging") != null) {
+                if (logging != null) {
                     // get the desired capabilities
                     DesiredCapabilities cap = DesiredCapabilities.firefox();
 
@@ -526,7 +537,7 @@ public class CodeBase {
                     safariOptions.setUseCleanSession(true);
                     cap.setCapability(SafariOptions.CAPABILITY, safariOptions);
 
-                    if (System.getProperty("logging") != null) {
+                    if (logging != null) {
                         LoggingPreferences loggingprefs = new LoggingPreferences();
                         loggingprefs.enable(LogType.BROWSER, Level.ALL);
                         loggingprefs.enable(LogType.CLIENT, Level.ALL);
@@ -554,7 +565,7 @@ public class CodeBase {
                     // if we're on windows, just look for the windows driver regardless of version
                     System.setProperty("webdriver.ie.driver", relativePathToDrivers + "IEDriverServer.exe");
 
-                    if (System.getProperty("logging") != null) {
+                    if (logging != null) {
                         // get the desired capabilities
                         DesiredCapabilities cap = DesiredCapabilities.firefox();
 
@@ -1084,10 +1095,12 @@ public class CodeBase {
         htmlOutput += "</table>";
         htmlOutput += "<hr>";
         
-        // TAKE A SCREENSHOT
-        String screenshotFilePath= ScreenShot();
-        String screenshotFilename = screenshotFilePath.substring(screenshotFilePath.lastIndexOf("/")+1);
-        htmlOutput +=  "<a href='"+href+"' target='_blank'><img src='"+screenshotFilename+"' /></a><br /><br />";
+        if(noImages==null){
+            // TAKE A SCREENSHOT
+            String screenshotFilePath= ScreenShot();
+            String screenshotFilename = screenshotFilePath.substring(screenshotFilePath.lastIndexOf("/")+1);
+            htmlOutput +=  "<a href='"+href+"' target='_blank'><img src='"+screenshotFilename+"' /></a><br /><br />";
+        }
         
         //OVERRIDEABLE SLEEP
         System.out.println("VARIABLE SLEEP: -DwaitAfterPageLoadMilliSeconds:"+waitAfterPageLoadMilliSeconds+"ms");
