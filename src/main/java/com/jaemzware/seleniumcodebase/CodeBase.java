@@ -73,6 +73,14 @@ public class CodeBase {
     protected static String appiumIosTargetVersion = null;
     protected static String appiumIosDeviceName = null;
     
+    //command line variables for BoardScrub#BuildPageOfFoundLinks specifically
+    protected static String linksLoadedIndicatorXpath = null;
+    protected static String linkXpath = null;
+    protected static String imageXpath = null;
+    protected static String titleTextXpath = null;
+    protected static String bodyTextXpath = null;
+    protected static String nextLinkXpath = null;
+    
     // jenkins report folder url
     protected static final String jenkinsReportPath = "http://jaemzware.com:8081/";
     protected static final String jenkinsReportPathInternal = "http://10.1.10.156:8081/";
@@ -230,6 +238,50 @@ public class CodeBase {
             report = reportParm;
         }
         System.out.println("-Dreport:" + report);
+        
+    /**
+     * command line variables for BoardScrub#BuildPageOfFoundLinks specifically
+     */
+        String linksLoadedIndicatorXpathParm = System.getProperty("linksLoadedIndicatorXpath");
+        if (linksLoadedIndicatorXpathParm != null && !linksLoadedIndicatorXpathParm.isEmpty()) {
+            linksLoadedIndicatorXpath = linksLoadedIndicatorXpathParm;
+        }
+        System.out.println("-DlinksLoadedIndicatorXpath:" + linksLoadedIndicatorXpath);
+        
+        
+        String linkXpathParm = System.getProperty("linkXpath");
+        if (linkXpathParm != null && !linkXpathParm.isEmpty()) {
+            linkXpath = linkXpathParm;
+        }
+        System.out.println("-DlinkXpath:" + linkXpath);
+        
+        
+        String imageXpathParm = System.getProperty("imageXpath");
+        if (imageXpathParm != null && !imageXpathParm.isEmpty()) {
+            imageXpath = imageXpathParm;
+        }
+        System.out.println("-DimageXpath:" + imageXpath);
+        
+        
+        String titleTextXpathParm = System.getProperty("titleTextXpath");
+        if (titleTextXpathParm != null && !titleTextXpathParm.isEmpty()) {
+            titleTextXpath = titleTextXpathParm;
+        }
+        System.out.println("-DtitleTextXpath:" + titleTextXpath);
+        
+        
+        String bodyTextXpathParm = System.getProperty("bodyTextXpath");
+        if (bodyTextXpathParm != null && !bodyTextXpathParm.isEmpty()) {
+            bodyTextXpath = bodyTextXpathParm;
+        }
+        System.out.println("-DbodyTextXpath:" + bodyTextXpath);
+        
+        
+        String nextLinkXpathParm = System.getProperty("nextLinkXpath");
+        if (nextLinkXpathParm != null && !nextLinkXpathParm.isEmpty()) {
+            nextLinkXpath = nextLinkXpathParm;
+        }
+        System.out.println("-DnextLinkXpath:" + nextLinkXpath);
 
         return "";
     }
