@@ -130,6 +130,14 @@ VERIFYLOGOS-OPTIONAL PARAMETERS:
     -DappiumUdid    path to ios device udid, if using appium ot test a device instead of a simulator APPIUMDEVICEAPPSCRATCH
     -DappiumIosTargetVersion    version of ios to use
     -DappiumIosDeviceName  name of ios simulator to use
+    
+    //command line variables for BoardScrub#BuildPageOfFoundLinks specifically, in case there is a need in verifylogos :)
+    protected static String linksLoadedIndicatorXpath = null;
+    protected static String linkXpath = null;
+    protected static String imageXpath = null;
+    protected static String titleTextXpath = null;
+    protected static String bodyTextXpath = null;
+    protected static String nextLinkXpath = null;
 
 GRID-VERIFYLOGOS / LOGGING SAMPLES:
 mvn -Dtest=Scratch#VerifyLogos -Dbrowser=FIREFOX -Dinput=http://disney.com/ -DaNumber=0 -Duserid=disney.com -DaString="//*[contains(@id,'logo')]" -Dlogging -DaHubServer=localhost -DaHubPort=4445 test
