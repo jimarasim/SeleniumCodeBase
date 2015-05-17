@@ -73,6 +73,9 @@ public class CodeBase {
     protected static String appiumIosTargetVersion = null;
     protected static String appiumIosDeviceName = null;
     
+    /**
+     * TODO: VERIFY IMPLEMENTATION
+     */
     //command line variables for BoardScrub#BuildPageOfFoundLinks specifically
     protected static String linksLoadedIndicatorXpath = null;
     protected static String linkXpath = null;
@@ -81,9 +84,13 @@ public class CodeBase {
     protected static String bodyTextXpath = null;
     protected static String nextLinkXpath = null;
     
+    /**
+     * TODO: VERIFY IMPLEMENTATION
+     */
     //command line variables for BoardScrub#BuildPageOfFoundLinks and Scratch#VerifyLogos
-    protected static String noImages = null;
+    protected static String noImages = null; //dont save images  TODO: verify works for not saving screenshots during verifylogs AND not grabbing board pictures AND not grabbing if xpath for verifylogos logo is an "img" tag
     protected static String logging = null;
+    protected static String noScroll = null;
     
     // jenkins report folder url
     protected static final String jenkinsReportPath = "http://jaemzware.com:8081/";
@@ -1198,55 +1205,63 @@ public class CodeBase {
     @SuppressWarnings("SleepWhileInLoop")
     protected void ScrollPage(){
         
-        try{
-            
-            //get the total height of the web page
-            Object documentHeight = ((JavascriptExecutor)driver).executeScript("return Math.max( document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight )");
-            
-            //not sure why, but this get null sometimes
-            if(documentHeight==null){
-                System.out.println("JAVASCRIPT TO RETRIEVE documentHeight RETURNED A NULL VALUE");
-                return;
-            }
-            else{
-                System.out.println("documentHeight:"+documentHeight.toString());
-            }
-            
-            //get the y distance that is scrolled down
-            Object pageYOffset = ((JavascriptExecutor)driver).executeScript("return window.pageYOffset");
-            System.out.println("pageYOffset:"+pageYOffset.toString());
-            
-            //get the height of the visible web page
-            Object innerHeight = ((JavascriptExecutor)driver).executeScript("return window.innerHeight");
-            System.out.println("innerHeight:"+innerHeight.toString());
-            
-            //scroll down till at the bottom
-            while(Integer.parseInt(pageYOffset.toString()) < 
-                    (Integer.parseInt(documentHeight.toString())-Integer.parseInt(innerHeight.toString())-1)){
-                
-                ((JavascriptExecutor)driver).executeScript("window.scrollBy(0,"+innerHeight.toString()+")");
-                
-                //make sure the page scrolled.  there was one case in fark where it didn't, so just break if that happens
-                Object newPageYOffset = ((JavascriptExecutor)driver).executeScript("return window.pageYOffset");
-                if(newPageYOffset.toString().equals(pageYOffset.toString())){
-                    System.out.println("NEW PAGE Y OFFSET IS THE SAME, BREAKING SCROLL");
-                    break;
+        /**
+         * Scroll page, unless specificallu told not to
+         */
+        if(noScroll==null){
+            try{
+
+                //get the total height of the web page
+                Object documentHeight = ((JavascriptExecutor)driver).executeScript("return Math.max( document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight )");
+
+                //not sure why, but this get null sometimes
+                if(documentHeight==null){
+                    System.out.println("JAVASCRIPT TO RETRIEVE documentHeight RETURNED A NULL VALUE");
+                    return;
                 }
                 else{
-                    pageYOffset=newPageYOffset;
-                    System.out.println("pageYOffset:"+pageYOffset.toString());
+                    System.out.println("documentHeight:"+documentHeight.toString());
                 }
 
-                innerHeight = ((JavascriptExecutor)driver).executeScript("return window.innerHeight");
+                //get the y distance that is scrolled down
+                Object pageYOffset = ((JavascriptExecutor)driver).executeScript("return window.pageYOffset");
+                System.out.println("pageYOffset:"+pageYOffset.toString());
+
+                //get the height of the visible web page
+                Object innerHeight = ((JavascriptExecutor)driver).executeScript("return window.innerHeight");
                 System.out.println("innerHeight:"+innerHeight.toString());
-                
-                //sleep for a sec
-                Thread.sleep(waitAfterPageLoadMilliSeconds);
+
+                //scroll down till at the bottom
+                while(Integer.parseInt(pageYOffset.toString()) < 
+                        (Integer.parseInt(documentHeight.toString())-Integer.parseInt(innerHeight.toString())-1)){
+
+                    ((JavascriptExecutor)driver).executeScript("window.scrollBy(0,"+innerHeight.toString()+")");
+
+                    //make sure the page scrolled.  there was one case in fark where it didn't, so just break if that happens
+                    Object newPageYOffset = ((JavascriptExecutor)driver).executeScript("return window.pageYOffset");
+                    if(newPageYOffset.toString().equals(pageYOffset.toString())){
+                        System.out.println("NEW PAGE Y OFFSET IS THE SAME, BREAKING SCROLL");
+                        break;
+                    }
+                    else{
+                        pageYOffset=newPageYOffset;
+                        System.out.println("pageYOffset:"+pageYOffset.toString());
+                    }
+
+                    innerHeight = ((JavascriptExecutor)driver).executeScript("return window.innerHeight");
+                    System.out.println("innerHeight:"+innerHeight.toString());
+
+                    //sleep for a sec
+                    Thread.sleep(waitAfterPageLoadMilliSeconds);
+                }
+
             }
-            
+            catch(NumberFormatException | InterruptedException ex){
+                CustomStackTrace("SCROLLING EXCEPTION",ex);
+            }
         }
-        catch(NumberFormatException | InterruptedException ex){
-            CustomStackTrace("SCROLLING EXCEPTION",ex);
+        else{
+            System.out.println("-DnoScroll SPECIFIED. REMOVE FROM COMMAND LINE TO ENABLE PAGE SCROLLING HERE. ");
         }
     }
     
