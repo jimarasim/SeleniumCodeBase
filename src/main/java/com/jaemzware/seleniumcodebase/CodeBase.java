@@ -1064,7 +1064,9 @@ public class CodeBase {
         try{
             //this sets the timeout for get. implicitly wait is just for findelements. DON'T DO FOR APPIM
             //APPIUM DOESNT LIKE THIS CALL
-            if(!browser.toString().contains("APPIUM")){
+            //SAFARI DOESNT LIKE THIS CALL
+            if(!browser.toString().contains("APPIUM") &&
+                    !browser.toString().contains("SAFARI")){
                 driver.manage().timeouts().pageLoadTimeout(defaultImplicitWait, TimeUnit.SECONDS);
             }
             
