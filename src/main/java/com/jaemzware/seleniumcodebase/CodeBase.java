@@ -256,6 +256,9 @@ public class CodeBase {
         logging = System.getProperty("logging");
         System.out.println("-Dlogging:" + logging);
         
+        noScroll = System.getProperty("noScroll");
+        System.out.println("-DnoScroll:" + noScroll);
+        
         
     /**
      * command line variables for BoardScrub#BuildPageOfFoundLinks specifically
