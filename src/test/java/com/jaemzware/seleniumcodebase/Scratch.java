@@ -97,7 +97,7 @@ public class Scratch extends CodeBase {
     @Test
     public void VerifyLogos() {
 
-        String fileName = report+".htm";
+        String fileName = "index-jaemzware-VerifyLogos-"+getDateStamp()+"-"+report==null?"":report + ".htm";
         PrintWriter writer = null;
         String fileWriteString;
 
@@ -279,7 +279,7 @@ public class Scratch extends CodeBase {
     public void VerifyLogosAppium() {
 
         // create a file for the web page log
-        String fileName = "index"+report+".htm"; //        String fileName = "Index-VerifyLogos-" + getDateStamp() + ".htm";
+        String fileName = "index-jaemzware-VerifyLogosAppium-"+getDateStamp()+"-"+report==null?"":report + ".htm";
         PrintWriter writer = null;
         String fileWriteString;
 

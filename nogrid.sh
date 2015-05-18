@@ -15,7 +15,9 @@
 #-DappiumUdid    path to ios device udid, if using appium ot test a device instead of a simulator
 #-DappiumIosTargetVersion    version of ios to use
 #-DappiumIosDeviceName  name of  of ios to use
+#-DaNumber
+#-Dreport
 
 
 
-mvn -Dtest=Scratch#VerifyLogos -Dbrowser=CHROME -Dinput=http://disney.com/ -DaNumber=0 -Duserid=disney.com -DaString="//*[contains(@id,'logo')]" -DwaitAfterPageLoadMilliSeconds=10000 -Dlogging -Dnogrid test
+mvn -Dtest=Scratch#VerifyLogos -Dbrowser=CHROME -Dinput=http://disney.com/ -DaNumber=5 -Duserid=disney.com -DaString="//*[contains(@id,'logo')]" -DwaitAfterPageLoadMilliSeconds=0 -Dlogging -Dnogrid test
