@@ -73,6 +73,25 @@ public class CodeBase {
     protected static String appiumIosTargetVersion = null;
     protected static String appiumIosDeviceName = null;
     
+    /**
+     * TODO: VERIFY IMPLEMENTATION
+     */
+    //command line variables for BoardScrub#BuildPageOfFoundLinks specifically
+    protected static String linksLoadedIndicatorXpath = null;
+    protected static String linkXpath = null;
+    protected static String imageXpath = null;
+    protected static String titleTextXpath = null;
+    protected static String bodyTextXpath = null;
+    protected static String nextLinkXpath = null;
+    
+    /**
+     * TODO: VERIFY IMPLEMENTATION
+     */
+    //command line variables for BoardScrub#BuildPageOfFoundLinks and Scratch#VerifyLogos
+    protected static String noImages = null; //dont save images  TODO: verify works for not saving screenshots during verifylogs AND not grabbing board pictures AND not grabbing if xpath for verifylogos logo is an "img" tag
+    protected static String logging = null;
+    protected static String noScroll = null;
+    
     // jenkins report folder url
     protected static final String jenkinsReportPath = "http://jaemzware.com:8081/";
     protected static final String jenkinsReportPathInternal = "http://10.1.10.156:8081/";
@@ -230,6 +249,60 @@ public class CodeBase {
             report = reportParm;
         }
         System.out.println("-Dreport:" + report);
+        
+        noImages = System.getProperty("noImages");
+        System.out.println("-DnoImages:" + noImages);
+        
+        logging = System.getProperty("logging");
+        System.out.println("-Dlogging:" + logging);
+        
+        noScroll = System.getProperty("noScroll");
+        System.out.println("-DnoScroll:" + noScroll);
+        
+        
+    /**
+     * command line variables for BoardScrub#BuildPageOfFoundLinks specifically
+     */
+        String linksLoadedIndicatorXpathParm = System.getProperty("linksLoadedIndicatorXpath");
+        if (linksLoadedIndicatorXpathParm != null && !linksLoadedIndicatorXpathParm.isEmpty()) {
+            linksLoadedIndicatorXpath = linksLoadedIndicatorXpathParm;
+        }
+        System.out.println("-DlinksLoadedIndicatorXpath:" + linksLoadedIndicatorXpath);
+        
+        
+        String linkXpathParm = System.getProperty("linkXpath");
+        if (linkXpathParm != null && !linkXpathParm.isEmpty()) {
+            linkXpath = linkXpathParm;
+        }
+        System.out.println("-DlinkXpath:" + linkXpath);
+        
+        
+        String imageXpathParm = System.getProperty("imageXpath");
+        if (imageXpathParm != null && !imageXpathParm.isEmpty()) {
+            imageXpath = imageXpathParm;
+        }
+        System.out.println("-DimageXpath:" + imageXpath);
+        
+        
+        String titleTextXpathParm = System.getProperty("titleTextXpath");
+        if (titleTextXpathParm != null && !titleTextXpathParm.isEmpty()) {
+            titleTextXpath = titleTextXpathParm;
+        }
+        System.out.println("-DtitleTextXpath:" + titleTextXpath);
+        
+        
+        String bodyTextXpathParm = System.getProperty("bodyTextXpath");
+        if (bodyTextXpathParm != null && !bodyTextXpathParm.isEmpty()) {
+            bodyTextXpath = bodyTextXpathParm;
+        }
+        System.out.println("-DbodyTextXpath:" + bodyTextXpath);
+        
+        
+        String nextLinkXpathParm = System.getProperty("nextLinkXpath");
+        if (nextLinkXpathParm != null && !nextLinkXpathParm.isEmpty()) {
+            nextLinkXpath = nextLinkXpathParm;
+        }
+        System.out.println("-DnextLinkXpath:" + nextLinkXpath);
 
         return "";
     }
@@ -319,7 +392,7 @@ public class CodeBase {
                  * SET LOGGING CAPABILITES
                  */
                 // turn on debug logging if debug is specified. this takes longer
-                if (System.getProperty("logging") == null){
+                if (logging == null){
                     System.out.println("-Dlogging NOT SPECIFIED");
                 } else {
                     LoggingPreferences loggingprefs = new LoggingPreferences();
@@ -422,7 +495,7 @@ public class CodeBase {
                     DesiredCapabilities cap = DesiredCapabilities.chrome();
 
                     // turn on debug logging if debug is specified. this takes longer
-                    if (System.getProperty("logging") != null) {
+                    if (logging != null) {
                         //chrome doesnt support this logging type CLIENT
                         LoggingPreferences loggingprefs = new LoggingPreferences();
                         loggingprefs.enable(LogType.BROWSER, Level.ALL);
@@ -444,7 +517,7 @@ public class CodeBase {
             case FIREFOX:
             case FIREFOXLINUX:
             case FIREFOXMAC:
-                if (System.getProperty("logging") != null) {
+                if (logging != null) {
                     // get the desired capabilities
                     DesiredCapabilities cap = DesiredCapabilities.firefox();
 
@@ -474,7 +547,7 @@ public class CodeBase {
                     safariOptions.setUseCleanSession(true);
                     cap.setCapability(SafariOptions.CAPABILITY, safariOptions);
 
-                    if (System.getProperty("logging") != null) {
+                    if (logging != null) {
                         LoggingPreferences loggingprefs = new LoggingPreferences();
                         loggingprefs.enable(LogType.BROWSER, Level.ALL);
                         loggingprefs.enable(LogType.CLIENT, Level.ALL);
@@ -502,7 +575,7 @@ public class CodeBase {
                     // if we're on windows, just look for the windows driver regardless of version
                     System.setProperty("webdriver.ie.driver", relativePathToDrivers + "IEDriverServer.exe");
 
-                    if (System.getProperty("logging") != null) {
+                    if (logging != null) {
                         // get the desired capabilities
                         DesiredCapabilities cap = DesiredCapabilities.firefox();
 
@@ -1001,7 +1074,9 @@ public class CodeBase {
         try{
             //this sets the timeout for get. implicitly wait is just for findelements. DON'T DO FOR APPIM
             //APPIUM DOESNT LIKE THIS CALL
-            if(!browser.toString().contains("APPIUM")){
+            //SAFARI DOESNT LIKE THIS CALL
+            if(!browser.toString().contains("APPIUM") &&
+                    !browser.toString().contains("SAFARI")){
                 driver.manage().timeouts().pageLoadTimeout(defaultImplicitWait, TimeUnit.SECONDS);
             }
             
@@ -1032,10 +1107,12 @@ public class CodeBase {
         htmlOutput += "</table>";
         htmlOutput += "<hr>";
         
-        // TAKE A SCREENSHOT
-        String screenshotFilePath= ScreenShot();
-        String screenshotFilename = screenshotFilePath.substring(screenshotFilePath.lastIndexOf("/")+1);
-        htmlOutput +=  "<a href='"+href+"' target='_blank'><img src='"+screenshotFilename+"' /></a><br /><br />";
+        if(noImages==null){
+            // TAKE A SCREENSHOT
+            String screenshotFilePath= ScreenShot();
+            String screenshotFilename = screenshotFilePath.substring(screenshotFilePath.lastIndexOf("/")+1);
+            htmlOutput +=  "<a href='"+href+"' target='_blank'><img src='"+screenshotFilename+"' /></a><br /><br />";
+        }
         
         //OVERRIDEABLE SLEEP
         System.out.println("VARIABLE SLEEP: -DwaitAfterPageLoadMilliSeconds:"+waitAfterPageLoadMilliSeconds+"ms");
@@ -1131,55 +1208,63 @@ public class CodeBase {
     @SuppressWarnings("SleepWhileInLoop")
     protected void ScrollPage(){
         
-        try{
-            
-            //get the total height of the web page
-            Object documentHeight = ((JavascriptExecutor)driver).executeScript("return Math.max( document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight )");
-            
-            //not sure why, but this get null sometimes
-            if(documentHeight==null){
-                System.out.println("JAVASCRIPT TO RETRIEVE documentHeight RETURNED A NULL VALUE");
-                return;
-            }
-            else{
-                System.out.println("documentHeight:"+documentHeight.toString());
-            }
-            
-            //get the y distance that is scrolled down
-            Object pageYOffset = ((JavascriptExecutor)driver).executeScript("return window.pageYOffset");
-            System.out.println("pageYOffset:"+pageYOffset.toString());
-            
-            //get the height of the visible web page
-            Object innerHeight = ((JavascriptExecutor)driver).executeScript("return window.innerHeight");
-            System.out.println("innerHeight:"+innerHeight.toString());
-            
-            //scroll down till at the bottom
-            while(Integer.parseInt(pageYOffset.toString()) < 
-                    (Integer.parseInt(documentHeight.toString())-Integer.parseInt(innerHeight.toString())-1)){
-                
-                ((JavascriptExecutor)driver).executeScript("window.scrollBy(0,"+innerHeight.toString()+")");
-                
-                //make sure the page scrolled.  there was one case in fark where it didn't, so just break if that happens
-                Object newPageYOffset = ((JavascriptExecutor)driver).executeScript("return window.pageYOffset");
-                if(newPageYOffset.toString().equals(pageYOffset.toString())){
-                    System.out.println("NEW PAGE Y OFFSET IS THE SAME, BREAKING SCROLL");
-                    break;
+        /**
+         * Scroll page, unless specificallu told not to
+         */
+        if(noScroll==null){
+            try{
+
+                //get the total height of the web page
+                Object documentHeight = ((JavascriptExecutor)driver).executeScript("return Math.max( document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight )");
+
+                //not sure why, but this get null sometimes
+                if(documentHeight==null){
+                    System.out.println("JAVASCRIPT TO RETRIEVE documentHeight RETURNED A NULL VALUE");
+                    return;
                 }
                 else{
-                    pageYOffset=newPageYOffset;
-                    System.out.println("pageYOffset:"+pageYOffset.toString());
+                    System.out.println("documentHeight:"+documentHeight.toString());
                 }
 
-                innerHeight = ((JavascriptExecutor)driver).executeScript("return window.innerHeight");
+                //get the y distance that is scrolled down
+                Object pageYOffset = ((JavascriptExecutor)driver).executeScript("return window.pageYOffset");
+                System.out.println("pageYOffset:"+pageYOffset.toString());
+
+                //get the height of the visible web page
+                Object innerHeight = ((JavascriptExecutor)driver).executeScript("return window.innerHeight");
                 System.out.println("innerHeight:"+innerHeight.toString());
-                
-                //sleep for a sec
-                Thread.sleep(waitAfterPageLoadMilliSeconds);
+
+                //scroll down till at the bottom
+                while(Integer.parseInt(pageYOffset.toString()) < 
+                        (Integer.parseInt(documentHeight.toString())-Integer.parseInt(innerHeight.toString())-1)){
+
+                    ((JavascriptExecutor)driver).executeScript("window.scrollBy(0,"+innerHeight.toString()+")");
+
+                    //make sure the page scrolled.  there was one case in fark where it didn't, so just break if that happens
+                    Object newPageYOffset = ((JavascriptExecutor)driver).executeScript("return window.pageYOffset");
+                    if(newPageYOffset.toString().equals(pageYOffset.toString())){
+                        System.out.println("NEW PAGE Y OFFSET IS THE SAME, BREAKING SCROLL");
+                        break;
+                    }
+                    else{
+                        pageYOffset=newPageYOffset;
+                        System.out.println("pageYOffset:"+pageYOffset.toString());
+                    }
+
+                    innerHeight = ((JavascriptExecutor)driver).executeScript("return window.innerHeight");
+                    System.out.println("innerHeight:"+innerHeight.toString());
+
+                    //sleep for a sec
+                    Thread.sleep(waitAfterPageLoadMilliSeconds);
+                }
+
             }
-            
+            catch(NumberFormatException | InterruptedException ex){
+                CustomStackTrace("SCROLLING EXCEPTION",ex);
+            }
         }
-        catch(NumberFormatException | InterruptedException ex){
-            CustomStackTrace("SCROLLING EXCEPTION",ex);
+        else{
+            System.out.println("-DnoScroll SPECIFIED. REMOVE FROM COMMAND LINE TO ENABLE PAGE SCROLLING HERE. ");
         }
     }
     

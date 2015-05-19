@@ -61,11 +61,18 @@ public class Scratch extends CodeBase {
         }
     }
 
+    /**
+     * This test just demonstrates what a failed teset looks like when run in jenkins.  there is good information provided, just because of the test framework
+     * being used here (junit or testng)
+     */
     @Test
     public void DemonstrateJunitFailureInJenkins(){
         Assert.fail("THIS TEST FAILED");
     }
     
+    /**
+     * This is a proof of concept test for testing real applicaions through appium
+     */
     @Test 
     public void IosScratchAppClickButton(){
         try{
@@ -76,6 +83,7 @@ public class Scratch extends CodeBase {
                 throw new Exception("DRIVER WAS NOT SET; A SUITABLE DRIVER WAS NOT FOUND.  LOOK ABOVE FOR ISSUES REPORTED BY StartDrvier()");
             }
             
+            //this output elements in the app, but only saw it work once
 //            List<WebElement> elements = driver.findElements(By.xpath("//*"));
 //            for(WebElement web:elements){
 //                System.out.println("TAG:"+web.getTagName()+" TEXT:"+web.getText());
@@ -89,7 +97,7 @@ public class Scratch extends CodeBase {
     @Test
     public void VerifyLogos() {
 
-        String fileName = "index"+report+".htm";
+        String fileName = "index-jaemzware-VerifyLogos-"+getDateStamp()+"-"+report==null?"":report + ".htm";
         PrintWriter writer = null;
         String fileWriteString;
 
@@ -271,7 +279,7 @@ public class Scratch extends CodeBase {
     public void VerifyLogosAppium() {
 
         // create a file for the web page log
-        String fileName = "index"+report+".htm"; //        String fileName = "Index-VerifyLogos-" + getDateStamp() + ".htm";
+        String fileName = "index-jaemzware-VerifyLogosAppium-"+getDateStamp()+"-"+report==null?"":report + ".htm";
         PrintWriter writer = null;
         String fileWriteString;
 
