@@ -89,6 +89,7 @@ public class CodeBase {
      */
     //command line variables for BoardScrub#BuildPageOfFoundLinks and Scratch#VerifyLogos
     protected static String noImages = null; //dont save images  TODO: verify works for not saving screenshots during verifylogs AND not grabbing board pictures AND not grabbing if xpath for verifylogos logo is an "img" tag
+    protected static String noScreenShots = null;
     protected static String logging = null;
     protected static String noScroll = null;
     
@@ -258,6 +259,9 @@ public class CodeBase {
         
         noScroll = System.getProperty("noScroll");
         System.out.println("-DnoScroll:" + noScroll);
+        
+        noScreenShots = System.getProperty("noScreenShots");
+        System.out.println("-DnoScreenshots:" + noScreenShots);
         
         
     /**
@@ -1107,7 +1111,7 @@ public class CodeBase {
         htmlOutput += "</table>";
         htmlOutput += "<hr>";
         
-        if(noImages==null){
+        if(noScreenShots==null){
             // TAKE A SCREENSHOT
             String screenshotFilePath= ScreenShot();
             String screenshotFilename = screenshotFilePath.substring(screenshotFilePath.lastIndexOf("/")+1);
