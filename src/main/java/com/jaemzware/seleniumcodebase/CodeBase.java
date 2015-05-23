@@ -1160,8 +1160,10 @@ public class CodeBase {
     protected String HtmlReportHeader(String titleHeaderString) {
         StringBuilder returnString = new StringBuilder();
 
+        String jQueryInclude = "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js\"></script>";
+        
         // standard header
-        returnString.append("<html><head><title>").append(titleHeaderString).append("</title>").append("<style>")
+        returnString.append("<html><head>").append(jQueryInclude).append("<title>").append(titleHeaderString).append("</title>").append("<style>")
                 .append("table td, table th {border: 1px solid black;text-align:left;vertical-align:top;}")
                 .append(".warning {background-color:#C0C0C0;color:#FFFF00;}")
                 .append(".severe {background-color:#C0C0C0;color:#FF0000;}")
