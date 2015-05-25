@@ -107,6 +107,77 @@ public class CodeBase {
 
     // save off main window handle, for when dealing with popups
     protected static String mainWindowHandle;
+    
+        /**
+     * compose and return an html string for an html page to the body opener
+     * 
+     * @param titleHeaderString
+     *            - custom title / h1
+     * @return
+     */
+    protected String HtmlReportHeader(String titleHeaderString) {
+        StringBuilder returnString = new StringBuilder();
+
+        String jQueryInclude = "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js\"></script>";
+        
+        // standard header
+        returnString.append("<html><head>");
+        returnString.append(jQueryInclude);
+        returnString.append("<title>");
+        returnString.append(titleHeaderString);
+        returnString.append("</title>");
+        returnString.append("<center>");
+        returnString.append("<style>");
+        returnString.append("table td, table th {border: 1px solid black;text-align:left;vertical-align:top;}");
+        returnString.append(".warning {background-color:#C0C0C0;color:#FFFF00;}");
+        returnString.append(".severe {background-color:#C0C0C0;color:#FF0000;}");
+        returnString.append(".info {background-color:#C0C0C0;color:#000000;}").append("</style>").append("</head>");
+        returnString.append("<body><h1>");
+        returnString.append(titleHeaderString);
+        returnString.append("</h1>");
+        
+        
+//        // paypal
+//        returnString.append("<form action='https://www.paypal.com/cgi-bin/webscr' method='post' target='_top'>");
+//        returnString.append("<input type='hidden' name='cmd' value='_s-xclick'>");
+//        returnString.append("<input type='hidden' name='hosted_button_id' value='NHYPV5J79879N'>");
+//        returnString
+//                .append("<input type='image' src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif' border='0' name='submit' alt='PayPal - The safer, easier way to pay online!'>");
+//        returnString
+//                .append("<img alt='' border='0' src='https://www.paypalobjects.com/en_US/i/scr/pixel.gif' width='1' height='1'>");
+//        returnString.append("</form>");
+
+        return (returnString.toString());
+    }
+
+    /**
+     * compose and return an html string for an html page from the body closer
+     * 
+     * @return
+     */
+    protected String HtmlReportFooter() {
+        StringBuilder returnString = new StringBuilder();
+
+        returnString.append("</center>");
+        
+        returnString.append("<hr>");
+
+        returnString
+                .append("<a href='mailto:jaemzware@hotmail.com' target='_blank'>jaemzware@hotmail.com</a><br /><a href='https://www.linkedin.com/pub/james-arasim/15/991/424'>LinkedIn</a>");
+
+        // paypal
+//        returnString.append("<form action='https://www.paypal.com/cgi-bin/webscr' method='post' target='_top'>");
+//        returnString.append("<input type='hidden' name='cmd' value='_s-xclick'>");
+//        returnString.append("<input type='hidden' name='hosted_button_id' value='NHYPV5J79879N'>");
+//        returnString
+//                .append("<input type='image' src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif' border='0' name='submit' alt='PayPal - The safer, easier way to pay online!'>");
+//        returnString
+//                .append("<img alt='' border='0' src='https://www.paypalobjects.com/en_US/i/scr/pixel.gif' width='1' height='1'>");
+//        returnString.append("</form>");
+
+        return (returnString.toString());
+    }
+
 
     /**
      * This function gets the command line parameters.
@@ -1150,63 +1221,6 @@ public class CodeBase {
         }
     }
 
-    /**
-     * compose and return an html string for an html page to the body opener
-     * 
-     * @param titleHeaderString
-     *            - custom title / h1
-     * @return
-     */
-    protected String HtmlReportHeader(String titleHeaderString) {
-        StringBuilder returnString = new StringBuilder();
-
-        String jQueryInclude = "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js\"></script>";
-        
-        // standard header
-        returnString.append("<html><head>").append(jQueryInclude).append("<title>").append(titleHeaderString).append("</title>").append("<style>")
-                .append("table td, table th {border: 1px solid black;text-align:left;vertical-align:top;}")
-                .append(".warning {background-color:#C0C0C0;color:#FFFF00;}")
-                .append(".severe {background-color:#C0C0C0;color:#FF0000;}")
-                .append(".info {background-color:#C0C0C0;color:#000000;}").append("</style>").append("</head>")
-                .append("<body><h1>").append(titleHeaderString).append("</h1>");
-//        // paypal
-//        returnString.append("<form action='https://www.paypal.com/cgi-bin/webscr' method='post' target='_top'>");
-//        returnString.append("<input type='hidden' name='cmd' value='_s-xclick'>");
-//        returnString.append("<input type='hidden' name='hosted_button_id' value='NHYPV5J79879N'>");
-//        returnString
-//                .append("<input type='image' src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif' border='0' name='submit' alt='PayPal - The safer, easier way to pay online!'>");
-//        returnString
-//                .append("<img alt='' border='0' src='https://www.paypalobjects.com/en_US/i/scr/pixel.gif' width='1' height='1'>");
-//        returnString.append("</form>");
-
-        return (returnString.toString());
-    }
-
-    /**
-     * compose and return an html string for an html page from the body closer
-     * 
-     * @return
-     */
-    protected String HtmlReportFooter() {
-        StringBuilder returnString = new StringBuilder();
-
-        returnString.append("<hr>");
-
-        returnString
-                .append("<a href='mailto:jaemzware@hotmail.com' target='_blank'>jaemzware@hotmail.com</a><br /><a href='https://www.linkedin.com/pub/james-arasim/15/991/424'>LinkedIn</a>");
-
-        // paypal
-//        returnString.append("<form action='https://www.paypal.com/cgi-bin/webscr' method='post' target='_top'>");
-//        returnString.append("<input type='hidden' name='cmd' value='_s-xclick'>");
-//        returnString.append("<input type='hidden' name='hosted_button_id' value='NHYPV5J79879N'>");
-//        returnString
-//                .append("<input type='image' src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif' border='0' name='submit' alt='PayPal - The safer, easier way to pay online!'>");
-//        returnString
-//                .append("<img alt='' border='0' src='https://www.paypalobjects.com/en_US/i/scr/pixel.gif' width='1' height='1'>");
-//        returnString.append("</form>");
-
-        return (returnString.toString());
-    }
 
     /**
      * this method just scrolls the page down a  times
