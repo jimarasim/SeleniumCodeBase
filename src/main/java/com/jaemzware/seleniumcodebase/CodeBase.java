@@ -98,7 +98,7 @@ public class CodeBase {
     protected static final String jenkinsReportPathInternal = "http://10.1.10.156:8081/";
 
     // default time IN SECONDS to wait when finding elements
-    protected int defaultImplicitWait = 60;
+    protected static int defaultImplicitWait = 60;
     protected static final int quickWaitMilliSeconds = 5000;  //TODO: PHASING OUT IN PREFERENCE OF COMMAND OVERRIDEABLE waitAfterPageLoadMilliSeconds
     protected static int waitAfterPageLoadMilliSeconds = 0;  //can be overridden from comand line -DwaitAfterPageLoadMilliSeconds=10000
 
@@ -135,17 +135,6 @@ public class CodeBase {
         returnString.append("<body><h1>");
         returnString.append(titleHeaderString);
         returnString.append("</h1>");
-        
-        
-//        // paypal
-//        returnString.append("<form action='https://www.paypal.com/cgi-bin/webscr' method='post' target='_top'>");
-//        returnString.append("<input type='hidden' name='cmd' value='_s-xclick'>");
-//        returnString.append("<input type='hidden' name='hosted_button_id' value='NHYPV5J79879N'>");
-//        returnString
-//                .append("<input type='image' src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif' border='0' name='submit' alt='PayPal - The safer, easier way to pay online!'>");
-//        returnString
-//                .append("<img alt='' border='0' src='https://www.paypalobjects.com/en_US/i/scr/pixel.gif' width='1' height='1'>");
-//        returnString.append("</form>");
 
         return (returnString.toString());
     }
@@ -164,16 +153,6 @@ public class CodeBase {
 
         returnString
                 .append("<a href='mailto:jaemzware@hotmail.com' target='_blank'>jaemzware@hotmail.com</a><br /><a href='https://www.linkedin.com/pub/james-arasim/15/991/424'>LinkedIn</a>");
-
-        // paypal
-//        returnString.append("<form action='https://www.paypal.com/cgi-bin/webscr' method='post' target='_top'>");
-//        returnString.append("<input type='hidden' name='cmd' value='_s-xclick'>");
-//        returnString.append("<input type='hidden' name='hosted_button_id' value='NHYPV5J79879N'>");
-//        returnString
-//                .append("<input type='image' src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif' border='0' name='submit' alt='PayPal - The safer, easier way to pay online!'>");
-//        returnString
-//                .append("<img alt='' border='0' src='https://www.paypalobjects.com/en_US/i/scr/pixel.gif' width='1' height='1'>");
-//        returnString.append("</form>");
 
         return (returnString.toString());
     }
@@ -279,6 +258,18 @@ public class CodeBase {
             }
         }
         System.out.println("-DwaitAfterPageLoadMilliSeconds:" + waitAfterPageLoadMilliSeconds);
+        
+        String defaultImplicitWaitParm = System.getProperty("defaultImplicitWait");
+        if (defaultImplicitWaitParm != null && !defaultImplicitWaitParm.isEmpty()) {
+            try {
+                defaultImplicitWait = Integer.parseInt(defaultImplicitWaitParm);
+            } catch (NumberFormatException nfx) {
+                return "-DdefaultImplicitWaitParm:" + defaultImplicitWaitParm
+                        + " SPECIFIED IS NOT A PARSEABLE INT. RETURNING THIS STRING TO INDICATE FAILURE (MAY BE IGNORED BY SOME TESTS)";
+
+            }
+        }
+        System.out.println("-DdefaultImplicitWait:" + defaultImplicitWait);
         
         String useridParm = System.getProperty("userid");
         if (useridParm != null && !useridParm.isEmpty()) {
