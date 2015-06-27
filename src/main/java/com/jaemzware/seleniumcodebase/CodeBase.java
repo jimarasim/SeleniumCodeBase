@@ -1157,7 +1157,7 @@ public class CodeBase {
             }); 
         }
         catch(Exception ex){
-            throw new Exception("DRIVER.GET FAILED. EXCEPTION:"+ex.getMessage());
+            throw new Exception("DRIVER.GET FAILED. TRY SPECIFYING -DdefaultImplicitWait, WHICH IS SET TO "+defaultImplicitWait+" SECONDS FOR THIS RUN. EXCEPTION:"+ex.getMessage());
         }
 
         // PRINT OUT LOAD TIME
