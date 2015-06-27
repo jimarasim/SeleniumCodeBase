@@ -853,6 +853,8 @@ public class CodeBase {
             if(!browser.toString().contains("APPIUM")){
                 // throttle wait time when looking for elements that should already be on the page
                 driver.manage().timeouts().implicitlyWait(waitTimeMillis, TimeUnit.MILLISECONDS);
+                System.out.println("IsElementPresent set defaultImplicitWait to waitTimeMillis:"+waitTimeMillis);
+
             }
             
             // look for elements
@@ -863,6 +865,7 @@ public class CodeBase {
             if(!browser.toString().contains("APPIUM")){
                 // throttle implicit wait time back up
                 driver.manage().timeouts().implicitlyWait(defaultImplicitWait, TimeUnit.SECONDS);
+                System.out.println("IsElementPresent set defaultImplicitWait back to default:"+defaultImplicitWait);
             }
         }
 
@@ -1144,6 +1147,7 @@ public class CodeBase {
             if(!browser.toString().contains("APPIUM") &&
                     !browser.toString().contains("SAFARI")){
                 driver.manage().timeouts().pageLoadTimeout(defaultImplicitWait, TimeUnit.SECONDS);
+                System.out.println("SET PAGELOADTIMEOUT TIME TO WAIT FOR DRIVER.GET:"+defaultImplicitWait+" SECONDS");
             }
             
             driver.get(href);
@@ -1157,7 +1161,7 @@ public class CodeBase {
             }); 
         }
         catch(Exception ex){
-            throw new Exception("DRIVER.GET FAILED. TRY SPECIFYING -DdefaultImplicitWait, WHICH IS SET TO "+defaultImplicitWait+" SECONDS FOR THIS RUN. EXCEPTION:"+ex.getMessage());
+            throw new Exception("DRIVER.GET FAILED. TRY SPECIFYING A LONGER -DdefaultImplicitWait, WHICH IS SET TO "+defaultImplicitWait+" SECONDS FOR THIS RUN. EXCEPTION:"+ex.getMessage());
         }
 
         // PRINT OUT LOAD TIME

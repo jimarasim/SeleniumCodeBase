@@ -145,6 +145,7 @@ mvn -Dtest=Scratch#VerifyLogos -Dbrowser=CHROME -Dinput=http://disney.com/ -DaNu
 
 NOGRID-VERIFYLOGOS / LOGGING SAMPLES:
 mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=CHROME -Dinput=https://www.blackmarketskates.com -Duserid=blackmarketskates.com -DaString="//a[contains(text(),'Black Market Skates')]" -Dlogging -Dnogrid -DwaitAfterPageLoadMilliSeconds=5000 test
+mvn -Dtest=Scratch#VerifyLogos -D-DaNumber=0 -Dbrowser=CHROME -Dinput=https://www.blackmarketskates.com -Duserid=blackmarketskates.com -DaString="//a[contains(text(),'Black Market Skates')]" -Dlogging -Dnogrid -DwaitAfterPageLoadMilliSeconds=5000 test
 
 APPIUM
 APPIUMSAFARISIMULATOR: see ass.sh
