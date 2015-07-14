@@ -196,6 +196,7 @@ public class Scratch extends CodeBase {
 
                     // only get hrefs that contain the base url, and html like pages
                     if (hrefFound.toLowerCase().contains(baseurl) && 
+                            !hrefFound.toLowerCase().contains("action=") &&
                             !hrefFound.toLowerCase().contains("feed") &&
                             !hrefFound.toLowerCase().contains("rss") &&
                             !hrefFound.toLowerCase().contains("javascript") &&
