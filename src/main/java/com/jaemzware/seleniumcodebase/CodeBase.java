@@ -862,7 +862,7 @@ public class CodeBase {
             if(!browser.toString().contains("APPIUM")){
                 // throttle implicit wait time back up
                 driver.manage().timeouts().implicitlyWait(defaultImplicitWait, TimeUnit.SECONDS);
-                System.out.println("IsElementPresent set defaultImplicitWait back to default:"+defaultImplicitWait);
+                System.out.println("IsElementPresent set defaultImplicitWait back to default seconds:"+defaultImplicitWait);
             }
         }
 
