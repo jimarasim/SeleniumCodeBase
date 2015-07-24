@@ -151,9 +151,6 @@ public class CodeBase {
         
         returnString.append("<hr>");
 
-        returnString
-                .append("<a href='mailto:jaemzware@hotmail.com' target='_blank'>jaemzware@hotmail.com</a><br /><a href='https://www.linkedin.com/pub/james-arasim/15/991/424'>LinkedIn</a>");
-
         return (returnString.toString());
     }
 
