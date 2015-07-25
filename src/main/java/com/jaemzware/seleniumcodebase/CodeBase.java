@@ -126,7 +126,6 @@ public class CodeBase {
         returnString.append("<title>");
         returnString.append(titleHeaderString);
         returnString.append("</title>");
-        returnString.append("<center>");
         returnString.append("<style>");
         returnString.append("table td, table th {border: 1px solid black;text-align:left;vertical-align:top;}");
         returnString.append(".warning {background-color:#C0C0C0;color:#FFFF00;}");
@@ -146,8 +145,6 @@ public class CodeBase {
      */
     protected String HtmlReportFooter() {
         StringBuilder returnString = new StringBuilder();
-
-        returnString.append("</center>");
         
         returnString.append("<hr>");
 
