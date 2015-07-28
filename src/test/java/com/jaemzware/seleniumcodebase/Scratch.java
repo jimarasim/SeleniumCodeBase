@@ -105,17 +105,18 @@ public class Scratch extends CodeBase {
             // open browser
             StartDriver();
             
+            //check if driver setting was successful
             if(driver==null){
                 throw new Exception("DRIVER WAS NOT SET; SUITABLE DRIVER WAS NOT FOUND.  LOOK ABOVE FOR ISSUES REPORTED BY StartDrvier()");
             }
             
+            //set defaultImplicitWait
             if(!browser.toString().contains("APPIUM")){
                 //set implicit wait
                 driver.manage().timeouts().implicitlyWait(defaultImplicitWait, TimeUnit.SECONDS);
             }
 
-            //VERIFY REQUIRED PARAMETERS WERE SET
-            // get START url
+            // get START url. first page to load
             String starturl = new String();
             if (input != null && !input.isEmpty()) {
                 starturl = input;
@@ -123,7 +124,7 @@ public class Scratch extends CodeBase {
                 throw new Exception("START URL NOT SPECIFIED (-Dinput)");
             }
 
-            // get base url
+            // get base url. url string that is contained by all urls to follow
             String baseurl = new String();
             if (userid != null && !userid.isEmpty()) {
                 baseurl = userid;
@@ -659,17 +660,33 @@ public class Scratch extends CodeBase {
             // error level color coding
             if (errorLevel.contains("SEVERE")) {
                 logEntryRows.append("<td class='severe'><b>");
-            } else if (errorLevel.contains("WARNING")) {
-                logEntryRows.append("<td class='warning'><b>");
-            } else if (errorLevel.contains("INFO")) {
-                logEntryRows.append("<td class='info'><b>");
-            } else if (errorLevel.contains("FINE")) {
-                logEntryRows.append("<td class='info'><b>");
-            } else {
-                logEntryRows.append("<td><b>");
-            }
-            logEntryRows.append(errorLevel).append("</b></td>");
-            logEntryRows.append("<td>").append(entry.getMessage()).append("</td></tr>");
+                logEntryRows.append(errorLevel).append("</b></td>");
+                logEntryRows.append("<td>").append(entry.getMessage()).append("</td></tr>");
+            } 
+//            else if (errorLevel.contains("WARNING")) {
+//                logEntryRows.append("<td class='warning'><b>");
+            
+//                logEntryRows.append(errorLevel).append("</b></td>");
+//                logEntryRows.append("<td>").append(entry.getMessage()).append("</td></tr>");
+//            } else if (errorLevel.contains("INFO")) {
+//                logEntryRows.append("<td class='info'><b>");
+                
+//                logEntryRows.append(errorLevel).append("</b></td>");
+//                logEntryRows.append("<td>").append(entry.getMessage()).append("</td></tr>");
+//            } else if (errorLevel.contains("FINE")) {
+//                logEntryRows.append("<td class='info'><b>");
+                
+//                logEntryRows.append(errorLevel).append("</b></td>");
+//                logEntryRows.append("<td>").append(entry.getMessage()).append("</td></tr>");
+//            } else {
+//                logEntryRows.append("<td><b>");
+                
+//                logEntryRows.append(errorLevel).append("</b></td>");
+//                logEntryRows.append("<td>").append(entry.getMessage()).append("</td></tr>");
+//                
+//            }
+            
+            
         }
 
         return logEntryRows.toString();
