@@ -1,1 +1,1 @@
-mvn -Dtest=Scratch#VerifyLogos -Dbrowser=CHROME -Dinput=http://disney.com/ -DaNumber=5 -Duserid=disney.com -DaString="//*[contains(@id,'logo')]" -DwaitAfterPageLoadMilliSeconds=0 -Dlogging -Dnogrid test
+mvn -Dtest=Scratch#VerifyLogos -Dbrowser=CHROME -Dinput=http://espn.go.com/ -DaNumber=0 -Duserid=espn.go.com -DaString="//a[contains(text(),'Log In')]" -DwaitAfterPageLoadMilliSeconds=0 -Dlogging -Dnogrid test

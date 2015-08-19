@@ -126,7 +126,6 @@ public class CodeBase {
         returnString.append("<title>");
         returnString.append(titleHeaderString);
         returnString.append("</title>");
-        returnString.append("<center>");
         returnString.append("<style>");
         returnString.append("table td, table th {border: 1px solid black;text-align:left;vertical-align:top;}");
         returnString.append(".warning {background-color:#C0C0C0;color:#FFFF00;}");
@@ -146,13 +145,8 @@ public class CodeBase {
      */
     protected String HtmlReportFooter() {
         StringBuilder returnString = new StringBuilder();
-
-        returnString.append("</center>");
         
         returnString.append("<hr>");
-
-        returnString
-                .append("<a href='mailto:jaemzware@hotmail.com' target='_blank'>jaemzware@hotmail.com</a><br /><a href='https://www.linkedin.com/pub/james-arasim/15/991/424'>LinkedIn</a>");
 
         return (returnString.toString());
     }
@@ -865,7 +859,7 @@ public class CodeBase {
             if(!browser.toString().contains("APPIUM")){
                 // throttle implicit wait time back up
                 driver.manage().timeouts().implicitlyWait(defaultImplicitWait, TimeUnit.SECONDS);
-                System.out.println("IsElementPresent set defaultImplicitWait back to default:"+defaultImplicitWait);
+                System.out.println("IsElementPresent set defaultImplicitWait back to default seconds:"+defaultImplicitWait);
             }
         }
 

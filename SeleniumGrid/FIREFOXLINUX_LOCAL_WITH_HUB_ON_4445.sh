@@ -1,1 +1,1 @@
-java -jar selenium-server-standalone-2.45.0.jar -role node -browser platform=LINUX,browserName=firefox,maxInstances=5,seleniumProtocol=WebDriver,acceptSslCerts=true -hub http://localhost:4445/grid/register -port 5558
+java -jar selenium-server-standalone-2.47.1.jar -role node -browser platform=LINUX,browserName=firefox,maxInstances=5,seleniumProtocol=WebDriver,acceptSslCerts=true -hub http://localhost:4445/grid/register -port 5558
