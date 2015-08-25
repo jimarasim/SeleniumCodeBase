@@ -261,8 +261,13 @@ public class Scratch extends CodeBase {
 
             //COMPLETE WRITING REPORT WEB PAGE
             System.out.println("INDEX FILE WRITTEN:" + fileName);
-            System.out.println("INTERNAL COPY: http://10.1.10.156/jaemzwareArtifacts/"+ fileName);
-            System.out.println("EXTERNAL COPY: http://jaemzware.com/jaemzwareArtifacts/"+fileName);
+            System.out.println("INTERNAL COPY: "+jenkinsReportPathInternal + jenkinsDeployDirectory + "/" + fileName);
+            System.out.println("EXTERNAL COPY: "+jenkinsReportPathInternal + jenkinsDeployDirectory + "/" + fileName);
+//            
+//             protected static final String jenkinsReportPath = "http://jaemzware.com:8081/";
+//    protected static final String jenkinsReportPathInternal = "http://10.1.10.156:8081/";
+//    protected static final String jenkinsDeployDirectory = "jaemzwareArtifacts";
+//    
             
             writer.println(HtmlReportFooter());
         } catch (Exception ex) {
