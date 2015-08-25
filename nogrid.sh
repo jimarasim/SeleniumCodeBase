@@ -1,1 +1,1 @@
-mvn -Dtest=Scratch#VerifyLogos -Dbrowser=CHROME -Dinput=http://espn.go.com/ -DaNumber=0 -Duserid=espn.go.com -DaString="//a[contains(text(),'Log In')]" -DwaitAfterPageLoadMilliSeconds=0 -Dlogging -Dnogrid test
+mvn -Dtest=Scratch#VerifyLogos -Dbrowser=CHROME -Dinput=http://espn.go.com/ -DaNumber=5 -Dreport=local -Duserid=espn.go.com -DaString="//a[contains(text(),'Log In')]" -DwaitAfterPageLoadMilliSeconds=0 -Dlogging -Dnogrid test

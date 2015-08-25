@@ -97,7 +97,7 @@ public class Scratch extends CodeBase {
     @Test
     public void VerifyLogos() {
 
-        String fileName = "index-jaemzware-VerifyLogos-"+getDateStamp()+"-"+report==null?"":report + ".htm";
+        String fileName = "jaemzware.org-VerifyLogos-"+getDateStamp()+".htm";
         PrintWriter writer = null;
         String fileWriteString;
 
@@ -260,14 +260,9 @@ public class Scratch extends CodeBase {
             }
 
             //COMPLETE WRITING REPORT WEB PAGE
-            System.out.println("INDEX FILE WRITTEN:" + fileName);
-            System.out.println("INTERNAL COPY: "+jenkinsReportPathInternal + jenkinsDeployDirectory + "/" + fileName);
-            System.out.println("EXTERNAL COPY: "+jenkinsReportPathInternal + jenkinsDeployDirectory + "/" + fileName);
-//            
-//             protected static final String jenkinsReportPath = "http://jaemzware.com:8081/";
-//    protected static final String jenkinsReportPathInternal = "http://10.1.10.156:8081/";
-//    protected static final String jenkinsDeployDirectory = "jaemzwareArtifacts";
-//    
+            System.out.println("LOCAL REPORT WRITTEN:" + fileName);
+            System.out.println("INTERNAL DEPLOY: "+jenkinsReportPathInternal + jenkinsDeployDirectory + "/" + fileName);
+            System.out.println("EXTERNAL DEPLY: "+jenkinsReportPath + jenkinsDeployDirectory + "/" + fileName);
             
             writer.println(HtmlReportFooter());
         } catch (Exception ex) {

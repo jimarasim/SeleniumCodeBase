@@ -1129,7 +1129,7 @@ public class CodeBase {
         //this is for the APPIUM WORKaround, as the driver get appears to return before the page is loaded
         final String oldUrl = driver.getCurrentUrl(); 
 
-        System.out.println("GETTING:" + href);
+        System.out.println("=>:" + href);
 
         // mark start time to report how long it takes to load the page
         startTime = System.currentTimeMillis();
@@ -1176,7 +1176,11 @@ public class CodeBase {
             // TAKE A SCREENSHOT
             String screenshotFilePath= ScreenShot();
             String screenshotFilename = screenshotFilePath.substring(screenshotFilePath.lastIndexOf("/")+1);
-            htmlOutput +=  "<a href='"+href+"' target='_blank'><img src='"+screenshotFilename+"' /></a><br /><br />";
+            htmlOutput +=  "SCREENSHOT OF <a href='"+href+"' target='_blank'><H3>"+href+"</H3></a> TAKEN:"+screenshotFilename+"<br />";
+            htmlOutput += "INTERNET DEPLOY REFERENCE (FOR EMAIL/WAN):<br /><img src='"+jenkinsReportPath+jenkinsDeployDirectory+"/"+screenshotFilename+"' /><br />";
+            htmlOutput += "INTRANET DEPLOY REFERENCE (FOR LAN):<br /><img src='"+jenkinsReportPathInternal+jenkinsDeployDirectory+"/"+screenshotFilename+"' /><br />";
+            htmlOutput += "LOCAL REFERENCE (FOR LOCALHOST):<br /><img src='"+screenshotFilename+"' /><br />";
+
         }
         
         //OVERRIDEABLE SLEEP
