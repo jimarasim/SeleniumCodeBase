@@ -97,7 +97,7 @@ public class Scratch extends CodeBase {
     @Test
     public void VerifyLogos() {
 
-        String fileName = "jaemzware.org-VerifyLogos-"+getDateStamp()+".htm";
+        String fileName = "jaemzwareverifylogos"+getDateStamp()+".htm";
         PrintWriter writer = null;
         String fileWriteString;
 
