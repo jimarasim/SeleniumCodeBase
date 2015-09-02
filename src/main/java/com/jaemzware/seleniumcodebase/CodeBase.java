@@ -94,7 +94,7 @@ public class CodeBase {
     protected static String noScroll = null;
     
     // jenkins report folder url
-    protected static final String jenkinsReportPath = "http://jaemzware.com:8081/";
+    protected static final String jenkinsReportPath = "http://jaemzware.org:8081/";
     protected static final String jenkinsReportPathInternal = "http://10.1.10.156:8081/";
     protected static final String jenkinsDeployDirectory = "jaemzwareArtifacts";
     
