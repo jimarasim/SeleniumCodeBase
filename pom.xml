@@ -145,7 +145,7 @@ mvn -Dtest=Scratch#VerifyLogos -Dbrowser=CHROME -Dinput=http://disney.com/ -DaNu
 
 NOGRID-VERIFYLOGOS / LOGGING SAMPLES:
 mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=CHROME -Dinput=https://www.blackmarketskates.com -Duserid=blackmarketskates.com -DaString="//a[contains(text(),'Black Market Skates')]" -Dlogging -Dnogrid -DwaitAfterPageLoadMilliSeconds=5000 test
-mvn -Dtest=Scratch#VerifyLogos -D-DaNumber=0 -Dbrowser=CHROME -Dinput=https://www.blackmarketskates.com -Duserid=blackmarketskates.com -DaString="//a[contains(text(),'Black Market Skates')]" -Dlogging -Dnogrid -DwaitAfterPageLoadMilliSeconds=5000 test
+mvn -Dtest=Scratch#VerifyLogos -DaNumber=0 -Dbrowser=CHROME -Dinput=https://www.blackmarketskates.com -Duserid=blackmarketskates.com -DaString="//a[contains(text(),'Black Market Skates')]" -Dlogging -Dnogrid -DwaitAfterPageLoadMilliSeconds=5000 test
 
 APPIUM
 APPIUMSAFARISIMULATOR: see ass.sh
@@ -167,5 +167,10 @@ CHECKGMAIL
 mvn -Dtest=Scratch#CheckGmail -Dinput=Disney -Duserid=jaemzware -Dpassword=g00g73G00G73 test
 JUNIT EXAMPLE FOR JENKINS
 mvn -Dtest=Scratch#DemonstrateJunitFailureInJenkins -Dnogrid test
+
+
+mvn -Dtest=Facebook#FaceCrawlAllLinks -Dnogrid -Dbrowser=CHROME -DaNumber=0 -DaString=//p -DdefaultImplicitWait=120 test
+
+
   -->
 </project>

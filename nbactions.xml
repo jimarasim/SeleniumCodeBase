@@ -5,15 +5,21 @@
             <goals>
                 <goal>test-compile</goal>
                 <goal>surefire:test</goal>
-                <goal>-Dtest=Scratch#VerifyLogos</goal>
+                <goal>-Dtest=Facebook#FaceCrawlAllLinks</goal>
+                <goal>-Dnogrid</goal>
+                <goal>-Dbrowser=CHROME</goal>
                 <goal>-DaNumber=0</goal>
-                <goal>-Dbrowser=APPIUMSIMULATORAPPSAFARI</goal>
-                <goal>-Dinput=seattlerules.com</goal>
-                <goal>-Duserid=seattlerules.com</goal>
-                <goal>-DaString=//a</goal>
-                <goal>-Dlogging</goal>
-                <goal>-DaHubPort=4723</goal>
-                <goal>-DaHubServer=localhost</goal>
+                <goal>-DaString=//p</goal>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
                 
                 
                 
@@ -39,15 +45,21 @@
             <goals>
                 <goal>test-compile</goal>
                 <goal>surefire:test</goal>
-                <goal>-Dtest=Scratch#VerifyLogos</goal>
+                <goal>-Dtest=Facebook#FaceCrawlAllLinks</goal>
+                <goal>-Dnogrid</goal>
+                <goal>-Dbrowser=CHROME</goal>
                 <goal>-DaNumber=0</goal>
-                <goal>-Dbrowser=APPIUMSIMULATORAPPSAFARI</goal>
-                <goal>-Dinput=seattlerules.com</goal>
-                <goal>-Duserid=seattlerules.com</goal>
-                <goal>-DaString=//a</goal>
-                <goal>-Dlogging</goal>
-                <goal>-DaHubPort=4723</goal>
-                <goal>-DaHubServer=localhost</goal>
+                <goal>-DaString=//p</goal>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
                 
                 
                 
