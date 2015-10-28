@@ -99,9 +99,9 @@ public class CodeBase {
     protected static String noScroll = null;
     
     // jenkins report folder url
-    protected static final String jenkinsReportPath = "http://jaemzware.org/";
-    protected static final String jenkinsReportPathInternal = "http://10.1.10.156/";
-    protected static final String jenkinsDeployDirectory = "jaemzwareArtifacts";
+    protected static final String jenkinsReportPath = "http://localhost/";
+    protected static final String jenkinsReportPathInternal = "http://localhost/";
+    protected static final String jenkinsDeployDirectory = "./";
     
     // default time IN SECONDS to wait when finding elements
     protected static int defaultImplicitWait = 60;
