@@ -16,11 +16,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.logging.LogEntries;
-import org.openqa.selenium.logging.LogEntry;
-import org.openqa.selenium.logging.LogType;
 
 /**
  * @author jaemzware@hotmail.com
@@ -53,11 +49,11 @@ public class Scratch extends CodeBase {
             }
 
         } catch (InvalidParameterException ipex) {
-            Assert.fail("INVALID PARAMETERS FOUND");
+            Assert.fail("INVALID PARAMETERS FOUND:"+ipex.getMessage());
         } catch (FileNotFoundException fnfex) {
-            Assert.fail(propertiesFile + " NOT FOUND");
+            Assert.fail(propertiesFile + " NOT FOUND"+fnfex.getMessage());
         } catch (IOException ioex) {
-            Assert.fail(propertiesFile + " IO EXCEPTION");
+            Assert.fail(propertiesFile + " IO EXCEPTION"+ioex.getMessage());
         }
     }
 
@@ -97,7 +93,7 @@ public class Scratch extends CodeBase {
     @Test
     public void VerifyLogos() {
 
-        String fileName = "jaemzwareverifylogos"+getDateStamp()+".htm";
+        String fileName = "verifylogos"+getDateStamp()+".htm";
         PrintWriter writer = null;
         String fileWriteString;
 
@@ -111,8 +107,10 @@ public class Scratch extends CodeBase {
             }
             
             //set defaultImplicitWait
-            if(!browser.toString().contains("APPIUM")){
-                //set implicit wait
+            if(browser.toString().contains("APPIUM")){
+                throw new Exception("APPIUM BROWSER NOT VALID FOR THIS TEST; APPIUM BROWSER SPECIFIED.  LOOK ABOVE FOR ISSUES REPORTED BY StartDrvier()");
+            }
+            else{
                 driver.manage().timeouts().implicitlyWait(defaultImplicitWait, TimeUnit.SECONDS);
             }
 
@@ -141,7 +139,6 @@ public class Scratch extends CodeBase {
             }
             
             //CREATE A REPORT WEB PAGE
-            // create the web page
             writer = new PrintWriter(fileName, "UTF-8");
 
             // write the html header in the web page
@@ -261,8 +258,8 @@ public class Scratch extends CodeBase {
 
             //COMPLETE WRITING REPORT WEB PAGE
             System.out.println("LOCAL REPORT WRITTEN:" + fileName);
-            System.out.println("INTERNAL DEPLOY: "+jenkinsReportPathInternal + jenkinsDeployDirectory + "/" + fileName);
-            System.out.println("EXTERNAL DEPLY: "+jenkinsReportPath + jenkinsDeployDirectory + "/" + fileName);
+            System.out.println("INTERNAL DEPLOY: "+jenkinsReportPathInternal + jenkinsDeployDirectory + fileName);
+            System.out.println("EXTERNAL DEPLY: "+jenkinsReportPath + jenkinsDeployDirectory + fileName);
             
             writer.println(HtmlReportFooter());
         } catch (Exception ex) {
@@ -281,7 +278,7 @@ public class Scratch extends CodeBase {
     public void VerifyLogosAppium() {
 
         // create a file for the web page log
-        String fileName = "index-jaemzware-VerifyLogosAppium-"+getDateStamp()+"-"+report==null?"":report + ".htm";
+        String fileName = "verifylogosappium"+getDateStamp()+"-"+report==null?"":report + ".htm";
         PrintWriter writer = null;
         String fileWriteString;
 
@@ -290,14 +287,12 @@ public class Scratch extends CodeBase {
             StartAppiumDriver();
             
             if(driver==null){
-                throw new Exception("DRIVER WAS NOT SET; SUITABLE DRIVER WAS NOT FOUND.  LOOK ABOVE FOR ISSUES REPORTED BY StartDrvier()");
+                throw new Exception("APPIUM DRIVER WAS NOT SET; SUITABLE APPIUM DRIVER WAS NOT FOUND.  LOOK ABOVE FOR ISSUES REPORTED BY StartDrvier()");
+            }
+            else if(!browser.toString().contains("APPIUM")){
+                throw new Exception("APPIUM DRIVER WAS NOT SET; NON-APPIUM BROWSER SPECIFIED.  LOOK ABOVE FOR ISSUES REPORTED BY StartDrvier()");
             }
             
-            if(!browser.toString().contains("APPIUM")){
-                //set implicit wait
-                driver.manage().timeouts().implicitlyWait(defaultImplicitWait, TimeUnit.SECONDS);
-            }
-
             //VERIFY REQUIRED PARAMETERS WERE SET
             String starturl = new String();
             if (input != null && !input.isEmpty()) {

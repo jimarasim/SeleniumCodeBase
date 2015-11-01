@@ -727,7 +727,6 @@ public class CodeBase {
         switch (browser) {
 
             case APPIUMSAFARISIMULATOR: 
-                
                 //set capability for a safari browser running on an ios simulator
                 cap.setCapability("browserName", "Safari");
                 break;
@@ -782,7 +781,7 @@ public class CodeBase {
             driver = new RemoteWebDriver(new URL(gridHubFullPath), cap);
             // augment the driver so that screenshots can be taken
             driver = new Augmenter().augment(driver);
-            System.out.println("SUCCESSFULLY APPIUM HUB FOR:" + browser.browserName + " VERSION:" + browser.version
+            System.out.println("SUCCESSFULLY FOUND APPIUM HUB FOR:" + browser.browserName + " VERSION:" + browser.version
                     + " PLATFORM:" + browser.platform.toString()); 
         }
         catch (Exception ex) {
