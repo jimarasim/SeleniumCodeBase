@@ -100,7 +100,6 @@ public class CodeBase {
     
     // jenkins report folder url
     protected static final String jenkinsReportPath = "http://sk8creteordiebook.home:8080/job/verifylogosappium/ws/";
-    http://localhost:8080/job/verifylogosappium/ws/
     protected static final String jenkinsReportPathInternal = "http://localhost:8080/job/verifylogosappium/ws/";
     protected static final String jenkinsDeployDirectory = "job/verifylogos/ws/";
     
