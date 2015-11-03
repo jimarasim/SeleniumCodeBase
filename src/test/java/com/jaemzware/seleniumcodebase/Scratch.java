@@ -229,8 +229,6 @@ public class Scratch extends CodeBase {
                     continue;
                 }
                 
-                String oldUrl=driver.getCurrentUrl();
-            
                 // go to the href
                 fileWriteString = driverGetWithTime(href);
                 
@@ -238,8 +236,8 @@ public class Scratch extends CodeBase {
                 writer.println(fileWriteString);
                 
         //ERROR LOGGING - TAKES LONG - ADD CAPABILITY WHEN CREATING driver BEFORE USING
-                if(System.getProperty("logging")==null || 
-                        browser.toString().contains("APPIUM") ){
+                if(System.getProperty("logging")==null){
+                    System.out.println("USE -Dlogging FOR BROWSER ERROR LOGS ENCOUNTERED");
                 } else {
                     System.out.println("WRITING OUT LOGS FOR:"+href);
                     writer.println(ExtractJSLogs());
@@ -247,7 +245,6 @@ public class Scratch extends CodeBase {
                 
                 System.out.println("VERIFYING LOGO AT:"+logoxpath+" ON:"+href);
                 writer.println(VerifyXpathOnCurrentPage(logoxpath));
-                
                 
                 //check the desired image count, and break if it's been reached
                 if((maxVisits>0) && (++visitCount>maxVisits-1)){
@@ -322,7 +319,7 @@ public class Scratch extends CodeBase {
             writer = new PrintWriter(fileName, "UTF-8");
 
             // write the html header in the web page
-            writer.println(HtmlReportHeader("jaemzware-verifylogos [baseurl:"+baseurl+" starturl:"+starturl+" logoxpath:"+logoxpath+"]"));
+            writer.println(HtmlReportHeader("verifylogos [baseurl:"+baseurl+" starturl:"+starturl+" logoxpath:"+logoxpath+"]"));
             
             // NAVIGATE TO THE STARTING PAGE
             System.out.println("STARTURL:"+starturl);
@@ -332,14 +329,8 @@ public class Scratch extends CodeBase {
             writer.println(fileWriteString);
 
             //LOGGING
-            if(System.getProperty("logging")==null){
-                System.out.println("LOGGING DISABLED - USE -Dlogging TO SEE BROWSER ERRORS AND WARNINGS");
-            } 
-            else if(browser.toString().contains("APPIUM")){
-                System.out.println("LOGGING NOT SUPPORTED WITH APPIUM");
-            }
-            else {
-                writer.println(ExtractJSLogs());
+            if(System.getProperty("logging")!=null){
+                System.out.println("LOGGING DISABLED BECAUSE ITS NOT SUPPORTED FOR APPIUM");
             }
             
             // verify logo
@@ -402,8 +393,6 @@ public class Scratch extends CodeBase {
             System.out.println("VISITING HREFS AT XPATH:"+linksOnSplashPageXpath+" ON:"+starturl);
             for (String href : hrefs.keySet()) {
                 
-                String oldUrl=driver.getCurrentUrl();
-            
                 // go to the href
                 fileWriteString = driverGetWithTime(href);
                 
@@ -428,7 +417,6 @@ public class Scratch extends CodeBase {
                 
             }
 
-        
             /**
              * COMPLETE WRITING REPORT WEB PAGE
              */
@@ -445,8 +433,6 @@ public class Scratch extends CodeBase {
         } catch (Exception ex) {
             ScreenShot();
             System.out.println("VERIFY LOGOS EXCEPTION:"+ex.getMessage());
-//            CustomStackTrace("VerifyLogos EXCEPTION", ex);
-//            Assert.fail(ex.getMessage());
         } finally {
             
             //WRITE THE FILE

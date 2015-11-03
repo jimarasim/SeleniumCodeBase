@@ -706,12 +706,12 @@ public class CodeBase {
         
         //make sure a target version was specified, and set it
         if(appiumIosTargetVersion==null){
-            throw new Exception("MUST SPECIFY APP -DappiumIosTargetVersion");
+            throw new Exception("MUST SPECIFY VERSION -DappiumIosTargetVersion");
         }
         
         //make sure a device name was specified, and set it
         if(appiumIosDeviceName==null){
-            throw new Exception("MUST SPECIFY APP -DappiumIosDeviceName");
+            throw new Exception("MUST SPECIFY DEVICE NAME -DappiumIosDeviceName");
         }
         
         /**
