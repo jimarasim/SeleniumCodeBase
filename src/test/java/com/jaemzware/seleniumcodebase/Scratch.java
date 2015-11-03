@@ -492,6 +492,7 @@ public class Scratch extends CodeBase {
     public void AfterTest() {
         try {
             if (driver != null) {
+                System.out.println("QUIT DRIVER");
                 QuitDriver();
             }
 
