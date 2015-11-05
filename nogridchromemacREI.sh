@@ -1,0 +1,1 @@
+mvn -Dtest=Scratch#VerifyLogos -DaHubServer=localhost -DaHubPort=4444 -Dbrowser=CHROMEMAC -Dinput=http://rei.jobs/careers/MicroSiteStory -DaNumber=10 -Dreport=VERIFYLOGOSREIJOBPAGE -Duserid=rei.jobs -DaString="//p" -DwaitAfterPageLoadMilliSeconds=1000 -Dlogging -Dnogrid test
