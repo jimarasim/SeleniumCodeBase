@@ -486,6 +486,7 @@ public class CodeBase {
                 System.out.println("CONTACTING SELENIUM GRID [USE -Dnogrid TO SKIP AND LAUNCH NATIVE (NON-GRID)] ");
                 driver = new RemoteWebDriver(new URL(gridHubFullPath), cap);
 
+                System.out.println("AUGMENT THE DRIVER FOR SCREENSHOTS");
                 // augment the driver so that screenshots can be taken
                 driver = new Augmenter().augment(driver);
 

@@ -12,7 +12,7 @@ public enum BrowserType {
     
     //MAKE SURE THESE ARE ALL HANDLED IN THE GRID AND NON-GRID CASES
     CHROME("chrome","",Platform.WINDOWS), 
-    CHROMELINUX("chrome","46.0.2490.80",Platform.LINUX),
+    CHROMELINUX("chrome","",Platform.LINUX),
     CHROMEMAC ("chrome","",Platform.MAC),
     FIREFOX("firefox","",Platform.WINDOWS),
     FIREFOXLINUX("firefox","",Platform.LINUX),
