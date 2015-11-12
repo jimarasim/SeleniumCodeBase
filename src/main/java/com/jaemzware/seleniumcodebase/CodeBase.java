@@ -557,12 +557,12 @@ public class CodeBase {
 
                     driver = new ChromeDriver(options);
                 } else {
-                    // get the chrome driver/start regular chrome
-                    // get the desired capabilities
-                    DesiredCapabilities cap = DesiredCapabilities.chrome();
-
-                    // turn on debug logging if debug is specified. this takes longer
+                     // turn on debug logging if debug is specified. this takes longer
                     if (logging != null) {
+                        // get the chrome driver/start regular chrome
+                         // get the desired capabilities
+                        DesiredCapabilities cap = DesiredCapabilities.chrome();
+
                         //chrome doesnt support this logging type CLIENT
                         LoggingPreferences loggingprefs = new LoggingPreferences();
                         loggingprefs.enable(LogType.BROWSER, Level.ALL);
@@ -575,7 +575,7 @@ public class CodeBase {
                     } else {
                         System.out.println("-Dlogging NOT SPECIFIED");
                         
-                        driver = new ChromeDriver(cap);
+                        driver = new ChromeDriver();
                     }
 
                 }

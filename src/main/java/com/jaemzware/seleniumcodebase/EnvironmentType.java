@@ -13,5 +13,6 @@ public enum EnvironmentType {
     google, 
     bbc, 
     googlenews, 
-    fark
+    fark,
+    stuffedanimalwar
 }
