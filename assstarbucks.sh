@@ -1,0 +1,1 @@
+mvn -Dtest=Scratch#VerifyLogosAppium -DaNumber=10 -Dbrowser=APPIUMSAFARISIMULATOR -Dinput=https://starbucks.com -Duserid=starbucks -DaString=//p -DaHubPort=4723 -DaHubServer=localhost -DappiumIosTargetVersion=9.1 -DappiumIosDeviceName="iPhone 6" test
