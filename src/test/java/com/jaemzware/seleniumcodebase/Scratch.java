@@ -255,8 +255,6 @@ public class Scratch extends CodeBase {
 
             //COMPLETE WRITING REPORT WEB PAGE
             System.out.println("LOCAL REPORT WRITTEN:" + fileName);
-            System.out.println("INTERNAL DEPLOY: "+jenkinsReportPathInternal + jenkinsDeployDirectory + fileName);
-            System.out.println("EXTERNAL DEPLY: "+jenkinsReportPath + jenkinsDeployDirectory + fileName);
             
             writer.println(HtmlReportFooter());
         } catch (Exception ex) {

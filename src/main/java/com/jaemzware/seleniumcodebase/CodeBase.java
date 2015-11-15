@@ -575,7 +575,12 @@ public class CodeBase {
                     } else {
                         System.out.println("-Dlogging NOT SPECIFIED");
                         
-                        driver = new ChromeDriver();
+                        //incognito
+                        ChromeOptions options = new ChromeOptions();
+                        options.addArguments("-incognito");
+
+
+                        driver = new ChromeDriver(options);
                     }
 
                 }

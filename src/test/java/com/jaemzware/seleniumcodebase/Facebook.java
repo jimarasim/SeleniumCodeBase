@@ -105,17 +105,11 @@ public class Facebook extends CodeBase{
 
             // write the html header in the web page
             writer.println(HtmlReportHeader("VerifyLogos:<a href='"+starturl+"' target='_blank'>"+starturl+"</a> [linksOnSplashPageXpath (linksOnSplashPageXpath):"+linksOnSplashPageXpath+" starturl:"+starturl+" logoxpath:"+logoxpath+"]"));
-            
 
-
-
-////////////////////////////////    
             // NAVIGATE TO THE STARTING PAGE
             System.out.println("STARTURL:"+starturl);
             fileWriteString = driverGetWithTime(starturl);
             
-            
-/////////////////////////
             //LOGIN
             if(IsElementPresent(By.id("email") )){
                driver.findElement(By.id("email")).sendKeys("wontwon@joeypaintbrush.com");
@@ -136,20 +130,22 @@ public class Facebook extends CodeBase{
                    verificationErrors.append("EMAIL TEXT BOX NOT FOUND ON LOGIN PAGE. MAY ALREADY BE LOGGED IN");
             }
 
+            /*
+            * TODO - REFACTOR THIS HARDCODED WAIT
+            */
             System.out.println(quickWaitMilliSeconds+"MILLI SECONDS TO LET FACEBOOK LOAD");
             Thread.sleep(quickWaitMilliSeconds);
             
+            //GO TO PROFILE PAGE
             driver.findElement(By.xpath("//a[@title='Profile']")).click();
             
+            /*
+            * TODO - REFACTOR THIS HARDCODED WAIT
+            */
             Thread.sleep(quickWaitMilliSeconds);
-
 
             // write stats to html report
             writer.println(fileWriteString);
-
-            
-
-///////////
             //LOGGING
             if(System.getProperty("logging")==null){
                 System.out.println("LOGGING DISABLED - USE -Dlogging TO SEE BROWSER ERRORS AND WARNINGS");
@@ -165,7 +161,6 @@ public class Facebook extends CodeBase{
             System.out.println("VERIFYING LOGO AT:"+logoxpath+" ON:"+starturl);
             writer.println(VerifyXpathOnCurrentPage(logoxpath));
             
-/////////////////////
             //GET HREFS
             // get all non-empty/non-javascript href on the page that contain the baseurlxpath
             Map<String, String> hrefs = new HashMap<>();
@@ -239,13 +234,13 @@ public class Facebook extends CodeBase{
                 
                 String oldUrl=driver.getCurrentUrl();
             
-                // go to the href
-                fileWriteString = driverGetWithTime(href,9);
+                //GET A LINK IN ALL THE LINKS WE FOUND, AND HIT IT AT RANDOM TIMES
+                fileWriteString = driverGetWithTime(href,2);
                 
                 // write stats to html report
                 writer.println(fileWriteString);
                 
-        //ERROR LOGGING - TAKES LONG - ADD CAPABILITY WHEN CREATING driver BEFORE USING
+                //ERROR LOGGING - TAKES LONG - ADD CAPABILITY WHEN CREATING driver BEFORE USING
                 if(System.getProperty("logging")==null || 
                         browser.toString().contains("APPIUM") ){
                 } else {
@@ -256,25 +251,20 @@ public class Facebook extends CodeBase{
                 System.out.println("VERIFYING LOGO AT:"+logoxpath+" ON:"+href);
                 writer.println(VerifyXpathOnCurrentPage(logoxpath));
                 
-                
                 //check the desired image count, and break if it's been reached
                 if((maxVisits>0) && (++visitCount>maxVisits-1)){
                     break;
-                }
+                }   
                 
             }
 
             //COMPLETE WRITING REPORT WEB PAGE
             System.out.println("LOCAL REPORT WRITTEN:" + fileName);
-            System.out.println("INTERNAL DEPLOY: "+jenkinsReportPathInternal + jenkinsDeployDirectory + "/" + fileName);
-            System.out.println("EXTERNAL DEPLY: "+jenkinsReportPath + jenkinsDeployDirectory + "/" + fileName);
-            
             writer.println(HtmlReportFooter());
 
         } catch (Exception ex) {
             ScreenShot();
             System.out.println("FACECRAWL EXCEPTION:"+ex.getMessage());
-            ex.printStackTrace();
         } finally {
             //WRITE THE FILE IF CREATED
             if (writer != null) {
