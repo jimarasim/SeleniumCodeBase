@@ -32,21 +32,23 @@ public class Scratch extends CodeBase {
     @Before
     public void BeforeTest() {
         try {
-
             // properties file is in same directory as pom.xml
             properties.load(new FileInputStream(propertiesFile));
 
-            // initialize verifification errors
-            verificationErrors = new StringBuilder();
 
             // get the command line parameters that were specified
-            // an error string will be returned if something went wrong
-            // an empty string will be returned if everything is ok
             String getParameterResult = GetParameters();
+            // an error string will be returned if something went wrong
             if (!getParameterResult.isEmpty()) {
                 System.out.println(getParameterResult);
                 throw new InvalidParameterException();
+            }else{
+                // an empty string will be returned if everything is ok
+                
+                // initialize verifification errors
+                verificationErrors = new StringBuilder();
             }
+
 
         } catch (InvalidParameterException ipex) {
             Assert.fail("INVALID PARAMETERS FOUND:"+ipex.getMessage());
@@ -57,38 +59,6 @@ public class Scratch extends CodeBase {
         }
     }
 
-    /**
-     * This test just demonstrates what a failed teset looks like when run in jenkins.  there is good information provided, just because of the test framework
-     * being used here (junit or testng)
-     */
-    @Test
-    public void DemonstrateJunitFailureInJenkins(){
-        Assert.fail("THIS TEST FAILED");
-    }
-    
-    /**
-     * This is a proof of concept test for testing real applicaions through appium
-     */
-    @Test 
-    public void IosScratchAppClickButton(){
-        try{
-            
-            StartAppiumDriver();
-            
-            if(driver==null){
-                throw new Exception("DRIVER WAS NOT SET; A SUITABLE DRIVER WAS NOT FOUND.  LOOK ABOVE FOR ISSUES REPORTED BY StartDrvier()");
-            }
-            
-            //this output elements in the app, but only saw it work once
-//            List<WebElement> elements = driver.findElements(By.xpath("//*"));
-//            for(WebElement web:elements){
-//                System.out.println("TAG:"+web.getTagName()+" TEXT:"+web.getText());
-//            }
-        }
-        catch(Exception ex){
-            System.out.println(ex.getMessage());
-        }
-    }
     
     @Test
     public void VerifyLogos() {
@@ -423,8 +393,6 @@ public class Scratch extends CodeBase {
             
             System.out.println("=================================================");
             System.out.println("INDEX FILE:" + fileName);
-            System.out.println("INTERNAL COPY: "+jenkinsReportPathInternal+fileName);
-            System.out.println("EXTERNAL COPY: "+jenkinsReportPath+fileName);
             System.out.println("=================================================");
             
 
@@ -486,6 +454,17 @@ public class Scratch extends CodeBase {
         }
     }
 
+    
+    /**
+     * This test just demonstrates what a failed teset looks like when run in jenkins.  there is good information provided, just because of the test framework
+     * being used here (junit or testng)
+     */
+    @Test
+    public void DemonstrateJunitFailureInJenkins(){
+        Assert.fail("THIS TEST FAILED");
+    }
+    
+    
     @After
     public void AfterTest() {
         try {
@@ -503,5 +482,7 @@ public class Scratch extends CodeBase {
             Assert.fail(ex.getMessage());
         }
     }
+    
+    
 
 }

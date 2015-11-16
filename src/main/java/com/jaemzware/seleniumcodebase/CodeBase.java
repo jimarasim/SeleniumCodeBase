@@ -167,17 +167,31 @@ public class CodeBase {
      */
     protected static String GetParameters() {
         
+        //check if the parameters are set
+        ParameterType allParameters[] = ParameterType.values();
+        for (ParameterType parameter : allParameters) {
+            String mavenParameter = System.getProperty(parameter.toString());
+            if(mavenParameter==null){
+                System.out.println("-D"+parameter+":null");
+            }
+            else if(mavenParameter.isEmpty()){
+                System.out.println("-D"+parameter+":''");
+            }
+            else{
+                System.out.println("-D"+parameter+":"+mavenParameter);
+            }
+        }
+    
+        
         String aHubServerParm = System.getProperty("aHubServer");
         if (aHubServerParm != null && !aHubServerParm.isEmpty()) {
             aHubServer = aHubServerParm;
         }
-        System.out.println("-DaHubServer:" + aHubServer);
 
         String aHubPortParm = System.getProperty("aHubPort");
         if (aHubPortParm != null && !aHubPortParm.isEmpty()) {
             aHubPort = aHubPortParm;
         }
-        System.out.println("-DaHubPort:" + aHubPort);
 
         String browserParm = System.getProperty("browser");
         if (browserParm != null && !browserParm.isEmpty()) {
@@ -198,33 +212,28 @@ public class CodeBase {
                 return invalidBrowserMessage.toString();
             }
         }
-        System.out.println("-Dbrowser:" + browserParm);
 
         String appiumAppParm = System.getProperty("appiumApp");
         if (appiumAppParm != null && !appiumAppParm.isEmpty()) {
             appiumApp = appiumAppParm;
         }
-        System.out.println("-DappiumApp:" + appiumApp);
 
         
         String appiumUdidParm = System.getProperty("appiumUdid");
         if (appiumUdidParm != null && !appiumUdidParm.isEmpty()) {
             appiumUdid = appiumUdidParm;
         }
-        System.out.println("-DappiumUdid:" + appiumUdid);
 
         
         String appiumIosTargetVersionParm = System.getProperty("appiumIosTargetVersion");
         if (appiumIosTargetVersionParm != null && !appiumIosTargetVersionParm.isEmpty()) {
             appiumIosTargetVersion = appiumIosTargetVersionParm;
         }
-        System.out.println("-DappiumIosTargetVersion:" + appiumIosTargetVersion);
         
         String appiumIosDeviceNameParm = System.getProperty("appiumIosDeviceName");
         if (appiumIosDeviceNameParm != null && !appiumIosDeviceNameParm.isEmpty()) {
             appiumIosDeviceName = appiumIosDeviceNameParm;
         }
-        System.out.println("-DappiumIosDeviceName:" + appiumIosDeviceName);
 
         String environmentParm = System.getProperty("environment");
         if (environmentParm != null && !environmentParm.isEmpty()) {
@@ -245,7 +254,6 @@ public class CodeBase {
                 return invalidEnvironmentMessage.toString();
             }
         }
-        System.out.println("-Denvironment:" + environmentParm);
 
         String waitAfterPageLoadMilliSecondsParm = System.getProperty("waitAfterPageLoadMilliSeconds");
         if (waitAfterPageLoadMilliSecondsParm != null && !waitAfterPageLoadMilliSecondsParm.isEmpty()) {
@@ -257,7 +265,6 @@ public class CodeBase {
 
             }
         }
-        System.out.println("-DwaitAfterPageLoadMilliSeconds:" + waitAfterPageLoadMilliSeconds);
         
         String defaultImplicitWaitParm = System.getProperty("defaultImplicitWait");
         if (defaultImplicitWaitParm != null && !defaultImplicitWaitParm.isEmpty()) {
@@ -269,25 +276,21 @@ public class CodeBase {
 
             }
         }
-        System.out.println("-DdefaultImplicitWait:" + defaultImplicitWait);
         
         String useridParm = System.getProperty("userid");
         if (useridParm != null && !useridParm.isEmpty()) {
             userid = useridParm;
         }
-        System.out.println("-Duserid:" + userid);
 
         String passwordParm = System.getProperty("password");
         if (passwordParm != null && !passwordParm.isEmpty()) {
             password = passwordParm;
         }
-        System.out.println("-Dpassword:" + password);
 
         String inputParm = System.getProperty("input");
         if (inputParm != null && !inputParm.isEmpty()) {
             input = inputParm;
         }
-        System.out.println("-Dinput:" + input);
 
         String aNumberParm = System.getProperty("aNumber");
         if (aNumberParm != null && !aNumberParm.isEmpty()) {
@@ -299,76 +302,63 @@ public class CodeBase {
                 return "-DaNumber:" + aNumberParm + " MUST BE A NUMBER";
             }
         }
-        System.out.println("-DaNumber:" + aNumber);
 
         String aStringParm = System.getProperty("aString");
         if (aStringParm != null && !aStringParm.isEmpty()) {
             aString = aStringParm;
         }
-        System.out.println("-DaString:" + aString);
         
         String reportParm = System.getProperty("report");
         if (reportParm != null && !reportParm.isEmpty()) {
             report = reportParm;
         }
-        System.out.println("-Dreport:" + report);
         
         noImages = System.getProperty("noImages");
-        System.out.println("-DnoImages:" + noImages);
         
         logging = System.getProperty("logging");
-        System.out.println("-Dlogging:" + logging);
         
         noScroll = System.getProperty("noScroll");
-        System.out.println("-DnoScroll:" + noScroll);
         
         noScreenShots = System.getProperty("noScreenShots");
-        System.out.println("-DnoScreenshots:" + noScreenShots);
         
         
     /**
-     * command line variables for BoardScrub#BuildPageOfFoundLinks specifically
+     * BoardScrub Customizable parameters
      */
         String linksLoadedIndicatorXpathParm = System.getProperty("linksLoadedIndicatorXpath");
         if (linksLoadedIndicatorXpathParm != null && !linksLoadedIndicatorXpathParm.isEmpty()) {
             linksLoadedIndicatorXpath = linksLoadedIndicatorXpathParm;
         }
-        System.out.println("-DlinksLoadedIndicatorXpath:" + linksLoadedIndicatorXpath);
         
         
         String linkXpathParm = System.getProperty("linkXpath");
         if (linkXpathParm != null && !linkXpathParm.isEmpty()) {
             linkXpath = linkXpathParm;
         }
-        System.out.println("-DlinkXpath:" + linkXpath);
         
         
         String imageXpathParm = System.getProperty("imageXpath");
         if (imageXpathParm != null && !imageXpathParm.isEmpty()) {
             imageXpath = imageXpathParm;
         }
-        System.out.println("-DimageXpath:" + imageXpath);
         
         
         String titleTextXpathParm = System.getProperty("titleTextXpath");
         if (titleTextXpathParm != null && !titleTextXpathParm.isEmpty()) {
             titleTextXpath = titleTextXpathParm;
         }
-        System.out.println("-DtitleTextXpath:" + titleTextXpath);
         
         
         String bodyTextXpathParm = System.getProperty("bodyTextXpath");
         if (bodyTextXpathParm != null && !bodyTextXpathParm.isEmpty()) {
             bodyTextXpath = bodyTextXpathParm;
         }
-        System.out.println("-DbodyTextXpath:" + bodyTextXpath);
         
         
         String nextLinkXpathParm = System.getProperty("nextLinkXpath");
         if (nextLinkXpathParm != null && !nextLinkXpathParm.isEmpty()) {
             nextLinkXpath = nextLinkXpathParm;
         }
-        System.out.println("-DnextLinkXpath:" + nextLinkXpath);
 
         return "";
     }
