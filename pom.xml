@@ -24,6 +24,7 @@
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
+          <showDeprecation>true</showDeprecation>
         </configuration>
       </plugin>
       <!--Be specific about surefire version because one of them is buggy, and won't run individual tests-->
@@ -37,14 +38,7 @@
 
 
   <dependencies>
-    <dependency>
-        <groupId>io.appium</groupId>
-        <artifactId>java-client</artifactId>
-        <version>3.2.0</version>
-      <scope>test</scope>
-      <type>jar</type>
-    </dependency>
-
+    
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -57,12 +51,14 @@
       <artifactId>httpclient</artifactId>
       <version>4.3.3</version>
     </dependency>
+    
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
       <version>2.4</version>
       <type>jar</type>
     </dependency>
+    
     <dependency>
       <groupId>javax.mail</groupId>
       <artifactId>mail</artifactId>
@@ -76,6 +72,7 @@
       <version>2.4</version>
       <type>jar</type>
     </dependency>
+    
     <dependency>
       <groupId>com.github.psorobka</groupId>
       <artifactId>appium-maven-plugin</artifactId>
@@ -100,6 +97,7 @@
       <version>2.48.2</version>
       <type>jar</type>
     </dependency>
+    <!--Unknown lifecycle phase "6". You must specify a valid lifecycle phase or a goal in the format <plugin-prefix>:<goal> or <plugin-group-id>:<plugin-artifact-id>[:<plugin-version>]:<goal>. Available lifecycle phases are: validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy, pre-site, site, post-site, site-deploy, pre-clean, clean, post-clean. -> [Help 1]-->
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-firefox-driver</artifactId>

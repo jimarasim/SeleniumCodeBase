@@ -454,17 +454,7 @@ public class Scratch extends CodeBase {
         }
     }
 
-    
-    /**
-     * This test just demonstrates what a failed teset looks like when run in jenkins.  there is good information provided, just because of the test framework
-     * being used here (junit or testng)
-     */
-    @Test
-    public void DemonstrateJunitFailureInJenkins(){
-        Assert.fail("THIS TEST FAILED");
-    }
-    
-    
+   
     @After
     public void AfterTest() {
         try {

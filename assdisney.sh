@@ -1,1 +1,1 @@
-mvn -Dtest=Scratch#VerifyLogosAppium -DaNumber=0 -Dbrowser=APPIUMSAFARISIMULATOR -Dinput=http://disney.com -Duserid=disney.com -DaString=//*[@id='nav-logo'] -DaHubPort=4723 -DaHubServer=sk8creteordiebook.home -DappiumIosTargetVersion=9.1 -DappiumIosDeviceName="iPhone 6" -DdefaultImplicitWait=200 test
+mvn -Dtest=Scratch#VerifyLogosAppium -DaNumber=0 -Dbrowser=APPIUMSAFARISIMULATOR -Dinput=http://disney.com -Duserid=disney.com -DaStrisng=//img -DaHubPort=4723 -DaHubServer=localhost -DappiumIosTargetVersion=9.1 -DappiumIosDeviceName="iPhone 6" -DdefaultImplicitWait=200 test
