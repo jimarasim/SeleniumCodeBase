@@ -1,5 +1,7 @@
 package com.jaemzware.seleniumcodebase;
 
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.ios.IOSDriver;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -157,7 +159,6 @@ public class CodeBase {
 
         return (returnString.toString());
     }
-
 
     /**
      * This function gets the command line parameters.
@@ -768,8 +769,8 @@ public class CodeBase {
         System.out.println("CONTACTING APPIUM HUB");
         
         try{
-           
-            driver = new RemoteWebDriver(new URL(gridHubFullPath), cap);
+//           AppiumDriver is now an abstract class, use IOSDriver and AndroidDriver which both extend it.
+            driver = new IOSDriver(new URL(gridHubFullPath), cap);
             // augment the driver so that screenshots can be taken
             driver = new Augmenter().augment(driver);
             System.out.println("SUCCESSFULLY FOUND APPIUM HUB FOR:" + browser.browserName + " VERSION:" + browser.version
