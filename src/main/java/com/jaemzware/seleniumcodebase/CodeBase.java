@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Field;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -168,20 +169,14 @@ public class CodeBase {
     protected static String GetParameters() {
         
         //check if the parameters are set
-        ParameterType allParameters[] = ParameterType.values();
-        for (ParameterType parameter : allParameters) {
-            String mavenParameter = System.getProperty(parameter.toString());
-            if(mavenParameter==null){
-                System.out.println("-D"+parameter+":null");
-            }
-            else if(mavenParameter.isEmpty()){
-                System.out.println("-D"+parameter+":''");
-            }
-            else{
-                System.out.println("-D"+parameter+":"+mavenParameter);
-            }
+        Field[] fields = ParameterType.class.getDeclaredFields();
+        String acceptedParameterValue="";
+        String acceptedParameter="";
+        for (Field field : fields) {
+            acceptedParameter = field.getName();
+            acceptedParameterValue=System.getProperty(acceptedParameter);
+            System.out.println("-D"+acceptedParameter+":"+acceptedParameterValue);
         }
-    
         
         String aHubServerParm = System.getProperty("aHubServer");
         if (aHubServerParm != null && !aHubServerParm.isEmpty()) {
