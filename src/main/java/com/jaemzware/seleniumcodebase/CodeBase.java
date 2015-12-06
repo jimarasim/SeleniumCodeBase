@@ -1,6 +1,5 @@
 package com.jaemzware.seleniumcodebase;
 
-import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.ios.IOSDriver;
 import java.io.BufferedReader;
 import java.io.File;
@@ -108,7 +107,7 @@ public class CodeBase {
     
     // default time IN SECONDS to wait when finding elements
     protected static int defaultImplicitWait = 60;
-    protected static final int quickWaitMilliSeconds = 5000;  //TODO: PHASING OUT IN PREFERENCE OF COMMAND OVERRIDEABLE waitAfterPageLoadMilliSeconds
+    protected static final int quickWaitMilliSeconds = 5000;  
     protected static int waitAfterPageLoadMilliSeconds = 0;  //can be overridden from comand line -DwaitAfterPageLoadMilliSeconds=10000
 
     // verification errors that can occur during a test
@@ -176,7 +175,11 @@ public class CodeBase {
         for (Field field : fields) {
             acceptedParameter = field.getName();
             acceptedParameterValue=System.getProperty(acceptedParameter);
-            System.out.println("-D"+acceptedParameter+":"+acceptedParameterValue);
+            if(acceptedParameterValue != null && !acceptedParameterValue.isEmpty()){
+                System.out.println("-D"+acceptedParameter+":"+acceptedParameterValue+" NOT SPECIFIED, USING DEFAULT.");
+                
+                
+            }
         }
         
         String aHubServerParm = System.getProperty("aHubServer");
