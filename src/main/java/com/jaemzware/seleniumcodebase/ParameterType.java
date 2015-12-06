@@ -5,6 +5,7 @@
  */
 package com.jaemzware.seleniumcodebase;
 
+import static com.jaemzware.seleniumcodebase.CodeBase.browser;
 import static com.jaemzware.seleniumcodebase.CodeBase.waitAfterPageLoadMilliSeconds;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +21,7 @@ public class ParameterType {
     public static String aString="//p";
     public static String bodyTextXpath=null;
     public static String browser="APPIUMSAFARISIMULATOR"; //APPIUMAPPDEVICE
-    public static int defaultImplicitWait=10;
+    public static int defaultImplicitWaitSeconds=10;
     public static String environment=null;
     public static String imageXpath=null;
     public static String input="https://starbucks.com";
@@ -39,6 +40,7 @@ public class ParameterType {
     public static int waitAfterPageLoadMilliSeconds=0;
     
     public static void SetParameter(String parameter, String parameterValue) throws Exception{
+        
         switch (parameter){
             case "aHubport":
                 aHubport=parameterValue;
@@ -68,7 +70,22 @@ public class ParameterType {
                 bodyTextXpath=parameterValue;
                 break;
             case "browser":
-                browser=parameterValue;
+                try {
+                    browser = BrowserType.valueOf(parameterValue);
+                } catch (IllegalArgumentException ex) {
+                    StringBuilder invalidBrowserMessage = new StringBuilder();
+
+                    invalidBrowserMessage.append("INVALID BROWSER (-Dbrowser) SPECIFIED:");
+                    invalidBrowserMessage.append(parameterValue);
+                    invalidBrowserMessage.append(" VALID VALUES:");
+
+                    BrowserType allBrowsers[] = BrowserType.values();
+                    for (BrowserType validBrowser : allBrowsers) {
+                        invalidBrowserMessage.append(validBrowser);
+                        invalidBrowserMessage.append(" ");
+                    }
+                    return invalidBrowserMessage.toString();
+                }
                 break;
             case "environment":
                 environment=parameterValue;
@@ -122,11 +139,11 @@ public class ParameterType {
                     throw new Exception("-DwaitAfterPageLoadMilliSeconds:" + parameterValue+ " SPECIFIED IS NOT A PARSEABLE INT. RETURNING THIS STRING TO INDICATE FAILURE (MAY BE IGNORED BY SOME TESTS)");
                 }
                 break;
-            case "defaultImplicitWait":
+            case "defaultImplicitWaitSeconds":
                 try {
-                    defaultImplicitWait = Integer.parseInt(parameter);
+                    defaultImplicitWaitSeconds = Integer.parseInt(parameter);
                 } catch (NumberFormatException nfx) {
-                    throw new Exception("-DdefaultImplicitWait:" + parameterValue+ " SPECIFIED IS NOT A PARSEABLE INT. RETURNING THIS STRING TO INDICATE FAILURE (MAY BE IGNORED BY SOME TESTS)");
+                    throw new Exception("-DdefaultImplicitWaitSeconds:" + parameterValue+ " SPECIFIED IS NOT A PARSEABLE INT. RETURNING THIS STRING TO INDICATE FAILURE (MAY BE IGNORED BY SOME TESTS)");
                 }
                 break;
             default:

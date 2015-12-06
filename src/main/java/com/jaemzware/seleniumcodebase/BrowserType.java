@@ -4,10 +4,8 @@ import org.openqa.selenium.Platform;
 
 /**
  *
- * @author jaemzware@hotmail.com
+ * @author jaemzware.org
  */
-
-
 public enum BrowserType {
     
     //MAKE SURE THESE ARE ALL HANDLED IN THE GRID AND NON-GRID CASES

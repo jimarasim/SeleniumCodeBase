@@ -1,5 +1,6 @@
 package com.jaemzware.seleniumcodebase;
 
+import static com.jaemzware.seleniumcodebase.ParameterType.SetParameter;
 import io.appium.java_client.ios.IOSDriver;
 import java.io.BufferedReader;
 import java.io.File;
@@ -106,7 +107,7 @@ public class CodeBase {
     protected static final String jenkinsDeployDirectory = "job/verifylogos/ws/";
     
     // default time IN SECONDS to wait when finding elements
-    protected static int defaultImplicitWait = 60;
+    protected static int defaultImplicitWaitSeconds = 60;
     protected static final int quickWaitMilliSeconds = 5000;  
     protected static int waitAfterPageLoadMilliSeconds = 0;  //can be overridden from comand line -DwaitAfterPageLoadMilliSeconds=10000
 
@@ -176,9 +177,12 @@ public class CodeBase {
             acceptedParameter = field.getName();
             acceptedParameterValue=System.getProperty(acceptedParameter);
             if(acceptedParameterValue != null && !acceptedParameterValue.isEmpty()){
-                System.out.println("-D"+acceptedParameter+":"+acceptedParameterValue+" NOT SPECIFIED, USING DEFAULT.");
-                
-                
+                try{
+                    SetParameter(acceptedParameterValue,acceptedParameterValue);
+                }
+                catch(Exception ex){
+                    return(ex.getMessage());
+                }
             }
         }
         
@@ -265,12 +269,12 @@ public class CodeBase {
             }
         }
         
-        String defaultImplicitWaitParm = System.getProperty("defaultImplicitWait");
-        if (defaultImplicitWaitParm != null && !defaultImplicitWaitParm.isEmpty()) {
+        String defaultImplicitWaitSecondsParm = System.getProperty("defaultImplicitWaitSeconds");
+        if (defaultImplicitWaitSecondsParm != null && !defaultImplicitWaitSecondsParm.isEmpty()) {
             try {
-                defaultImplicitWait = Integer.parseInt(defaultImplicitWaitParm);
+                defaultImplicitWaitSeconds = Integer.parseInt(defaultImplicitWaitSecondsParm);
             } catch (NumberFormatException nfx) {
-                return "-DdefaultImplicitWaitParm:" + defaultImplicitWaitParm
+                return "-DdefaultImplicitWaitSecondsParm:" + defaultImplicitWaitSecondsParm
                         + " SPECIFIED IS NOT A PARSEABLE INT. RETURNING THIS STRING TO INDICATE FAILURE (MAY BE IGNORED BY SOME TESTS)";
 
             }
@@ -847,7 +851,7 @@ public class CodeBase {
             if(!browser.toString().contains("APPIUM")){
                 // throttle wait time when looking for elements that should already be on the page
                 driver.manage().timeouts().implicitlyWait(waitTimeMillis, TimeUnit.MILLISECONDS);
-                System.out.println("IsElementPresent set defaultImplicitWait to waitTimeMillis:"+waitTimeMillis);
+                System.out.println("IsElementPresent set defaultImplicitWaitSeconds to waitTimeMillis:"+waitTimeMillis);
 
             }
             
@@ -858,8 +862,8 @@ public class CodeBase {
         } finally {
             if(!browser.toString().contains("APPIUM")){
                 // throttle implicit wait time back up
-                driver.manage().timeouts().implicitlyWait(defaultImplicitWait, TimeUnit.SECONDS);
-                System.out.println("IsElementPresent set defaultImplicitWait back to default seconds:"+defaultImplicitWait);
+                driver.manage().timeouts().implicitlyWait(defaultImplicitWaitSeconds, TimeUnit.SECONDS);
+                System.out.println("IsElementPresent set defaultImplicitWaitSeconds back to default seconds:"+defaultImplicitWaitSeconds);
             }
         }
 
@@ -1161,14 +1165,14 @@ public class CodeBase {
             //SAFARI DOESNT LIKE THIS CALL
             if(!browser.toString().contains("APPIUM") &&
                     !browser.toString().contains("SAFARI")){
-                driver.manage().timeouts().pageLoadTimeout(defaultImplicitWait, TimeUnit.SECONDS);
-                System.out.println("SET PAGELOADTIMEOUT TIME TO WAIT FOR DRIVER.GET:"+defaultImplicitWait+" SECONDS");
+                driver.manage().timeouts().pageLoadTimeout(defaultImplicitWaitSeconds, TimeUnit.SECONDS);
+                System.out.println("SET PAGELOADTIMEOUT TIME TO WAIT FOR DRIVER.GET:"+defaultImplicitWaitSeconds+" SECONDS");
             }
             
             driver.get(href);
             
             //i think get is returning in appium before the page is loaded on appium, so wait expclicitly for page to change
-            (new WebDriverWait(driver, defaultImplicitWait)).until(new ExpectedCondition<Boolean>() {
+            (new WebDriverWait(driver, defaultImplicitWaitSeconds)).until(new ExpectedCondition<Boolean>() {
                 @Override
                 public Boolean apply(WebDriver d) {
                     return !driver.getCurrentUrl().equals(oldUrl);
@@ -1176,7 +1180,7 @@ public class CodeBase {
             }); 
         }
         catch(Exception ex){
-            throw new Exception("DRIVER.GET FAILED. TRY SPECIFYING A LONGER -DdefaultImplicitWait, WHICH IS SET TO "+defaultImplicitWait+" SECONDS FOR THIS RUN. EXCEPTION:"+ex.getMessage());
+            throw new Exception("DRIVER.GET FAILED. TRY SPECIFYING A LONGER -DdefaultImplicitWaitSeconds, WHICH IS SET TO "+defaultImplicitWaitSeconds+" SECONDS FOR THIS RUN. EXCEPTION:"+ex.getMessage());
         }
 
         // PRINT OUT LOAD TIME

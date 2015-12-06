@@ -76,12 +76,12 @@ public class Scratch extends CodeBase {
                 throw new Exception("DRIVER WAS NOT SET; SUITABLE DRIVER WAS NOT FOUND.  LOOK ABOVE FOR ISSUES REPORTED BY StartDrvier()");
             }
             
-            //set defaultImplicitWait
+            //set defaultImplicitWaitSeconds
             if(browser.toString().contains("APPIUM")){
                 throw new Exception("APPIUM BROWSER NOT VALID FOR THIS TEST; APPIUM BROWSER SPECIFIED.  LOOK ABOVE FOR ISSUES REPORTED BY StartDrvier()");
             }
             else{
-                driver.manage().timeouts().implicitlyWait(defaultImplicitWait, TimeUnit.SECONDS);
+                driver.manage().timeouts().implicitlyWait(defaultImplicitWaitSeconds, TimeUnit.SECONDS);
             }
 
             // get START url. first page to load

@@ -181,7 +181,7 @@ JUNIT EXAMPLE FOR JENKINS
 mvn -Dtest=Scratch#DemonstrateJunitFailureInJenkins -Dnogrid test
 
 
-mvn -Dtest=Facebook#FaceCrawlAllLinks -Dnogrid -Dbrowser=CHROME -DaNumber=0 -DaString=//p -DdefaultImplicitWait=120 test
+mvn -Dtest=Facebook#FaceCrawlAllLinks -Dnogrid -Dbrowser=CHROME -DaNumber=0 -DaString=//p -DdefaultImplicitWaitSeconds=120 test
 
 
   -->

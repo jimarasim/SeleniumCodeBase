@@ -1,1 +1,1 @@
-mvn -Dtest=Scratch#VerifyLogos -Dbrowser=CHROMEMAC -Dinput=http://www.starbucks.com/coffee -DaNumber=10 -Dreport=starbucks -Duserid=starbucks.com -DaString="//p" -DwaitAfterPageLoadMilliSeconds=1000 -DdefaultImplicitWait=240 -Dlogging -Dnogrid test
+mvn -Dtest=Scratch#VerifyLogos -Dbrowser=CHROMEMAC -Dinput=http://www.starbucks.com/coffee -DaNumber=10 -Dreport=starbucks -Duserid=starbucks.com -DaString="//p" -DwaitAfterPageLoadMilliSeconds=1000 -DdefaultImplicitWaitSeconds=240 -Dlogging -Dnogrid test

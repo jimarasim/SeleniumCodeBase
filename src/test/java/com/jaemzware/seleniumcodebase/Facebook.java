@@ -93,10 +93,10 @@ public class Facebook extends CodeBase{
                 throw new Exception("DRIVER WAS NOT SET; SUITABLE DRIVER WAS NOT FOUND.  LOOK ABOVE FOR ISSUES REPORTED BY StartDrvier()");
             }
             
-            //set defaultImplicitWait
+            //set defaultImplicitWaitSeconds
             if(!browser.toString().contains("APPIUM")){
                 //set implicit wait
-                driver.manage().timeouts().implicitlyWait(defaultImplicitWait, TimeUnit.SECONDS);
+                driver.manage().timeouts().implicitlyWait(defaultImplicitWaitSeconds, TimeUnit.SECONDS);
             }
 
             //CREATE A REPORT WEB PAGE
