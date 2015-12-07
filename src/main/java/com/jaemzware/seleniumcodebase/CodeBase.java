@@ -1,6 +1,6 @@
 package com.jaemzware.seleniumcodebase;
 
-import static com.jaemzware.seleniumcodebase.ParameterType.SetParameter;
+import static com.jaemzware.seleniumcodebase.ParameterType.*;
 import io.appium.java_client.ios.IOSDriver;
 import java.io.BufferedReader;
 import java.io.File;
@@ -65,52 +65,6 @@ public class CodeBase {
     // the one and only driver object
     protected static WebDriver driver = null;
 
-     // recognized command line variables
-    protected static EnvironmentType environment = EnvironmentType.craigslist;
-    protected static BrowserType browser = null;
-    protected static String userid = null; // for tests that need to authenticate
-    protected static String password = null; // for tests that need to authenticate
-    protected static String input = null; // for specifying input files (ReadTermResultFromInputXls) or sql statements
-    protected static String aNumber = null; // for specifying a generic number, will fail if not integer parseable
-    protected static String aString = null; // for specifiying a generic string for usage or comparison (Sql.java)
-    protected static String report = null; // for specifiying a string unique for the report title
-    protected static String aHubServer = null;
-    protected static String aHubPort = null;
-    protected static String appiumApp = null;
-    protected static String appiumUdid = null;
-    protected static String appiumIosTargetVersion = null;
-    protected static String appiumIosDeviceName = null;
-    
-    /**
-     * TODO: VERIFY IMPLEMENTATION
-     */
-    //command line variables for BoardScrub#BuildPageOfFoundLinks specifically
-    protected static String linksLoadedIndicatorXpath = null;
-    protected static String linkXpath = null;
-    protected static String imageXpath = null;
-    protected static String titleTextXpath = null;
-    protected static String bodyTextXpath = null;
-    protected static String nextLinkXpath = null;
-    
-    /**
-     * TODO: VERIFY IMPLEMENTATION
-     */
-    //command line variables for BoardScrub#BuildPageOfFoundLinks and Scratch#VerifyLogos
-    protected static String noImages = null; //dont save images  TODO: verify works for not saving screenshots during verifylogs AND not grabbing board pictures AND not grabbing if xpath for verifylogos logo is an "img" tag
-    protected static String noScreenShots = null;
-    protected static String logging = null;
-    protected static String noScroll = null;
-    
-    // jenkins report folder url
-    protected static final String jenkinsReportPath = "http://sk8creteordiebook.home:8080/job/verifylogosappium/ws/";
-    protected static final String jenkinsReportPathInternal = "http://localhost:8080/job/verifylogosappium/ws/";
-    protected static final String jenkinsDeployDirectory = "job/verifylogos/ws/";
-    
-    // default time IN SECONDS to wait when finding elements
-    protected static int defaultImplicitWaitSeconds = 60;
-    protected static final int quickWaitMilliSeconds = 5000;  
-    protected static int waitAfterPageLoadMilliSeconds = 0;  //can be overridden from comand line -DwaitAfterPageLoadMilliSeconds=10000
-
     // verification errors that can occur during a test
     protected StringBuilder verificationErrors = new StringBuilder();
 
@@ -168,11 +122,10 @@ public class CodeBase {
      * An empty string will be returned if there were no errors
      */
     protected static String GetParameters() {
-        
         //check if the parameters are set
         Field[] fields = ParameterType.class.getDeclaredFields();
-        String acceptedParameterValue="";
-        String acceptedParameter="";
+        String acceptedParameterValue;
+        String acceptedParameter;
         for (Field field : fields) {
             acceptedParameter = field.getName();
             acceptedParameterValue=System.getProperty(acceptedParameter);
@@ -185,7 +138,6 @@ public class CodeBase {
                 }
             }
         }
-        
         return "";
     }
 

@@ -5,12 +5,8 @@
  */
 package com.jaemzware.seleniumcodebase;
 
-import static com.jaemzware.seleniumcodebase.CodeBase.*;
-import java.util.HashMap;
-import java.util.Map;
-
 public class ParameterType {
-    public static String aHubport="4723";
+    public static String aHubPort="4723";
     public static String aHubServer="localhost";
     public static int aNumber=0;
     public static String appiumApp="/Users/jameskarasim/Library/Developer/Xcode/DerivedData/Scratch-cdvmqpqxkymrtecctsbjrwupqtya/Build/Products/Debug-iphoneos/Scratch.app";
@@ -19,9 +15,9 @@ public class ParameterType {
     public static String appiumUdid="88ff683cec637c3f1279386620b5397d48bc8341";
     public static String aString="//p";
     public static String bodyTextXpath=null;
-    public static String browser="APPIUMSAFARISIMULATOR"; //APPIUMAPPDEVICE
+    public static BrowserType browser=BrowserType.CHROMEMAC; //APPIUMAPPDEVICE
     public static int defaultImplicitWaitSeconds=10;
-    public static String environment=null;
+    public static EnvironmentType environment=null;
     public static String imageXpath=null;
     public static String input="https://starbucks.com";
     public static String linksLoadedIndicatorXpath=null;
@@ -36,16 +32,28 @@ public class ParameterType {
     public static String report="starbucksreport";
     public static String titleTextXpath=null;
     public static String userid="starbucks.com";
-    public static int waitAfterPageLoadMilliSeconds=0;
+    public static int waitAfterPageLoadMilliSeconds=0;   
+    public static int quickWaitMilliSeconds=5000;    
+    public static final String jenkinsReportPath = "http://computer.local:8080/job/verifylogosappium/ws/";
+    public static final String jenkinsReportPathInternal = "http://localhost:8080/job/verifylogosappium/ws/";
+    public static final String jenkinsDeployDirectory = "job/verifylogos/ws/";
+   
     
     public static void SetParameter(String parameter, String parameterValue) throws Exception{
         
         switch (parameter){
-            case "aHubport":
-                aHubport=parameterValue;
+            case "aHubPort":
+                aHubPort=parameterValue;
                 break;
             case "aHubServer":
                 aHubServer=parameterValue;
+                break;
+            case "aNumber":
+                try {
+                    aNumber = Integer.parseInt(parameterValue);
+                } catch (NumberFormatException nfx) {
+                    throw new Exception("-DaNumber:" + parameterValue+ " SPECIFIED IS NOT A PARSEABLE INT. RETURNING THIS STRING TO INDICATE FAILURE (MAY BE IGNORED BY SOME TESTS)");
+                }
                 break;
             case "appiumApp":
                 appiumApp=parameterValue;
@@ -67,7 +75,7 @@ public class ParameterType {
                 break;
             case "browser":
                 try {
-                    CodeBase.browser = BrowserType.valueOf(parameterValue);
+                    browser = BrowserType.valueOf(parameterValue);
                 } catch (IllegalArgumentException ex) {
                     StringBuilder invalidBrowserMessage = new StringBuilder();
 
@@ -84,9 +92,16 @@ public class ParameterType {
                 }
                 
                 break;
+            case "defaultImplicitWaitSeconds":
+                try {
+                    defaultImplicitWaitSeconds = Integer.parseInt(parameterValue);
+                } catch (NumberFormatException nfx) {
+                    throw new Exception("-DdefaultImplicitWaitSeconds:" + parameterValue+ " SPECIFIED IS NOT A PARSEABLE INT. RETURNING THIS STRING TO INDICATE FAILURE (MAY BE IGNORED BY SOME TESTS)");
+                }
+                break;
             case "environment":
                 try {
-                    CodeBase.environment = EnvironmentType.valueOf(parameterValue);
+                    environment = EnvironmentType.valueOf(parameterValue);
                 } catch (IllegalArgumentException ex) {
                     StringBuilder invalidEnvironmentMessage = new StringBuilder();
 
@@ -135,6 +150,13 @@ public class ParameterType {
             case "password":
                 password=parameterValue;
                 break;
+            case "quickWaitMilliseconds":
+                try {
+                    quickWaitMilliSeconds = Integer.parseInt(parameterValue);
+                } catch (NumberFormatException nfx) {
+                    throw new Exception("-DquickWaitMilliseconds:" + parameterValue+ " SPECIFIED IS NOT A PARSEABLE INT. RETURNING THIS STRING TO INDICATE FAILURE (MAY BE IGNORED BY SOME TESTS)");
+                }
+                break;
             case "report":
                 report=parameterValue;
                 break;
@@ -149,20 +171,6 @@ public class ParameterType {
                     waitAfterPageLoadMilliSeconds = Integer.parseInt(parameterValue);
                 } catch (NumberFormatException nfx) {
                     throw new Exception("-DwaitAfterPageLoadMilliSeconds:" + parameterValue+ " SPECIFIED IS NOT A PARSEABLE INT. RETURNING THIS STRING TO INDICATE FAILURE (MAY BE IGNORED BY SOME TESTS)");
-                }
-                break;
-            case "defaultImplicitWaitSeconds":
-                try {
-                    defaultImplicitWaitSeconds = Integer.parseInt(parameterValue);
-                } catch (NumberFormatException nfx) {
-                    throw new Exception("-DdefaultImplicitWaitSeconds:" + parameterValue+ " SPECIFIED IS NOT A PARSEABLE INT. RETURNING THIS STRING TO INDICATE FAILURE (MAY BE IGNORED BY SOME TESTS)");
-                }
-                break;
-            case "aNumber":
-                try {
-                    aNumber = Integer.parseInt(parameterValue);
-                } catch (NumberFormatException nfx) {
-                    throw new Exception("-DaNumber:" + parameterValue+ " SPECIFIED IS NOT A PARSEABLE INT. RETURNING THIS STRING TO INDICATE FAILURE (MAY BE IGNORED BY SOME TESTS)");
                 }
                 break;
             default:

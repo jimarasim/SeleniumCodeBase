@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package com.jaemzware.seleniumcodebase;
+import static com.jaemzware.seleniumcodebase.ParameterType.*;
 import static com.jaemzware.seleniumcodebase.Scratch.properties;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -219,7 +220,7 @@ public class Facebook extends CodeBase{
             //////////////////////////
             //VISIT HREFS
             // visit each href, report load time, and make sure the page has the logo
-            int maxVisits = (aNumber!=null||!aNumber.isEmpty())?Integer.parseInt(aNumber):0; //check if the max number was specified
+            int maxVisits = aNumber; //check if the max number was specified
             int visitCount = 0;
             
             System.out.println("VISITING HREFS FOUND AT XPATH:"+linksOnSplashPageXpath+" ON:"+starturl);

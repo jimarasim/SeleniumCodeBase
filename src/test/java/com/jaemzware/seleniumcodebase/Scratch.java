@@ -1,5 +1,6 @@
 package com.jaemzware.seleniumcodebase;
 
+import static com.jaemzware.seleniumcodebase.ParameterType.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -28,13 +29,11 @@ public class Scratch extends CodeBase {
     private final String linksOnSplashPageXpath = 
             "//a[@href and not(@href='') and not(contains(@href,'javascript:')) and not(contains(@href,'mailto:'))]";
 
-
     @Before
     public void BeforeTest() {
         try {
             // properties file is in same directory as pom.xml
             properties.load(new FileInputStream(propertiesFile));
-
 
             // get the command line parameters that were specified
             String getParameterResult = GetParameters();
@@ -43,13 +42,9 @@ public class Scratch extends CodeBase {
                 System.out.println(getParameterResult);
                 throw new InvalidParameterException();
             }else{
-                // an empty string will be returned if everything is ok
-                
                 // initialize verifification errors
                 verificationErrors = new StringBuilder();
             }
-
-
         } catch (InvalidParameterException ipex) {
             Assert.fail("INVALID PARAMETERS FOUND:"+ipex.getMessage());
         } catch (FileNotFoundException fnfex) {
@@ -114,14 +109,14 @@ public class Scratch extends CodeBase {
             // write the html header in the web page
             writer.println(HtmlReportHeader("VerifyLogos:<a href='"+starturl+"' target='_blank'>"+starturl+"</a> [baseurl:"+baseurl+" starturl:"+starturl+" logoxpath:"+logoxpath+"]"));
             
-        // NAVIGATE TO THE STARTING PAGE
+            // NAVIGATE TO THE STARTING PAGE
             System.out.println("STARTURL:"+starturl);
             fileWriteString = driverGetWithTime(starturl);
            
             // write stats to html report
             writer.println(fileWriteString);
 
-        //LOGGING
+            //LOGGING
             if(System.getProperty("logging")==null){
                 System.out.println("LOGGING DISABLED - USE -Dlogging TO SEE BROWSER ERRORS AND WARNINGS");
             } 
@@ -136,7 +131,7 @@ public class Scratch extends CodeBase {
             System.out.println("VERIFYING LOGO AT:"+logoxpath+" ON:"+starturl);
             writer.println(VerifyXpathOnCurrentPage(logoxpath));
 
-        //GET HREFS
+            //GET HREFS
             // get all non-empty/non-javascript href on the page that contain the baseurl
             Map<String, String> hrefs = new HashMap<>();
             String hrefFound;
@@ -184,9 +179,9 @@ public class Scratch extends CodeBase {
                 System.out.println("WARNING: NO LINKS FOUND ON PAGE MATCHING XPATH:" + linksOnSplashPageXpath+" ON:"+starturl);
             }
 
-        //VISIT HREFS
+            //VISIT HREFS
             // visit each href, report load time, and make sure the page has the logo
-            int maxVisits = (aNumber!=null||!aNumber.isEmpty())?Integer.parseInt(aNumber):0; //check if the max number was specified
+            int maxVisits = aNumber; //check if the max number was specified
             int visitCount = 0;
             
             System.out.println("VISITING HREFS FOUND AT XPATH:"+linksOnSplashPageXpath+" ON:"+starturl);
@@ -355,7 +350,7 @@ public class Scratch extends CodeBase {
 
             //VISIT HREFS
             // visit each href, report load time, and make sure the page has the logo
-            int maxVisits = (aNumber!=null||!aNumber.isEmpty())?Integer.parseInt(aNumber):0; //check if the max number was specified
+            int maxVisits = aNumber; //check if the max number was specified
             int visitCount = 0;
             
             System.out.println("VISITING HREFS AT XPATH:"+linksOnSplashPageXpath+" ON:"+starturl);
