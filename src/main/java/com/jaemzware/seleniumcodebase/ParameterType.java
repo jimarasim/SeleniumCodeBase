@@ -5,15 +5,14 @@
  */
 package com.jaemzware.seleniumcodebase;
 
-import static com.jaemzware.seleniumcodebase.CodeBase.browser;
-import static com.jaemzware.seleniumcodebase.CodeBase.waitAfterPageLoadMilliSeconds;
+import static com.jaemzware.seleniumcodebase.CodeBase.*;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ParameterType {
     public static String aHubport="4723";
     public static String aHubServer="localhost";
-    public static String aNumber="0";
+    public static int aNumber=0;
     public static String appiumApp="/Users/jameskarasim/Library/Developer/Xcode/DerivedData/Scratch-cdvmqpqxkymrtecctsbjrwupqtya/Build/Products/Debug-iphoneos/Scratch.app";
     public static String appiumIosDeviceName="iPhone 6"; //ijaemzware
     public static String appiumIosTargetVersion="9.1";
@@ -48,9 +47,6 @@ public class ParameterType {
             case "aHubServer":
                 aHubServer=parameterValue;
                 break;
-            case "aNumber":
-                aNumber=parameterValue;
-                break;
             case "appiumApp":
                 appiumApp=parameterValue;
                 break;
@@ -71,7 +67,7 @@ public class ParameterType {
                 break;
             case "browser":
                 try {
-                    browser = BrowserType.valueOf(parameterValue);
+                    CodeBase.browser = BrowserType.valueOf(parameterValue);
                 } catch (IllegalArgumentException ex) {
                     StringBuilder invalidBrowserMessage = new StringBuilder();
 
@@ -84,11 +80,27 @@ public class ParameterType {
                         invalidBrowserMessage.append(validBrowser);
                         invalidBrowserMessage.append(" ");
                     }
-                    return invalidBrowserMessage.toString();
+                    System.out.println(invalidBrowserMessage.toString());
                 }
+                
                 break;
             case "environment":
-                environment=parameterValue;
+                try {
+                    CodeBase.environment = EnvironmentType.valueOf(parameterValue);
+                } catch (IllegalArgumentException ex) {
+                    StringBuilder invalidEnvironmentMessage = new StringBuilder();
+
+                    invalidEnvironmentMessage.append("INVALID ENVIRONMENT (-Denvironment) SPECIFIED:");
+                    invalidEnvironmentMessage.append(parameterValue);
+                    invalidEnvironmentMessage.append(" VALID VALUES:");
+
+                    EnvironmentType allEnvironments[] = EnvironmentType.values();
+                    for (EnvironmentType validEnvironment : allEnvironments) {
+                        invalidEnvironmentMessage.append(validEnvironment);
+                        invalidEnvironmentMessage.append(" ");
+                    }
+                    System.out.println(invalidEnvironmentMessage.toString());
+                }                
                 break;
             case "imageXpath":
                 imageXpath=parameterValue;
@@ -134,16 +146,23 @@ public class ParameterType {
                 break;
             case "waitAfterPageLoadMilliSeconds":
                 try {
-                    waitAfterPageLoadMilliSeconds = Integer.parseInt(parameter);
+                    waitAfterPageLoadMilliSeconds = Integer.parseInt(parameterValue);
                 } catch (NumberFormatException nfx) {
                     throw new Exception("-DwaitAfterPageLoadMilliSeconds:" + parameterValue+ " SPECIFIED IS NOT A PARSEABLE INT. RETURNING THIS STRING TO INDICATE FAILURE (MAY BE IGNORED BY SOME TESTS)");
                 }
                 break;
             case "defaultImplicitWaitSeconds":
                 try {
-                    defaultImplicitWaitSeconds = Integer.parseInt(parameter);
+                    defaultImplicitWaitSeconds = Integer.parseInt(parameterValue);
                 } catch (NumberFormatException nfx) {
                     throw new Exception("-DdefaultImplicitWaitSeconds:" + parameterValue+ " SPECIFIED IS NOT A PARSEABLE INT. RETURNING THIS STRING TO INDICATE FAILURE (MAY BE IGNORED BY SOME TESTS)");
+                }
+                break;
+            case "aNumber":
+                try {
+                    aNumber = Integer.parseInt(parameterValue);
+                } catch (NumberFormatException nfx) {
+                    throw new Exception("-DaNumber:" + parameterValue+ " SPECIFIED IS NOT A PARSEABLE INT. RETURNING THIS STRING TO INDICATE FAILURE (MAY BE IGNORED BY SOME TESTS)");
                 }
                 break;
             default:
