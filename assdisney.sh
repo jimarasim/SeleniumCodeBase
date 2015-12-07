@@ -1,1 +1,0 @@
-mvn -Dtest=Scratch#VerifyLogosAppium -DaNumber=0 -Dbrowser=APPIUMSAFARISIMULATOR -Dinput=http://disney.com -Duserid=disney.com -DaStrisng=//img -DaHubPort=4723 -DaHubServer=localhost -DappiumIosTargetVersion=9.1 -DappiumIosDeviceName="iPhone 6" -DdefaultImplicitWaitSeconds=200 test

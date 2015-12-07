@@ -1,1 +1,0 @@
-mvn -Dtest=Scratch#VerifyLogosAppium -DaNumber=0 -Dbrowser=APPIUMSAFARISIMULATOR -Dinput=http://shop.nordstrom.com/ -Duserid=nordstrom.com -DaString=//a[@title='Terms & Conditions'] -DaHubPort=4723 -DaHubServer=localhost -DappiumIosTargetVersion=8.4 -DappiumIosDeviceName="iPhone 6" test
