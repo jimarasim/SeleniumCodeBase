@@ -1,0 +1,442 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   '-g',
+1 verbose cli   'appium' ]
+2 info using npm@2.14.7
+3 info using node@v4.2.2
+4 verbose install initial load of /usr/local/lib/package.json
+5 verbose readDependencies loading dependencies from /usr/local/lib/package.json
+6 silly cache add args [ 'appium', null ]
+7 verbose cache add spec appium
+8 silly cache add parsed spec Result {
+8 silly cache add   raw: 'appium',
+8 silly cache add   scope: null,
+8 silly cache add   name: 'appium',
+8 silly cache add   rawSpec: '',
+8 silly cache add   spec: '*',
+8 silly cache add   type: 'range' }
+9 silly addNamed appium@*
+10 verbose addNamed "*" is a valid semver range for appium
+11 silly addNameRange { name: 'appium', range: '*', hasData: false }
+12 silly mapToRegistry name appium
+13 silly mapToRegistry using default registry
+14 silly mapToRegistry registry https://registry.npmjs.org/
+15 silly mapToRegistry uri https://registry.npmjs.org/appium
+16 verbose addNameRange registry:https://registry.npmjs.org/appium not in flight; fetching
+17 verbose request uri https://registry.npmjs.org/appium
+18 verbose request no auth needed
+19 info attempt registry request try #1 at 1:25:27 PM
+20 verbose request id fa87966a5c70e72d
+21 verbose etag "89HB9F9L0Y19VPBV19754Y35K"
+22 http request GET https://registry.npmjs.org/appium
+23 http 304 https://registry.npmjs.org/appium
+24 verbose headers { date: 'Tue, 08 Dec 2015 21:25:27 GMT',
+24 verbose headers   via: '1.1 varnish',
+24 verbose headers   'cache-control': 'max-age=60',
+24 verbose headers   etag: '"89HB9F9L0Y19VPBV19754Y35K"',
+24 verbose headers   age: '0',
+24 verbose headers   connection: 'keep-alive',
+24 verbose headers   'x-served-by': 'cache-lax1428-LAX',
+24 verbose headers   'x-cache': 'HIT',
+24 verbose headers   'x-cache-hits': '1',
+24 verbose headers   'x-timer': 'S1449609927.915574,VS0,VE50',
+24 verbose headers   vary: 'Accept' }
+25 silly get cb [ 304,
+25 silly get   { date: 'Tue, 08 Dec 2015 21:25:27 GMT',
+25 silly get     via: '1.1 varnish',
+25 silly get     'cache-control': 'max-age=60',
+25 silly get     etag: '"89HB9F9L0Y19VPBV19754Y35K"',
+25 silly get     age: '0',
+25 silly get     connection: 'keep-alive',
+25 silly get     'x-served-by': 'cache-lax1428-LAX',
+25 silly get     'x-cache': 'HIT',
+25 silly get     'x-cache-hits': '1',
+25 silly get     'x-timer': 'S1449609927.915574,VS0,VE50',
+25 silly get     vary: 'Accept' } ]
+26 verbose etag https://registry.npmjs.org/appium from cache
+27 verbose get saving appium to /Users/james/.npm/registry.npmjs.org/appium/.cache.json
+28 silly addNameRange number 2 { name: 'appium', range: '*', hasData: true }
+29 silly addNameRange versions [ 'appium',
+29 silly addNameRange   [ '0.0.1',
+29 silly addNameRange     '0.0.2',
+29 silly addNameRange     '0.0.3',
+29 silly addNameRange     '0.0.4',
+29 silly addNameRange     '0.0.5',
+29 silly addNameRange     '0.0.6',
+29 silly addNameRange     '0.0.7',
+29 silly addNameRange     '0.0.8',
+29 silly addNameRange     '0.0.9',
+29 silly addNameRange     '0.0.10',
+29 silly addNameRange     '0.0.11',
+29 silly addNameRange     '0.0.12',
+29 silly addNameRange     '0.0.13',
+29 silly addNameRange     '0.0.14',
+29 silly addNameRange     '0.0.15',
+29 silly addNameRange     '0.1.0',
+29 silly addNameRange     '0.1.1',
+29 silly addNameRange     '0.1.2',
+29 silly addNameRange     '0.2.0',
+29 silly addNameRange     '0.2.1',
+29 silly addNameRange     '0.2.2',
+29 silly addNameRange     '0.2.3',
+29 silly addNameRange     '0.3.0',
+29 silly addNameRange     '0.3.1',
+29 silly addNameRange     '0.4.0',
+29 silly addNameRange     '0.4.1',
+29 silly addNameRange     '0.5.0',
+29 silly addNameRange     '0.5.1',
+29 silly addNameRange     '0.5.2',
+29 silly addNameRange     '0.6.0',
+29 silly addNameRange     '0.6.1',
+29 silly addNameRange     '0.7.0',
+29 silly addNameRange     '0.7.1',
+29 silly addNameRange     '0.7.2',
+29 silly addNameRange     '0.7.3',
+29 silly addNameRange     '0.8.0',
+29 silly addNameRange     '0.8.1',
+29 silly addNameRange     '0.8.2',
+29 silly addNameRange     '0.8.3',
+29 silly addNameRange     '0.8.4',
+29 silly addNameRange     '0.8.5',
+29 silly addNameRange     '0.9.0',
+29 silly addNameRange     '0.9.1',
+29 silly addNameRange     '0.10.0',
+29 silly addNameRange     '0.10.1',
+29 silly addNameRange     '0.10.2',
+29 silly addNameRange     '0.10.3',
+29 silly addNameRange     '0.10.4',
+29 silly addNameRange     '0.11.0',
+29 silly addNameRange     '0.11.1',
+29 silly addNameRange     '0.11.2',
+29 silly addNameRange     '0.11.3',
+29 silly addNameRange     '0.11.4',
+29 silly addNameRange     '0.12.0',
+29 silly addNameRange     '0.12.1-b',
+29 silly addNameRange     '0.12.2',
+29 silly addNameRange     '0.12.3',
+29 silly addNameRange     '0.13.0',
+29 silly addNameRange     '0.14.0',
+29 silly addNameRange     '0.14.1',
+29 silly addNameRange     '0.14.2',
+29 silly addNameRange     '0.15.0',
+29 silly addNameRange     '0.16.0',
+29 silly addNameRange     '0.17.0',
+29 silly addNameRange     '0.17.2',
+29 silly addNameRange     '0.17.3',
+29 silly addNameRange     '0.17.4',
+29 silly addNameRange     '0.17.5',
+29 silly addNameRange     '0.17.6',
+29 silly addNameRange     '0.18.0',
+29 silly addNameRange     '0.18.1',
+29 silly addNameRange     '1.0.0-beta.1',
+29 silly addNameRange     '0.18.2',
+29 silly addNameRange     '1.0.0-beta.2',
+29 silly addNameRange     '1.0.0',
+29 silly addNameRange     '1.1.0',
+29 silly addNameRange     '1.2.0',
+29 silly addNameRange     '1.2.1',
+29 silly addNameRange     '1.2.2',
+29 silly addNameRange     '1.2.3',
+29 silly addNameRange     '1.3.0-beta1',
+29 silly addNameRange     '1.2.4',
+29 silly addNameRange     '1.3.0',
+29 silly addNameRange     '1.3.1',
+29 silly addNameRange     '1.3.2-beta2',
+29 silly addNameRange     '1.3.3',
+29 silly addNameRange     '1.3.4-beta1',
+29 silly addNameRange     '1.3.4',
+29 silly addNameRange     '1.3.5-beta',
+29 silly addNameRange     '1.3.5',
+29 silly addNameRange     '1.3.6',
+29 silly addNameRange     '1.3.7',
+29 silly addNameRange     '1.4.0-beta',
+29 silly addNameRange     '1.4.0',
+29 silly addNameRange     '1.4.1',
+29 silly addNameRange     '1.4.2',
+29 silly addNameRange     '1.4.3-beta',
+29 silly addNameRange     '1.4.3',
+29 silly addNameRange     '1.4.4',
+29 silly addNameRange     '1.4.5-beta',
+29 silly addNameRange     '1.4.5',
+29 silly addNameRange     '1.4.6-beta',
+29 silly addNameRange     '1.4.6-beta2',
+29 silly addNameRange     '1.4.6',
+29 silly addNameRange     '1.4.7-beta',
+29 silly addNameRange     '1.4.7-beta2',
+29 silly addNameRange     '1.4.7-beta3',
+29 silly addNameRange     '1.4.7',
+29 silly addNameRange     '1.4.8-beta',
+29 silly addNameRange     '1.4.8',
+29 silly addNameRange     '1.4.9-beta',
+29 silly addNameRange     '1.4.10',
+29 silly addNameRange     '1.5.0-beta1',
+29 silly addNameRange     '1.5.0-beta2',
+29 silly addNameRange     '1.5.0-beta3',
+29 silly addNameRange     '1.4.11',
+29 silly addNameRange     '1.5.0-beta4',
+29 silly addNameRange     '1.5.0-beta5',
+29 silly addNameRange     '1.4.12',
+29 silly addNameRange     '1.4.13',
+29 silly addNameRange     '1.5.0-beta6',
+29 silly addNameRange     '1.5.0-beta7',
+29 silly addNameRange     '1.4.14',
+29 silly addNameRange     '1.4.15',
+29 silly addNameRange     '1.4.16' ] ]
+30 silly addNamed appium@1.4.16
+31 verbose addNamed "1.4.16" is a plain semver version for appium
+32 silly cache afterAdd appium@1.4.16
+33 verbose afterAdd /Users/james/.npm/appium/1.4.16/package/package.json not in flight; writing
+34 verbose afterAdd /Users/james/.npm/appium/1.4.16/package/package.json written
+35 silly install resolved [ { name: 'appium',
+35 silly install resolved     description: 'Automation for Apps.',
+35 silly install resolved     tags:
+35 silly install resolved      [ 'automation',
+35 silly install resolved        'javascript',
+35 silly install resolved        'selenium',
+35 silly install resolved        'webdriver',
+35 silly install resolved        'ios',
+35 silly install resolved        'android',
+35 silly install resolved        'firefoxos',
+35 silly install resolved        'testing' ],
+35 silly install resolved     version: '1.4.16',
+35 silly install resolved     author: { name: 'https://github.com/appium' },
+35 silly install resolved     licenses: [ [Object] ],
+35 silly install resolved     repository: { type: 'git', url: 'git+https://github.com/appium/appium.git' },
+35 silly install resolved     bugs: { url: 'https://github.com/appium/appium/issues' },
+35 silly install resolved     engines: [ 'node' ],
+35 silly install resolved     main: './lib/server/main.js',
+35 silly install resolved     bin:
+35 silly install resolved      { appium: './bin/appium.js',
+35 silly install resolved        'appium-doctor': './bin/appium-doctor.js',
+35 silly install resolved        authorize_ios: './bin/authorize-ios.js' },
+35 silly install resolved     directories: { lib: './lib', doc: './docs' },
+35 silly install resolved     dependencies:
+35 silly install resolved      { 'adm-zip': '~0.4.7',
+35 silly install resolved        'appium-adb': '=1.7.5',
+35 silly install resolved        'appium-atoms': '=0.0.5',
+35 silly install resolved        'appium-chromedriver': '=2.3.2',
+35 silly install resolved        'appium-instruments': '^2.0.6',
+35 silly install resolved        'appium-support': '=1.1.2',
+35 silly install resolved        'appium-uiauto': '^1.10.10',
+35 silly install resolved        'appium-xcode': '^2.0.5',
+35 silly install resolved        argparse: '~1.0.1',
+35 silly install resolved        async: '~0.9.0',
+35 silly install resolved        'binary-cookies': '~0.1.1',
+35 silly install resolved        'body-parser': '~1.12.0',
+35 silly install resolved        'bplist-creator': '~0.0.5',
+35 silly install resolved        'bplist-parser': '~0.0.6',
+35 silly install resolved        bufferpack: '0.0.6',
+35 silly install resolved        bytes: '~1.0.0',
+35 silly install resolved        'camel-back-promise': '^1.0.0',
+35 silly install resolved        colors: '~1.0.3',
+35 silly install resolved        'date-utils': '~1.2.16',
+35 silly install resolved        difflib: '~0.2.4',
+35 silly install resolved        'es6-promise': '^2.1.1',
+35 silly install resolved        express: '~4.11.2',
+35 silly install resolved        glob: '~4.4.0',
+35 silly install resolved        grunt: '~0.4.5',
+35 silly install resolved        'grunt-cli': '~0.1.13',
+35 silly install resolved        js2xmlparser2: '~0.2.0',
+35 silly install resolved        longjohn: '^0.2.4',
+35 silly install resolved        md5calculator: '~0.0.3',
+35 silly install resolved        'method-override': '~2.3.1',
+35 silly install resolved        mkdirp: '^0.5.0',
+35 silly install resolved        morgan: '~1.5.1',
+35 silly install resolved        mv: '~2.0.3',
+35 silly install resolved        namp: '0.2.25',
+35 silly install resolved        ncp: '~2.0.0',
+35 silly install resolved        'node-idevice': '~0.1.5',
+35 silly install resolved        'node-simctl': '^2.0.1',
+35 silly install resolved        'node-uuid': '~1.4.2',
+35 silly install resolved        npmlog: '~1.1.0',
+35 silly install resolved        path: '~0.11.14',
+35 silly install resolved        plist: '~1.1.0',
+35 silly install resolved        prompt: '~0.2.14',
+35 silly install resolved        q: '~1.1.2',
+35 silly install resolved        request: '~2.53.0',
+35 silly install resolved        rimraf: '~2.2.8',
+35 silly install resolved        'safari-launcher': '=2.0.5',
+35 silly install resolved        'sandboxed-module': '~2.0.0',
+35 silly install resolved        'serve-favicon': '~2.2.0',
+35 silly install resolved        'socket.io': '~1.3.4',
+35 silly install resolved        'stack-trace': '0.0.9',
+35 silly install resolved        swig: '~1.4.2',
+35 silly install resolved        temp: '~0.8.1',
+35 silly install resolved        through: '~2.3.6',
+35 silly install resolved        touch: '0.0.3',
+35 silly install resolved        underscore: '~1.8.1',
+35 silly install resolved        'underscore.string': '~3.0.3',
+35 silly install resolved        unzip: '~0.1.11',
+35 silly install resolved        utf7: '~1.0.0',
+35 silly install resolved        'uuid-js': '~0.7.5',
+35 silly install resolved        vargs: '~0.1.0',
+35 silly install resolved        which: '^1.0.9',
+35 silly install resolved        'win-spawn': '~2.0.0',
+35 silly install resolved        winston: '~0.9.0',
+35 silly install resolved        ws: '~0.7.1',
+35 silly install resolved        xml2js: '~0.4.5',
+35 silly install resolved        xmldom: '~0.1.19',
+35 silly install resolved        xpath: '0.0.9',
+35 silly install resolved        udidetect: '^1.0.7' },
+35 silly install resolved     scripts: { test: 'grunt travis' },
+35 silly install resolved     devDependencies:
+35 silly install resolved      { assert: '~1.3.0',
+35 silly install resolved        'bdd-with-opts': '^1.0.0',
+35 silly install resolved        chai: '~2.0.0',
+35 silly install resolved        'chai-as-promised': '~4.2.0',
+35 silly install resolved        'gps-demo-app': 'https://github.com/appium/gps-demo-app/archive/master.tar.gz',
+35 silly install resolved        'grunt-contrib-jshint': '~0.11.0',
+35 silly install resolved        'grunt-exec': '^0.4.6',
+35 silly install resolved        'grunt-mocha-test': '~0.12.7',
+35 silly install resolved        'grunt-newer': '~1.1.0',
+35 silly install resolved        gulp: '^3.8.11',
+35 silly install resolved        'gulp-jscs': '^1.4.0',
+35 silly install resolved        'gulp-jshint': '^1.9.2',
+35 silly install resolved        'gulp-util': '^3.0.3',
+35 silly install resolved        'js-yaml': '~3.2.7',
+35 silly install resolved        'jshint-stylish': '^1.0.0',
+35 silly install resolved        'merge-stream': '^0.1.7',
+35 silly install resolved        mocha: '~2.1.0',
+35 silly install resolved        'mocha-jenkins-reporter': '^0.1.4',
+35 silly install resolved        'monocle-js': '~1.0.1',
+35 silly install resolved        'node-static': '~0.7.6',
+35 silly install resolved        promisepipe: '^1.0.1',
+35 silly install resolved        rewire: '^2.3.1',
+35 silly install resolved        'run-sequence': '^1.0.2',
+35 silly install resolved        'sample-apps': '~2.0.2',
+35 silly install resolved        saucelabs: '~0.1.1',
+35 silly install resolved        sinon: '~1.12.2',
+35 silly install resolved        'sinon-chai': '~2.7.0',
+35 silly install resolved        'socket.io-client': '~1.3.4',
+35 silly install resolved        socks: '~0.0.1',
+35 silly install resolved        'spawn-mocha-parallel': '~1.3.1',
+35 silly install resolved        split: '^0.3.3',
+35 silly install resolved        uncolor: '~0.3.0',
+35 silly install resolved        'underscore-cli': '~0.2.18',
+35 silly install resolved        unorm: '~1.3.3',
+35 silly install resolved        wd: '~0.3.11',
+35 silly install resolved        'wd-bridge': '~0.0.2',
+35 silly install resolved        yargs: '^3.0.4',
+35 silly install resolved        yiewd: '~0.6.0' },
+35 silly install resolved     optionalDependencies: { udidetect: '^1.0.7' },
+35 silly install resolved     contributors:
+35 silly install resolved      [ [Object],
+35 silly install resolved        [Object],
+35 silly install resolved        [Object],
+35 silly install resolved        [Object],
+35 silly install resolved        [Object],
+35 silly install resolved        [Object],
+35 silly install resolved        [Object],
+35 silly install resolved        [Object],
+35 silly install resolved        [Object],
+35 silly install resolved        [Object],
+35 silly install resolved        [Object],
+35 silly install resolved        [Object],
+35 silly install resolved        [Object],
+35 silly install resolved        [Object],
+35 silly install resolved        [Object],
+35 silly install resolved        [Object],
+35 silly install resolved        [Object],
+35 silly install resolved        [Object],
+35 silly install resolved        [Object] ],
+35 silly install resolved     gitHead: 'ae6877eff263066b26328d457bd285c0cc62430d',
+35 silly install resolved     homepage: 'https://github.com/appium/appium#readme',
+35 silly install resolved     _id: 'appium@1.4.16',
+35 silly install resolved     _shasum: '9c8ec50b7d4d4f8d1687e8be9a643c83c40fd697',
+35 silly install resolved     _from: 'appium@*',
+35 silly install resolved     _npmVersion: '2.12.0',
+35 silly install resolved     _nodeVersion: '0.12.2',
+35 silly install resolved     _npmUser: { name: 'moizjv', email: 'moizjv@gmail.com' },
+35 silly install resolved     dist:
+35 silly install resolved      { shasum: '9c8ec50b7d4d4f8d1687e8be9a643c83c40fd697',
+35 silly install resolved        tarball: 'http://registry.npmjs.org/appium/-/appium-1.4.16.tgz' },
+35 silly install resolved     maintainers: [ [Object], [Object], [Object], [Object], [Object], [Object] ],
+35 silly install resolved     _resolved: 'https://registry.npmjs.org/appium/-/appium-1.4.16.tgz',
+35 silly install resolved     readme: 'ERROR: No README data found!' } ]
+36 info install appium@1.4.16 into /usr/local/lib
+37 info installOne appium@1.4.16
+38 verbose installOne of appium to /usr/local/lib not in flight; installing
+39 verbose lock using /Users/james/.npm/_locks/appium-71f07e568bc8eb69.lock for /usr/local/lib/node_modules/appium
+40 silly install write writing appium 1.4.16 to /usr/local/lib/node_modules/appium
+41 verbose unbuild lib/node_modules/appium
+42 info preuninstall appium@1.4.16
+43 info uninstall appium@1.4.16
+44 verbose unbuild rmStuff appium@1.4.16 from /usr/local/lib/node_modules
+45 silly gentlyRm /usr/local/bin/appium is being gently removed
+46 silly gentlyRm verifying /usr/local is an npm working directory
+47 silly gentlyRm /usr/local/bin/appium-doctor is being gently removed
+48 silly gentlyRm verifying /usr/local is an npm working directory
+49 silly gentlyRm /usr/local/bin/authorize_ios is being gently removed
+50 silly gentlyRm verifying /usr/local is an npm working directory
+51 silly gentlyRm containing path /usr/local is under npm's control, in /usr/local
+52 silly gentlyRm deletion target /usr/local/bin/appium is under /usr/local
+53 verbose gentlyRm vacuuming from /usr/local/bin/appium up to /usr/local
+54 silly gentlyRm containing path /usr/local is under npm's control, in /usr/local
+55 silly gentlyRm deletion target /usr/local/bin/appium-doctor is under /usr/local
+56 verbose gentlyRm vacuuming from /usr/local/bin/appium-doctor up to /usr/local
+57 silly gentlyRm containing path /usr/local is under npm's control, in /usr/local
+58 silly gentlyRm deletion target /usr/local/bin/authorize_ios is under /usr/local
+59 verbose gentlyRm vacuuming from /usr/local/bin/authorize_ios up to /usr/local
+60 silly vacuum-fs removing /usr/local/bin/appium
+61 silly vacuum-fs removing /usr/local/bin/appium-doctor
+62 silly vacuum-fs removing /usr/local/bin/authorize_ios
+63 silly vacuum-fs quitting because other entries in /usr/local/bin
+64 silly vacuum-fs quitting because other entries in /usr/local/bin
+65 silly vacuum-fs quitting because other entries in /usr/local/bin
+66 info postuninstall appium@1.4.16
+67 silly gentlyRm /usr/local/lib/node_modules/appium is being purged from base /usr/local
+68 verbose gentlyRm don't care about contents; nuking /usr/local/lib/node_modules/appium
+69 silly vacuum-fs purging /usr/local/lib/node_modules/appium
+70 verbose unlock done using /Users/james/.npm/_locks/appium-71f07e568bc8eb69.lock for /usr/local/lib/node_modules/appium
+71 verbose stack Error: EACCES: permission denied, rmdir '/usr/local/lib/node_modules/appium'
+71 verbose stack     at Error (native)
+72 verbose cwd /Users/james/Downloads/repositories/SeleniumCodeBase
+73 error Darwin 14.5.0
+74 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "install" "-g" "appium"
+75 error node v4.2.2
+76 error npm  v2.14.7
+77 error path /usr/local/lib/node_modules/appium
+78 error code EACCES
+79 error errno -13
+80 error syscall rmdir
+81 error Error: EACCES: permission denied, rmdir '/usr/local/lib/node_modules/appium'
+81 error     at Error (native)
+81 error  { [Error: EACCES: permission denied, rmdir '/usr/local/lib/node_modules/appium']
+81 error   errno: -13,
+81 error   code: 'EACCES',
+81 error   syscall: 'rmdir',
+81 error   path: '/usr/local/lib/node_modules/appium' }
+82 error Please try running this command again as root/Administrator.
+83 verbose exit [ -13, true ]
+84 verbose unbuild lib/node_modules/appium
+85 info preuninstall appium@1.4.16
+86 info uninstall appium@1.4.16
+87 verbose unbuild rmStuff appium@1.4.16 from /usr/local/lib/node_modules
+88 silly gentlyRm /usr/local/bin/appium is being gently removed
+89 silly gentlyRm verifying /usr/local is an npm working directory
+90 silly gentlyRm /usr/local/bin/appium-doctor is being gently removed
+91 silly gentlyRm verifying /usr/local is an npm working directory
+92 silly gentlyRm /usr/local/bin/authorize_ios is being gently removed
+93 silly gentlyRm verifying /usr/local is an npm working directory
+94 silly gentlyRm containing path /usr/local is under npm's control, in /usr/local
+95 silly gentlyRm deletion target /usr/local/bin/appium is under /usr/local
+96 verbose gentlyRm vacuuming from /usr/local/bin/appium up to /usr/local
+97 silly gentlyRm containing path /usr/local is under npm's control, in /usr/local
+98 silly gentlyRm deletion target /usr/local/bin/appium-doctor is under /usr/local
+99 verbose gentlyRm vacuuming from /usr/local/bin/appium-doctor up to /usr/local
+100 silly gentlyRm containing path /usr/local is under npm's control, in /usr/local
+101 silly gentlyRm deletion target /usr/local/bin/authorize_ios is under /usr/local
+102 verbose gentlyRm vacuuming from /usr/local/bin/authorize_ios up to /usr/local
+103 info postuninstall appium@1.4.16
+104 silly gentlyRm /usr/local/lib/node_modules/appium is being purged from base /usr/local
+105 verbose gentlyRm don't care about contents; nuking /usr/local/lib/node_modules/appium
+106 silly vacuum-fs purging /usr/local/lib/node_modules/appium
+107 error error rolling back Error: EACCES: permission denied, rmdir '/usr/local/lib/node_modules/appium'
+107 error error rolling back     at Error (native)
+107 error error rolling back  { [Error: EACCES: permission denied, rmdir '/usr/local/lib/node_modules/appium']
+107 error error rolling back   errno: -13,
+107 error error rolling back   code: 'EACCES',
+107 error error rolling back   syscall: 'rmdir',
+107 error error rolling back   path: '/usr/local/lib/node_modules/appium' }

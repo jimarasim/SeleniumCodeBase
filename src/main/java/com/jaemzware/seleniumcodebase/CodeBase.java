@@ -2,6 +2,10 @@ package com.jaemzware.seleniumcodebase;
 
 import static com.jaemzware.seleniumcodebase.ParameterType.*;
 import io.appium.java_client.ios.IOSDriver;
+import io.appium.java_client.service.local.AppiumDriverLocalService;
+import io.appium.java_client.service.local.AppiumServiceBuilder;
+import io.appium.java_client.service.local.flags.GeneralServerFlag;
+import io.appium.java_client.service.local.flags.IOSServerFlag;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -62,6 +66,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  */
 public class CodeBase {
     
+    // appium service
+    protected static AppiumDriverLocalService appiumService;
+
     // the one and only driver object
     protected static WebDriver driver = null;
 
@@ -464,11 +471,22 @@ public class CodeBase {
 
     }
     
+    private static void StartAppiumService(){
+        appiumService = AppiumDriverLocalService.buildService(
+                new AppiumServiceBuilder()
+                        .withArgument(GeneralServerFlag.LOG_LEVEL, "error")
+                        .withArgument(IOSServerFlag.USE_NATIVE_INSTRUMENTS)
+                        .usingPort(4723));
+        appiumService.start();
+    }
     /** This function starts an appium driver
      * 
      * @throws java.lang.Exception
      */
     protected static void StartAppiumDriver() throws Exception{
+        
+        //kick off the appium service for mobile testing
+        StartAppiumService();
         
         /**
          * VERIFY REQUIRED PARAMETERS
@@ -552,7 +570,7 @@ public class CodeBase {
         
         try{
 //           AppiumDriver is now an abstract class, use IOSDriver and AndroidDriver which both extend it.
-            driver = new IOSDriver(new URL(gridHubFullPath), cap);
+            driver = new IOSDriver(appiumService, cap);
             // augment the driver so that screenshots can be taken
             driver = new Augmenter().augment(driver);
             System.out.println("SUCCESSFULLY FOUND APPIUM HUB FOR:" + browser.browserName + " VERSION:" + browser.version
