@@ -2,10 +2,7 @@ package com.jaemzware.seleniumcodebase;
 
 import static com.jaemzware.seleniumcodebase.ParameterType.*;
 import io.appium.java_client.ios.IOSDriver;
-import io.appium.java_client.service.local.AppiumDriverLocalService;
-import io.appium.java_client.service.local.AppiumServiceBuilder;
-import io.appium.java_client.service.local.flags.GeneralServerFlag;
-import io.appium.java_client.service.local.flags.IOSServerFlag;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -349,9 +346,6 @@ public class CodeBase {
                         
                         //incognito
                         ChromeOptions options = new ChromeOptions();
-                        options.addArguments("-incognito");
-
-
                         driver = new ChromeDriver(options);
                     }
 
@@ -455,11 +449,11 @@ public class CodeBase {
             // safari 7.0.1 doesn't like this for some reason
             if (browser != BrowserType.SAFARI && 
                     !browser.toString().contains("APPIUM")) {
+                
                 driver.manage().deleteAllCookies();
+                driver.manage().window().maximize();
+                
             }
-
-            // maximize the window
-            driver.manage().window().maximize();
 
             // set the main window handle
             mainWindowHandle = driver.getWindowHandle();
@@ -1109,6 +1103,9 @@ public class CodeBase {
         });
         
         System.out.println("PAGE CHANGED FROM:"+oldUrl+" TO:"+driver.getCurrentUrl());
+        
+        Thread.sleep(quickWaitMilliSeconds);
+        
         }
         catch(Exception ex){
             ScreenShot();

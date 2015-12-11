@@ -16,7 +16,7 @@ public class ParameterType {
     public static String aString="//p";
     public static String bodyTextXpath=null;
     public static BrowserType browser=BrowserType.CHROMEMAC; //APPIUMAPPDEVICE
-    public static int defaultImplicitWaitSeconds=10;
+    public static int defaultImplicitWaitSeconds=30;
     public static EnvironmentType environment=null;
     public static String imageXpath=null;
     public static String input="https://starbucks.com";
