@@ -148,8 +148,6 @@ public class CodeBase {
      * @throws Exception
      */
     protected void StartDriver() throws Exception {
-
-        // StartDriver("../");
         StartDriver("SeleniumGrid/");
     }
 
@@ -445,16 +443,12 @@ public class CodeBase {
         }
 
         if(driver!=null){
-
             // safari 7.0.1 doesn't like this for some reason
             if (browser != BrowserType.SAFARI && 
-                    !browser.toString().contains("APPIUM")) {
-                
+                    !browser.toString().contains("APPIUM")) {               
                 driver.manage().deleteAllCookies();
-                driver.manage().window().maximize();
-                
+                driver.manage().window().maximize();               
             }
-
             // set the main window handle
             mainWindowHandle = driver.getWindowHandle();
         }
@@ -625,9 +619,7 @@ public class CodeBase {
                 // throttle wait time when looking for elements that should already be on the page
                 driver.manage().timeouts().implicitlyWait(waitTimeMillis, TimeUnit.MILLISECONDS);
                 System.out.println("IsElementPresent set defaultImplicitWaitSeconds to waitTimeMillis:"+waitTimeMillis);
-
-            }
-            
+            }            
             // look for elements
             return driver.findElements(locatorKey).size() > 0;
         } catch (Exception ex) {
@@ -974,8 +966,6 @@ public class CodeBase {
             String screenshotFilePath= ScreenShot();
             String screenshotFilename = screenshotFilePath.substring(screenshotFilePath.lastIndexOf("/")+1);
             htmlOutput += "SCREENSHOT OF <a href='"+href+"' target='_blank'><H3>"+href+"</H3></a> TAKEN:"+screenshotFilename+"<br />";
-            htmlOutput += "INTERNET DEPLOY REFERENCE (FOR EMAIL/WAN):<br /><img src='"+jenkinsReportPath+jenkinsDeployDirectory+"/"+screenshotFilename+"' /><br />";
-            htmlOutput += "INTRANET DEPLOY REFERENCE (FOR LAN):<br /><img src='"+jenkinsReportPathInternal+jenkinsDeployDirectory+"/"+screenshotFilename+"' /><br />";
             htmlOutput += "LOCAL REFERENCE (FOR LOCALHOST):<br /><img src='"+screenshotFilename+"' /><br />";
 
         }
