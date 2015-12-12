@@ -24,10 +24,9 @@ public class ParameterType {
     public static String noScreenShots=null;
     public static String noScroll=null;
     public static String password=null;
-    public static String report="starbucksreport";
+    public static String report=null;
     public static String userid="starbucks.com";
     public static String bodyTextXpath=null;
-
     public static int waitAfterPageLoadMilliSeconds=0;   
     public static int quickWaitMilliSeconds=5000;    
     public static final String jenkinsReportPath = "http://computer.local:8080/job/verifylogosappium/ws/";
