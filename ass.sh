@@ -1,1 +1,1 @@
-mvn -Dtest=Scratch#VerifyLogosAppium -DaNumber=0 -Dbrowser=APPIUMSAFARISIMULATOR -Dinput=https://seattlerules.com -Duserid=seattlerules.com -DaString=//p -DaHubPort=4723 -DaHubServer=localhost -DappiumIosTargetVersion=9.0 -DappiumIosDeviceName="iPhone 6" test
+mvn -Dtest=Scratch#VerifyLogosAppium -DaNumber=0 -Dbrowser=APPIUMSAFARISIMULATOR -Dinput=https://seattlerules.com -Duserid=seattlerules.com -DaString=//p -DaHubPort=4723 -DaHubServer=localhost -DappiumIosTargetVersion=9.2 -DappiumIosDeviceName="iPhone 6" test
