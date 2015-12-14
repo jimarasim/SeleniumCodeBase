@@ -7,19 +7,19 @@ package com.jaemzware.seleniumcodebase;
 
 public class ParameterType {
     public static BrowserType browser=BrowserType.APPIUMSAFARISIMULATOR; //APPIUMAPPDEVICE
-    public static String aHubPort="4723";
-    public static String aHubServer="localhost";
+    public static String aHubPort=null;
+    public static String aHubServer=null;
     public static int aNumber=0;
     
-    public static String appiumApp="/Users/jameskarasim/Library/Developer/Xcode/DerivedData/Scratch-cdvmqpqxkymrtecctsbjrwupqtya/Build/Products/Debug-iphoneos/Scratch.app";
-    public static String appiumIosDeviceName="iPhone 6"; //ijaemzware
-    public static String appiumIosTargetVersion="9.1";
-    public static String appiumUdid="88ff683cec637c3f1279386620b5397d48bc8341";
+    public static String appiumApp=null;//"/Users/jameskarasim/Library/Developer/Xcode/DerivedData/Scratch-cdvmqpqxkymrtecctsbjrwupqtya/Build/Products/Debug-iphoneos/Scratch.app";
+    public static String appiumIosDeviceName=null;//"iPhone 6"; //ijaemzware
+    public static String appiumIosTargetVersion=null;//"9.1";
+    public static String appiumUdid=null;//"88ff683cec637c3f1279386620b5397d48bc8341";
     
-    public static String aString="//p";
+    public static String aString=null;//"//p";
     public static int defaultImplicitWaitSeconds=30;
     public static EnvironmentType environment=null;
-    public static String input="https://starbucks.com";
+    public static String input=null;//"https://starbucks.com";
     public static String logging=null;
     public static String nogrid=null;
     public static String noImages=null;
@@ -27,13 +27,13 @@ public class ParameterType {
     public static String noScroll=null;
     public static String password=null;
     public static String report=null;
-    public static String userid="starbucks.com";
+    public static String userid=null;//"starbucks.com";
     public static String bodyTextXpath=null;
     public static int waitAfterPageLoadMilliSeconds=0;   
     public static int quickWaitMilliSeconds=5000;    
-    public static final String jenkinsReportPath = "http://computer.local:8080/job/verifylogosappium/ws/";
-    public static final String jenkinsReportPathInternal = "http://localhost:8080/job/verifylogosappium/ws/";
-    public static final String jenkinsDeployDirectory = "job/verifylogos/ws/";
+    public static final String jenkinsReportPath = null;//"http://computer.local:8080/job/verifylogosappium/ws/";
+    public static final String jenkinsReportPathInternal = null;//"http://localhost:8080/job/verifylogosappium/ws/";
+    public static final String jenkinsDeployDirectory = null;//"job/verifylogos/ws/";
     
     //BOARDSCRUB ONLY USES THESE
     public static String contactButtonJQueryExcecute =null;
