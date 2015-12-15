@@ -9,7 +9,7 @@ public class ParameterType {
     public static BrowserType browser=BrowserType.APPIUMSAFARISIMULATOR; //APPIUMAPPDEVICE
     public static String aHubPort=null;
     public static String aHubServer=null;
-    public static int aNumber=0;
+    public static int aNumber=-1;
     
     public static String appiumApp=null;//"/Users/jameskarasim/Library/Developer/Xcode/DerivedData/Scratch-cdvmqpqxkymrtecctsbjrwupqtya/Build/Products/Debug-iphoneos/Scratch.app";
     public static String appiumIosDeviceName=null;//"iPhone 6"; //ijaemzware

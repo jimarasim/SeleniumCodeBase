@@ -704,8 +704,6 @@ public class CodeBase {
         HttpGet request = new HttpGet(url);
         HttpResponse response = client.execute(request);
 
-        // System.out.println("Response Code : "
-        // + response.getStatusLine().getStatusCode());
 
         // read the reponse
         BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
@@ -715,8 +713,6 @@ public class CodeBase {
         while ((line = rd.readLine()) != null) {
             result.append(line);
         }
-
-        // System.out.println(result);
 
         return result.toString();
     }
