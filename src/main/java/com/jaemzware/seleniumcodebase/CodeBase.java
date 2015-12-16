@@ -82,7 +82,7 @@ public class CodeBase {
     protected static String HtmlReportHeader(String titleHeaderString) {
         StringBuilder returnString = new StringBuilder();
 
-        String jQueryInclude = "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js\"></script>";
+        String jQueryInclude = "<script src=\"http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js\"></script>";
         
         // standard header
         returnString.append("<html><head>");
