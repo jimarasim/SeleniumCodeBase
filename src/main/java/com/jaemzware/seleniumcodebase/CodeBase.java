@@ -79,7 +79,7 @@ public class CodeBase {
      *            - custom title / h1
      * @return
      */
-    protected String HtmlReportHeader(String titleHeaderString) {
+    protected static String HtmlReportHeader(String titleHeaderString) {
         StringBuilder returnString = new StringBuilder();
 
         String jQueryInclude = "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js\"></script>";
@@ -107,7 +107,7 @@ public class CodeBase {
      * 
      * @return
      */
-    protected String HtmlReportFooter() {
+    protected static String HtmlReportFooter() {
         StringBuilder returnString = new StringBuilder();
         
         returnString.append("<hr>");
@@ -601,7 +601,7 @@ public class CodeBase {
      * @param locatorKey
      * @return
      */
-    protected boolean IsElementPresent(By locatorKey) {
+    protected static boolean IsElementPresent(By locatorKey) {
         return IsElementPresent(locatorKey, 10000);
     }
 
@@ -612,7 +612,7 @@ public class CodeBase {
      * @param waitTimeMillis
      * @return
      */
-    protected boolean IsElementPresent(By locatorKey, int waitTimeMillis) {
+    protected static boolean IsElementPresent(By locatorKey, int waitTimeMillis) {
         try {
             //implictlywait cant' work with appium
             if(!browser.toString().contains("APPIUM")){
