@@ -234,8 +234,9 @@ public class Scratch extends CodeBase {
         }
     }
 
-   
-    
+    /**
+     *
+     */
     @Test
     public void CheckGmail() {
         // uses app password for gmail. app name "Scratch" https://support.google.com/accounts/answer/185833
@@ -255,6 +256,32 @@ public class Scratch extends CodeBase {
             }
 
             System.out.println(GetFirstEmailMessageForSearchTerm("imap.gmail.com", userid, password, "Inbox", input,
+                    30000));
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+    @Test
+    public void CheckWebMailJoeyPaintbrush() {
+        // uses app password for gmail. app name "Scratch" https://support.google.com/accounts/answer/185833
+        try {
+
+            // check for required parameters
+            if (input == null) {
+                throw new Exception("SEARCH STRING NOT SPECIFIED (-Dinput)");
+            }
+
+            if (userid == null) {
+                throw new Exception("USERID NOT SPECIFIED (-Duserid)");
+            }
+
+            if (password == null) {
+                throw new Exception("PASSWORD NOT SPECIFIED (-Dpassword)");
+            }
+
+            System.out.println(GetFirstEmailMessageForSearchTerm("mail.joeypaintbrush.com", userid, password, "Inbox", input,
                     30000));
 
         } catch (Exception ex) {

@@ -1,0 +1,1 @@
+mvn -Dtest=Scratch#CheckGmail -Duserid="jaemzware@gmail.com" -Dpassword="g00g73G00G73" -Dinput="@" test
