@@ -888,7 +888,7 @@ public class CodeBase {
      * @return html formatted output
      */
     protected String driverGetWithTime(String href) throws Exception{
-        return driverGetWithTime(href,10);
+        return driverGetWithTime(href,0);
     }
     
     /**
