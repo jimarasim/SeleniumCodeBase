@@ -14,7 +14,7 @@ import org.openqa.selenium.By;
  */
 public class IosScratchApp extends CodeBase {
     @BeforeClass
-    public void BeforeClass(){
+    public static void BeforeClass(){
         try {
             // get specified command line parameters
             String getParameterResult = GetParameters();
@@ -63,14 +63,13 @@ public class IosScratchApp extends CodeBase {
     }
     
     @AfterClass
-    public void AfterClass() {
+    public static void AfterClass() {
         try {
             if (iosDriver != null) {
                 QuitIosDriver();
             }
         } catch (Exception ex) {
             CustomStackTrace("AFTER CLASS EXCEPTION", ex);
-            ex.printStackTrace();
             Assert.fail(ex.getMessage());
         }
     }

@@ -72,7 +72,7 @@ public class CodeBase {
     //appium service: this allows you to spin up appium on the fly, instead of having to start the server yourself
     private static AppiumDriverLocalService service;
     // verification errors that can occur during a test
-    protected StringBuilder verificationErrors = new StringBuilder();
+    protected static StringBuilder verificationErrors = new StringBuilder();
     // save off main window handle, for when dealing with popups
     protected static String mainWindowHandle;
 
@@ -109,19 +109,13 @@ public class CodeBase {
         }
         try{
             StartAppiumService();
+            System.out.println("service.getUrl():"+service.getUrl());
             iosDriver = new IOSDriver<>(service.getUrl(), cap);
             iosDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         }
         catch (Exception ex) {
-                if (ex.getMessage().contains("Error forwarding")) {
-                    System.out.println("APPIUM HUB 'browserName=" + browser.browserName + ",version="+ browser.version + "' NOT LAUNCHED EXCEPTION:" + ex.getMessage());
-                } else if (ex.getMessage().contains("COULD NOT START A NEW APPIUM HUB SESSION")) {
-                    System.out.println("APPIUM HUB NOT LAUNCHED EXCEPTION:" + ex.getMessage());
-                } else {
-                    System.out.println("APPIUM HUB CONNECTION EXCEPTION. VERIFY ONE IS STARTED AT SERVER:"+aHubServer+" PORT:"+aHubPort+" MESSAGE:" + ex.getMessage() );
-                }
-
-                iosDriver = null;
+            System.out.println("EXCEPTION WHILE STARTING THE SERVICE AND INITIATING THE IOSDRIVER"+ex.getMessage());
+            iosDriver = null;
         }
     }
     protected static void StartAppiumService() throws Exception{
@@ -729,7 +723,7 @@ public class CodeBase {
      * @param customMessage
      * @param ex
      */
-    protected void CustomStackTrace(String customMessage, Exception ex) {
+    protected static void CustomStackTrace(String customMessage, Exception ex) {
         // write out stack trace to info
         StackTraceElement[] stack = ex.getStackTrace();
 

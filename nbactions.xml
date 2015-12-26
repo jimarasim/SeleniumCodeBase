@@ -3,6 +3,8 @@
         <action>
             <actionName>debug.test.single</actionName>
             <goals>
+                <goal>clean:clean</goal>
+                <goal>install:install</goal>
                 <goal>-Dtest="IosScratchApp"</goal>
                 <goal>-Dbrowser="APPIUMAPPDEVICE"</goal>
                 <goal>-DwaitAfterPageLoadMilliSeconds="500"</goal>
@@ -11,7 +13,6 @@
                 <goal>-DappiumBinaryNodeJSPath="//usr//local//bin//node"</goal>
                 <goal>-DappiumApp="//Users//jameskarasim//Downloads//pagebasedsample.ipa"</goal>
                 <goal>-DappiumUdid="88ff683cec637c3f1279386620b5397d48bc8341"</goal>
-                <goal>test-compile</goal>
                 
                 
                 
@@ -55,6 +56,8 @@
         <action>
             <actionName>test.single</actionName>
             <goals>
+                <goal>clean:clean</goal>
+                <goal>install:install</goal>
                 <goal>-Dtest="IosScratchApp"</goal>
                 <goal>-Dbrowser="APPIUMAPPDEVICE"</goal>
                 <goal>-DwaitAfterPageLoadMilliSeconds="500"</goal>
@@ -63,7 +66,6 @@
                 <goal>-DappiumBinaryNodeJSPath="//usr//local//bin//node"</goal>
                 <goal>-DappiumApp="//Users//jameskarasim//Downloads//pagebasedsample.ipa"</goal>
                 <goal>-DappiumUdid="88ff683cec637c3f1279386620b5397d48bc8341"</goal>
-                <goal>test-compile</goal>
                 
                 
                 
@@ -108,18 +110,6 @@
             <packagings>
                 <packaging>jar</packaging>
             </packagings>
-            <goals>
-                <goal>-Dtest="IosScratchApp"</goal>
-                <goal>-Dbrowser="APPIUMAPPDEVICE"</goal>
-                <goal>-DwaitAfterPageLoadMilliSeconds="500"</goal>
-                <goal>-DdefaultImplicitWaitSeconds="120"</goal>
-                <goal>-DappiumBinaryJSPath="//Users//jameskarasim//Downloads//installed//repositories//appium//bin//appium.js"</goal>
-                <goal>-DappiumBinaryNodeJSPath="//usr//local//bin//node"</goal>
-                <goal>-DappiumApp="//Users//jameskarasim//Downloads//pagebasedsample.ipa"</goal>
-                <goal>-DappiumUdid="88ff683cec637c3f1279386620b5397d48bc8341"</goal>
-                <goal>test-compile</goal>
-                
-            </goals>
             <properties>
                 <exec.args>-classpath %classpath ${packageClassName}</exec.args>
                 <exec.executable>java</exec.executable>
