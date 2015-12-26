@@ -15,6 +15,8 @@ public class ParameterType {
     public static String appiumIosDeviceName=null;//"iPhone 6"; //ijaemzware
     public static String appiumIosTargetVersion=null;//"9.1";
     public static String appiumUdid=null;//"88ff683cec637c3f1279386620b5397d48bc8341";
+    public static String appiumBinaryJSPath=null;
+    public static String appiumBinaryNodeJSPath=null;
     
     public static String aString=null;//"//p";
     public static int defaultImplicitWaitSeconds=30;
@@ -77,6 +79,10 @@ public class ParameterType {
             case "appiumUdid":
                 appiumUdid=parameterValue;
                 break;
+            case "appiumBinaryJSPath":
+                appiumBinaryJSPath=parameterValue;
+            case "appiumBinaryNodeJSPath":
+                appiumBinaryNodeJSPath=parameterValue;
             case "aString":
                 aString=parameterValue;
                 break;

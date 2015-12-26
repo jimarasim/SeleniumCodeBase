@@ -1,7 +1,10 @@
 package com.jaemzware.seleniumcodebase;
 
 import static com.jaemzware.seleniumcodebase.ParameterType.*;
+import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSDriver;
+import io.appium.java_client.service.local.AppiumDriverLocalService;
+import io.appium.java_client.service.local.AppiumServiceBuilder;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -63,16 +66,184 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  */
 public class CodeBase {
     
-    // the one and only driver object
+    // the one and only driver objects
     protected static WebDriver driver = null;
-
+    protected static IOSDriver<MobileElement> iosDriver;
+    //appium service: this allows you to spin up appium on the fly, instead of having to start the server yourself
+    private static AppiumDriverLocalService service;
     // verification errors that can occur during a test
     protected StringBuilder verificationErrors = new StringBuilder();
-
     // save off main window handle, for when dealing with popups
     protected static String mainWindowHandle;
+
+    /** This function starts an appium driver
+     * 
+     * @throws java.lang.Exception
+     */
+    protected static void StartAppiumDriver(){
+        DesiredCapabilities cap = new DesiredCapabilities();
+        cap.setCapability("platformVersion", appiumIosTargetVersion);
+        cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
+        cap.setCapability("deviceName", appiumIosDeviceName); 
+        cap.setCapability("browserName", "Safari");
+        // set browser: in the SeleniumCodeBase parameter sense; i.e. app name for devices
+        switch (browser) {
+            case APPIUMSAFARISIMULATOR: 
+                //set capability for a safari browser running on an ios simulator
+                cap.setCapability("browserName", "Safari");
+                break;
+            case APPIUMSAFARIDEVICE:
+                //set capability for a safari browser running on a connected device
+                cap.setCapability("browserName", "Safari");
+                cap.setCapability("udid",appiumUdid); //get this udid for phone from itunes, click device, then click serial number
+                break;
+            case APPIUMAPPSIMULATOR: 
+                cap.setCapability("app", appiumApp); 
+                break;
+            case APPIUMAPPDEVICE: 
+                cap.setCapability("app", appiumApp);
+                cap.setCapability("udid",appiumUdid); //get this udid for phone from itunes, click device, then click serial number
+                break;
+            default:
+                break;
+        }
+        try{
+            StartAppiumService();
+            iosDriver = new IOSDriver<>(service.getUrl(), cap);
+            iosDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        }
+        catch (Exception ex) {
+                if (ex.getMessage().contains("Error forwarding")) {
+                    System.out.println("APPIUM HUB 'browserName=" + browser.browserName + ",version="+ browser.version + "' NOT LAUNCHED EXCEPTION:" + ex.getMessage());
+                } else if (ex.getMessage().contains("COULD NOT START A NEW APPIUM HUB SESSION")) {
+                    System.out.println("APPIUM HUB NOT LAUNCHED EXCEPTION:" + ex.getMessage());
+                } else {
+                    System.out.println("APPIUM HUB CONNECTION EXCEPTION. VERIFY ONE IS STARTED AT SERVER:"+aHubServer+" PORT:"+aHubPort+" MESSAGE:" + ex.getMessage() );
+                }
+
+                iosDriver = null;
+        }
+    }
+    protected static void StartAppiumService() throws Exception{
+        service = AppiumDriverLocalService
+                .buildService(new AppiumServiceBuilder()
+                .usingDriverExecutable(new File(appiumBinaryNodeJSPath)) //CLEAN INSTALL NODEJS FROM NODEJS.ORG
+                .withAppiumJS(new File(appiumBinaryJSPath)) //CLONE APPIUM
+                .withIPAddress("127.0.0.1").usingPort(4723));
+        service.start();
+    }    
+    private static void StopAppiumService() throws Exception{
+        service.stop();
+    }
+    protected static void QuitIosDriver() throws Exception {
+        iosDriver.quit();
+        iosDriver=null;
+        StopAppiumService();
+    }   
+    protected static String iosDriverScreenShot() {
+        String fileName = "";
+
+        try {
+            // take the screen shot
+            File scrFile = (iosDriver).getScreenshotAs(OutputType.FILE);
+
+            // get path to the working directory
+            String workingDir = System.getProperty("user.dir");
+
+            // generate a unique file name
+            DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+            Date date = new Date();
+            String dateStamp = dateFormat.format(date);
+           
+            fileName = GetOsType().equals(OsType.WINDOWS) ? workingDir + "\\screenshot" + dateStamp + ".png"
+                    : workingDir + "/screenshot" + dateStamp + ".png";
+
+            // save the file
+            FileUtils.copyFile(scrFile, new File(fileName));
+        } catch (Exception ex) {
+            System.out.println("COMMON.SCREENSHOT FAILED:" + ex.getMessage());
+        }
+
+        System.out.println("open " + fileName);
+        
+        return fileName;
+    }
+    /**
+     * get a url and print out the load time
+     * 
+     * @param href
+     * @throws Exception when driver can't get
+     * @return html formatted output
+     */
+    protected String iosDriverGetWithTime(String href) throws Exception{
+        return iosDriverGetWithTime(href,0);
+    }
+    /**
+     * get a url and print out the load time
+     * 
+     * @param href
+     * @param randomPauseMaxSeconds
+     * @throws Exception when driver can't get
+     * @return html formatted output
+     */
+    protected String iosDriverGetWithTime(String href,int randomPauseMaxSeconds) throws Exception{
+        long startTime;
+
+        //this is for the APPIUM WORKaround, as the driver get appears to return before the page is loaded
+        final String oldUrl = iosDriver.getCurrentUrl(); 
+
+        System.out.println(oldUrl+"=>:" + href);
+        
+        //random pause
+        if(randomPauseMaxSeconds>0){
+            Random randomGenerator = new Random();
+            int randomPauseSeconds = randomGenerator.nextInt(randomPauseMaxSeconds);
+            System.out.println("RANDOM PAUSE:"+randomPauseSeconds*1000);
+            Thread.sleep(randomPauseSeconds*1000);
+        }
+
+        // mark start time to report how long it takes to load the page
+        startTime = System.currentTimeMillis();
+
+        // LOAD THE URL
+        try{
+            iosDriver.get(href);
+        }
+        catch(Exception ex){
+            throw new Exception("IOSDRIVER.GET FAILED. TRY SPECIFYING A LONGER -DdefaultImplicitWaitSeconds, WHICH IS SET TO "+defaultImplicitWaitSeconds+" SECONDS FOR THIS RUN. EXCEPTION:"+ex.getMessage());
+        }
+
+        // PRINT OUT LOAD TIME
+        String loadTimeStatement = Long.toString(System.currentTimeMillis() - startTime);
+        System.out.println(loadTimeStatement);
+        
+        //format an html report response for this driver get call
+        String htmlOutput = "";
+        htmlOutput += "<hr>";
+        htmlOutput += "<table style='width:90%;border:1px solid black;'>";
+        htmlOutput += "<tr><th>LOADED</th><th>MILLISECONDS</th></tr>";
+        htmlOutput += "<tr><td style='border:1px solid black;'><a href='" + href + "' target='_blank'>" + href + "</a></td><td style='border:1px solid black;'>" + loadTimeStatement + "</td></tr>";
+        htmlOutput += "</table>";
+        htmlOutput += "<hr>";
+        
+        if(noScreenShots==null){
+            // TAKE A SCREENSHOT
+            String screenshotFilePath= iosDriverScreenShot();
+            String screenshotFilename = screenshotFilePath.substring(screenshotFilePath.lastIndexOf("/")+1);
+            htmlOutput += "SCREENSHOT OF <a href='"+href+"' target='_blank'><H3>"+href+"</H3></a> TAKEN:"+screenshotFilename+"<br />";
+            htmlOutput += "LOCAL REFERENCE (FOR LOCALHOST):<br /><img src='"+screenshotFilename+"' /><br />";
+        }
+        
+        //OVERRIDEABLE SLEEP
+        System.out.println("VARIABLE SLEEP: -DwaitAfterPageLoadMilliSeconds:"+waitAfterPageLoadMilliSeconds+"ms");
+        Thread.sleep(waitAfterPageLoadMilliSeconds);
+        
+
+        return (htmlOutput);
+
+    }
     
-        /**
+    /**
      * compose and return an html string for an html page to the body opener
      * 
      * @param titleHeaderString
@@ -101,7 +272,6 @@ public class CodeBase {
 
         return (returnString.toString());
     }
-
     /**
      * compose and return an html string for an html page from the body closer
      * 
@@ -114,7 +284,6 @@ public class CodeBase {
 
         return (returnString.toString());
     }
-
     /**
      * This function gets the command line parameters.
      * Separated out so that tests can get the parameters without having to start the driver
@@ -141,7 +310,6 @@ public class CodeBase {
         }
         return "";
     }
-
     /**
      * This function starts the desired web browser.
      * 
@@ -150,7 +318,6 @@ public class CodeBase {
     protected void StartDriver() throws Exception {
         StartDriver("SeleniumGrid/");
     }
-
     /**
      * This function starts the desired web browser
      * 
@@ -455,115 +622,6 @@ public class CodeBase {
 
 
     }
-
-    /** This function starts an appium driver
-     * 
-     * @throws java.lang.Exception
-     */
-    protected static void StartAppiumDriver() throws Exception{
-      
-        /**
-         * VERIFY REQUIRED PARAMETERS
-         */
-        //make sure a browser was specified
-        if (browser == null) {
-            throw new Exception("BROWSER (-Dbrowser) NOT SPECIFIED");
-        }
-        
-        //make sure a target version was specified, and set it
-        if(appiumIosTargetVersion==null){
-            throw new Exception("MUST SPECIFY VERSION -DappiumIosTargetVersion");
-        }
-        
-        //make sure a device name was specified, and set it
-        if(appiumIosDeviceName==null){
-            throw new Exception("MUST SPECIFY DEVICE NAME -DappiumIosDeviceName");
-        }
-        
-        /**
-         * SET THE DESIRED CAPABILITIES
-         */
-        DesiredCapabilities cap = new DesiredCapabilities();
-        cap.setCapability("platformVersion", appiumIosTargetVersion);
-        cap.setCapability("automationName", "Appium"); // or Selendroid
-        cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
-        cap.setCapability("deviceName", appiumIosDeviceName); 
-
-        // set browser: in the SeleniumCodeBase parameter sense; i.e. app name for devices
-        switch (browser) {
-
-            case APPIUMSAFARISIMULATOR: 
-                //set capability for a safari browser running on an ios simulator
-                cap.setCapability("browserName", "Safari");
-                break;
-            case APPIUMSAFARIDEVICE:
-                
-                //set capability for a safari browser running on a connected device
-                cap.setCapability("browserName", "Safari");
-                cap.setCapability("udid",appiumUdid); //get this udid for phone from itunes, click device, then click serial number
-                break;
-            case APPIUMAPPSIMULATOR: 
-                //MAKE SURE APP IS SPECIFIED
-                if(appiumApp==null){
-                    throw new Exception("MUST SPECIFY APP -DappiumIosTargetVersion -DappiumApp -DappiumIosTargetVersionWHEN USING APPIUMAPPSIMULATOR");
-                }
-                
-                cap.setCapability("app", appiumApp); 
-
-                break;
-            case APPIUMAPPDEVICE: 
-                //MAKE SURE APP AND DEVICE UDID WERE SPECIFIED
-                if(appiumApp==null ){
-                    throw new Exception("MUST SPECIFY APP -DappiumApp WHEN USING APPIUMAPPDEVICE");
-                }
-                
-                if(appiumUdid==null){
-                    throw new Exception("MUST SPECIFY APP DEVICE -DappiumUdid WHEN USING APPIUMAPPDEVICE");
-                }
-                
-                cap.setCapability("app", appiumApp);
-                cap.setCapability("udid",appiumUdid); //get this udid for phone from itunes, click device, then click serial number
-                break;
-            
-            default:
-                throw new Exception("NOT CONFIGURED TO LAUNCH THIS BROWSER ON APPIUM StartAppiumDriver");
-        }
-        
-        /**
-         * START THE DRIVER ON THE CORRECT APPIUM HUB
-         */
-        System.out.println("FINDING APPIUM HUB:" + 
-                browser.browserName + 
-                " VERSION:" + 
-                browser.version + 
-                " PLATFORM:" + browser.platform.toString());
-
-        // get the APPIUM HUB node
-        String gridHubFullPath = "http://" + aHubServer + ":" + aHubPort + "/wd/hub";
-        System.out.println("CONTACTING APPIUM HUB");
-        
-        try{
-//           AppiumDriver is now an abstract class, use IOSDriver and AndroidDriver which both extend it.
-            driver = new IOSDriver(new URL(gridHubFullPath), cap);
-            // augment the driver so that screenshots can be taken
-            driver = new Augmenter().augment(driver);
-            System.out.println("SUCCESSFULLY FOUND APPIUM HUB FOR:" + browser.browserName + " VERSION:" + browser.version
-                    + " PLATFORM:" + browser.platform.toString()); 
-        }
-        catch (Exception ex) {
-                if (ex.getMessage().contains("Error forwarding")) {
-                    System.out.println("APPIUM HUB 'browserName=" + browser.browserName + ",version="
-                            + browser.version + "' NOT LAUNCHED EXCEPTION:" + ex.getMessage());
-                } else if (ex.getMessage().contains("COULD NOT START A NEW APPIUM HUB SESSION")) {
-                    System.out.println("APPIUM HUB NOT LAUNCHED EXCEPTION:" + ex.getMessage());
-                } else {
-                    System.out.println("APPIUM HUB CONNECTION EXCEPTION. VERIFY ONE IS STARTED AT SERVER:"+aHubServer+" PORT:"+aHubPort+" MESSAGE:" + ex.getMessage() );
-                }
-
-                driver = null;
-            }
-    }
-    
     /**
      * This method quits (and closes) the browser. It also sets it to null, in case the same test calls StartDriver
      * twice, for two different browsers.
@@ -572,7 +630,6 @@ public class CodeBase {
         driver.quit();
         driver = null;
     }
-
     /** This method gets the current running operating system, for running local browsers -DnoGrid 
      * 
      * @return
@@ -594,7 +651,6 @@ public class CodeBase {
         }
 
     }
-
     /**
      * IsElementPresent stub with default waitTime of 10 seconds (when no wait time specified)
      * 
@@ -604,7 +660,6 @@ public class CodeBase {
     protected static boolean IsElementPresent(By locatorKey) {
         return IsElementPresent(locatorKey, 10000);
     }
-
     /**
      * IsElementPresent method, that allows one to specify how long to try finding the element
      * 
@@ -633,7 +688,6 @@ public class CodeBase {
         }
 
     }
-
     /**
      * This method takes a screenshot, and puts it in the current working directory Made static so screenshot can be
      * taken from StartDriver
@@ -668,7 +722,6 @@ public class CodeBase {
         
         return fileName;
     }
-
     /**
      * This method is used to print custom, stack traces that will show a custom message, and can be formatted Unlike
      * Exception printStackTrace(), it will not throw an exception.
@@ -686,7 +739,6 @@ public class CodeBase {
                     + line.getLineNumber());
         }
     }
-
     /**
      * This method makes an http get request to the provided url, and returns the reponse as a String
      * 
@@ -716,7 +768,6 @@ public class CodeBase {
 
         return result.toString();
     }
-
     /**
      * This method makes a connection to an email server, and returns the first message that matches a search term
      * provided.
@@ -735,8 +786,7 @@ public class CodeBase {
      * @return
      * @throws java.lang.Exception
      */
-    protected String GetFirstEmailMessageForSearchTerm(String mailServer, String user, String password,
-            String folderName, String bodySearchTerm, int millisToWait) throws Exception {
+    protected String GetFirstEmailMessageForSearchTerm(String mailServer, String user, String password,String folderName, String bodySearchTerm, int millisToWait) throws Exception {
         String firstMessage = "";
 
         // get all messages that match the search term
@@ -833,7 +883,6 @@ public class CodeBase {
 
         return firstMessage;
     }
-
     /**
      * This method writes html content to a file, so it can be viewed later
      * 
@@ -866,7 +915,6 @@ public class CodeBase {
 
         return fileName;
     }
-
     /**
      * get a unique datestamp string
      * @return 
@@ -879,7 +927,6 @@ public class CodeBase {
 
         return dateStamp;
     }
-
     /**
      * get a url and print out the load time
      * 
@@ -889,8 +936,7 @@ public class CodeBase {
      */
     protected String driverGetWithTime(String href) throws Exception{
         return driverGetWithTime(href,0);
-    }
-    
+    }    
     /**
      * get a url and print out the load time
      * 
@@ -979,7 +1025,6 @@ public class CodeBase {
         return (htmlOutput);
 
     }
-
     /**
      * save off the rest request response of a given url
      * 
@@ -997,8 +1042,6 @@ public class CodeBase {
             throw new Exception(ex);
         }
     }
-
-
     /**
      * this method just scrolls the page down a  times
      */
@@ -1064,7 +1107,6 @@ public class CodeBase {
             System.out.println("-DnoScroll SPECIFIED. REMOVE FROM COMMAND LINE TO ENABLE PAGE SCROLLING HERE. ");
         }
     }
-    
     /**
      * This method waits for the page to change, when paging through results
      * 
@@ -1100,7 +1142,6 @@ public class CodeBase {
         }
 
     }
-
     // ERROR LOGGING - TAKES LONG - ADD CAPABILITY WHEN CREATING driver BEFORE USING
     protected String ExtractJSLogs() {
         StringBuilder logString = new StringBuilder();
@@ -1138,7 +1179,6 @@ public class CodeBase {
         logString.append("</table>");
         return logString.toString();
     }
-    
     // ERROR LOGGING - TAKES LONG - ADD CAPABILITY WHEN CREATING driver BEFORE USING
     protected String WriteLogEntryRows(LogEntries entries) {
         StringBuilder logEntryRows = new StringBuilder();
@@ -1182,11 +1222,11 @@ public class CodeBase {
 
         return logEntryRows.toString();
     }
-    
     /**
      * This method verifies logoxpath is on the currentpage
      * 
      * @param xpathToVerify
+     * @return 
      */
     protected String VerifyXpathOnCurrentPage(String xpathToVerify) {
 
@@ -1268,7 +1308,4 @@ public class CodeBase {
 
         return outputString.toString();
     }
-
-
-    
 }

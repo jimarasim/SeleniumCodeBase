@@ -9,6 +9,7 @@ import org.openqa.selenium.Platform;
 public enum BrowserType {
     
     //MAKE SURE THESE ARE ALL HANDLED IN THE GRID AND NON-GRID CASES
+    //ALL APPIUM BROWSERS MUST HAVE APPIUM IN THE NAME
     CHROME("chrome","",Platform.WINDOWS), 
     CHROMELINUX("chrome","",Platform.LINUX),
     CHROMEMAC ("chrome","",Platform.MAC),
@@ -27,7 +28,6 @@ public enum BrowserType {
     APPIUMAPPSIMULATOR("","",Platform.MAC),
     APPIUMAPPDEVICE("","",Platform.MAC),
     APPIUMSAFARIDEVICE("","",Platform.MAC);
-    
     
     public final String browserName;
     public final String version;

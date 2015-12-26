@@ -1,41 +1,24 @@
 package com.jaemzware.seleniumcodebase;
-
-import static com.jaemzware.seleniumcodebase.CodeBase.getDateStamp;
-import static com.jaemzware.seleniumcodebase.ParameterType.aNumber;
-import static com.jaemzware.seleniumcodebase.ParameterType.aString;
-import static com.jaemzware.seleniumcodebase.ParameterType.browser;
-import static com.jaemzware.seleniumcodebase.ParameterType.input;
-import static com.jaemzware.seleniumcodebase.ParameterType.report;
-import static com.jaemzware.seleniumcodebase.ParameterType.userid;
-import java.io.PrintWriter;
+import io.appium.java_client.MobileElement;
 import java.security.InvalidParameterException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Properties;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Assert;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
 /**
  * @author jaemzware.com
  */
 public class IosScratchApp extends CodeBase {
-
-    private final String linksOnSplashPageXpath = 
-            "//a[@href and not(@href='') and not(contains(@href,'javascript:')) and not(contains(@href,'mailto:'))]";
-
-
-    @Before
-    public void BeforeTest() {
+    @BeforeClass
+    public void BeforeClass(){
         try {
-            
-            // get the command line parameters that were specified
+            // get specified command line parameters
             String getParameterResult = GetParameters();
-            // an error string will be returned if something went wrong
+            // check for errors
             if (!getParameterResult.isEmpty()) {
                 System.out.println(getParameterResult);
                 throw new InvalidParameterException();
@@ -43,8 +26,14 @@ public class IosScratchApp extends CodeBase {
                 // initialize verifification errors
                 verificationErrors = new StringBuilder();
             }
-        } catch (InvalidParameterException ipex) {
-            Assert.fail("INVALID PARAMETERS FOUND:"+ipex.getMessage());
+        } catch (Exception ex) {
+            Assert.fail("INVALID PARAMETERS FOUND:"+ex.getMessage());
+        }        
+        
+        //start the service
+        StartAppiumDriver();
+        if(iosDriver==null){
+            Assert.fail("COULD NOT START APPIUM DRIVER SERVICE");
         }
     }
 
@@ -52,212 +41,36 @@ public class IosScratchApp extends CodeBase {
      * This is a proof of concept test for testing real applicaions through appium
      */
     @Test 
-    public void ClickButton(){
+    public void EnumerateElements(){
         try{
-            
-            StartAppiumDriver();
-            
-            if(driver==null){
-                throw new Exception("DRIVER WAS NOT SET; A SUITABLE DRIVER WAS NOT FOUND.  LOOK ABOVE FOR ISSUES REPORTED BY StartDrvier()");
-            }
-            
             //this output elements in the app, but only saw it work once
-            List<WebElement> elements = driver.findElements(By.xpath("//*"));
-            elements.stream().forEach((web) -> {
-                System.out.println("TAG:"+web.getTagName()+" TEXT:"+web.getText());
+            List<MobileElement> elements = iosDriver.findElements(By.xpath("//*"));
+            elements.stream().forEach((mobileElement) -> {
+                System.out.println("TAG:"+mobileElement.getTagName()+" TEXT:"+mobileElement.getText());
             });
-            
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
         }
     }
     
-     @Test
-    public void VerifyLogosAppium() {
-
-        // create a file for the web page log
-        String fileName = "verifylogosappium"+getDateStamp()+"-"+report==null?"":report + ".htm";
-        PrintWriter writer = null;
-        String fileWriteString;
-
-        try {
-            // open browser
-            StartAppiumDriver();
-            
-            if(driver==null){
-                throw new Exception("APPIUM DRIVER WAS NOT SET; SUITABLE APPIUM DRIVER WAS NOT FOUND.  LOOK ABOVE FOR ISSUES REPORTED BY StartDrvier()");
-            }
-            else if(!browser.toString().contains("APPIUM")){
-                throw new Exception("APPIUM DRIVER WAS NOT SET; NON-APPIUM BROWSER SPECIFIED.  LOOK ABOVE FOR ISSUES REPORTED BY StartDrvier()");
-            }
-            
-            //VERIFY REQUIRED PARAMETERS WERE SET
-            String starturl = new String();
-            if (input != null && !input.isEmpty()) {
-                starturl = input;
-            } else {
-                throw new Exception("START URL NOT SPECIFIED (-Dinput)");
-            }
-
-            // get base url
-            String baseurl = new String();
-            if (userid != null && !userid.isEmpty()) {
-                baseurl = userid;
-            } else {
-                throw new Exception("BASE URL NOT SPECIFIED (-Duserid)");
-            }
-
-            // get xpath to look for
-            String logoxpath = new String();
-            if (aString != null && !aString.isEmpty()) {
-                logoxpath = aString;
-            } else {
-                throw new Exception("LOGOXPATH NOT SPECIFIED (-DaString");
-            }
-            
-            //CREATE A REPORT WEB PAGE
-            // create the web page
-            writer = new PrintWriter(fileName, "UTF-8");
-
-            // write the html header in the web page
-            writer.println(HtmlReportHeader("verifylogos [baseurl:"+baseurl+" starturl:"+starturl+" logoxpath:"+logoxpath+"]"));
-            
-            // NAVIGATE TO THE STARTING PAGE
-            System.out.println("STARTURL:"+starturl);
-            fileWriteString = driverGetWithTime(starturl);
-           
-            // write stats to html report
-            writer.println(fileWriteString);
-
-            //LOGGING
-            if(System.getProperty("logging")!=null){
-                System.out.println("LOGGING DISABLED BECAUSE ITS NOT SUPPORTED FOR APPIUM");
-            }
-            
-            // verify logo
-            System.out.println("VERIFYING LOGO AT:"+logoxpath+" ON:"+starturl);
-            writer.println(VerifyXpathOnCurrentPage(logoxpath));
-
-            //GET HREFS
-            // get all non-empty/non-javascript href on the page that contain the baseurl
-            Map<String, String> hrefs = new HashMap<>();
-            String hrefFound;
-
-            //getting all internal hrefs
-            System.out.println("GETTING ALL INTERNAL ANCHORS MATCHING XPATH:"+linksOnSplashPageXpath+" ON:"+starturl);
-                        
-            if (IsElementPresent(By.xpath(linksOnSplashPageXpath))) {
-                
-                System.out.println("FINDING ANCHOR ELEMENTS");
-                List<WebElement> internalAnchors = driver.findElements(By.xpath(linksOnSplashPageXpath));
-                
-                if(internalAnchors.size()<1){
-                    throw new Exception("NO LINKS FOUND AT XPATH:"+linksOnSplashPageXpath+" ON PAGE:"+starturl);
-                }
-                
-                for (WebElement we : internalAnchors) {
-                    try {
-                        hrefFound = we.getAttribute("href");
-                    } catch (Exception ex) {
-                        System.out.println("WARNING: EXCEPTION GETTING HREF FROM LIST.");
-                        writer.println("<span class='warning'>WARNING: EXCEPTION GETTING HREF FROM LIST</span>");
-                        break;
-                    }
-
-                    // only get hrefs that contain the base url, and html like pages
-                    if (hrefFound.toLowerCase().contains(baseurl) && 
-                            !hrefFound.toLowerCase().contains("feed") &&
-                            !hrefFound.toLowerCase().contains("rss") &&
-                            !hrefFound.toLowerCase().contains("javascript") &&
-                            !hrefFound.toLowerCase().contains(".rss2") &&
-                            !hrefFound.toLowerCase().contains(".jpg") &&
-                            !hrefFound.toLowerCase().contains(".jpeg") &&
-                            !hrefFound.toLowerCase().contains(".png") &&
-                            !hrefFound.toLowerCase().contains(".gif")) {
-                        hrefs.put(hrefFound, starturl);
-                        System.out.println("WILL VISIT:" + hrefFound);
-                    } else {
-                        System.out
-                                .println("SKIPPING: URL:" + hrefFound+" ON:"+starturl + " DOES NOT CONTAIN BASE URL:" + baseurl);
-                    }
-
-                }
-            } else {
-                System.out.println("WARNING: NO LINKS FOUND ON PAGE MATCHING XPATH:" + linksOnSplashPageXpath+" ON:"+starturl);
-            }
-
-            //VISIT HREFS
-            // visit each href, report load time, and make sure the page has the logo
-            int maxVisits = aNumber; //check if the max number was specified
-            int visitCount = 0;
-            
-            System.out.println("VISITING HREFS AT XPATH:"+linksOnSplashPageXpath+" ON:"+starturl);
-            for (String href : hrefs.keySet()) {
-                
-                // go to the href
-                fileWriteString = driverGetWithTime(href);
-                
-                // write stats to html report
-                writer.println(fileWriteString);
-                
-                if(System.getProperty("logging")==null || 
-                        browser.toString().contains("APPIUM") ){
-                } else {
-                    System.out.println("WRITING OUT LOGS FOR:"+href);
-                    writer.println(ExtractJSLogs());
-                }
-                
-                System.out.println("VERIFYING LOGO AT:"+logoxpath+" ON:"+href);
-                writer.println(VerifyXpathOnCurrentPage(logoxpath));
-                
-                
-                //check the desired image count, and break if it's been reached
-                if((maxVisits>0) && (++visitCount>maxVisits-1)){
-                    break;
-                }
-                
-            }
-
-            /**
-             * COMPLETE WRITING REPORT WEB PAGE
-             */
-            
-            writer.println(HtmlReportFooter());
-            
-            System.out.println("=================================================");
-            System.out.println("INDEX FILE:" + fileName);
-            System.out.println("=================================================");
-            
-
-        } catch (Exception ex) {
-            ScreenShot();
-            System.out.println("VERIFY LOGOS EXCEPTION:"+ex.getMessage());
-        } finally {
-            
-            //WRITE THE FILE
-            // write the file if it was created
-            if (writer != null) {
-                writer.flush();
-                writer.close();
-            }
+    @After
+    public void AfterTest(){
+        // check if there were any verify errors, and fail whole test if so
+        if (verificationErrors.length() > 0) {
+            System.out.println("\nLOGO VERIFICATION REPORT\n" + verificationErrors.toString());
         }
     }
     
-    @After
-    public void AfterTest() {
+    @AfterClass
+    public void AfterClass() {
         try {
-            if (driver != null) {
-                System.out.println("QUIT DRIVER");
-                QuitDriver();
-            }
-
-            // check if there were any verify errors, and fail whole test if so
-            if (verificationErrors.length() > 0) {
-                System.out.println("\nLOGO VERIFICATION REPORT\n" + verificationErrors.toString());
+            if (iosDriver != null) {
+                QuitIosDriver();
             }
         } catch (Exception ex) {
-            CustomStackTrace("AFTER EXCEPTION", ex);
+            CustomStackTrace("AFTER CLASS EXCEPTION", ex);
+            ex.printStackTrace();
             Assert.fail(ex.getMessage());
         }
     }
