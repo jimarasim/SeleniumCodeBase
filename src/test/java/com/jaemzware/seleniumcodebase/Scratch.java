@@ -1,6 +1,12 @@
 package com.jaemzware.seleniumcodebase;
 
-import static com.jaemzware.seleniumcodebase.ParameterType.*;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -12,12 +18,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import static com.jaemzware.seleniumcodebase.ParameterType.*;
 
 /**
  * @author jaemzware@hotmail.com

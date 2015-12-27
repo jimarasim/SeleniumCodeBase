@@ -9,12 +9,13 @@ import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
-import java.io.File;
-import java.util.concurrent.TimeUnit;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.remote.DesiredCapabilities;
+
+import java.io.File;
+import java.util.concurrent.TimeUnit;
 
 
 public class StartAppium {
@@ -31,7 +32,7 @@ public class StartAppium {
 						.withAppiumJS(
 								new File(
 										"/Users/jameskarasim/Downloads/installed/repositories/appium/bin/appium.js")) //CLONE APPIUM
-						.withIPAddress("127.0.0.1").usingPort(4723));
+						.withIPAddress("0.0.0.0").usingPort(4723));
 
 		service.start();
 

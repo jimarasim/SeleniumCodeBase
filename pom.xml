@@ -65,13 +65,12 @@
       <version>2.4</version>
       <type>jar</type>
     </dependency>
-<!--    
     <dependency>
       <groupId>com.github.psorobka</groupId>
       <artifactId>appium-maven-plugin</artifactId>
       <version>1.1.0</version>
       <type>jar</type>
-    </dependency>-->
+    </dependency>
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-api</artifactId>
@@ -115,7 +114,7 @@
       <type>jar</type>
     </dependency>
   </dependencies>
-  <!--
-        mvn -Dtest="IosScratchApp" -Dbrowser="APPIUMAPPDEVICE" -DwaitAfterPageLoadMilliSeconds="500" -DdefaultImplicitWaitSeconds="120" -DappiumBinaryJSPath="//Users//jameskarasim//Downloads//installed//repositories//appium//bin//appium.js" -DappiumBinaryNodeJSPath="//usr//local//bin//node" -DappiumApp="//Users//jameskarasim//Downloads//pagebasedsample.ipa" -DappiumUdid="88ff683cec637c3f1279386620b5397d48bc8341" test
-  -->
+<!--
+mvn -Dtest="IosScratchApp" -Dbrowser="APPIUMAPPDEVICE" -DwaitAfterPageLoadMilliSeconds="500" -DdefaultImplicitWaitSeconds="120" -DappiumBinaryJSPath="//Users//jameskarasim//Downloads//installed//repositories//appium//bin//appium.js" -DappiumBinaryNodeJSPath="//usr//local//bin//node" -DappiumApp="//Users//jameskarasim//Downloads//pagebasedsample.ipa" -DappiumUdid="88ff683cec637c3f1279386620b5397d48bc8341" test
+-->
 </project>

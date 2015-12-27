@@ -1,13 +1,9 @@
 package com.jaemzware.seleniumcodebase;
 import io.appium.java_client.MobileElement;
+import org.junit.*;
+import org.openqa.selenium.By;
 import java.security.InvalidParameterException;
 import java.util.List;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.openqa.selenium.By;
 
 /**
  * @author jaemzware.com
@@ -40,7 +36,7 @@ public class IosScratchApp extends CodeBase {
     /**
      * This is a proof of concept test for testing real applicaions through appium
      */
-    @Test 
+    @Test
     public void EnumerateElements(){
         try{
             //this output elements in the app, but only saw it work once
@@ -73,7 +69,4 @@ public class IosScratchApp extends CodeBase {
             Assert.fail(ex.getMessage());
         }
     }
-    
-    
-
 }
