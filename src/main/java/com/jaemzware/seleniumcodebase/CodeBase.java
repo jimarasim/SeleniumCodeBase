@@ -68,7 +68,7 @@ public class CodeBase {
     
     // the one and only driver objects
     protected static WebDriver driver = null;
-    protected static IOSDriver<MobileElement> iosDriver;
+    protected static IOSDriver<MobileElement> iosDriver = null;
     //appium service: this allows you to spin up appium on the fly, instead of having to start the server yourself
     private static AppiumDriverLocalService service;
     // verification errors that can occur during a test
