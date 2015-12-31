@@ -16,6 +16,7 @@ import java.lang.reflect.Field;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
@@ -1302,5 +1303,46 @@ public class CodeBase {
         }
 
         return outputString.toString();
+    }
+    
+            /**
+     * This method gets links to visit from the target page
+     * @return 
+     * @throws java.lang.Exception 
+     */
+    public List<String> GetLinksOnPage() throws Exception{
+        // list for links
+        List<String> urls = new ArrayList<>();
+        
+        // wait for links to be loaded
+        (new WebDriverWait(driver, defaultImplicitWaitSeconds)).until(new ExpectedCondition<Boolean>() {
+            @Override
+            public Boolean apply(WebDriver d) {
+                System.out.println("IsElementPresent(By.xpath(linksLoadedIndicatorXpath))");
+                System.out.println("IsElementPresent(By.xpath("+linksLoadedIndicatorXpath+"))");
+                return IsElementPresent(By.xpath(linksLoadedIndicatorXpath));
+            }
+        });
+
+        // make sure there are some links
+        System.out.println("CHECKING FOR RESULTS");
+
+        if (!IsElementPresent(By.xpath(linkXpath))) {
+            throw new Exception("COULDNT FIND ANY RESULTS ON: "+input+" WITH XPATH:"+linkXpath);
+        }
+
+// GET THE links
+        System.out.println("FINDING RESULTS");
+
+        List<WebElement> webElements = driver.findElements(By.xpath(linkXpath));
+
+        // store off the hrefs
+        System.out.println("SAVING RESULT LINKS. COUNT:"+webElements.size());
+
+        for (WebElement we : webElements) {
+            urls.add(we.getAttribute("href"));
+        }
+        
+        return urls;
     }
 }
