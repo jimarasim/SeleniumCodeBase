@@ -1,1 +1,1 @@
-mvn -Dtest=StartAppium test
+mvn clean verify install test -Dtest=StartAppium

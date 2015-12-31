@@ -5,6 +5,9 @@
  */
 package com.jaemzware.seleniumcodebase;
 
+import static com.jaemzware.seleniumcodebase.CodeBase.iosDriver;
+import static com.jaemzware.seleniumcodebase.ParameterType.appiumIosDeviceName;
+import static com.jaemzware.seleniumcodebase.ParameterType.appiumIosTargetVersion;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
@@ -16,18 +19,27 @@ import org.junit.Test;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import java.io.File;
 import java.net.URL;
+import java.util.List;
 import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 
 public class StartAppium {
 
-	private static IOSDriver<MobileElement> iosDriver;
-	private static AppiumDriverLocalService service;
+	private static IOSDriver<MobileElement> iosDriver=null;
+        private static IOSDriver<WebElement> iosWebDriver=null;
+
+	private static AppiumDriverLocalService service=null;
+        private static final String ipaddress="127.0.0.1";
 
 	@Before
-	public static void setUp() throws Exception {
+	public void setUp() throws Exception {
             if(StartAppiumService()){
-                if(StartIosDriver()){
+//                if(StartIosDriver()){
+                if(StartIosWebDriver()){
+                    //RUN TESTS!
+                }else{
                     Assert.fail("COULD NOT GET IOS DRIVER");
                 }
             }
@@ -37,16 +49,31 @@ public class StartAppium {
 	}
 
 	@Test
-	public void getAppiumStatus() {
-            System.out.println("getAppiumStatus");
-            iosDriver.get("https://google.com");
-                
+	public void PrintElements() {
+            try{
+                //this output elements in the app, but only saw it work once
+                List<MobileElement> elements = iosDriver.findElements(By.xpath("//*"));
+                elements.stream().forEach((mobileElement) -> {
+                    System.out.println("TAG:"+mobileElement.getTagName()+" TEXT:"+mobileElement.getText());
+                });
+            }
+            catch(Exception ex){
+                System.out.println(ex.getMessage());
+            }   
 	}
 
 	@After
-	public static void tearDown() {
-		iosDriver.quit();
-		service.stop();
+	public void tearDown() {
+		if(iosDriver!=null){
+                    iosDriver.quit();
+                    iosDriver=null;
+                }
+		if(service.isRunning()){
+                    service.stop();
+                }
+                if(service!=null){
+                    service=null;
+                }
 	}
         
         private static boolean StartAppiumService(){
@@ -54,13 +81,12 @@ public class StartAppium {
 				.buildService(new AppiumServiceBuilder()
 						.usingDriverExecutable(new File("/usr/local/bin/node")) //CLEAN INSTALL NODEJS FROM NODEJS.ORG
 						.withAppiumJS(new File("/Users/jarasim/Downloads/installed/repositories/appium/bin/appium.js")) //CLONE APPIUM
-                                                .withIPAddress("0.0.0.0").usingPort(4723));
+                                                .withIPAddress(ipaddress).usingPort(4723));
             System.out.println("setUp - service.start");
             try{
                 service.start();
             }
             catch(AppiumServerHasNotBeenStartedLocallyException ashnbslex){
-                ashnbslex.printStackTrace();
                 System.out.println("COULD NOT START THE APPIUM SERVICE:"+ashnbslex.getMessage());
                 return false;
             }
@@ -70,26 +96,61 @@ public class StartAppium {
         
         private static boolean StartIosDriver(){
             DesiredCapabilities capabilities = DesiredCapabilities.iphone();
-            capabilities.setCapability("address", "0.0.0.0");
+            capabilities.setCapability("robot-address", ipaddress);
             capabilities.setCapability("port", "4723");
-            capabilities.setCapability("platformName", "iOS");
-            capabilities.setCapability("deviceName", "iJarasim5sBlack");
-            capabilities.setCapability("platformVersion", "9.2");
+            capabilities.setCapability("platform-name", "iOS");
+            capabilities.setCapability("deviceName", "iPhone 6");
+            capabilities.setCapability("platform-version", "9.2");
+            capabilities.setCapability("full-reset", "true");
             capabilities.setCapability("ipa", "/Users/jarasim/Downloads/StarbucksUITest.ipa"); //app is available as well
-            capabilities.setCapability("udid","2bd3fe26e8b2637512e5a7b7850ea72dea42302f");
 
-            //appium -U 2bd3fe26e8b2637512e5a7b7850ea72dea42302f --app /Users/jarasim/Downloads/StarbucksUITest.ipa
 
             System.out.println("setUp - new iosDriver");
             try{
-                iosDriver = new IOSDriver<>(new URL("http://0.0.0.0:4723/"),capabilities);
+                iosDriver = new IOSDriver<>(service.getUrl(),capabilities);
             }
             catch(Exception ex){
-                ex.printStackTrace();
-                System.out.println("COULD NOT GET AN IOS DRIVER");
+                System.out.println("COULD NOT GET AN IOS DRIVER. EXCEPTION:"+ex.getMessage());
                 return false;
             }
+            
             System.out.println("setUp - new iosDriver created");
+            
+            if(iosDriver==null){
+                System.out.println("IOSDRIVER NULL AFTER CREATION");
+                return false;
+            }
+            
+            return true;
+        }
+        
+        private static boolean StartIosWebDriver(){
+            DesiredCapabilities capabilities = DesiredCapabilities.iphone();
+            capabilities.setCapability("robot-address", ipaddress);
+            capabilities.setCapability("port", "4723");
+            capabilities.setCapability("platform-name", "iOS");
+            capabilities.setCapability("deviceName", "iPhone 6s");
+            capabilities.setCapability("platform-version", "9.2");
+            capabilities.setCapability("full-reset", "true");
+            capabilities.setCapability("browserName", "Safari");
+
+
+            System.out.println("setUp - new iosDriver");
+            try{
+                iosWebDriver = new IOSDriver<>(service.getUrl(),capabilities);
+            }
+            catch(Exception ex){
+                System.out.println("COULD NOT GET AN IOS DRIVER. EXCEPTION:"+ex.getMessage());
+                return false;
+            }
+            
+            System.out.println("setUp - new iosDriver created");
+            
+            if(iosDriver==null){
+                System.out.println("IOSDRIVER NULL AFTER CREATION");
+                return false;
+            }
+            
             return true;
         }
 }
