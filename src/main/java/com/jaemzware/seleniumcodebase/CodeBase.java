@@ -23,6 +23,8 @@ import java.util.Properties;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.mail.Folder;
 import javax.mail.Message;
@@ -1342,6 +1344,31 @@ public class CodeBase {
         for (WebElement we : webElements) {
             urls.add(we.getAttribute("href"));
         }
+        
+        return urls;
+    }
+    
+    public List<String> GetLinksOnPageViaREST(String targetUrl) throws Exception{
+        
+        List<String> urls = new ArrayList<>();
+
+                
+        try{
+            //get the page
+            String rawHtml = HttpGetReturnResponse(targetUrl);
+            //url regex
+
+            Pattern p = Pattern.compile("/^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$/");
+            Matcher m = p.matcher(rawHtml);
+
+            while (m.find()) {
+                urls.add(m.group());
+            }
+        }
+        catch(Exception ex){
+            System.out.println("COULD NOT GET URLS:"+ex.getMessage());
+        }
+        
         
         return urls;
     }
