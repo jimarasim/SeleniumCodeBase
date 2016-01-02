@@ -37,7 +37,7 @@ public class StartAppium {
 	public void setUp() throws Exception {
             if(StartAppiumService()){
 //                if(StartIosDriver()){
-                if(StartIosWebDriver()){
+                if(StartIosDriver()){
                     //RUN TESTS!
                 }else{
                     Assert.fail("COULD NOT GET IOS DRIVER");
@@ -101,8 +101,8 @@ public class StartAppium {
             capabilities.setCapability("platform-name", "iOS");
             capabilities.setCapability("deviceName", "iPhone 6");
             capabilities.setCapability("platform-version", "9.2");
-            capabilities.setCapability("full-reset", "true");
-            capabilities.setCapability("ipa", "/Users/jarasim/Downloads/StarbucksUITest.ipa"); //app is available as well
+            capabilities.setCapability("fullReset", "true");
+            capabilities.setCapability("app", "/Users/jarasim/Downloads/StarbucksUITest.ipa"); //app is available as well
 
 
             System.out.println("setUp - new iosDriver");
