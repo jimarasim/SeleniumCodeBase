@@ -27,7 +27,7 @@ import org.openqa.selenium.WebElement;
 public class VerifyLogosAppium extends CodeBase {
     private final String linksOnSplashPageXpath = "//a[@href and not(@href='') and not(contains(@href,'javascript:')) and not(contains(@href,'mailto:'))]";
     @BeforeClass
-    public void BeforeClass(){
+    public static void BeforeClass(){
         try {
             // get specified command line parameters
             String getParameterResult = GetParameters();
