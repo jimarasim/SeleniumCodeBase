@@ -86,8 +86,10 @@ public class CodeBase {
     protected static void StartAppiumDriver(){
         DesiredCapabilities cap = new DesiredCapabilities();
         cap.setCapability("platformVersion", appiumIosTargetVersion);
+        System.out.println("appiumIosTargetVersion :"+appiumIosTargetVersion);
         cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
         cap.setCapability("deviceName", appiumIosDeviceName); 
+        System.out.println("appiumIosDeviceName :"+appiumIosDeviceName);
         cap.setCapability("browserName", "Safari");
         // set browser: in the SeleniumCodeBase parameter sense; i.e. app name for devices
         switch (browser) {
@@ -123,6 +125,9 @@ public class CodeBase {
         }
     }
     protected static void StartAppiumService() throws Exception{
+        System.out.println("appiumBinaryNodeJSPath :"+appiumBinaryNodeJSPath);
+        System.out.println("appiumBinaryJSPath :"+appiumBinaryJSPath);
+
         service = AppiumDriverLocalService
                 .buildService(new AppiumServiceBuilder()
                 .usingDriverExecutable(new File(appiumBinaryNodeJSPath)) //CLEAN INSTALL NODEJS FROM NODEJS.ORG

@@ -27,6 +27,9 @@ import org.openqa.selenium.WebElement;
 
 public class StartAppium {
 
+        private static String appiumPath="/Users/jarasim/Downloads/installed/repositories/appium/bin/appium.js";
+        private static String nodeJSPath="/usr/local/bin/node";
+    
 	private static IOSDriver<MobileElement> iosDriver=null;
         private static IOSDriver<WebElement> iosWebDriver=null;
 
@@ -79,8 +82,8 @@ public class StartAppium {
         private static boolean StartAppiumService(){
             service = AppiumDriverLocalService
 				.buildService(new AppiumServiceBuilder()
-						.usingDriverExecutable(new File("/usr/local/bin/node")) //CLEAN INSTALL NODEJS FROM NODEJS.ORG
-						.withAppiumJS(new File("/Users/jarasim/Downloads/installed/repositories/appium/bin/appium.js")) //CLONE APPIUM
+						.usingDriverExecutable(new File(nodeJSPath)) //CLEAN INSTALL NODEJS FROM NODEJS.ORG
+						.withAppiumJS(new File(appiumPath)) //CLONE APPIUM
                                                 .withIPAddress(ipaddress).usingPort(4723));
             System.out.println("setUp - service.start");
             try{

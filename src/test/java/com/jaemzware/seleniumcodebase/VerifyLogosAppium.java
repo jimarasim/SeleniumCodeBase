@@ -41,12 +41,6 @@ public class VerifyLogosAppium extends CodeBase {
             }
         } catch (Exception ex) {
             Assert.fail("INVALID PARAMETERS FOUND:"+ex.getMessage());
-        }        
-        
-        //start the service
-        StartAppiumDriver();
-        if(iosDriver==null){
-            Assert.fail("COULD NOT START APPIUM DRIVER SERVICE");
         }
     }
 

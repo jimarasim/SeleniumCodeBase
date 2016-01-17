@@ -40,7 +40,7 @@ public class IosScratchApp extends CodeBase {
     public void EnumerateElements(){
         try{
             //this output elements in the app, but only saw it work once
-            List<MobileElement> elements = iosDriver.findElements(By.xpath("//*"));
+            List<MobileElement> elements = iosDriver.findElementsByIosUIAutomation("target.frontMostApp().mainWindow().textFields()[0]");
             elements.stream().forEach((mobileElement) -> {
                 System.out.println("TAG:"+mobileElement.getTagName()+" TEXT:"+mobileElement.getText());
             });
@@ -48,6 +48,12 @@ public class IosScratchApp extends CodeBase {
         catch(Exception ex){
             System.out.println(ex.getMessage());
         }
+    }
+    
+    @Test
+    public void FindAMobileElement(){
+            MobileElement fieldOne = (MobileElement) iosDriver.findElementByAccessibilityId("firstnameIdentifier");
+            System.out.println("TAG NAME:"+fieldOne.getTagName());
     }
     
     @After

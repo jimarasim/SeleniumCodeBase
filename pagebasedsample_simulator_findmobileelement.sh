@@ -1,0 +1,3 @@
+# ./pagebasedsample_simulator_findmobileelement.sh
+mvn -DappiumBinaryJSPath="/usr/local/lib/node_modules/appium/bin/appium.js" -DappiumIosTargetVersion="9.3" -DappiumIosDeviceName="iPhone 6" -Dtest="IosScratchApp#FindAMobileElement" -Dbrowser="APPIUMAPPSIMULATOR" -DwaitAfterPageLoadMilliSeconds="500" -DdefaultImplicitWaitSeconds="120" -DappiumBinaryNodeJSPath="/usr/local/bin/node" -DappiumApp="/Users/jameskarasim/Library/Developer/Xcode/DerivedData/pagebasedsample-etlslkkykkrqcmdyfkiwvjynetpz/Build/Products/Release-iphonesimulator/pagebasedsample.app
+" test
