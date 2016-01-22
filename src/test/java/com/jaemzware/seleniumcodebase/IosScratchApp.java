@@ -54,7 +54,12 @@ public class IosScratchApp extends CodeBase {
     public void FindAMobileElement(){
             MobileElement fieldOne = (MobileElement) iosDriver.findElementByAccessibilityId("firstnameIdentifier");
             System.out.println("TAG NAME:"+fieldOne.getTagName());
+            
+            System.out.println(iosDriver.findElementsByClassName("UIAStaticText").get(0).getText());
+            System.out.println(iosDriver.findElementsByClassName("UIAButton").get(0).getText());
+
     }
+    
     
     @After
     public void AfterTest(){
