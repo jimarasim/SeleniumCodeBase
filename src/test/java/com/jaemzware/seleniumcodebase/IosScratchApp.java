@@ -1,7 +1,6 @@
 package com.jaemzware.seleniumcodebase;
 import io.appium.java_client.MobileElement;
 import org.junit.*;
-import org.openqa.selenium.By;
 import java.security.InvalidParameterException;
 import java.util.List;
 
@@ -52,8 +51,8 @@ public class IosScratchApp extends CodeBase {
     
     @Test
     public void FindAMobileElement(){
-            MobileElement fieldOne = (MobileElement) iosDriver.findElementByAccessibilityId("firstnameIdentifier");
-            System.out.println("TAG NAME:"+fieldOne.getTagName());
+//            MobileElement fieldOne = (MobileElement) iosDriver.findElementByAccessibilityId("firstnameIdentifier");
+//            System.out.println("TAG NAME:"+fieldOne.getTagName());
             
             System.out.println(iosDriver.findElementsByClassName("UIAStaticText").get(0).getText());
             System.out.println(iosDriver.findElementsByClassName("UIAButton").get(0).getText());

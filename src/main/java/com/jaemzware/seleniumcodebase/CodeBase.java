@@ -114,10 +114,7 @@ public class CodeBase {
         }
         try{
             StartAppiumService();
-            System.out.println("service.getUrl():"+service.getUrl());
             iosDriver = new IOSDriver<>(service.getUrl(), cap);
-            System.out.println("iosDriver current url:"+iosDriver.getCurrentUrl());
-            iosDriver.manage().timeouts().implicitlyWait(defaultImplicitWaitSeconds, TimeUnit.SECONDS);
         }
         catch (Exception ex) {
             System.out.println("EXCEPTION WHILE STARTING THE SERVICE AND INITIATING THE IOSDRIVER "+ex.getMessage());
