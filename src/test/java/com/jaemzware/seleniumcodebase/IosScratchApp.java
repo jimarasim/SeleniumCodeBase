@@ -1,8 +1,6 @@
 package com.jaemzware.seleniumcodebase;
-import io.appium.java_client.MobileElement;
 import org.junit.*;
 import java.security.InvalidParameterException;
-import java.util.List;
 
 /**
  * @author jaemzware.com
@@ -32,31 +30,11 @@ public class IosScratchApp extends CodeBase {
         }
     }
 
-    /**
-     * This is a proof of concept test for testing real applicaions through appium
-     */
-    @Test
-    public void EnumerateElements(){
-        try{
-            //this output elements in the app, but only saw it work once
-            List<MobileElement> elements = iosDriver.findElementsByIosUIAutomation("target.frontMostApp().mainWindow().textFields()[0]");
-            elements.stream().forEach((mobileElement) -> {
-                System.out.println("TAG:"+mobileElement.getTagName()+" TEXT:"+mobileElement.getText());
-            });
-        }
-        catch(Exception ex){
-            System.out.println(ex.getMessage());
-        }
-    }
     
     @Test
     public void FindAMobileElement(){
-//            MobileElement fieldOne = (MobileElement) iosDriver.findElementByAccessibilityId("firstnameIdentifier");
-//            System.out.println("TAG NAME:"+fieldOne.getTagName());
-            
             System.out.println(iosDriver.findElementsByClassName("UIAStaticText").get(0).getText());
             System.out.println(iosDriver.findElementsByClassName("UIAButton").get(0).getText());
-
     }
     
     
