@@ -49,7 +49,6 @@ public class ParameterType {
     public static String titleTextXpath=null;
     public static String numResultsRESTParm=null;
     public static String startRESTParm=null;
-   
     
     public static void SetParameter(String parameter, String parameterValue) throws Exception{
         
@@ -193,9 +192,19 @@ public class ParameterType {
             case "startRESTParm":
                 startRESTParm=parameterValue;
                 break;
-            case "numResultsRESTParm":
+            case "numResultsREST":
                 numResultsRESTParm=parameterValue;
                 break; 
+            //FOR BOARDSCRUB CRAIGSLIST
+            case "contactButtonXpath":
+                contactButtonXpath=parameterValue;
+                break;
+            case "contactInfoAnchorXpaths":
+                contactInfoAnchorXpaths=parameterValue;
+                break;
+            case "contactInfoLiXpaths":
+                contactInfoLiXpaths=parameterValue;
+                break;
             default:
                 System.out.println("INVALID PARAMETER STRING:"+parameter+" WITH VALUE:"+parameterValue);
                 break;
