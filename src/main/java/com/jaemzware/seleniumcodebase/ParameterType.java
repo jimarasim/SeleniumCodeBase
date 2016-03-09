@@ -38,7 +38,6 @@ public class ParameterType {
     public static final String jenkinsDeployDirectory = null;//"job/verifylogos/ws/";
     
     //BOARDSCRUB ONLY USES THESE
-    public static String contactButtonJQueryExcecute =null;
     public static String contactButtonXpath =null;
     public static String contactInfoAnchorXpaths =null;
     public static String contactInfoLiXpaths =null;
@@ -192,7 +191,7 @@ public class ParameterType {
             case "startRESTParm":
                 startRESTParm=parameterValue;
                 break;
-            case "numResultsREST":
+            case "numResultsRESTParm":
                 numResultsRESTParm=parameterValue;
                 break; 
             //FOR BOARDSCRUB CRAIGSLIST
