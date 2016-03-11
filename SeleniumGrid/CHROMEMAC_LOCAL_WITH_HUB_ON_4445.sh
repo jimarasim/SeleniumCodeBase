@@ -1,1 +1,0 @@
-java -Dwebdriver.chrome.driver=chromedrivermac -jar selenium-server-standalone-2.52.0.jar -role node -browser platform=MAC,browserName=chrome,maxInstances=5,seleniumProtocol=WebDriver,acceptSslCerts=true -hub http://localhost:4445/grid/register -port 5561
