@@ -19,7 +19,7 @@ public class ParameterType {
     public static String appiumBinaryNodeJSPath="/usr/local/bin/node";
     
     public static String aString=null;//"//p";
-    public static int defaultImplicitWaitSeconds=30;
+    public static int defaultImplicitWaitSeconds=10;
     public static EnvironmentType environment=null;
     public static String input=null;//"https://starbucks.com";
     public static String logging=null;
