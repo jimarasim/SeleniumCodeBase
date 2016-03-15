@@ -59,7 +59,7 @@ public class Scratch extends CodeBase {
     @Test
     public void VerifyLogos() {
 
-        String fileName = "verifylogos"+getDateStamp()+".htm";
+        String fileName = "index.htm";
         PrintWriter writer = null;
         String fileWriteString;
 
@@ -307,7 +307,6 @@ public class Scratch extends CodeBase {
             Assert.fail(ex.getMessage());
         }
     }
-
    
     @After
     public void AfterTest() {
