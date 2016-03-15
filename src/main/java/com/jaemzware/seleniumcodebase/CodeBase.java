@@ -939,7 +939,7 @@ public class CodeBase {
     protected String driverGetWithTime(String href,int randomPauseMaxSeconds) throws Exception{
         long startTime;
 
-        //this is for the APPIUM WORKaround, as the driver get appears to return before the page is loaded
+        //this is for the APPIUM WORKaround, as the driver get appears to return before the page is 
         final String oldUrl = driver.getCurrentUrl(); 
 
         System.out.println(oldUrl+"=>:" + href);
@@ -987,19 +987,18 @@ public class CodeBase {
         
         //format an html report response for this driver get call
         String htmlOutput = "";
-        htmlOutput += "<hr>";
-        htmlOutput += "<table style='width:90%;border:1px solid black;'>";
-        htmlOutput += "<tr><th>LOADED</th><th>MILLISECONDS</th></tr>";
-        htmlOutput += "<tr><td style='border:1px solid black;'><a href='" + href + "' target='_blank'>" + href + "</a></td><td style='border:1px solid black;'>" + loadTimeStatement + "</td></tr>";
-        htmlOutput += "</table>";
-        htmlOutput += "<hr>";
+//        htmlOutput += "<hr>";
+//        htmlOutput += "<table style='width:90%;border:1px solid black;'>";
+//        htmlOutput += "<tr><th>LOADED</th><th>MILLISECONDS</th></tr>";
+//        htmlOutput += "<tr><td style='border:1px solid black;'><a href='" + href + "' target='_blank'>" + href + "</a></td><td style='border:1px solid black;'>" + loadTimeStatement + "</td></tr>";
+//        htmlOutput += "</table>";
+//        htmlOutput += "<hr>";
         
         if(noScreenShots==null){
             // TAKE A SCREENSHOT
             String screenshotFilePath= ScreenShot();
             String screenshotFilename = screenshotFilePath.substring(screenshotFilePath.lastIndexOf("/")+1);
-            htmlOutput += "SCREENSHOT OF <a href='"+href+"' target='_blank'><H3>"+href+"</H3></a> TAKEN:"+screenshotFilename+"<br />";
-            htmlOutput += "LOCAL REFERENCE (FOR LOCALHOST):<br /><img src='"+screenshotFilename+"' /><br />";
+            htmlOutput += "<a href='"+href+"' target='_blank'><img src='"+screenshotFilename+"' /></a>";
 
         }
         
