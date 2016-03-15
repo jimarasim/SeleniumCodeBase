@@ -257,9 +257,9 @@ public class CodeBase {
         returnString.append(".warning {background-color:#C0C0C0;color:#FFFF00;}");
         returnString.append(".severe {background-color:#C0C0C0;color:#FF0000;}");
         returnString.append(".info {background-color:#C0C0C0;color:#000000;}").append("</style>").append("</head>");
-        returnString.append("<body><h1>");
+        returnString.append("<body><b>");
         returnString.append(titleHeaderString);
-        returnString.append("</h1>");
+        returnString.append("</b>");
 
         return (returnString.toString());
     }
