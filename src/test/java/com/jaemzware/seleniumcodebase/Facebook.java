@@ -72,7 +72,7 @@ public class Facebook extends CodeBase{
         String linksOnSplashPageXpath = 
             "//a[@href and not(@href='') and not(contains(@href,'javascript:')) and not(contains(@href,'mailto:'))]";
         String starturl = "https://www.facebook.com";
-        String fileName = "facecrawl"+getDateStamp()+".htm";
+        String fileName = "index.htm";
         PrintWriter writer = null;
         String fileWriteString;
 
