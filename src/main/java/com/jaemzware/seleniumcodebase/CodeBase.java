@@ -250,8 +250,8 @@ public class CodeBase {
         returnString.append("<html><head>");
         returnString.append(jQueryInclude);
         returnString.append("<meta http-equiv=\"Content-Security-Policy\" content=\"default-src https://www.tnaboard.com; child-src 'none'; object-src 'none'\">"); 
-        returnString.append("<meta http-equiv=\"Content-Security-Policy\" content=\"default-src http://images.craigslist.org; child-src 'none'; object-src 'none'\">"); 
-        returnString.append("<meta http-equiv=\"Content-Security-Policy\" content=\"default-src http://i.ebayimg.com; child-src 'none'; object-src 'none'\">"); 
+//        returnString.append("<meta http-equiv=\"Content-Security-Policy\" content=\"default-src http://images.craigslist.org; child-src 'none'; object-src 'none'\">"); 
+//        returnString.append("<meta http-equiv=\"Content-Security-Policy\" content=\"default-src http://i.ebayimg.com; child-src 'none'; object-src 'none'\">"); 
         returnString.append("<title>");
         returnString.append(titleHeaderString);
         returnString.append("</title>");
