@@ -964,12 +964,7 @@ public class CodeBase {
             driver.get(href);
             
             //i think get is returning in appium before the page is loaded on appium, so wait expclicitly for page to change
-            (new WebDriverWait(driver, defaultImplicitWaitSeconds)).until(new ExpectedCondition<Boolean>() {
-                @Override
-                public Boolean apply(WebDriver d) {
-                    return !driver.getCurrentUrl().equals(oldUrl);
-                }
-            }); 
+            (new WebDriverWait(driver, defaultImplicitWaitSeconds)).until((ExpectedCondition<Boolean>) (WebDriver d) -> !driver.getCurrentUrl().equals(oldUrl)); 
         }
         catch(Exception ex){
             throw new Exception("DRIVER.GET FAILED. TRY SPECIFYING A LONGER -DdefaultImplicitWaitSeconds, WHICH IS SET TO "+defaultImplicitWaitSeconds+" SECONDS FOR THIS RUN. EXCEPTION:"+ex.getMessage());
