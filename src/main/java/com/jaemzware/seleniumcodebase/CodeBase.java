@@ -249,7 +249,7 @@ public class CodeBase {
         // standard header
         returnString.append("<html><head>");
         returnString.append(jQueryInclude);
-        returnString.append("<meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self'; img-src *\">");
+        returnString.append("<meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self'; img-src *;\">");
         returnString.append("<title>");
         returnString.append(titleHeaderString);
         returnString.append("</title>");
