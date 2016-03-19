@@ -244,12 +244,12 @@ public class CodeBase {
     protected static String HtmlReportHeader(String titleHeaderString) {
         StringBuilder returnString = new StringBuilder();
 
-        String jQueryInclude = "<script src=\"http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js\"></script>";
+        String jQueryInclude = "<script src=\"jquery-1.12.2.min\"></script>";
         
         // standard header
         returnString.append("<html><head>");
         returnString.append(jQueryInclude);
-        returnString.append("<meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self'; img-src *;\">");
+        returnString.append("<meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self'; img-src http://* https://*;\">");
         returnString.append("<title>");
         returnString.append(titleHeaderString);
         returnString.append("</title>");
