@@ -1,0 +1,1 @@
+mvn -Dtest=JaemzwareSiteValidation -Dbrowser=CHROME -Dnogrid -DnoScreenShots test

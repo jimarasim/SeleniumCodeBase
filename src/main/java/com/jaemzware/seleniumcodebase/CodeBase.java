@@ -182,8 +182,6 @@ public class CodeBase {
 
         //this is for the APPIUM WORKaround, as the driver get appears to return before the page is loaded
         final String oldUrl = iosDriver.getCurrentUrl(); 
-
-        System.out.println(oldUrl+"=>:" + href);
         
         //random pause
         if(randomPauseMaxSeconds>0){
@@ -665,7 +663,6 @@ public class CodeBase {
             if(!browser.toString().contains("APPIUM")){
                 // throttle wait time when looking for elements that should already be on the page
                 driver.manage().timeouts().implicitlyWait(waitTimeMillis, TimeUnit.MILLISECONDS);
-                System.out.println("IsElementPresent set defaultImplicitWaitSeconds to waitTimeMillis:"+waitTimeMillis);
             }            
             // look for elements
             return driver.findElements(locatorKey).size() > 0;
@@ -675,7 +672,6 @@ public class CodeBase {
             if(!browser.toString().contains("APPIUM")){
                 // throttle implicit wait time back up
                 driver.manage().timeouts().implicitlyWait(defaultImplicitWaitSeconds, TimeUnit.SECONDS);
-                System.out.println("IsElementPresent set defaultImplicitWaitSeconds back to default seconds:"+defaultImplicitWaitSeconds);
             }
         }
 
@@ -942,8 +938,6 @@ public class CodeBase {
 
         //this is for the APPIUM WORKaround, as the driver get appears to return before the page is 
         final String oldUrl = driver.getCurrentUrl(); 
-
-        System.out.println(oldUrl+"=>:" + href);
         
         /////////////
         //random pause
@@ -965,7 +959,6 @@ public class CodeBase {
             if(!browser.toString().contains("APPIUM") &&
                     !browser.toString().contains("SAFARI")){
                 driver.manage().timeouts().pageLoadTimeout(defaultImplicitWaitSeconds, TimeUnit.SECONDS);
-                System.out.println("SET PAGELOADTIMEOUT TIME TO WAIT FOR DRIVER.GET:"+defaultImplicitWaitSeconds+" SECONDS");
             }
             
             driver.get(href);
@@ -984,7 +977,7 @@ public class CodeBase {
 
         // PRINT OUT LOAD TIME
         String loadTimeStatement = Long.toString(System.currentTimeMillis() - startTime);
-        System.out.println(loadTimeStatement);
+        System.out.println("PAGE LOAD TIME FOR "+href+":"+loadTimeStatement);
         
         //format an html report response for this driver get call
         String htmlOutput = "";
