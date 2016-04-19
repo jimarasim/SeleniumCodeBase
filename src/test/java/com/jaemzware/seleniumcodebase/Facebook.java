@@ -71,7 +71,6 @@ public class Facebook extends CodeBase{
         
         String linksOnSplashPageXpath = 
             "//a[@href and not(@href='') and not(contains(@href,'javascript:')) and not(contains(@href,'mailto:'))]";
-        String starturl = "https://www.facebook.com";
         String fileName = "index.htm";
         PrintWriter writer = null;
         String fileWriteString;
@@ -84,6 +83,14 @@ public class Facebook extends CodeBase{
                 logoxpath = aString;
             } else {
                 throw new Exception("LOGOXPATH NOT SPECIFIED (-DaString");
+            }
+            
+            // get START url. first page to load
+            String starturl = new String();
+            if (input != null && !input.isEmpty()) {
+                starturl = input;
+            } else {
+                throw new Exception("START URL NOT SPECIFIED (-Dinput)");
             }
             
             ////////////////////
