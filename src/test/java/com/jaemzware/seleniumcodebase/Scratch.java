@@ -59,7 +59,7 @@ public class Scratch extends CodeBase {
     @Test
     public void VerifyLogos() {
 
-        String fileName = "index.htm";
+        String fileName = "index"+report+".htm";
         PrintWriter writer = null;
         String fileWriteString;
 
@@ -102,6 +102,10 @@ public class Scratch extends CodeBase {
                 logoxpath = aString;
             } else {
                 throw new Exception("LOGOXPATH NOT SPECIFIED (-DaString");
+            }
+            
+            if (report == null || report.isEmpty()) {
+                throw new Exception("REPORT NOT SPECIFIED -Dreport");
             }
             
             //CREATE A REPORT WEB PAGE
