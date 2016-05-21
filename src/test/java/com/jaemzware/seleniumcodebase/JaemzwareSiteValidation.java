@@ -41,11 +41,23 @@ public class JaemzwareSiteValidation extends CodeBase {
             Assert.fail("INVALID PARAMETERS FOUND:"+ipex.getMessage());
         } 
     }
+
     @Test
-    public void SeattleRules(){
+    public void DynamicUtilityServices(){
         try{
             By[] elementsToVerify={By.xpath("//img")};
-            BasicTest("https://seattlerules.com",elementsToVerify);
+            BasicTest("http://dynamicutilityservices.com",elementsToVerify);
+        }
+        catch(Exception ex){
+            Assert.fail("FAIL:"+ex.getMessage());
+        }
+    }
+
+    @Test
+    public void AnalogArchive(){
+        try{
+            By[] elementsToVerify={By.xpath("//img")};
+            BasicTest("http://analogarchive.com",elementsToVerify);
         }
         catch(Exception ex){
             Assert.fail("FAIL:"+ex.getMessage());
@@ -63,6 +75,16 @@ public class JaemzwareSiteValidation extends CodeBase {
         }
     }
 
+    @Test
+    public void SeattleRules(){
+        try{
+            By[] elementsToVerify={By.xpath("//img")};
+            BasicTest("https://seattlerules.com",elementsToVerify);
+        }
+        catch(Exception ex){
+            Assert.fail("FAIL:"+ex.getMessage());
+        }
+    }
 
     @Test
     public void Skatecreteordie(){
