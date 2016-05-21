@@ -1353,4 +1353,55 @@ public class CodeBase {
         
         return urls;
     }
+
+    //generic test for verifying multiple elements on a page
+    public void BasicTest(String startUrl, By[] elementsToVerify) throws Exception{
+        //START DRIVER AND MAKE SURE ITS RUNNING
+        try{
+            StartDriver();
+            if(driver==null){
+                throw new Exception("DRIVER WAS NOT SET; SUITABLE DRIVER WAS NOT FOUND.  LOOK ABOVE FOR ISSUES REPORTED BY StartDrvier()");
+            }
+
+            this.driverGetWithTime(startUrl);
+
+            for(By anElement: elementsToVerify) {
+                if (!IsElementPresent(anElement)) {
+                    throw new Exception("FAIL: MISSING anElement XPATH:"+anElement);
+                } else {
+                    System.out.println("PASS: FOUND anElement XPATH:"+anElement);
+                }
+            }
+        }
+        catch (Exception ex) {
+            ScreenShot();
+            throw new Exception(ex.getMessage());
+        }
+    }
+
+    //generic test for verifying multiple images on a page
+    public void BasicPageImagesTest(String startUrl, String expectedImages[]) throws Exception{
+        try{
+            //START DRIVER AND MAKE SURE ITS RUNNING
+            StartDriver();
+            if(driver==null){
+                throw new Exception("DRIVER WAS NOT SET; SUITABLE DRIVER WAS NOT FOUND.  LOOK ABOVE FOR ISSUES REPORTED BY StartDrvier()");
+            }
+
+            this.driverGetWithTime(startUrl);
+
+            for(String image: expectedImages){
+                if(!IsElementPresent(By.xpath("//img[@src='"+image+"']"))){
+                    verificationErrors.append("FAIL: MISSING IMAGE:").append(image);
+                }
+                else{
+                    System.out.println("PASS: FOUND IMAGE"+ image);
+                }
+            }
+        }
+        catch (Exception ex) {
+            ScreenShot();
+            throw new Exception(ex.getMessage());
+        }
+    }
 }

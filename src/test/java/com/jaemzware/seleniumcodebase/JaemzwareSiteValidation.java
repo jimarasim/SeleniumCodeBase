@@ -41,6 +41,64 @@ public class JaemzwareSiteValidation extends CodeBase {
             Assert.fail("INVALID PARAMETERS FOUND:"+ipex.getMessage());
         } 
     }
+    @Test
+    public void SeattleRules(){
+        try{
+            By[] elementsToVerify={By.xpath("//img")};
+            BasicTest("https://seattlerules.com",elementsToVerify);
+        }
+        catch(Exception ex){
+            Assert.fail("FAIL:"+ex.getMessage());
+        }
+    }
+
+    @Test
+    public void Jaemzware(){
+        try{
+            By[] elementsToVerify={By.xpath("//img")};
+            BasicTest("http://jaemzware.com",elementsToVerify);
+        }
+        catch(Exception ex){
+            Assert.fail("FAIL:"+ex.getMessage());
+        }
+    }
+
+
+    @Test
+    public void Skatecreteordie(){
+        try{
+            By[] elementsToVerify={By.xpath("//img")};
+            BasicTest("http://skatecreteordie.com",elementsToVerify);
+        }
+        catch(Exception ex){
+            Assert.fail("FAIL:"+ex.getMessage());
+        }
+    }
+
+    @Test
+    public void BlackMarketSkatesHomePageImages(){
+        //IMAGES EXPECTED TO BE ON BLACK MARKET SKATES HOMEPAGE
+        String expectedImages[] = {
+                "https://blackmarketskates.com/wp-content/uploads/2015/03/WEB.BANNER31-e14252697876171.png",
+                "https://blackmarketskates.com/wp-content/uploads/2014/11/bmbeaniegrey-1024x1024-90x90.jpg",
+                "https://blackmarketskates.com/wp-content/uploads/2014/11/bmbeanieblack-e1417193295282-1024x1024-90x90.jpg",
+                "https://blackmarketskates.com/wp-content/uploads/2014/11/BMbeanieblue-e1417194216596-1024x1024-90x90.jpg",
+                "https://blackmarketskates.com/wp-content/uploads/2014/11/blackmarketpatch-e1417191704674-768x10241-90x90.jpg",
+                "https://blackmarketskates.com/wp-content/uploads/2014/11/HOODY-90x90.jpg",
+                "https://blackmarketskates.com/wp-content/uploads/2014/09/SHOPDECK1-90x90.jpg",
+                "https://blackmarketskates.com/wp-content/uploads/2014/09/SHOPDECK.2-90x90.jpg",
+                "https://blackmarketskates.com/wp-content/uploads/2014/09/SHOPDECK3-90x90.jpg",
+                "https://blackmarketskates.com/wp-content/uploads/2014/09/SHOPDECK4-90x90.jpg"
+        };
+
+        try{
+            By[] elementsToVerify={By.xpath("//img")};
+            BasicPageImagesTest("https://blackmarketskates.com",expectedImages);
+        }
+        catch(Exception ex){
+            Assert.fail("FAIL:"+ex.getMessage());
+        }
+    }
 
     @Test 
     public void BlackMarketSkatesCustomVideoPlayer(){
@@ -66,46 +124,7 @@ public class JaemzwareSiteValidation extends CodeBase {
             Assert.fail(ex.getMessage());
         } 
     }
-    @Test
-    public void BlackMarketSkatesHomePageImages(){
-        //IMAGES EXPECTED TO BE ON BLACK MARKET SKATES HOMEPAGE
-        String expectedImages[] = {
-            "https://blackmarketskates.com/wp-content/uploads/2015/03/WEB.BANNER31-e14252697876171.png",
-            "https://blackmarketskates.com/wp-content/uploads/2014/11/bmbeaniegrey-1024x1024-90x90.jpg",
-            "https://blackmarketskates.com/wp-content/uploads/2014/11/bmbeanieblack-e1417193295282-1024x1024-90x90.jpg",
-            "https://blackmarketskates.com/wp-content/uploads/2014/11/BMbeanieblue-e1417194216596-1024x1024-90x90.jpg",
-            "https://blackmarketskates.com/wp-content/uploads/2014/11/blackmarketpatch-e1417191704674-768x10241-90x90.jpg",
-            "https://blackmarketskates.com/wp-content/uploads/2014/11/HOODY-90x90.jpg",
-            "https://blackmarketskates.com/wp-content/uploads/2014/09/SHOPDECK1-90x90.jpg",
-            "https://blackmarketskates.com/wp-content/uploads/2014/09/SHOPDECK.2-90x90.jpg",
-            "https://blackmarketskates.com/wp-content/uploads/2014/09/SHOPDECK3-90x90.jpg",
-            "https://blackmarketskates.com/wp-content/uploads/2014/09/SHOPDECK4-90x90.jpg"
-        };
-                
-        try{
-            //START DRIVER AND MAKE SURE ITS RUNNING
-            StartDriver();
-            if(driver==null){
-                throw new Exception("DRIVER WAS NOT SET; SUITABLE DRIVER WAS NOT FOUND.  LOOK ABOVE FOR ISSUES REPORTED BY StartDrvier()");
-            }
-            
-            //NAVIGATE TO BLACK MARKET SKATES HOME PAGE AND VERIFY ALL IMAGES ARE THERE
-            this.driverGetWithTime("https://blackmarketskates.com");
-            
-            for(String image: expectedImages){
-                if(!IsElementPresent(By.xpath("//img[@src='"+image+"']"))){
-                    verificationErrors.append("HOME PAGE MISSING IAMGE:").append(image);
-                }
-                else{
-                    System.out.println("PASS: FOUND IMAGE"+ image);
-                }
-            }
-        }
-        catch (Exception ex) {
-            ScreenShot();
-            Assert.fail(ex.getMessage());
-        } 
-    }
+
     
     @After
     public void AfterTest() {
@@ -121,14 +140,6 @@ public class JaemzwareSiteValidation extends CodeBase {
         } catch (Exception ex) {
             CustomStackTrace("AFTER EXCEPTION", ex);
             Assert.fail(ex.getMessage());
-        }
-    }
-    
-    private void PrintAllImageSrcAttributes(){
-        List <WebElement> images = driver.findElements(By.xpath("//img"));
-        System.out.println("IMAGE SRCs FOUND");
-        for(WebElement image:images){
-            System.out.println(image.getAttribute("src"));
         }
     }
 }
