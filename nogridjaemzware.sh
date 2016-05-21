@@ -1,1 +1,2 @@
-mvn -Dtest=JaemzwareSiteValidation -Dbrowser=CHROME -Dnogrid -DnoScreenShots test
+#!/usr/bin/env bash
+mvn -Dtest=JaemzwareSiteValidation#SkatecreteordieChat -Dbrowser=CHROME -Dnogrid -DnoScreenShots test

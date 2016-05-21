@@ -43,6 +43,17 @@ public class JaemzwareSiteValidation extends CodeBase {
     }
 
     @Test
+    public void StuffedAnimalWar(){
+        try{
+            By[] elementsToVerify={By.xpath("//h1")};
+            BasicTest("http://stuffedanimalwar.com",elementsToVerify);
+        }
+        catch(Exception ex){
+            Assert.fail("FAIL:"+ex.getMessage());
+        }
+    }
+
+    @Test
     public void JoeyPaintbrush(){
         try{
             By[] elementsToVerify={By.xpath("//img")};
@@ -107,6 +118,18 @@ public class JaemzwareSiteValidation extends CodeBase {
             Assert.fail("FAIL:"+ex.getMessage());
         }
     }
+
+    @Test
+    public void SkatecreteordieChat(){
+        try{
+            By[] elementsToVerify={By.xpath("//img")};
+            BasicTest("http://skatecreteordie.com:3005/skatecreteordie",elementsToVerify);
+        }
+        catch(Exception ex){
+            Assert.fail("FAIL:"+ex.getMessage());
+        }
+    }
+
 
     @Test
     public void BlackMarketSkatesHomePageImages(){
