@@ -43,6 +43,17 @@ public class JaemzwareSiteValidation extends CodeBase {
     }
 
     @Test
+    public void JoeyPaintbrush(){
+        try{
+            By[] elementsToVerify={By.xpath("//img")};
+            BasicTest("https://joeypaintbrush.com",elementsToVerify);
+        }
+        catch(Exception ex){
+            Assert.fail("FAIL:"+ex.getMessage());
+        }
+    }
+
+    @Test
     public void DynamicUtilityServices(){
         try{
             By[] elementsToVerify={By.xpath("//img")};
