@@ -1,9 +1,6 @@
 package com.jaemzware.seleniumcodebase;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -24,8 +21,8 @@ import static com.jaemzware.seleniumcodebase.ParameterType.*;
  * @author jaemzware@hotmail.com
  */
 public class JaemzwareSiteValidation extends CodeBase {
-    @Before
-    public void BeforeTest() {
+    @BeforeClass
+    public static void BeforeTests() {
         try {
             // get the command line parameters that were specified
             String getParameterResult = GetParameters();
@@ -37,10 +34,49 @@ public class JaemzwareSiteValidation extends CodeBase {
                 // initialize verifification errors
                 verificationErrors = new StringBuilder();
             }
+
+            StartDriver();
+
+            if(driver==null){
+                throw new Exception("DRIVER WAS NOT SET; SUITABLE DRIVER WAS NOT FOUND.  LOOK ABOVE FOR ISSUES REPORTED BY StartDrvier()");
+            }
         } catch (InvalidParameterException ipex) {
             Assert.fail("INVALID PARAMETERS FOUND:"+ipex.getMessage());
-        } 
+        } catch (Exception ex) {
+            Assert.fail("START DRIVER EXCEPTION:"+ex.getMessage());
+        }
     }
+
+    @Test
+    public void SkatecreteordieUsingPageObject(){
+        try{
+            SkateCreteOrDiePage testPage = new SkateCreteOrDiePage(this.driver);
+
+            driverGetWithTime(testPage.pageUrl);
+            if(IsElementPresent(testPage.pageTitle)) {
+                System.out.println("PASS: PAGETITLE");
+            }
+            else{
+                throw new Exception("MISSING TITLE");
+            }
+
+        }
+        catch(Exception ex){
+            Assert.fail("FAIL:"+ex.getMessage());
+        }
+    }
+
+    @Test
+    public void Skatecreteordie(){
+        try{
+            By[] elementsToVerify={By.xpath("//img")};
+            BasicTest("http://skatecreteordie.com",elementsToVerify);
+        }
+        catch(Exception ex){
+            Assert.fail("FAIL:"+ex.getMessage());
+        }
+    }
+
 
     @Test
     public void StuffedAnimalWar(){
@@ -109,17 +145,6 @@ public class JaemzwareSiteValidation extends CodeBase {
     }
 
     @Test
-    public void Skatecreteordie(){
-        try{
-            By[] elementsToVerify={By.xpath("//img")};
-            BasicTest("http://skatecreteordie.com",elementsToVerify);
-        }
-        catch(Exception ex){
-            Assert.fail("FAIL:"+ex.getMessage());
-        }
-    }
-
-    @Test
     public void SkatecreteordieChat(){
         try{
             By[] elementsToVerify={By.xpath("//img")};
@@ -160,10 +185,6 @@ public class JaemzwareSiteValidation extends CodeBase {
     public void BlackMarketSkatesCustomVideoPlayer(){
         //START DRIVER AND MAKE SURE ITS RUNNING
         try{
-            StartDriver();
-            if(driver==null){
-                throw new Exception("DRIVER WAS NOT SET; SUITABLE DRIVER WAS NOT FOUND.  LOOK ABOVE FOR ISSUES REPORTED BY StartDrvier()");
-            }
 
             //NAVIGATE TO BLACK MARKET SKATES HOME PAGE WITH VIDEO VERIFY ALL IMAGES ARE THERE
             this.driverGetWithTime("https://blackmarketskates.com/?p=760");
@@ -182,8 +203,8 @@ public class JaemzwareSiteValidation extends CodeBase {
     }
 
     
-    @After
-    public void AfterTest() {
+    @AfterClass
+    public static void AfterTest() {
         try {
             if (driver != null) {
                 QuitDriver();

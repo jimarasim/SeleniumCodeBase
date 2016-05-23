@@ -70,7 +70,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class CodeBase {
     
     // the one and only driver objects
-    protected static WebDriver driver = null;
+    public static WebDriver driver = null;
     protected static IOSDriver<MobileElement> iosDriver = null;
     //appium service: this allows you to spin up appium on the fly, instead of having to start the server yourself
     private static AppiumDriverLocalService service;
@@ -305,7 +305,7 @@ public class CodeBase {
      * 
      * @throws Exception
      */
-    protected void StartDriver() throws Exception {
+    protected static void StartDriver() throws Exception {
         StartDriver("SeleniumGrid/");
     }
     /**
@@ -647,7 +647,7 @@ public class CodeBase {
      * @param locatorKey
      * @return
      */
-    protected static boolean IsElementPresent(By locatorKey) {
+    public static boolean IsElementPresent(By locatorKey) {
         return IsElementPresent(locatorKey, 10000);
     }
     /**
@@ -657,7 +657,7 @@ public class CodeBase {
      * @param waitTimeMillis
      * @return
      */
-    protected static boolean IsElementPresent(By locatorKey, int waitTimeMillis) {
+    public static boolean IsElementPresent(By locatorKey, int waitTimeMillis) {
         try {
             //implictlywait cant' work with appium
             if(!browser.toString().contains("APPIUM")){
@@ -1358,11 +1358,6 @@ public class CodeBase {
     public void BasicTest(String startUrl, By[] elementsToVerify) throws Exception{
         //START DRIVER AND MAKE SURE ITS RUNNING
         try{
-            StartDriver();
-            if(driver==null){
-                throw new Exception("DRIVER WAS NOT SET; SUITABLE DRIVER WAS NOT FOUND.  LOOK ABOVE FOR ISSUES REPORTED BY StartDrvier()");
-            }
-
             this.driverGetWithTime(startUrl);
 
             for(By anElement: elementsToVerify) {
@@ -1382,12 +1377,6 @@ public class CodeBase {
     //generic test for verifying multiple images on a page
     public void BasicPageImagesTest(String startUrl, String expectedImages[]) throws Exception{
         try{
-            //START DRIVER AND MAKE SURE ITS RUNNING
-            StartDriver();
-            if(driver==null){
-                throw new Exception("DRIVER WAS NOT SET; SUITABLE DRIVER WAS NOT FOUND.  LOOK ABOVE FOR ISSUES REPORTED BY StartDrvier()");
-            }
-
             this.driverGetWithTime(startUrl);
 
             for(String image: expectedImages){
