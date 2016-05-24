@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8871d4ec-b9f9-43b0-a008-58a1fa0f0a56" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/com/jaemzware/seleniumcodebase/SkateCreteOrDiePage.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/com/jaemzware/seleniumcodebase/BaseTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nogridjaemzware.sh" afterPath="$PROJECT_DIR$/nogridjaemzware.sh" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jaemzware/seleniumcodebase/CodeBase.java" afterPath="$PROJECT_DIR$/src/main/java/com/jaemzware/seleniumcodebase/CodeBase.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/jaemzware/seleniumcodebase/JaemzwareSiteValidation.java" afterPath="$PROJECT_DIR$/src/test/java/com/jaemzware/seleniumcodebase/JaemzwareSiteValidation.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/jaemzware/seleniumcodebase/SkateCreteOrDiePage.java" afterPath="$PROJECT_DIR$/src/test/java/com/jaemzware/seleniumcodebase/SkateCreteOrDiePage.java" />
     </list>
     <ignored path="SeleniumCodeBase.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,11 +26,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="JaemzwareSiteValidation.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="JaemzwareSiteValidation.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/com/jaemzware/seleniumcodebase/JaemzwareSiteValidation.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="184" column="33" selection-start-line="184" selection-start-column="16" selection-end-line="184" selection-end-column="50" />
+            <state relative-caret-position="285">
+              <caret line="50" column="31" selection-start-line="50" selection-start-column="31" selection-end-line="50" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -43,7 +41,7 @@
       <file leaf-file-name="CodeBase.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/jaemzware/seleniumcodebase/CodeBase.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-425">
+            <state relative-caret-position="3705">
               <caret line="307" column="21" selection-start-line="307" selection-start-column="21" selection-end-line="307" selection-end-column="21" />
               <folding />
             </state>
@@ -53,8 +51,8 @@
       <file leaf-file-name="SkateCreteOrDiePage.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/com/jaemzware/seleniumcodebase/SkateCreteOrDiePage.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="12" column="55" selection-start-line="12" selection-start-column="55" selection-end-line="12" selection-end-column="55" />
+            <state relative-caret-position="165">
+              <caret line="11" column="34" selection-start-line="11" selection-start-column="34" selection-end-line="11" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -62,7 +60,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="nogridjaemzware.sh" pinned="false" current-in-tab="true">
+      <file leaf-file-name="BaseTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/jaemzware/seleniumcodebase/BaseTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="12" column="29" selection-start-line="12" selection-start-column="29" selection-end-line="12" selection-end-column="29" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="nogridjaemzware.sh" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/nogridjaemzware.sh">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="15">
@@ -93,10 +103,11 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/test/java/com/jaemzware/seleniumcodebase/StartAppium.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/jaemzware/seleniumcodebase/SkateCreteOrDiePage.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/jaemzware/seleniumcodebase/JaemzwareSiteValidation.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jaemzware/seleniumcodebase/CodeBase.java" />
         <option value="$PROJECT_DIR$/nogridjaemzware.sh" />
+        <option value="$PROJECT_DIR$/src/test/java/com/jaemzware/seleniumcodebase/BaseTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/jaemzware/seleniumcodebase/SkateCreteOrDiePage.java" />
       </list>
     </option>
   </component>
@@ -108,8 +119,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
+    <option name="y" value="23" />
     <option name="width" value="1280" />
-    <option name="height" value="800" />
+    <option name="height" value="740" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -136,6 +148,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -246,7 +259,6 @@
       </pane>
       <pane id="Scope" />
       <pane id="PackagesPane" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -254,7 +266,6 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/nogridjaemzware.sh" />
-    <property name="FullScreen" value="true" />
     <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.runner" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
   </component>
@@ -610,7 +621,7 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1280" height="800" extended-state="0" />
+    <frame x="0" y="23" width="1280" height="740" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -661,6 +672,24 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/jaemzware/seleniumcodebase/SkateCreteOrDiePage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="12" column="55" selection-start-line="12" selection-start-column="55" selection-end-line="12" selection-end-column="55" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nogridjaemzware.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/jaemzware/seleniumcodebase/StartAppium.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -673,7 +702,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="10" column="39" selection-start-line="10" selection-start-column="39" selection-end-line="10" selection-end-column="39" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -707,7 +735,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="10" column="39" selection-start-line="10" selection-start-column="39" selection-end-line="10" selection-end-column="39" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -741,7 +768,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="10" column="39" selection-start-line="10" selection-start-column="39" selection-end-line="10" selection-end-column="39" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -811,7 +837,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -967,7 +992,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="10" column="39" selection-start-line="10" selection-start-column="39" selection-end-line="10" selection-end-column="39" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1000,39 +1024,49 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/jaemzware/seleniumcodebase/SkateCreteOrDiePage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="55" selection-start-line="12" selection-start-column="55" selection-end-line="12" selection-end-column="55" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jaemzware/seleniumcodebase/CodeBase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-425">
-          <caret line="307" column="21" selection-start-line="307" selection-start-column="21" selection-end-line="307" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/jaemzware/seleniumcodebase/JaemzwareSiteValidation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="184" column="33" selection-start-line="184" selection-start-column="16" selection-end-line="184" selection-end-column="50" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/nogridjaemzware.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
           <caret line="1" column="34" selection-start-line="1" selection-start-column="34" selection-end-line="1" selection-end-column="34" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jaemzware/seleniumcodebase/CodeBase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3705">
+          <caret line="307" column="21" selection-start-line="307" selection-start-column="21" selection-end-line="307" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/jaemzware/seleniumcodebase/BaseTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="29" selection-start-line="12" selection-start-column="29" selection-end-line="12" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/jaemzware/seleniumcodebase/SkateCreteOrDiePage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="34" selection-start-line="11" selection-start-column="34" selection-end-line="11" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/jaemzware/seleniumcodebase/JaemzwareSiteValidation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="50" column="31" selection-start-line="50" selection-start-column="31" selection-end-line="50" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
