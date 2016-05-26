@@ -48,25 +48,6 @@ public class JaemzwareSiteValidation extends CodeBase {
     }
 
     @Test
-    public void SkatecreteordieUsingPageObject(){
-        try{
-            SkateCreteOrDiePage testPage = new SkateCreteOrDiePage(this.driver);
-
-            driverGetWithTime(testPage.pageUrl);
-            if(IsElementPresent(testPage.pageTitle)) {
-                System.out.println("PASS: PAGETITLE");
-            }
-            else{
-                throw new Exception("MISSING TITLE");
-            }
-
-        }
-        catch(Exception ex){
-            Assert.fail("FAIL:"+ex.getMessage());
-        }
-    }
-
-    @Test
     public void Skatecreteordie(){
         try{
             By[] elementsToVerify={By.xpath("//img")};
