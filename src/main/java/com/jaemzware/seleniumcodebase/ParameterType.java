@@ -6,7 +6,7 @@
 package com.jaemzware.seleniumcodebase;
 
 public class ParameterType {
-    public static BrowserType browser=BrowserType.APPIUMSAFARISIMULATOR; //APPIUMAPPDEVICE
+    public static BrowserType browser=BrowserType.CHROME;
     public static String aHubPort=null;
     public static String aHubServer=null;
     public static int aNumber=-1;
@@ -38,9 +38,6 @@ public class ParameterType {
     public static final String jenkinsDeployDirectory = null;//"job/verifylogos/ws/";
     
     //BOARDSCRUB ONLY USES THESE
-    public static String contactButtonXpath =null;
-    public static String contactInfoAnchorXpaths =null;
-    public static String contactInfoLiXpaths =null;
     public static String imageXpath =null;
     public static String linksLoadedIndicatorXpath =null;
     public static String linkXpath =null;
@@ -193,16 +190,6 @@ public class ParameterType {
                 break;
             case "numResultsRESTParm":
                 numResultsRESTParm=parameterValue;
-                break; 
-            //FOR BOARDSCRUB CRAIGSLIST
-            case "contactButtonXpath":
-                contactButtonXpath=parameterValue;
-                break;
-            case "contactInfoAnchorXpaths":
-                contactInfoAnchorXpaths=parameterValue;
-                break;
-            case "contactInfoLiXpaths":
-                contactInfoLiXpaths=parameterValue;
                 break;
             default:
                 System.out.println("INVALID PARAMETER STRING:"+parameter+" WITH VALUE:"+parameterValue);
