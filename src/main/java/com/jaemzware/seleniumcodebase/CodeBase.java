@@ -972,7 +972,7 @@ public class CodeBase {
 
         // PRINT OUT LOAD TIME
         String loadTimeStatement = Long.toString(System.currentTimeMillis() - startTime);
-        System.out.println("PAGE LOAD TIME FOR "+href+":"+loadTimeStatement);
+        System.out.println("PAGE LOAD TIME FOR "+href+" IS "+loadTimeStatement+" MILLISECONDS");
         
         //format an html report response for this driver get call
         String htmlOutput = "";
