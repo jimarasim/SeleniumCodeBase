@@ -1,1 +1,1 @@
-mvn -Dtest=Scratch#VerifyLogos -Dbrowser=CHROME -Dinput=http://starbucks.com -DaNumber=50 -Dreport=local -Duserid=starbucks.com -DaString="//a" -DwaitAfterPageLoadMilliSeconds=0 -Dlogging -Dnogrid test
+mvn -Dtest=Scratch#VerifyLogos -Dbrowser=SAFARI -Dinput=http://starbucks.com -DaNumber=50 -Dreport=local -Duserid=starbucks.com -DaString="//a" -DwaitAfterPageLoadMilliSeconds=0 -Dlogging -Dnogrid test

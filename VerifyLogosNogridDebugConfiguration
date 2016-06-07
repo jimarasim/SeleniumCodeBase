@@ -1,0 +1,1 @@
+-ea -Dnogrid -DaString=//a[contains(text(),'dk')] -Dbrowser=CHROMEMAC -DaNumber=3 -Dinput=http://skateparks.dk/alle-skateparks/ -Duserid=skateparks.dk -Dreport=testreport
