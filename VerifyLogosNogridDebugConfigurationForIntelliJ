@@ -1,0 +1,1 @@
+-ea -Dnogrid -DaNumber=0 -Dinput=http://jaemzware.com  -Duserid=jaemzware.com -DaString=//*[contains(text(),'jaemzware')] -Dbrowser=CHROMEMAC -Dreport=testreport
