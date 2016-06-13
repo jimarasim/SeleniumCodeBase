@@ -2,9 +2,4 @@ target/
 .DS_Store
 *.png
 *.htm
-.idea/*
-.idea/*/*
-.idea/*/*/*
-./.idea/*
-./.idea/*/*
-./.idea/*/*/*
+.idea/
