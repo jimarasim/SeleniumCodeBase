@@ -72,11 +72,8 @@ public class Scratch extends CodeBase {
                 throw new Exception("DRIVER WAS NOT SET; SUITABLE DRIVER WAS NOT FOUND.  LOOK ABOVE FOR ISSUES REPORTED BY StartDrvier()");
             }
             
-            //set defaultImplicitWaitSeconds
-            if(browser.toString().contains("APPIUM")){
-                throw new Exception("APPIUM BROWSER NOT VALID FOR THIS TEST; APPIUM BROWSER SPECIFIED.  LOOK ABOVE FOR ISSUES REPORTED BY StartDrvier()");
-            }
-            else{
+            //set defaultImplicitWaitSeconds IF NOT safari
+            if(!browser.toString().contains("SAFARI")){
                 driver.manage().timeouts().implicitlyWait(defaultImplicitWaitSeconds, TimeUnit.SECONDS);
             }
 
@@ -230,6 +227,7 @@ public class Scratch extends CodeBase {
         } catch (Exception ex) {
             ScreenShot();
             System.out.println("VERIFY LOGOS EXCEPTION:"+ex.getMessage());
+            ex.printStackTrace();
         } finally {
             //WRITE THE FILE IF CREATED
             if (writer != null) {
