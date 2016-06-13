@@ -1,0 +1,1 @@
+java -jar selenium-server-standalone-2.53.0.jar -role node -browser platform=MAC,browserName=firefox,maxInstances=5,seleniumProtocol=WebDriver,acceptSslCerts=true -hub http://50.251.226.90:4444/grid/register -port 5558

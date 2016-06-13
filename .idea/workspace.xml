@@ -2,15 +2,89 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8871d4ec-b9f9-43b0-a008-58a1fa0f0a56" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/aad.sh" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/aas.sh" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assstarbucks.sh" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/java/com/jaemzware/seleniumcodebase/IosScratchApp.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/CHROMELINUX_10.1.10.154.sh" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/CHROMELINUX_10.1.10.156_WITH_HUB_ON_4445.sh" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/CHROMELINUX_10.1.10.156_WITH_HUB_ON_4445_AND_20_INSTANCES.sh" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/FIREFOXLINUX_10.1.10.156.sh" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/FIREFOXMAC_10.1.10.154.sh" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/FIREFOXMAC_10.1.10.156.sh" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/FIREFOXMAC_50.251.226.90.sh" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/SAFARI_10.1.10.154.sh" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/SAFARI_10.1.10.156_WITH_HUB_ON_4445.sh" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/chromedriver.exe.old" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/chromedriverlinux32.old" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/chromedriverlinux64.old" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/chromedrivermac.old" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/selenium-safari-driver-2.43.1/META-INF/MANIFEST.MF" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/selenium-safari-driver-2.43.1/META-INF/maven/org.seleniumhq.selenium/selenium-safari-driver/pom.properties" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/selenium-safari-driver-2.43.1/META-INF/maven/org.seleniumhq.selenium/selenium-safari-driver/pom.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/selenium-safari-driver-2.43.1/org/openqa/selenium/safari/ConnectionClosedException.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/selenium-safari-driver-2.43.1/org/openqa/selenium/safari/SafariDriver.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/selenium-safari-driver-2.43.1/org/openqa/selenium/safari/SafariDriverChannelHandler$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/selenium-safari-driver-2.43.1/org/openqa/selenium/safari/SafariDriverChannelHandler.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/selenium-safari-driver-2.43.1/org/openqa/selenium/safari/SafariDriverCommandExecutor$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/selenium-safari-driver-2.43.1/org/openqa/selenium/safari/SafariDriverCommandExecutor$SafariCommand.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/selenium-safari-driver-2.43.1/org/openqa/selenium/safari/SafariDriverCommandExecutor.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/selenium-safari-driver-2.43.1/org/openqa/selenium/safari/SafariDriverPipelineFactory$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/selenium-safari-driver-2.43.1/org/openqa/selenium/safari/SafariDriverPipelineFactory$ConnectionHandler.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/selenium-safari-driver-2.43.1/org/openqa/selenium/safari/SafariDriverPipelineFactory.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/selenium-safari-driver-2.43.1/org/openqa/selenium/safari/SafariDriverServer.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/selenium-safari-driver-2.43.1/org/openqa/selenium/safari/SafariExtensions$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/selenium-safari-driver-2.43.1/org/openqa/selenium/safari/SafariExtensions$Backup.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/selenium-safari-driver-2.43.1/org/openqa/selenium/safari/SafariExtensions$UninstallThread.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/selenium-safari-driver-2.43.1/org/openqa/selenium/safari/SafariExtensions.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/selenium-safari-driver-2.43.1/org/openqa/selenium/safari/SafariOptions$Option.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/selenium-safari-driver-2.43.1/org/openqa/selenium/safari/SafariOptions.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/selenium-safari-driver-2.43.1/org/openqa/selenium/safari/SessionData.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/selenium-safari-driver-2.43.1/org/openqa/selenium/safari/WebSocketConnection$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/selenium-safari-driver-2.43.1/org/openqa/selenium/safari/WebSocketConnection$2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/selenium-safari-driver-2.43.1/org/openqa/selenium/safari/WebSocketConnection$3.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/selenium-safari-driver-2.43.1/org/openqa/selenium/safari/WebSocketConnection$4.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/selenium-safari-driver-2.43.1/org/openqa/selenium/safari/WebSocketConnection.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/selenium-safari-driver-2.43.1/org/openqa/selenium/safari/client.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/selenium-server-standalone-2.48.2.jar.old" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SeleniumGrid/selenium-server-standalone-2.52.0.jar" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_gson_gson_2_3_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_gson_gson_2_2_4.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_guava_18_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_guava_17_0.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_lang_commons_lang_2_4.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_lang_commons_lang_2_6.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_5_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_5_2.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_4_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_4_4.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_seleniumhq_selenium_selenium_api_2_48_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_seleniumhq_selenium_selenium_api_2_52_0.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_seleniumhq_selenium_selenium_chrome_driver_2_48_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_seleniumhq_selenium_selenium_chrome_driver_2_52_0.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_seleniumhq_selenium_selenium_edge_driver_2_48_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_seleniumhq_selenium_selenium_edge_driver_2_52_0.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_seleniumhq_selenium_selenium_firefox_driver_2_48_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_seleniumhq_selenium_selenium_firefox_driver_2_52_0.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_seleniumhq_selenium_selenium_htmlunit_driver_2_48_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_seleniumhq_selenium_selenium_htmlunit_driver_2_52_0.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_seleniumhq_selenium_selenium_ie_driver_2_48_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_seleniumhq_selenium_selenium_ie_driver_2_52_0.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_seleniumhq_selenium_selenium_java_2_48_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_seleniumhq_selenium_selenium_java_2_52_0.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_seleniumhq_selenium_selenium_leg_rc_2_48_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_seleniumhq_selenium_selenium_leg_rc_2_52_0.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_seleniumhq_selenium_selenium_remote_driver_2_48_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_seleniumhq_selenium_selenium_remote_driver_2_52_0.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_seleniumhq_selenium_selenium_safari_driver_2_48_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_seleniumhq_selenium_selenium_safari_driver_2_52_0.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_seleniumhq_selenium_selenium_support_2_48_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_seleniumhq_selenium_selenium_support_2_52_0.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SeleniumGrid/IEDriverServer32.exe" afterPath="$PROJECT_DIR$/SeleniumGrid/IEDriverServer32.exe" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SeleniumGrid/IEDriverServer64.exe" afterPath="$PROJECT_DIR$/SeleniumGrid/IEDriverServer64.exe" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SeleniumGrid/chromedriverlinux32" afterPath="$PROJECT_DIR$/SeleniumGrid/chromedriverlinux32" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SeleniumGrid/chromedriverlinux64" afterPath="$PROJECT_DIR$/SeleniumGrid/chromedriverlinux64" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SeleniumGrid/chromedrivermac" afterPath="$PROJECT_DIR$/SeleniumGrid/chromedrivermac" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/asd.sh" afterPath="$PROJECT_DIR$/asd.sh" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ass.sh" afterPath="$PROJECT_DIR$/ass.sh" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jaemzware/seleniumcodebase/CodeBase.java" afterPath="$PROJECT_DIR$/src/main/java/com/jaemzware/seleniumcodebase/CodeBase.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/jaemzware/seleniumcodebase/VerifyLogosAppium.java" afterPath="$PROJECT_DIR$/src/test/java/com/jaemzware/seleniumcodebase/VerifyLogosAppium.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SeleniumCodeBase.iml" afterPath="$PROJECT_DIR$/SeleniumCodeBase.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SeleniumGrid/CHROMELINUX_LOCAL_5559.sh" afterPath="$PROJECT_DIR$/SeleniumGrid/CHROMELINUX_LOCAL_5559.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SeleniumGrid/CHROMELINUX_LOCAL_WITH_HUB_ON_4445_5559.sh" afterPath="$PROJECT_DIR$/SeleniumGrid/CHROMELINUX_LOCAL_WITH_HUB_ON_4445_5559.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SeleniumGrid/CHROMELINUX_LOCAL_WITH_HUB_ON_4445_USING_PORT_5552.sh" afterPath="$PROJECT_DIR$/SeleniumGrid/CHROMELINUX_LOCAL_WITH_HUB_ON_4445_USING_PORT_5552.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SeleniumGrid/CHROMEMAC_192.168.99.100.sh" afterPath="$PROJECT_DIR$/SeleniumGrid/CHROMEMAC_192.168.99.100.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SeleniumGrid/CHROMEMAC_LOCAL_WITH_HUB_ON_4445_USING_PORT_5552.sh" afterPath="$PROJECT_DIR$/SeleniumGrid/CHROMEMAC_LOCAL_WITH_HUB_ON_4445_USING_PORT_5552.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SeleniumGrid/FIREFOXLINUX_LOCAL.sh" afterPath="$PROJECT_DIR$/SeleniumGrid/FIREFOXLINUX_LOCAL.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SeleniumGrid/FIREFOXLINUX_LOCAL_WITH_HUB_ON_4445.sh" afterPath="$PROJECT_DIR$/SeleniumGrid/FIREFOXLINUX_LOCAL_WITH_HUB_ON_4445.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SeleniumGrid/FIREFOXMAC_192.168.99.100.sh" afterPath="$PROJECT_DIR$/SeleniumGrid/FIREFOXMAC_192.168.99.100.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SeleniumGrid/FIREFOXMAC_LOCAL.sh" afterPath="$PROJECT_DIR$/SeleniumGrid/FIREFOXMAC_LOCAL.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SeleniumGrid/FIREFOXMAC_LOCAL_WITH_HUB_ON_4445.sh" afterPath="$PROJECT_DIR$/SeleniumGrid/FIREFOXMAC_LOCAL_WITH_HUB_ON_4445.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SeleniumGrid/HUB.sh" afterPath="$PROJECT_DIR$/SeleniumGrid/HUB.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SeleniumGrid/HUB_SERVER_4445.sh" afterPath="$PROJECT_DIR$/SeleniumGrid/HUB_SERVER_4445.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SeleniumGrid/SAFARI_192.168.99.100.sh" afterPath="$PROJECT_DIR$/SeleniumGrid/SAFARI_192.168.99.100.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SeleniumGrid/SAFARI_LOCAL.sh" afterPath="$PROJECT_DIR$/SeleniumGrid/SAFARI_LOCAL.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SeleniumGrid/SAFARI_LOCAL_4445.sh" afterPath="$PROJECT_DIR$/SeleniumGrid/SAFARI_LOCAL_4445.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SeleniumGrid/chromenodelinux32.sh" afterPath="$PROJECT_DIR$/SeleniumGrid/chromenodelinux32.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SeleniumGrid/chromenodelinux64.sh" afterPath="$PROJECT_DIR$/SeleniumGrid/chromenodelinux64.sh" />
     </list>
     <ignored path="SeleniumCodeBase.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -37,51 +111,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="CodeBase.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/jaemzware/seleniumcodebase/CodeBase.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="577">
-              <caret line="462" column="23" selection-start-line="462" selection-start-column="19" selection-end-line="462" selection-end-column="23" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="asd.sh" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/asd.sh">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ass.sh" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ass.sh">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" column="248" selection-start-line="1" selection-start-column="248" selection-end-line="1" selection-end-column="248" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="VerifyLogosAppium.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/test/java/com/jaemzware/seleniumcodebase/VerifyLogosAppium.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="163">
-              <caret line="47" column="23" selection-start-line="47" selection-start-column="23" selection-end-line="47" selection-end-column="23" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Scratch.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Scratch.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/com/jaemzware/seleniumcodebase/Scratch.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="148">
-              <caret line="295" column="34" selection-start-line="295" selection-start-column="34" selection-end-line="295" selection-end-column="34" />
+            <state relative-caret-position="255">
+              <caret line="59" column="22" selection-start-line="59" selection-start-column="22" selection-end-line="59" selection-end-column="22" />
               <folding>
                 <element signature="docComment;class#Scratch#0" expanded="false" />
                 <element signature="method#BeforeTest#0;class#Scratch#0" expanded="false" />
@@ -129,6 +163,7 @@
         <option value="$PROJECT_DIR$/src/main/java/com/jaemzware/seleniumcodebase/CodeBase.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/jaemzware/seleniumcodebase/VerifyLogosAppium.java" />
         <option value="$PROJECT_DIR$/ass.sh" />
+        <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
   </component>
@@ -138,15 +173,18 @@
         <option name="mavenHome" value="Bundled (Maven 3)" />
       </MavenGeneralSettings>
     </option>
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
   </component>
   <component name="MavenRunner">
     <option name="vmOptions" value="-Dnogrid" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="4" />
-    <option name="y" value="23" />
-    <option name="width" value="1276" />
-    <option name="height" value="777" />
+    <option name="width" value="1280" />
+    <option name="height" value="800" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -173,12 +211,18 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="SeleniumCodeBase" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -188,6 +232,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="SeleniumCodeBase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SeleniumCodeBase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SeleniumCodeBase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="target" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -281,9 +339,7 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -293,13 +349,14 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.runner" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="FullScreen" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.VerifyLogosAppium.VerifyLogosAppium">
+  <component name="RunManager" selected="JUnit.Scratch.VerifyLogos">
     <configuration default="false" name="Scratch.VerifyLogos" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -679,8 +736,8 @@
     </list>
     <recent_temporary>
       <list size="3">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.VerifyLogosAppium.VerifyLogosAppium" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.Scratch.VerifyLogos" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.Scratch.VerifyLogos" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.VerifyLogosAppium.VerifyLogosAppium" />
         <item index="2" class="java.lang.String" itemvalue="JUnit.Scratch" />
       </list>
     </recent_temporary>
@@ -702,16 +759,16 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Scratch_VerifyLogos - 2016.06.07 at 10h 56m 18s.xml">
-      <configuration name="Scratch.VerifyLogos" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="Scratch_VerifyLogos - 2016.06.07 at 10h 57m 07s.xml">
-      <configuration name="Scratch.VerifyLogos" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="Scratch_VerifyLogos - 2016.06.07 at 10h 57m 49s.xml">
       <configuration name="Scratch.VerifyLogos" configurationId="JUnit" />
     </history-entry>
     <history-entry file="Scratch_VerifyLogos - 2016.06.07 at 10h 59m 16s.xml">
+      <configuration name="Scratch.VerifyLogos" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="Scratch_VerifyLogos - 2016.06.13 at 08h 14m 11s.xml">
+      <configuration name="Scratch.VerifyLogos" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="Scratch_VerifyLogos - 2016.06.13 at 08h 15m 30s.xml">
       <configuration name="Scratch.VerifyLogos" configurationId="JUnit" />
     </history-entry>
     <history-entry file="VerifyLogosAppium_VerifyLogosAppium - 2016.06.13 at 00h 27m 07s.xml">
@@ -734,7 +791,7 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="4" y="23" width="1276" height="777" extended-state="6" />
+    <frame x="0" y="0" width="1280" height="800" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -745,11 +802,11 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.83649635" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.8356164" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30875203" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3085622" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.7161572" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -777,14 +834,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/jaemzware/seleniumcodebase/Scratch.java</url>
-          <line>314</line>
-          <properties />
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
       <option name="time" value="4" />
     </breakpoint-manager>
     <watches-manager />
@@ -1011,13 +1060,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/com/google/guava/guava/18.0/guava-18.0-sources.jar!/com/google/common/base/Function.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="344">
@@ -1071,7 +1113,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="390">
           <caret line="51" column="55" selection-start-line="51" selection-start-column="55" selection-end-line="51" selection-end-column="55" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1091,60 +1132,21 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assstarbucks.sh" />
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/jaemzware/seleniumcodebase/IosScratchApp.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/jaemzware/seleniumcodebase/IosScratchApp.java" />
+    <entry file="file://$PROJECT_DIR$/aad.sh" />
+    <entry file="file://$PROJECT_DIR$/aas.sh" />
+    <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="35" column="53" selection-start-line="35" selection-start-column="53" selection-end-line="35" selection-end-column="53" />
+        <state relative-caret-position="-130">
+          <caret line="41" column="19" selection-start-line="41" selection-start-column="19" selection-end-line="41" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/aad.sh">
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/jaemzware/seleniumcodebase/VerifyLogosAppium.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/aas.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="12" selection-start-line="0" selection-start-column="12" selection-end-line="0" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/asd.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/jaemzware/seleniumcodebase/Scratch.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="295" column="34" selection-start-line="295" selection-start-column="34" selection-end-line="295" selection-end-column="34" />
-          <folding>
-            <element signature="docComment;class#Scratch#0" expanded="false" />
-            <element signature="method#BeforeTest#0;class#Scratch#0" expanded="false" />
-            <element signature="method#VerifyLogos#0;class#Scratch#0" expanded="false" />
-            <element signature="e#5098#5109#0" expanded="false" />
-            <element signature="e#7675#7688#0" expanded="false" />
-            <element signature="docComment;method#CheckGmail#0;class#Scratch#0" expanded="false" />
-            <element signature="method#CheckGmail#0;class#Scratch#0" expanded="false" />
-            <element signature="method#CheckWebMailJoeyPaintbrush#0;class#Scratch#0" expanded="false" />
-            <element signature="method#MakeRestRequest#0;class#Scratch#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jaemzware/seleniumcodebase/CodeBase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="577">
-          <caret line="462" column="23" selection-start-line="462" selection-start-column="19" selection-end-line="462" selection-end-column="23" />
+        <state relative-caret-position="73">
+          <caret line="41" column="13" selection-start-line="41" selection-start-column="13" selection-end-line="41" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -1157,11 +1159,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/jaemzware/seleniumcodebase/VerifyLogosAppium.java">
+    <entry file="file://$PROJECT_DIR$/asd.sh">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="47" column="23" selection-start-line="47" selection-start-column="23" selection-end-line="47" selection-end-column="23" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jaemzware/seleniumcodebase/CodeBase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="577">
+          <caret line="462" column="23" selection-start-line="462" selection-start-column="19" selection-end-line="462" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/jaemzware/seleniumcodebase/Scratch.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="59" column="22" selection-start-line="59" selection-start-column="22" selection-end-line="59" selection-end-column="22" />
+          <folding>
+            <element signature="docComment;class#Scratch#0" expanded="false" />
+            <element signature="method#BeforeTest#0;class#Scratch#0" expanded="false" />
+            <element signature="method#VerifyLogos#0;class#Scratch#0" expanded="false" />
+            <element signature="e#5098#5109#0" expanded="false" />
+            <element signature="e#7675#7688#0" expanded="false" />
+            <element signature="docComment;method#CheckGmail#0;class#Scratch#0" expanded="false" />
+            <element signature="method#CheckGmail#0;class#Scratch#0" expanded="false" />
+            <element signature="method#CheckWebMailJoeyPaintbrush#0;class#Scratch#0" expanded="false" />
+            <element signature="method#MakeRestRequest#0;class#Scratch#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
