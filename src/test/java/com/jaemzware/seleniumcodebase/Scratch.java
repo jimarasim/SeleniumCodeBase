@@ -54,7 +54,6 @@ public class Scratch extends CodeBase {
             Assert.fail(propertiesFile + " IO EXCEPTION"+ioex.getMessage());
         }
     }
-
     
     @Test
     public void VerifyLogos() {
