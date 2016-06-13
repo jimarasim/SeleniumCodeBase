@@ -669,7 +669,7 @@ public class CodeBase {
         } catch (Exception ex) {
             return false;
         } finally {
-            if(!browser.toString().contains("APPIUM")){
+            if(!browser.toString().contains("APPIUM") && !browser.toString().contains("SAFARI")){
                 // throttle implicit wait time back up
                 driver.manage().timeouts().implicitlyWait(defaultImplicitWaitSeconds, TimeUnit.SECONDS);
             }
