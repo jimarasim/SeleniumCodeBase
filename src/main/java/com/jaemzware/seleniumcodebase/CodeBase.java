@@ -71,7 +71,7 @@ public class CodeBase {
     
     // the one and only driver objects
     public static WebDriver driver = null;
-    protected static IOSDriver<MobileElement> iosDriver = null;
+    protected static WebDriver iosDriver = null;
     //appium service: this allows you to spin up appium on the fly, instead of having to start the server yourself
     private static AppiumDriverLocalService service;
     // verification errors that can occur during a test
@@ -79,159 +79,6 @@ public class CodeBase {
     // save off main window handle, for when dealing with popups
     protected static String mainWindowHandle;
 
-    protected static void StartAppiumDriver(){
-        DesiredCapabilities cap = new DesiredCapabilities();
-        cap.setCapability("platformVersion", appiumIosTargetVersion);
-        cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
-        cap.setCapability("deviceName", appiumIosDeviceName); 
-        cap.setCapability("browserName", "Safari");
-        // set browser: in the SeleniumCodeBase parameter sense; i.e. app name for devices
-        switch (browser) {
-            case APPIUMSAFARISIMULATOR: 
-                //set capability for a safari browser running on an ios simulator
-                cap.setCapability("browserName", "Safari");
-                break;
-            case APPIUMSAFARIDEVICE:
-                //set capability for a safari browser running on a connected device
-                cap.setCapability("browserName", "Safari");
-                cap.setCapability("udid",appiumUdid); //get this udid for phone from itunes, click device, then click serial number
-                break;
-            case APPIUMAPPSIMULATOR: 
-                cap.setCapability("app", appiumApp); 
-                break;
-            case APPIUMAPPDEVICE: 
-                cap.setCapability("app", appiumApp);
-                cap.setCapability("udid",appiumUdid); //get this udid for phone from itunes, click device, then click serial number
-                break;
-            default:
-                break;
-        }
-        try{
-            StartAppiumService();
-            iosDriver = new IOSDriver<>(service.getUrl(), cap);
-        }
-        catch (Exception ex) {
-            System.out.println("EXCEPTION WHILE STARTING THE SERVICE AND INITIATING THE IOSDRIVER "+ex.getMessage());
-            iosDriver = null;
-        }
-    }
-    protected static void StartAppiumService() throws Exception{
-        service = AppiumDriverLocalService
-                .buildService(new AppiumServiceBuilder()
-                .usingDriverExecutable(new File(appiumBinaryNodeJSPath)) //CLEAN INSTALL NODEJS FROM NODEJS.ORG
-                .withAppiumJS(new File(appiumBinaryJSPath)) //CLONE APPIUM
-                .withIPAddress("127.0.0.1").usingPort(4723));
-        service.start();
-    }    
-    private static void StopAppiumService() throws Exception{
-        service.stop();
-    }
-    protected static void QuitIosDriver() throws Exception {
-        iosDriver.quit();
-        iosDriver=null;
-        StopAppiumService();
-    }   
-    protected static String iosDriverScreenShot() {
-        String fileName = "";
-
-        try {
-            // take the screen shot
-            File scrFile = (iosDriver).getScreenshotAs(OutputType.FILE);
-
-            // get path to the working directory
-            String workingDir = System.getProperty("user.dir");
-
-            // generate a unique file name
-            DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
-            Date date = new Date();
-            String dateStamp = dateFormat.format(date);
-           
-            fileName = GetOsType().equals(OsType.WINDOWS) ? workingDir + "\\screenshot" + dateStamp + ".png"
-                    : workingDir + "/screenshot" + dateStamp + ".png";
-
-            // save the file
-            FileUtils.copyFile(scrFile, new File(fileName));
-        } catch (Exception ex) {
-            System.out.println("COMMON.SCREENSHOT FAILED:" + ex.getMessage());
-        }
-
-        System.out.println("open " + fileName);
-        
-        return fileName;
-    }
-    /**
-     * get a url and print out the load time
-     * 
-     * @param href
-     * @throws Exception when driver can't get
-     * @return html formatted output
-     */
-    protected String iosDriverGetWithTime(String href) throws Exception{
-        return iosDriverGetWithTime(href,0);
-    }
-    /**
-     * get a url and print out the load time
-     * 
-     * @param href
-     * @param randomPauseMaxSeconds
-     * @throws Exception when driver can't get
-     * @return html formatted output
-     */
-    protected String iosDriverGetWithTime(String href,int randomPauseMaxSeconds) throws Exception{
-        long startTime;
-
-        //this is for the APPIUM WORKaround, as the driver get appears to return before the page is loaded
-        final String oldUrl = iosDriver.getCurrentUrl(); 
-        
-        //random pause
-        if(randomPauseMaxSeconds>0){
-            Random randomGenerator = new Random();
-            int randomPauseSeconds = randomGenerator.nextInt(randomPauseMaxSeconds);
-            System.out.println("RANDOM PAUSE:"+randomPauseSeconds*1000);
-            Thread.sleep(randomPauseSeconds*1000);
-        }
-
-        // mark start time to report how long it takes to load the page
-        startTime = System.currentTimeMillis();
-
-        // LOAD THE URL
-        try{
-            iosDriver.get(href);
-        }
-        catch(Exception ex){
-            throw new Exception("IOSDRIVER.GET FAILED. TRY SPECIFYING A LONGER -DdefaultImplicitWaitSeconds, WHICH IS SET TO "+defaultImplicitWaitSeconds+" SECONDS FOR THIS RUN. EXCEPTION:"+ex.getMessage());
-        }
-
-        // PRINT OUT LOAD TIME
-        String loadTimeStatement = Long.toString(System.currentTimeMillis() - startTime);
-        System.out.println(loadTimeStatement);
-        
-        //format an html report response for this driver get call
-        String htmlOutput = "";
-        htmlOutput += "<hr>";
-        htmlOutput += "<table style='width:90%;border:1px solid black;'>";
-        htmlOutput += "<tr><th>LOADED</th><th>MILLISECONDS</th></tr>";
-        htmlOutput += "<tr><td style='border:1px solid black;'><a href='" + href + "' target='_blank'>" + href + "</a></td><td style='border:1px solid black;'>" + loadTimeStatement + "</td></tr>";
-        htmlOutput += "</table>";
-        htmlOutput += "<hr>";
-        
-        if(noScreenShots==null){
-            // TAKE A SCREENSHOT
-            String screenshotFilePath= iosDriverScreenShot();
-            String screenshotFilename = screenshotFilePath.substring(screenshotFilePath.lastIndexOf("/")+1);
-            htmlOutput += "SCREENSHOT OF <a href='"+href+"' target='_blank'><H3>"+href+"</H3></a> TAKEN:"+screenshotFilename+"<br />";
-            htmlOutput += "LOCAL REFERENCE (FOR LOCALHOST):<br /><img src='"+screenshotFilename+"' /><br />";
-        }
-        
-        //OVERRIDEABLE SLEEP
-        System.out.println("VARIABLE SLEEP: -DwaitAfterPageLoadMilliSeconds:"+waitAfterPageLoadMilliSeconds+"ms");
-        Thread.sleep(waitAfterPageLoadMilliSeconds);
-        
-
-        return (htmlOutput);
-
-    }
-    
     /**
      * compose and return an html string for an html page to the body opener
      * 
@@ -328,7 +175,7 @@ public class CodeBase {
         if (browser == null) {
             throw new Exception("BROWSER (-Dbrowser) NOT SPECIFIED");
         }
-        
+
         //make sure browser specified wasn't for appium
         if(browser.toString().contains("APPIUM")){
             throw new Exception("APPIUM BROWSER TYPES (YOU SPECIFIED:"+browser.toString()+" ARE NOT SUPPORTED BY StartDriver. CALL StartAppiumDriver instead");
@@ -710,6 +557,150 @@ public class CodeBase {
         
         return fileName;
     }
+
+
+    protected static void StartAppiumDriver(){
+        DesiredCapabilities cap = new DesiredCapabilities();
+        cap.setCapability("platformVersion", appiumIosTargetVersion);
+        cap.setCapability("platformName", "iOS"); // or Android, or FirefoxOS
+        cap.setCapability("deviceName", appiumIosDeviceName);
+        cap.setCapability("browserName", "Safari");
+        // set browser: in the SeleniumCodeBase parameter sense; i.e. app name for devices
+        switch (browser) {
+            case APPIUMSAFARISIMULATOR:
+                //set capability for a safari browser running on an ios simulator
+                cap.setCapability("browserName", "Safari");
+                break;
+            case APPIUMSAFARIDEVICE:
+                //set capability for a safari browser running on a connected device
+                cap.setCapability("browserName", "Safari");
+                cap.setCapability("udid",appiumUdid); //get this udid for phone from itunes, click device, then click serial number
+                break;
+            case APPIUMAPPSIMULATOR:
+                cap.setCapability("app", appiumApp);
+                break;
+            case APPIUMAPPDEVICE:
+                cap.setCapability("app", appiumApp);
+                cap.setCapability("udid",appiumUdid); //get this udid for phone from itunes, click device, then click serial number
+                break;
+            default:
+                break;
+        }
+        try{
+            String gridHubFullPath = "http://" + aHubServer + ":" + aHubPort + "/wd/hub";
+            driver = new RemoteWebDriver(new URL(gridHubFullPath), cap);
+
+        }
+        catch (Exception ex) {
+            System.out.println("EXCEPTION WHILE STARTING THE SERVICE AND INITIATING THE IOSDRIVER "+ex.getMessage());
+            iosDriver = null;
+        }
+    }
+
+    protected static String iosDriverScreenShot() {
+        String fileName = "";
+
+        try {
+            // take the screen shot
+            File scrFile = ((TakesScreenshot) iosDriver).getScreenshotAs(OutputType.FILE);
+
+            // get path to the working directory
+            String workingDir = System.getProperty("user.dir");
+
+            // generate a unique file name
+            DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+            Date date = new Date();
+            String dateStamp = dateFormat.format(date);
+
+            fileName = GetOsType().equals(OsType.WINDOWS) ? workingDir + "\\screenshot" + dateStamp + ".png"
+                    : workingDir + "/screenshot" + dateStamp + ".png";
+
+            // save the file
+            FileUtils.copyFile(scrFile, new File(fileName));
+        } catch (Exception ex) {
+            System.out.println("COMMON.SCREENSHOT FAILED:" + ex.getMessage());
+        }
+
+        System.out.println("open " + fileName);
+
+        return fileName;
+    }
+    /**
+     * get a url and print out the load time
+     *
+     * @param href
+     * @throws Exception when driver can't get
+     * @return html formatted output
+     */
+    protected String iosDriverGetWithTime(String href) throws Exception{
+        return iosDriverGetWithTime(href,0);
+    }
+    /**
+     * get a url and print out the load time
+     *
+     * @param href
+     * @param randomPauseMaxSeconds
+     * @throws Exception when driver can't get
+     * @return html formatted output
+     */
+    protected String iosDriverGetWithTime(String href,int randomPauseMaxSeconds) throws Exception{
+        long startTime;
+
+        //this is for the APPIUM WORKaround, as the driver get appears to return before the page is loaded
+        final String oldUrl = iosDriver.getCurrentUrl();
+
+        //random pause
+        if(randomPauseMaxSeconds>0){
+            Random randomGenerator = new Random();
+            int randomPauseSeconds = randomGenerator.nextInt(randomPauseMaxSeconds);
+            System.out.println("RANDOM PAUSE:"+randomPauseSeconds*1000);
+            Thread.sleep(randomPauseSeconds*1000);
+        }
+
+        // mark start time to report how long it takes to load the page
+        startTime = System.currentTimeMillis();
+
+        // LOAD THE URL
+        try{
+            iosDriver.get(href);
+        }
+        catch(Exception ex){
+            throw new Exception("IOSDRIVER.GET FAILED. TRY SPECIFYING A LONGER -DdefaultImplicitWaitSeconds, WHICH IS SET TO "+defaultImplicitWaitSeconds+" SECONDS FOR THIS RUN. EXCEPTION:"+ex.getMessage());
+        }
+
+        // PRINT OUT LOAD TIME
+        String loadTimeStatement = Long.toString(System.currentTimeMillis() - startTime);
+        System.out.println(loadTimeStatement);
+
+        //format an html report response for this driver get call
+        String htmlOutput = "";
+        htmlOutput += "<hr>";
+        htmlOutput += "<table style='width:90%;border:1px solid black;'>";
+        htmlOutput += "<tr><th>LOADED</th><th>MILLISECONDS</th></tr>";
+        htmlOutput += "<tr><td style='border:1px solid black;'><a href='" + href + "' target='_blank'>" + href + "</a></td><td style='border:1px solid black;'>" + loadTimeStatement + "</td></tr>";
+        htmlOutput += "</table>";
+        htmlOutput += "<hr>";
+
+        if(noScreenShots==null){
+            // TAKE A SCREENSHOT
+            String screenshotFilePath= iosDriverScreenShot();
+            String screenshotFilename = screenshotFilePath.substring(screenshotFilePath.lastIndexOf("/")+1);
+            htmlOutput += "SCREENSHOT OF <a href='"+href+"' target='_blank'><H3>"+href+"</H3></a> TAKEN:"+screenshotFilename+"<br />";
+            htmlOutput += "LOCAL REFERENCE (FOR LOCALHOST):<br /><img src='"+screenshotFilename+"' /><br />";
+        }
+
+        //OVERRIDEABLE SLEEP
+        System.out.println("VARIABLE SLEEP: -DwaitAfterPageLoadMilliSeconds:"+waitAfterPageLoadMilliSeconds+"ms");
+        Thread.sleep(waitAfterPageLoadMilliSeconds);
+
+
+        return (htmlOutput);
+    }
+
+
+
+
+
     /**
      * This method is used to print custom, stack traces that will show a custom message, and can be formatted Unlike
      * Exception printStackTrace(), it will not throw an exception.

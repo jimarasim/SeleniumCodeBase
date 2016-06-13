@@ -1,1 +1,0 @@
-mvn -Dtest="IosScratchApp#ClickButton" -DappiumApp="/Users/jameskarasim/Downloads/installed/repositories/pagebasedsample/pagebasedsample.ipa" -DappiumUdid="88ff683cec637c3f1279386620b5397d48bc8341" -DappiumIosDeviceName="ijaemzware" -DappiumIosTargetVersion="9.2" -DaNumber="0" -Dbrowser="APPIUMAPPDEVICE" -DaHubPort="4723" -DaHubServer="localhost" test

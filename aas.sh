@@ -1,1 +1,0 @@
-mvn -Dtest="IosScratchApp#ClickButton" -DappiumApp="/Users/james/Downloads/installed/starbucks/pagebasedsample-iPhone 6.ipa" -DappiumIosDeviceName="iPhone 6" -DappiumIosTargetVersion="9.2" -DaNumber="0" -Dbrowser="APPIUMAPPSIMULATOR" -DaHubPort="4723" -DaHubServer="localhost" test

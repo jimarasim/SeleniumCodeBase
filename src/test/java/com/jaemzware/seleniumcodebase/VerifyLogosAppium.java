@@ -121,7 +121,7 @@ public class VerifyLogosAppium extends CodeBase {
             if (IsElementPresent(By.xpath(linksOnSplashPageXpath))) {
                 
                 System.out.println("FINDING ANCHOR ELEMENTS");
-                List<MobileElement> internalAnchors = iosDriver.findElements(By.xpath(linksOnSplashPageXpath));
+                List<WebElement> internalAnchors = iosDriver.findElements(By.xpath(linksOnSplashPageXpath));
                 
                 if(internalAnchors.size()<1){
                     throw new Exception("NO LINKS FOUND AT XPATH:"+linksOnSplashPageXpath+" ON PAGE:"+starturl);
@@ -220,7 +220,7 @@ public class VerifyLogosAppium extends CodeBase {
         try {
             if (iosDriver != null) {
                 System.out.println("QUIT IOSDRIVER");
-                QuitIosDriver();
+                QuitDriver();
             }
 
             // check if there were any verify errors, and fail whole test if so
