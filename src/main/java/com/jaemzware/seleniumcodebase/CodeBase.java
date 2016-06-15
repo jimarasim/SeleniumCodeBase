@@ -967,12 +967,12 @@ public class CodeBase {
         
         //format an html report response for this driver get call
         String htmlOutput = "";
-//        htmlOutput += "<hr>";
-//        htmlOutput += "<table style='width:90%;border:1px solid black;'>";
-//        htmlOutput += "<tr><th>LOADED</th><th>MILLISECONDS</th></tr>";
-//        htmlOutput += "<tr><td style='border:1px solid black;'><a href='" + href + "' target='_blank'>" + href + "</a></td><td style='border:1px solid black;'>" + loadTimeStatement + "</td></tr>";
-//        htmlOutput += "</table>";
-//        htmlOutput += "<hr>";
+        htmlOutput += "<hr>";
+        htmlOutput += "<table style='width:90%;border:1px solid black;'>";
+        htmlOutput += "<tr><th>LOADED</th><th>MILLISECONDS</th></tr>";
+        htmlOutput += "<tr><td style='border:1px solid black;'><a href='" + href + "' target='_blank'>" + href + "</a></td><td style='border:1px solid black;'>" + loadTimeStatement + "</td></tr>";
+        htmlOutput += "</table>";
+        htmlOutput += "<hr>";
         
         if(noScreenShots==null){
             // TAKE A SCREENSHOT
