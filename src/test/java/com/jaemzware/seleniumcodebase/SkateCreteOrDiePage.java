@@ -1,7 +1,6 @@
 package com.jaemzware.seleniumcodebase;
 
 import org.openqa.selenium.By;
-import sun.reflect.generics.tree.BaseType;
 
 /**
  * Created by jameskarasim on 5/23/16.
