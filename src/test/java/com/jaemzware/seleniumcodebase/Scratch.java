@@ -110,19 +110,16 @@ public class Scratch extends CodeBase {
             // write the html header in the web page
             writer.println(HtmlReportHeader("VerifyLogos:<a href='"+starturl+"' target='_blank'>"+starturl+"</a><br />baseurl:"+baseurl+" <br />starturl:"+starturl+" <br />logoxpath:"+logoxpath));
             
-            // NAVIGATE TO THE STARTING PAGE
+            // NAVIGATE TO THE STARTING PAGE TO GET LINKS TO VISIT FROM
             System.out.println("STARTURL:"+starturl);
             fileWriteString = driverGetWithTime(starturl);
            
-            // write stats to html report
+            // WRITE PAGE URL GET META INFORMATION (E.G. LENGTH OF LOAD TIME)
             writer.println(fileWriteString);
 
             //LOGGING
             if(System.getProperty("logging")==null){
                 System.out.println("LOGGING DISABLED - USE -Dlogging TO SEE BROWSER ERRORS AND WARNINGS");
-            } 
-            else if(browser.toString().contains("APPIUM")){
-                System.out.println("LOGGING NOT SUPPORTED WITH APPIUM");
             }
             else {
                 writer.println(ExtractJSLogs());
