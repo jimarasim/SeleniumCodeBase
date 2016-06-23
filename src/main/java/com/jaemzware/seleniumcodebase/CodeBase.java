@@ -60,6 +60,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
@@ -951,11 +952,21 @@ public class CodeBase {
                     !browser.toString().contains("SAFARI")){
                 driver.manage().timeouts().pageLoadTimeout(defaultImplicitWaitSeconds, TimeUnit.SECONDS);
             }
-            
-            driver.get(href);
-            
-            //i think get is returning in appium before the page is loaded on appium, so wait expclicitly for page to change
-            (new WebDriverWait(driver, defaultImplicitWaitSeconds)).until((ExpectedCondition<Boolean>) (WebDriver d) -> !driver.getCurrentUrl().equals(oldUrl)); 
+
+            //grab an element to detect the staleness of it
+            WebElement we = driver.findElement(By.xpath("//*"));
+
+            //check if we're already on the page before trying to load it
+            if(!driver.getCurrentUrl().equals(href)) {
+                driver.get(href);
+
+                (new WebDriverWait(driver, defaultImplicitWaitSeconds))
+                        .until(ExpectedConditions.stalenessOf(we));
+
+                //i think get is returning in appium before the page is loaded on appium, so wait expclicitly for page to change
+//                (new WebDriverWait(driver, defaultImplicitWaitSeconds))
+//                        .until((ExpectedCondition<Boolean>) (WebDriver d) -> !driver.getCurrentUrl().equals(oldUrl));
+            }
         }
         catch(Exception ex){
             System.out.println("ERROR: DRIVER.GET FAILED. HREF:"+href+" TRY SPECIFYING A LONGER -DdefaultImplicitWaitSeconds, WHICH IS SET TO "+defaultImplicitWaitSeconds+" SECONDS FOR THIS RUN. EXCEPTION:"+ex.getMessage());
@@ -1083,8 +1094,6 @@ public class CodeBase {
      * 
      * @param oldUrl
      *            - old value of what should be at resultStatsTextXpath
-     * @param urlWithParms
-     *            - informational only just used to print out to console, what page is being loaded
      * @throws Exception
      */
     protected void WaitForPageChange(String oldUrl)  {
