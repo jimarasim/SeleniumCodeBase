@@ -267,7 +267,7 @@ public class Facebook extends CodeBase{
             }
 
             //COMPLETE WRITING REPORT WEB PAGE
-            System.out.println("LOCAL REPORT WRITTEN:" + fileName);
+            System.out.println("open " + fileName);
             writer.println(HtmlReportFooter());
 
         } catch (Exception ex) {
@@ -292,7 +292,7 @@ public class Facebook extends CodeBase{
 
             // check if there were any verify errors, and fail whole test if so
             if (verificationErrors.length() > 0) {
-                System.out.println("\nopen " + verificationErrors.toString());
+                System.out.println("\nVERIFICATIONERRORS " + verificationErrors.toString());
             }
         } catch (Exception ex) {
             CustomStackTrace("AFTER EXCEPTION", ex);

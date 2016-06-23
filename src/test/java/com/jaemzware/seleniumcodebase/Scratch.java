@@ -115,7 +115,12 @@ public class Scratch extends CodeBase {
             fileWriteString = driverGetWithTime(starturl);
            
             // WRITE PAGE URL GET META INFORMATION (E.G. LENGTH OF LOAD TIME)
-            writer.println(fileWriteString);
+            if(fileWriteString.equals("ERROR")) {
+                writer.println("THERE WAS AN ERROR LOADING "+starturl);
+            }
+            else{
+                writer.println(fileWriteString);
+            }
 
             //LOGGING
             if(System.getProperty("logging")==null){
@@ -217,7 +222,7 @@ public class Scratch extends CodeBase {
             }
 
             //COMPLETE WRITING REPORT WEB PAGE
-            System.out.println("LOCAL REPORT WRITTEN:" + fileName);
+            System.out.println("open " + fileName);
             
             writer.println(HtmlReportFooter());
         } catch (Exception ex) {
@@ -316,7 +321,7 @@ public class Scratch extends CodeBase {
 
             // check if there were any verify errors, and fail whole test if so
             if (verificationErrors.length() > 0) {
-                System.out.println("\nopen " + verificationErrors.toString());
+                System.out.println("\nVERIFICATIONERRORS " + verificationErrors.toString());
             }
         } catch (Exception ex) {
             CustomStackTrace("AFTER EXCEPTION", ex);
