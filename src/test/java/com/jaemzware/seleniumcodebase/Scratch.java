@@ -113,6 +113,8 @@ public class Scratch extends CodeBase {
             // NAVIGATE TO THE STARTING PAGE TO GET LINKS TO VISIT FROM
             System.out.println("STARTURL:"+starturl);
             fileWriteString = driverGetWithTime(starturl);
+            //scroll the page (this can be overridden with -DnoScroll
+            ScrollPage();
            
             // WRITE PAGE URL GET META INFORMATION (E.G. LENGTH OF LOAD TIME)
             writer.println(fileWriteString);
@@ -197,6 +199,9 @@ public class Scratch extends CodeBase {
                 
                 // write stats to html report
                 writer.println(fileWriteString);
+
+                //scroll the page (this can be overridden with -DnoScroll
+                ScrollPage();
                 
         //ERROR LOGGING - TAKES LONG - ADD CAPABILITY WHEN CREATING driver BEFORE USING
                 if(System.getProperty("logging")==null){

@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+mvn -Dtest=Scratch#VerifyLogos -DwaitAfterPageLoadMilliSeconds=1000 -DdefaultImplicitWaitSeconds=60 -Dbrowser=FIREFOXMAC -Dnogrid test
