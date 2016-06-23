@@ -95,7 +95,7 @@ public class CodeBase {
         // standard header
         returnString.append("<html><head>");
         returnString.append(jQueryInclude);
-        returnString.append("<meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self'; img-src http://* https://*;\">");
+        returnString.append("<meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self'; img-src http://* https://* file://*;\">");
         returnString.append("<title>");
         returnString.append(titleHeaderString);
         returnString.append("</title>");
@@ -558,8 +558,6 @@ public class CodeBase {
         
         return fileName;
     }
-
-
     protected static void StartAppiumDriver(){
         DesiredCapabilities cap = new DesiredCapabilities();
         cap.setCapability("platformVersion", appiumIosTargetVersion);
@@ -597,7 +595,6 @@ public class CodeBase {
             iosDriver = null;
         }
     }
-
     protected static String iosDriverScreenShot() {
         String fileName = "";
 
@@ -697,11 +694,6 @@ public class CodeBase {
 
         return (htmlOutput);
     }
-
-
-
-
-
     /**
      * This method is used to print custom, stack traces that will show a custom message, and can be formatted Unlike
      * Exception printStackTrace(), it will not throw an exception.
