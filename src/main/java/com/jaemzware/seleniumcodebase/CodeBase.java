@@ -922,7 +922,7 @@ public class CodeBase {
      * @param href
      * @param randomPauseMaxSeconds
      * @throws Exception when driver can't get
-     * @return html formatted output
+     * @return html formatted output, or "ERROR" string if there's an issue (console will show error)
      */
     protected String driverGetWithTime(String href,int randomPauseMaxSeconds) throws Exception{
         long startTime;
@@ -958,7 +958,8 @@ public class CodeBase {
             (new WebDriverWait(driver, defaultImplicitWaitSeconds)).until((ExpectedCondition<Boolean>) (WebDriver d) -> !driver.getCurrentUrl().equals(oldUrl)); 
         }
         catch(Exception ex){
-            throw new Exception("DRIVER.GET FAILED. TRY SPECIFYING A LONGER -DdefaultImplicitWaitSeconds, WHICH IS SET TO "+defaultImplicitWaitSeconds+" SECONDS FOR THIS RUN. EXCEPTION:"+ex.getMessage());
+            System.out.println("ERROR: DRIVER.GET FAILED. HREF:"+href+" TRY SPECIFYING A LONGER -DdefaultImplicitWaitSeconds, WHICH IS SET TO "+defaultImplicitWaitSeconds+" SECONDS FOR THIS RUN. EXCEPTION:"+ex.getMessage());
+            return "ERROR";
         }
 
         // PRINT OUT LOAD TIME
