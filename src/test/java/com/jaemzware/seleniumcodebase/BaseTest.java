@@ -52,7 +52,7 @@ public class BaseTest extends CodeBase{
 
             // check if there were any verify errors, and fail whole test if so
             if (verificationErrors.length() > 0) {
-                System.out.println("\nLOGO VERIFICATION REPORT\n" + verificationErrors.toString());
+                System.out.println("\nVERIFICATIONERRORS " + verificationErrors.toString());
             }
         } catch (Exception ex) {
             CustomStackTrace("AFTER EXCEPTION", ex);

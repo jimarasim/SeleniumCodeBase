@@ -60,6 +60,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
@@ -94,7 +95,7 @@ public class CodeBase {
         // standard header
         returnString.append("<html><head>");
         returnString.append(jQueryInclude);
-        returnString.append("<meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self'; img-src http://* https://*;\">");
+        returnString.append("<meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self'; img-src http://* https://* file://*;\">");
         returnString.append("<title>");
         returnString.append(titleHeaderString);
         returnString.append("</title>");
@@ -557,8 +558,6 @@ public class CodeBase {
         
         return fileName;
     }
-
-
     protected static void StartAppiumDriver(){
         DesiredCapabilities cap = new DesiredCapabilities();
         cap.setCapability("platformVersion", appiumIosTargetVersion);
@@ -596,7 +595,6 @@ public class CodeBase {
             iosDriver = null;
         }
     }
-
     protected static String iosDriverScreenShot() {
         String fileName = "";
 
@@ -696,11 +694,6 @@ public class CodeBase {
 
         return (htmlOutput);
     }
-
-
-
-
-
     /**
      * This method is used to print custom, stack traces that will show a custom message, and can be formatted Unlike
      * Exception printStackTrace(), it will not throw an exception.
@@ -922,7 +915,7 @@ public class CodeBase {
      * @param href
      * @param randomPauseMaxSeconds
      * @throws Exception when driver can't get
-     * @return html formatted output
+     * @return html formatted output, or "ERROR" string if there's an issue (console will show error)
      */
     protected String driverGetWithTime(String href,int randomPauseMaxSeconds) throws Exception{
         long startTime;
@@ -951,14 +944,25 @@ public class CodeBase {
                     !browser.toString().contains("SAFARI")){
                 driver.manage().timeouts().pageLoadTimeout(defaultImplicitWaitSeconds, TimeUnit.SECONDS);
             }
-            
-            driver.get(href);
-            
-            //i think get is returning in appium before the page is loaded on appium, so wait expclicitly for page to change
-            (new WebDriverWait(driver, defaultImplicitWaitSeconds)).until((ExpectedCondition<Boolean>) (WebDriver d) -> !driver.getCurrentUrl().equals(oldUrl)); 
+
+            //grab an element to detect the staleness of it
+            WebElement we = driver.findElement(By.xpath("//*"));
+
+            //check if we're already on the page before trying to load it
+            if(!driver.getCurrentUrl().equals(href)) {
+                driver.get(href);
+
+                (new WebDriverWait(driver, defaultImplicitWaitSeconds))
+                        .until(ExpectedConditions.stalenessOf(we));
+
+                //i think get is returning in appium before the page is loaded on appium, so wait expclicitly for page to change
+//                (new WebDriverWait(driver, defaultImplicitWaitSeconds))
+//                        .until((ExpectedCondition<Boolean>) (WebDriver d) -> !driver.getCurrentUrl().equals(oldUrl));
+            }
         }
         catch(Exception ex){
-            throw new Exception("DRIVER.GET FAILED. TRY SPECIFYING A LONGER -DdefaultImplicitWaitSeconds, WHICH IS SET TO "+defaultImplicitWaitSeconds+" SECONDS FOR THIS RUN. EXCEPTION:"+ex.getMessage());
+            System.out.println("ERROR: DRIVER.GET FAILED. HREF:"+href+" TRY SPECIFYING A LONGER -DdefaultImplicitWaitSeconds, WHICH IS SET TO "+defaultImplicitWaitSeconds+" SECONDS FOR THIS RUN. EXCEPTION:"+ex.getMessage());
+            return "ERROR";
         }
 
         // PRINT OUT LOAD TIME
@@ -1082,8 +1086,6 @@ public class CodeBase {
      * 
      * @param oldUrl
      *            - old value of what should be at resultStatsTextXpath
-     * @param urlWithParms
-     *            - informational only just used to print out to console, what page is being loaded
      * @throws Exception
      */
     protected void WaitForPageChange(String oldUrl)  {
