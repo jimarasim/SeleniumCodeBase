@@ -316,7 +316,7 @@ public class Scratch extends CodeBase {
 
             // check if there were any verify errors, and fail whole test if so
             if (verificationErrors.length() > 0) {
-                System.out.println("\nLOGO VERIFICATION REPORT\n" + verificationErrors.toString());
+                System.out.println("\nopen " + verificationErrors.toString());
             }
         } catch (Exception ex) {
             CustomStackTrace("AFTER EXCEPTION", ex);
