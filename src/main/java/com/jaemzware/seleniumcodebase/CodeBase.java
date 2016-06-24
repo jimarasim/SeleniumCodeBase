@@ -306,6 +306,16 @@ public class CodeBase {
                     throw new Exception("-Dbrowser=" + browser + " IS UNSUPPORTED NATIVELY ON THIS OS:" + GetOsType());
                 }
 
+//                Map<String, String> mobileEmulation = new HashMap<String, String>();
+//                mobileEmulation.put("deviceName", "Google Nexus 5");
+//
+//                Map<String, Object> chromeOptions = new HashMap<String, Object>();
+//                chromeOptions.put("mobileEmulation", mobileEmulation);
+//                DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+//                capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
+//                WebDriver driver = new ChromeDriver(capabilities);
+
+
                 // USE CHROME OPTIONS TO SET THE USER AGENT IF REQUESTED (e.g. CHROMEIPHONE6)
                 if (browser.equals(BrowserType.CHROMEIPHONE6)) {
                     ChromeOptions options = new ChromeOptions();
