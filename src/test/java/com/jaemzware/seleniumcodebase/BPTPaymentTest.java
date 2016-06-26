@@ -6,16 +6,16 @@ import org.junit.Test;
 /**
  * Created by jameskarasim on 6/25/16.
  */
-public class BPTAmazonPaymentTest extends BPTPaymentTest{
+public class BPTPaymentTest extends BaseTest{
+
+    BPTPaymentPage testPage = new BPTPaymentPage();
 
     /**
      * TODO: VALID TEST. THIS WAS COPIED
      */
     @Test
-    public void BPTAmazonPaymentHappyPathTest(){
+    public void BPTPaymentPageHappyPathTest(){
         try{
-
-            super.BPTPaymentPageHappyPathTest();
 
         }
         catch(Exception ex){
@@ -23,3 +23,4 @@ public class BPTAmazonPaymentTest extends BPTPaymentTest{
         }
     }
 }
+

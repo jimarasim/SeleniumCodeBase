@@ -13,10 +13,6 @@ import java.security.InvalidParameterException;
  */
 public class BaseTest extends CodeBase{
 
-    public String pageUrl;// = "http://skatecreteordie.com";
-    public By pageTitle;// = By.xpath("//title[contains(text(),'skatecreteordie – skatepark mapplication')]");
-    public By pageHeader;// = By.xpath("//header/h1[@class='entry-title']");
-
     @Before
     public void BeforeTest() {
         try {
