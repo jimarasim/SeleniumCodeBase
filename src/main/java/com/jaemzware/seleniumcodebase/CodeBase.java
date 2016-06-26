@@ -1,3 +1,17 @@
+/*
+jaemzware frontside grind
+
+repository:
+https://github.com/jaemzware/SeleniumCodeBase.git
+
+current employer:
+brown paper tickets
+
+clients:
+brown paper tickets
+jaemzware
+
+ */
 package com.jaemzware.seleniumcodebase;
 
 import static com.jaemzware.seleniumcodebase.ParameterType.*;
