@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
  * Created by jameskarasim on 6/26/16.
  */
 public class BPTEventPage {
-    public String pageBaseUrl = "http://www.brownpapertickets.com/event/";
+    public String pageBaseUrl = "http://tony.bpt.me/event/";
     public By negativePageTitle = By.xpath("//title[contains(text(),'Brown Paper Tickets - The fair-trade ticketing company.')");
     public By pageHeader = By.xpath("//*[contains(text(),'The fair-trade ticketing company.')]");
     public By eventLinks = By.xpath("//a[contains(@href,'group')]");

@@ -17,7 +17,7 @@ public class BPTVisitFirstPageOfEventsTest extends BPTFindAnEventTest{
     @Test
     public void BPTSelectAnEventHappyPathTest(){
 
-        //IF YOU DERIVE FROM A TEST CLASS THAT IS NOT A BASE CLASS, USE ITS HAPPY PATH TEST IF FEASIBLE
+        //RULE: IF YOU DERIVE FROM A TEST CLASS THAT IS NOT A BASE CLASS, USE ITS HAPPY PATH TEST IF FEASIBLE
         //running the base classes happy path test is redundant, but it doesnt take that long
         // and navigates to the page under test for you
         super.BPTFindAnEventPageHappyPathTest();
@@ -35,11 +35,18 @@ public class BPTVisitFirstPageOfEventsTest extends BPTFindAnEventTest{
 
             //verify each event page
             for (WebElement eventLink:links){
-                eventLink.click();
+                boolean evenLinkIsDisplayed = eventLink.isDisplayed();
+                String eventLinkHref = eventLink.getAttribute("href");
 
+                if(evenLinkIsDisplayed) {
+                    System.out.println("CLICKING EVENT LINK :" + eventLinkHref);
+                    eventLink.click();
+                    break;
+                }
+                else{
+                    System.out.println("EVENT LINK DETECTED BUT NOT DISPLAYED:" + eventLinkHref);
+                }
             }
-
-
         }
         catch(Exception ex){
             Assert.fail("FAIL:"+ex.getMessage());

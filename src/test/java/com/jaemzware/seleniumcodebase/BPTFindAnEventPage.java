@@ -7,7 +7,7 @@ import org.openqa.selenium.By;
  */
 public class BPTFindAnEventPage {
 
-    public String pageUrl = "https://brownpapertickets.com/browse.html";
+    public String pageUrl = "https://tony.bpt.me/browse.html";
     public By pageTitle  = By.xpath("//title[contains(text(),'Brown Paper Tickets - The fair-trade ticketing company.')]");
     public By pageHeader = By.xpath("//*[contains(text(),'The fair-trade ticketing company.')]");
     public By eventLinks = By.xpath("//a[contains(@href,'group')]");

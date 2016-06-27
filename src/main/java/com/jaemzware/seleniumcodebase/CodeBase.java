@@ -15,11 +15,7 @@ jaemzware
 package com.jaemzware.seleniumcodebase;
 
 import static com.jaemzware.seleniumcodebase.ParameterType.*;
-import io.appium.java_client.MobileElement;
-import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
-import io.appium.java_client.service.local.AppiumServiceBuilder;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -93,49 +89,6 @@ public class CodeBase {
     protected static StringBuilder verificationErrors = new StringBuilder();
     // save off main window handle, for when dealing with popups
     protected static String mainWindowHandle;
-
-    /**
-     * compose and return an html string for an html page to the body opener
-     * 
-     * @param titleHeaderString
-     *            - custom title / h1
-     * @return
-     */
-    protected static String HtmlReportHeader(String titleHeaderString) {
-        StringBuilder returnString = new StringBuilder();
-
-        String jQueryInclude = "<script src=\"jquery-1.12.2.min\"></script>";
-        
-        // standard header
-        returnString.append("<html><head>");
-        returnString.append(jQueryInclude);
-        returnString.append("<meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self'; img-src http://* https://* file://*;\">");
-        returnString.append("<title>");
-        returnString.append(titleHeaderString);
-        returnString.append("</title>");
-        returnString.append("<style>");
-        returnString.append("table td, table th {border: 1px solid black;text-align:left;vertical-align:top;}");
-        returnString.append(".warning {background-color:#C0C0C0;color:#FFFF00;}");
-        returnString.append(".severe {background-color:#C0C0C0;color:#FF0000;}");
-        returnString.append(".info {background-color:#C0C0C0;color:#000000;}").append("</style>").append("</head>");
-        returnString.append("<body><b>");
-        returnString.append(titleHeaderString);
-        returnString.append("</b>");
-
-        return (returnString.toString());
-    }
-    /**
-     * compose and return an html string for an html page from the body closer
-     * 
-     * @return
-     */
-    protected static String HtmlReportFooter() {
-        StringBuilder returnString = new StringBuilder();
-        
-        returnString.append("<hr>");
-
-        return (returnString.toString());
-    }
     /**
      * This function gets the command line parameters.
      * Separated out so that tests can get the parameters without having to start the driver
@@ -491,62 +444,6 @@ public class CodeBase {
     protected static void QuitDriver() {
         driver.quit();
         driver = null;
-    }
-    /** This method gets the current running operating system, for running local browsers -DnoGrid 
-     * 
-     * @return
-     * @throws Exception 
-     */
-    private static OsType GetOsType() throws Exception {
-        // get the os
-        String os = System.getProperty("os.name").toLowerCase();
-
-        // set the system property for chromedriver depending on the os
-        if (os.contains("win")) {
-            return OsType.WINDOWS;
-        } else if (os.contains("mac")) {
-            return OsType.MAC;
-        } else if (os.contains("nix") || os.contains("nux") || os.indexOf("aix") > 0) {
-            return OsType.UNIX;
-        } else {
-            throw new Exception("UNSUPPORTED OPERATING SYSTEM:" + os);
-        }
-
-    }
-    /**
-     * IsElementPresent stub with default waitTime of 10 seconds (when no wait time specified)
-     * 
-     * @param locatorKey
-     * @return
-     */
-    public static boolean IsElementPresent(By locatorKey) {
-        return IsElementPresent(locatorKey, 10000);
-    }
-    /**
-     * IsElementPresent method, that allows one to specify how long to try finding the element
-     * 
-     * @param locatorKey
-     * @param waitTimeMillis
-     * @return
-     */
-    public static boolean IsElementPresent(By locatorKey, int waitTimeMillis) {
-        try {
-            //implictlywait cant' work with appium
-            if(!browser.toString().contains("APPIUM")){
-                // throttle wait time when looking for elements that should already be on the page
-                driver.manage().timeouts().implicitlyWait(waitTimeMillis, TimeUnit.MILLISECONDS);
-            }            
-            // look for elements
-            return driver.findElements(locatorKey).size() > 0;
-        } catch (Exception ex) {
-            return false;
-        } finally {
-            if(!browser.toString().contains("APPIUM") && !browser.toString().contains("SAFARI")){
-                // throttle implicit wait time back up
-                driver.manage().timeouts().implicitlyWait(defaultImplicitWaitSeconds, TimeUnit.SECONDS);
-            }
-        }
-
     }
     /**
      * This method takes a screenshot, and puts it in the current working directory Made static so screenshot can be
@@ -1160,17 +1057,17 @@ public class CodeBase {
         } else {
             logString.append("<tr><td colspan=2>No CLIENT log entries found.</td></tr>");
         }
-        //TODO: TRY THIS AGAIN
-        // LogEntries driverLog = driver.manage().logs().get(LogType.DRIVER);
-        // if(driverLog.getAll().size()>0){
-        // logString.append("<tr><td colspan=2><h3>DRIVER</h3></td></tr>");
-        // logString.append("<tr><td>LEVEL</td><td>MESSAGE</td></tr>");
-        // logString.append(WriteLogEntryRows(driverLog));
-        // }
-        // else{
-        // logString.append("<tr><td colspan=2>No DRIVER log entries found.</td></tr>");
-        // }
-        //
+        //TODO: TRYing  THIS AGAIN
+         LogEntries driverLog = driver.manage().logs().get(LogType.DRIVER);
+         if(driverLog.getAll().size()>0){
+             logString.append("<tr><td colspan=2><h3>DRIVER</h3></td></tr>");
+             logString.append("<tr><td>LEVEL</td><td>MESSAGE</td></tr>");
+             logString.append(WriteLogEntryRows(driverLog));
+         }
+         else{
+            logString.append("<tr><td colspan=2>No DRIVER log entries found.</td></tr>");
+         }
+
 
         logString.append("</table>");
         return logString.toString();
@@ -1189,33 +1086,28 @@ public class CodeBase {
                 logEntryRows.append("<td class='severe'><b>");
                 logEntryRows.append(errorLevel).append("</b></td>");
                 logEntryRows.append("<td>").append(entry.getMessage()).append("</td></tr>");
-            } 
-//            else if (errorLevel.contains("WARNING")) {
-//                logEntryRows.append("<td class='warning'><b>");
-            
-//                logEntryRows.append(errorLevel).append("</b></td>");
-//                logEntryRows.append("<td>").append(entry.getMessage()).append("</td></tr>");
-//            } else if (errorLevel.contains("INFO")) {
-//                logEntryRows.append("<td class='info'><b>");
-                
-//                logEntryRows.append(errorLevel).append("</b></td>");
-//                logEntryRows.append("<td>").append(entry.getMessage()).append("</td></tr>");
-//            } else if (errorLevel.contains("FINE")) {
-//                logEntryRows.append("<td class='info'><b>");
-                
-//                logEntryRows.append(errorLevel).append("</b></td>");
-//                logEntryRows.append("<td>").append(entry.getMessage()).append("</td></tr>");
-//            } else {
-//                logEntryRows.append("<td><b>");
-                
-//                logEntryRows.append(errorLevel).append("</b></td>");
-//                logEntryRows.append("<td>").append(entry.getMessage()).append("</td></tr>");
-//                
-//            }
-            
-            
-        }
+            }
+            else if (errorLevel.contains("WARNING")) {
+                logEntryRows.append("<td class='warning'><b>");
 
+                logEntryRows.append(errorLevel).append("</b></td>");
+                logEntryRows.append("<td>").append(entry.getMessage()).append("</td></tr>");
+            } else if (errorLevel.contains("INFO")) {
+                logEntryRows.append("<td class='info'><b>");
+
+                logEntryRows.append(errorLevel).append("</b></td>");
+                logEntryRows.append("<td>").append(entry.getMessage()).append("</td></tr>");
+            } else if (errorLevel.contains("FINE")) {
+                logEntryRows.append("<td class='info'><b>");
+
+                logEntryRows.append(errorLevel).append("</b></td>");
+                logEntryRows.append("<td>").append(entry.getMessage()).append("</td></tr>");
+            } else {
+                logEntryRows.append("<td><b>");
+                logEntryRows.append(errorLevel).append("</b></td>");
+                logEntryRows.append("<td>").append(entry.getMessage()).append("</td></tr>");
+            }
+        }
         return logEntryRows.toString();
     }
     /**
@@ -1305,15 +1197,66 @@ public class CodeBase {
         return outputString.toString();
     }
     
-            /**
+
+
+
+    /**SELENIUM TEST HELPERS
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     */
+    //generic test for verifying multiple elements on a page
+    public void BasicTest(String startUrl, By[] elementsToVerify) throws Exception{
+        //START DRIVER AND MAKE SURE ITS RUNNING
+        try{
+            this.driverGetWithTime(startUrl);
+
+            for(By anElement: elementsToVerify) {
+                if (!IsElementPresent(anElement)) {
+                    throw new Exception("FAIL: MISSING anElement XPATH:"+anElement);
+                } else {
+                    System.out.println("PASS: FOUND anElement XPATH:"+anElement);
+                }
+            }
+        }
+        catch (Exception ex) {
+            ScreenShot();
+            throw new Exception(ex.getMessage());
+        }
+    }
+    //generic test for verifying multiple images on a page
+    public void BasicPageImagesTest(String startUrl, String expectedImages[]) throws Exception{
+        try{
+            this.driverGetWithTime(startUrl);
+
+            for(String image: expectedImages){
+                if(!IsElementPresent(By.xpath("//img[@src='"+image+"']"))){
+                    verificationErrors.append("FAIL: MISSING IMAGE:").append(image);
+                }
+                else{
+                    System.out.println("PASS: FOUND IMAGE"+ image);
+                }
+            }
+        }
+        catch (Exception ex) {
+            ScreenShot();
+            throw new Exception(ex.getMessage());
+        }
+    }
+    /**
      * This method gets links to visit from the target page
-     * @return 
-     * @throws java.lang.Exception 
+     * @return
+     * @throws java.lang.Exception
      */
     public List<String> GetLinksOnPage() throws Exception{
         // list for links
         List<String> urls = new ArrayList<>();
-        
+
         // wait for links to be loaded
         (new WebDriverWait(driver, defaultImplicitWaitSeconds)).until(new ExpectedCondition<Boolean>() {
             @Override
@@ -1342,15 +1285,127 @@ public class CodeBase {
         for (WebElement we : webElements) {
             urls.add(we.getAttribute("href"));
         }
-        
+
         return urls;
     }
-    
+
+    /**JAVA PROGRAMMING UTILITIES
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     */
+    /** This method gets the current running operating system, for running local browsers -DnoGrid
+     *
+     * @return
+     * @throws Exception
+     */
+    private static OsType GetOsType() throws Exception {
+        // get the os
+        String os = System.getProperty("os.name").toLowerCase();
+
+        // set the system property for chromedriver depending on the os
+        if (os.contains("win")) {
+            return OsType.WINDOWS;
+        } else if (os.contains("mac")) {
+            return OsType.MAC;
+        } else if (os.contains("nix") || os.contains("nux") || os.indexOf("aix") > 0) {
+            return OsType.UNIX;
+        } else {
+            throw new Exception("UNSUPPORTED OPERATING SYSTEM:" + os);
+        }
+
+    }
+    /**
+     * compose and return an html string for an html page to the body opener
+     *
+     * @param titleHeaderString
+     *            - custom title / h1
+     * @return
+     */
+    protected static String HtmlReportHeader(String titleHeaderString) {
+        StringBuilder returnString = new StringBuilder();
+
+        String jQueryInclude = "<script src=\"jquery-1.12.2.min\"></script>";
+
+        // standard header
+        returnString.append("<html><head>");
+        returnString.append(jQueryInclude);
+        returnString.append("<meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self'; img-src http://* https://* file://*;\">");
+        returnString.append("<title>");
+        returnString.append(titleHeaderString);
+        returnString.append("</title>");
+        returnString.append("<style>");
+        returnString.append("table td, table th {border: 1px solid black;text-align:left;vertical-align:top;}");
+        returnString.append(".warning {background-color:#C0C0C0;color:#FFFF00;}");
+        returnString.append(".severe {background-color:#C0C0C0;color:#FF0000;}");
+        returnString.append(".info {background-color:#C0C0C0;color:#000000;}").append("</style>").append("</head>");
+        returnString.append("<body><b>");
+        returnString.append(titleHeaderString);
+        returnString.append("</b>");
+
+        return (returnString.toString());
+    }
+    /**
+     * compose and return an html string for an html page from the body closer
+     *
+     * @return
+     */
+    protected static String HtmlReportFooter() {
+        StringBuilder returnString = new StringBuilder();
+
+        returnString.append("<hr>");
+
+        return (returnString.toString());
+    }
+    /**
+     * IsElementPresent stub with default waitTime of 10 seconds (when no wait time specified)
+     *
+     * @param locatorKey
+     * @return
+     */
+    public static boolean IsElementPresent(By locatorKey) {
+        return IsElementPresent(locatorKey, 10000);
+    }
+    /**
+     * IsElementPresent method, that allows one to specify how long to try finding the element
+     *
+     * @param locatorKey
+     * @param waitTimeMillis
+     * @return
+     */
+    public static boolean IsElementPresent(By locatorKey, int waitTimeMillis) {
+        try {
+            //implictlywait cant' work with appium
+            if(!browser.toString().contains("APPIUM")){
+                // throttle wait time when looking for elements that should already be on the page
+                driver.manage().timeouts().implicitlyWait(waitTimeMillis, TimeUnit.MILLISECONDS);
+            }
+            // look for elements
+            return driver.findElements(locatorKey).size() > 0;
+        } catch (Exception ex) {
+            return false;
+        } finally {
+            if(!browser.toString().contains("APPIUM") && !browser.toString().contains("SAFARI")){
+                // throttle implicit wait time back up
+                driver.manage().timeouts().implicitlyWait(defaultImplicitWaitSeconds, TimeUnit.SECONDS);
+            }
+        }
+
+    }
+    /**
+     * This method gets links to visit from the target page USING REST (HTTP GET)
+     * @return
+     * @throws java.lang.Exception
+     */
     public List<String> GetLinksOnPageViaREST(String targetUrl) throws Exception{
-        
+
         List<String> urls = new ArrayList<>();
 
-                
         try{
             //get the page
             String rawHtml = HttpGetReturnResponse(targetUrl);
@@ -1366,48 +1421,10 @@ public class CodeBase {
         catch(Exception ex){
             System.out.println("COULD NOT GET URLS:"+ex.getMessage());
         }
-        
-        
         return urls;
     }
 
-    //generic test for verifying multiple elements on a page
-    public void BasicTest(String startUrl, By[] elementsToVerify) throws Exception{
-        //START DRIVER AND MAKE SURE ITS RUNNING
-        try{
-            this.driverGetWithTime(startUrl);
 
-            for(By anElement: elementsToVerify) {
-                if (!IsElementPresent(anElement)) {
-                    throw new Exception("FAIL: MISSING anElement XPATH:"+anElement);
-                } else {
-                    System.out.println("PASS: FOUND anElement XPATH:"+anElement);
-                }
-            }
-        }
-        catch (Exception ex) {
-            ScreenShot();
-            throw new Exception(ex.getMessage());
-        }
-    }
 
-    //generic test for verifying multiple images on a page
-    public void BasicPageImagesTest(String startUrl, String expectedImages[]) throws Exception{
-        try{
-            this.driverGetWithTime(startUrl);
 
-            for(String image: expectedImages){
-                if(!IsElementPresent(By.xpath("//img[@src='"+image+"']"))){
-                    verificationErrors.append("FAIL: MISSING IMAGE:").append(image);
-                }
-                else{
-                    System.out.println("PASS: FOUND IMAGE"+ image);
-                }
-            }
-        }
-        catch (Exception ex) {
-            ScreenShot();
-            throw new Exception(ex.getMessage());
-        }
-    }
 }
