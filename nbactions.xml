@@ -3,17 +3,36 @@
         <action>
             <actionName>debug.test.single</actionName>
             <goals>
-                <goal>test-compile</goal>
-                <goal>surefire:test</goal>
-                <goal>-Dtest=Scratch#VerifyLogos</goal>
-                <goal>-DaNumber=0</goal>
-                <goal>-Dbrowser=APPIUMSIMULATORAPPSAFARI</goal>
-                <goal>-Dinput=seattlerules.com</goal>
-                <goal>-Duserid=seattlerules.com</goal>
-                <goal>-DaString=//a</goal>
-                <goal>-Dlogging</goal>
-                <goal>-DaHubPort=4723</goal>
-                <goal>-DaHubServer=localhost</goal>
+                <goal>clean:clean</goal>
+                <goal>install:install</goal>
+                <goal>-Dtest="IosScratchApp"</goal>
+                <goal>-Dbrowser="APPIUMAPPDEVICE"</goal>
+                <goal>-DwaitAfterPageLoadMilliSeconds="500"</goal>
+                <goal>-DdefaultImplicitWaitSeconds="120"</goal>
+                <goal>-DappiumBinaryJSPath="//Users//jameskarasim//Downloads//installed//repositories//appium//bin//appium.js"</goal>
+                <goal>-DappiumBinaryNodeJSPath="//usr//local//bin//node"</goal>
+                <goal>-DappiumApp="//Users//jameskarasim//Downloads//pagebasedsample.ipa"</goal>
+                <goal>-DappiumUdid="88ff683cec637c3f1279386620b5397d48bc8341"</goal>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
                 
                 
                 
@@ -37,17 +56,36 @@
         <action>
             <actionName>test.single</actionName>
             <goals>
-                <goal>test-compile</goal>
-                <goal>surefire:test</goal>
-                <goal>-Dtest=Scratch#VerifyLogos</goal>
-                <goal>-DaNumber=0</goal>
-                <goal>-Dbrowser=APPIUMSIMULATORAPPSAFARI</goal>
-                <goal>-Dinput=seattlerules.com</goal>
-                <goal>-Duserid=seattlerules.com</goal>
-                <goal>-DaString=//a</goal>
-                <goal>-Dlogging</goal>
-                <goal>-DaHubPort=4723</goal>
-                <goal>-DaHubServer=localhost</goal>
+                <goal>clean:clean</goal>
+                <goal>install:install</goal>
+                <goal>-Dtest="IosScratchApp"</goal>
+                <goal>-Dbrowser="APPIUMAPPDEVICE"</goal>
+                <goal>-DwaitAfterPageLoadMilliSeconds="500"</goal>
+                <goal>-DdefaultImplicitWaitSeconds="120"</goal>
+                <goal>-DappiumBinaryJSPath="//Users//jameskarasim//Downloads//installed//repositories//appium//bin//appium.js"</goal>
+                <goal>-DappiumBinaryNodeJSPath="//usr//local//bin//node"</goal>
+                <goal>-DappiumApp="//Users//jameskarasim//Downloads//pagebasedsample.ipa"</goal>
+                <goal>-DappiumUdid="88ff683cec637c3f1279386620b5397d48bc8341"</goal>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
                 
                 
                 
@@ -65,6 +103,16 @@
             </goals>
             <properties>
                 <test>${packageClassName}</test>
+            </properties>
+        </action>
+        <action>
+            <actionName>run</actionName>
+            <packagings>
+                <packaging>jar</packaging>
+            </packagings>
+            <properties>
+                <exec.args>-classpath %classpath ${packageClassName}</exec.args>
+                <exec.executable>java</exec.executable>
             </properties>
         </action>
     </actions>

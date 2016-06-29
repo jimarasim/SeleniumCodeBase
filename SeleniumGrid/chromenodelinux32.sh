@@ -1,1 +1,1 @@
-java -Dwebdriver.chrome.driver=chromedriverlinux32 -jar selenium-server-standalone-2.45.0.jar -role node -browser "browserName=chrome,maxInstances=5" -hub http://localhost:4444/grid/register -port 5556
+java -Dwebdriver.chrome.driver=chromedriverlinux32 -jar selenium-server-standalone-2.53.0.jar -role node -browser "browserName=chrome,maxInstances=5" -hub http://localhost:4444/grid/register -port 5556
