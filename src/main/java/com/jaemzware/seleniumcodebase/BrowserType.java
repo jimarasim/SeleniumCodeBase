@@ -12,6 +12,7 @@ public enum BrowserType {
     //ALL APPIUM BROWSERS MUST HAVE APPIUM IN THE NAME
     CHROME("chrome","",Platform.WINDOWS), 
     CHROMELINUX("chrome","",Platform.LINUX),
+    CHROMELINUX32("chrome","",Platform.LINUX),
     CHROMEMAC ("chrome","",Platform.MAC),
     FIREFOX("firefox","",Platform.WINDOWS),
     FIREFOXLINUX("firefox","",Platform.LINUX),

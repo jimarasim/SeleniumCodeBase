@@ -16,6 +16,7 @@ public class BPTAmazonPaymentTest extends BPTPaymentTest{
         try{
 
             super.BPTPaymentPageHappyPathTest();
+            System.out.println("TODO: VALID TEST. THIS WAS COPIED");
 
         }
         catch(Exception ex){
