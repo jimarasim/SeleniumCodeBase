@@ -202,8 +202,8 @@ public class CodeBase {
                 } else {
                     LoggingPreferences loggingprefs = new LoggingPreferences();
                     loggingprefs.enable(LogType.BROWSER, Level.ALL);
-                    loggingprefs.enable(LogType.CLIENT, Level.ALL);
-                    loggingprefs.enable(LogType.DRIVER, Level.ALL);
+//                    loggingprefs.enable(LogType.CLIENT, Level.ALL);
+//                    loggingprefs.enable(LogType.DRIVER, Level.ALL);
                     cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
 
                     System.out.println("-Dlogging SPECIFIED");
