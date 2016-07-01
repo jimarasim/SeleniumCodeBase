@@ -39,9 +39,7 @@ public class BPTVisitFirstPageOfEventsTest extends BPTFindAnEventTest{
                 String eventLinkHref = eventLink.getAttribute("href");
 
                 if(evenLinkIsDisplayed) {
-                    System.out.println("CLICKING EVENT LINK :" + eventLinkHref);
-                    eventLink.click();
-                    break;
+                    System.out.println("EVENT LINK DISPLAYED:" + eventLinkHref);
                 }
                 else{
                     System.out.println("EVENT LINK DETECTED BUT NOT DISPLAYED:" + eventLinkHref);
