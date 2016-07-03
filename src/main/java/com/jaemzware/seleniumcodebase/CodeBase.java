@@ -166,6 +166,7 @@ public class CodeBase {
                 switch (browser) {
                     case CHROME:
                     case CHROMELINUX:
+                    case CHROMELINUX32:
                     case CHROMEMAC:
                         cap = DesiredCapabilities.chrome();
                         break;
@@ -202,8 +203,8 @@ public class CodeBase {
                 } else {
                     LoggingPreferences loggingprefs = new LoggingPreferences();
                     loggingprefs.enable(LogType.BROWSER, Level.ALL);
-                    loggingprefs.enable(LogType.CLIENT, Level.ALL);
-                    loggingprefs.enable(LogType.DRIVER, Level.ALL);
+//                    loggingprefs.enable(LogType.CLIENT, Level.ALL);
+//                    loggingprefs.enable(LogType.DRIVER, Level.ALL);
                     cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
 
                     System.out.println("-Dlogging SPECIFIED");
@@ -250,175 +251,179 @@ public class CodeBase {
 
             switch (browser) {
             // CHROME VARIATIONS.
-            case CHROMELINUX:
-            case CHROMEMAC:
-            case CHROME:
-            case CHROMEIPHONE6: // CHROME EMULATOR
-            case CHROMEIPAD4: // CHROME EMULATOR
-            case CHROMEANDROID402: // CHROME EMULATOR
+                case CHROMELINUX:
+                case CHROMELINUX32:
+                case CHROMEMAC:
+                case CHROME:
+                case CHROMEIPHONE6: // CHROME EMULATOR
+                case CHROMEIPAD4: // CHROME EMULATOR
+                case CHROMEANDROID402: // CHROME EMULATOR
 
-                // chrome uses a different driver binary depending on what os we're on
-                switch (GetOsType()) {
-                case WINDOWS:
-                    System.setProperty("webdriver.chrome.driver", relativePathToDrivers + "chromedriver.exe"); // FOR
-                    break;
-                case MAC:
-                    System.setProperty("webdriver.chrome.driver", relativePathToDrivers + "chromedrivermac"); // FOR MAC
-                    break;
-                case UNIX:
-                    System.setProperty("webdriver.chrome.driver", relativePathToDrivers + "chromedriverlinux64"); // FOR
-                                                                                                                  // unix
-                    break;
-                default:
-                    throw new Exception("-Dbrowser=" + browser + " IS UNSUPPORTED NATIVELY ON THIS OS:" + GetOsType());
-                }
+                    // chrome uses a different driver binary depending on what os we're on
+                    switch (GetOsType()) {
+                    case WINDOWS:
+                        System.setProperty("webdriver.chrome.driver", relativePathToDrivers + "chromedriver.exe"); // FOR
+                        break;
+                    case MAC:
+                        System.setProperty("webdriver.chrome.driver", relativePathToDrivers + "chromedrivermac"); // FOR MAC
+                        break;
+                    case UNIX:
+                        if(browser.equals(BrowserType.CHROMELINUX32)){
+                            System.setProperty("webdriver.chrome.driver", relativePathToDrivers + "chromedriverlinux32"); // FOR
+                        }
+                        else {
+                            System.setProperty("webdriver.chrome.driver", relativePathToDrivers + "chromedriverlinux64"); // FOR
+                        }
+                                                                                                                      // unix
+                        break;
+                    default:
+                        throw new Exception("-Dbrowser=" + browser + " IS UNSUPPORTED NATIVELY ON THIS OS:" + GetOsType());
+                    }
 
-//                Map<String, String> mobileEmulation = new HashMap<String, String>();
-//                mobileEmulation.put("deviceName", "Google Nexus 5");
-//
-//                Map<String, Object> chromeOptions = new HashMap<String, Object>();
-//                chromeOptions.put("mobileEmulation", mobileEmulation);
-//                DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-//                capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
-//                WebDriver driver = new ChromeDriver(capabilities);
+    //                Map<String, String> mobileEmulation = new HashMap<String, String>();
+    //                mobileEmulation.put("deviceName", "Google Nexus 5");
+    //
+    //                Map<String, Object> chromeOptions = new HashMap<String, Object>();
+    //                chromeOptions.put("mobileEmulation", mobileEmulation);
+    //                DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+    //                capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
+    //                WebDriver driver = new ChromeDriver(capabilities);
 
 
-                // USE CHROME OPTIONS TO SET THE USER AGENT IF REQUESTED (e.g. CHROMEIPHONE6)
-                if (browser.equals(BrowserType.CHROMEIPHONE6)) {
-                    ChromeOptions options = new ChromeOptions();
-
-                    // iphone ios6
-                    options.addArguments("--user-agent=Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25");
-
-                    driver = new ChromeDriver(options);
-                } else if (browser.equals(BrowserType.CHROMEIPAD4)) {
-                    ChromeOptions options = new ChromeOptions();
-
-                    // ipad ios4
-                    options.addArguments("--user-agent=Mozilla/5.0 (iPad; CPU OS 4_3_2 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8H7 Safari/6533.18.5");
-
-                    driver = new ChromeDriver(options);
-                } else if (browser.equals(BrowserType.CHROMEANDROID402)) {
-                    ChromeOptions options = new ChromeOptions();
-
-                    // android 4.0.2
-                    options.addArguments("--user-agent=Mozilla/5.0 (Linux; U; Android 4.0.2; en-us; Galaxy Nexus Build/ICL53F) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30");
-
-                    driver = new ChromeDriver(options);
-                } else {
-                     // turn on debug logging if debug is specified. this takes longer
-                    if (logging != null) {
-                        // get the chrome driver/start regular chrome
-                         // get the desired capabilities
-                        DesiredCapabilities cap = DesiredCapabilities.chrome();
-
-                        //chrome doesnt support this logging type CLIENT
-                        LoggingPreferences loggingprefs = new LoggingPreferences();
-                        loggingprefs.enable(LogType.BROWSER, Level.ALL);
-                        loggingprefs.enable(LogType.DRIVER, Level.ALL);
-                        cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
-                        
-                        System.out.println("-Dlogging SPECIFIED");
-
-                        driver = new ChromeDriver(cap);
-                    } else {
-                        System.out.println("-Dlogging NOT SPECIFIED");
-                        
-                        //incognito
+                    // USE CHROME OPTIONS TO SET THE USER AGENT IF REQUESTED (e.g. CHROMEIPHONE6)
+                    if (browser.equals(BrowserType.CHROMEIPHONE6)) {
                         ChromeOptions options = new ChromeOptions();
+
+                        // iphone ios6
+                        options.addArguments("--user-agent=Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25");
+
                         driver = new ChromeDriver(options);
+                    } else if (browser.equals(BrowserType.CHROMEIPAD4)) {
+                        ChromeOptions options = new ChromeOptions();
+
+                        // ipad ios4
+                        options.addArguments("--user-agent=Mozilla/5.0 (iPad; CPU OS 4_3_2 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8H7 Safari/6533.18.5");
+
+                        driver = new ChromeDriver(options);
+                    } else if (browser.equals(BrowserType.CHROMEANDROID402)) {
+                        ChromeOptions options = new ChromeOptions();
+
+                        // android 4.0.2
+                        options.addArguments("--user-agent=Mozilla/5.0 (Linux; U; Android 4.0.2; en-us; Galaxy Nexus Build/ICL53F) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30");
+
+                        driver = new ChromeDriver(options);
+                    } else {
+                         // turn on debug logging if debug is specified. this takes longer
+                        if (logging != null) {
+                            // get the chrome driver/start regular chrome
+                             // get the desired capabilities
+                            DesiredCapabilities cap = DesiredCapabilities.chrome();
+
+                            //chrome doesnt support this logging type CLIENT
+                            LoggingPreferences loggingprefs = new LoggingPreferences();
+                            loggingprefs.enable(LogType.BROWSER, Level.ALL);
+    //                        loggingprefs.enable(LogType.DRIVER, Level.ALL);
+                            cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
+
+                            System.out.println("-Dlogging SPECIFIED");
+
+                            driver = new ChromeDriver(cap);
+                        } else {
+                            System.out.println("-Dlogging NOT SPECIFIED");
+
+                            //incognito
+                            ChromeOptions options = new ChromeOptions();
+                            driver = new ChromeDriver(options);
+                        }
+
                     }
 
-                }
-
-                break;
-            case FIREFOX:
-            case FIREFOXLINUX:
-            case FIREFOXMAC:
-                if (logging != null) {
-                    // get the desired capabilities
-                    DesiredCapabilities cap = DesiredCapabilities.firefox();
-
-                    LoggingPreferences loggingprefs = new LoggingPreferences();
-                    loggingprefs.enable(LogType.BROWSER, Level.ALL);
-                    loggingprefs.enable(LogType.CLIENT, Level.ALL);
-                    loggingprefs.enable(LogType.DRIVER, Level.ALL);
-                    cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
-                    
-                    System.out.println("-Dlogging SPECIFIED");
-
-                    driver = new FirefoxDriver(cap);
-                } else {
-                    System.out.println("-Dlogging NOT SPECIFIED");
-                    
-                    driver = new FirefoxDriver();
-                }
-                break;
-            case SAFARI:
-
-                if (GetOsType().equals(OsType.MAC)) {
-                    DesiredCapabilities cap = DesiredCapabilities.safari();
-                    cap.setPlatform(Platform.MAC);
-
-                    // start safari clean (delete all cookies doesn't work)
-                    SafariOptions safariOptions = new SafariOptions();
-                    safariOptions.setUseCleanSession(true);
-                    cap.setCapability(SafariOptions.CAPABILITY, safariOptions);
-
-                    if (logging != null) {
-                        LoggingPreferences loggingprefs = new LoggingPreferences();
-                        loggingprefs.enable(LogType.BROWSER, Level.ALL);
-                        loggingprefs.enable(LogType.CLIENT, Level.ALL);
-                        loggingprefs.enable(LogType.DRIVER, Level.ALL);
-                        cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
-                        
-                        System.out.println("-Dlogging SPECIFIED");
-                    }
-                    else{
-                        System.out.println("-Dlogging NOT SPECIFIED");
-                    }
-
-                    driver = new SafariDriver(cap);
-
-                } else {
-                    throw new Exception("SAFARI IS UNSUPPORTED NATIVELY ON THIS OS:" + GetOsType());
-                }
-
-                break;
-            case IE8:
-            case IE9:
-            case IE10:
-            case IE11:
-                if (GetOsType().equals(OsType.WINDOWS)) {
-                    // if we're on windows, just look for the windows driver regardless of version
-                    System.setProperty("webdriver.ie.driver", relativePathToDrivers + "IEDriverServer.exe");
-
+                    break;
+                case FIREFOX:
+                case FIREFOXLINUX:
+                case FIREFOXMAC:
                     if (logging != null) {
                         // get the desired capabilities
                         DesiredCapabilities cap = DesiredCapabilities.firefox();
 
                         LoggingPreferences loggingprefs = new LoggingPreferences();
                         loggingprefs.enable(LogType.BROWSER, Level.ALL);
-                        loggingprefs.enable(LogType.CLIENT, Level.ALL);
-                        loggingprefs.enable(LogType.DRIVER, Level.ALL);
+    //                    loggingprefs.enable(LogType.CLIENT, Level.ALL);
+    //                    loggingprefs.enable(LogType.DRIVER, Level.ALL);
                         cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
-                        
+
                         System.out.println("-Dlogging SPECIFIED");
 
-                        driver = new InternetExplorerDriver(cap);
+                        driver = new FirefoxDriver(cap);
                     } else {
-                        
                         System.out.println("-Dlogging NOT SPECIFIED");
-                        
-                        driver = new InternetExplorerDriver();
-                    }
 
-                } else {
-                    throw new Exception("IE IS UNSUPPORTED NATIVELY ON THIS OS:" + GetOsType());
-                }
-                break;
-            default:
-                throw new Exception("NOT CONFIGURED TO LAUNCH THIS BROWSER LOCALLY. MUST USE GRID -Dbrowser:" + browser);
+                        driver = new FirefoxDriver();
+                    }
+                    break;
+                case SAFARI:
+                    if (GetOsType().equals(OsType.MAC)) {
+                        DesiredCapabilities cap = DesiredCapabilities.safari();
+                        cap.setPlatform(Platform.MAC);
+
+                        // start safari clean (delete all cookies doesn't work)
+                        SafariOptions safariOptions = new SafariOptions();
+                        safariOptions.setUseCleanSession(true);
+                        cap.setCapability(SafariOptions.CAPABILITY, safariOptions);
+
+                        if (logging != null) {
+                            LoggingPreferences loggingprefs = new LoggingPreferences();
+                            loggingprefs.enable(LogType.BROWSER, Level.ALL);
+    //                        loggingprefs.enable(LogType.CLIENT, Level.ALL);
+    //                        loggingprefs.enable(LogType.DRIVER, Level.ALL);
+                            cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
+
+                            System.out.println("-Dlogging SPECIFIED");
+                        }
+                        else{
+                            System.out.println("-Dlogging NOT SPECIFIED");
+                        }
+
+                        driver = new SafariDriver(cap);
+
+                    } else {
+                        throw new Exception("SAFARI IS UNSUPPORTED NATIVELY ON THIS OS:" + GetOsType());
+                    }
+                    break;
+                case IE8:
+                case IE9:
+                case IE10:
+                case IE11:
+                    if (GetOsType().equals(OsType.WINDOWS)) {
+                        // if we're on windows, just look for the windows driver regardless of version
+                        System.setProperty("webdriver.ie.driver", relativePathToDrivers + "IEDriverServer.exe");
+
+                        if (logging != null) {
+                            // get the desired capabilities
+                            DesiredCapabilities cap = DesiredCapabilities.firefox();
+
+                            LoggingPreferences loggingprefs = new LoggingPreferences();
+                            loggingprefs.enable(LogType.BROWSER, Level.ALL);
+    //                        loggingprefs.enable(LogType.CLIENT, Level.ALL);
+    //                        loggingprefs.enable(LogType.DRIVER, Level.ALL);
+                            cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
+
+                            System.out.println("-Dlogging SPECIFIED");
+
+                            driver = new InternetExplorerDriver(cap);
+                        } else {
+
+                            System.out.println("-Dlogging NOT SPECIFIED");
+
+                            driver = new InternetExplorerDriver();
+                        }
+
+                    } else {
+                        throw new Exception("IE IS UNSUPPORTED NATIVELY ON THIS OS:" + GetOsType());
+                    }
+                    break;
+                default:
+                    throw new Exception("NOT CONFIGURED TO LAUNCH THIS BROWSER LOCALLY. MUST USE GRID -Dbrowser:" + browser);
             }
 
             System.out.println("SUCCESSFULLY LAUNCHED LOCAL BROWSER FOR:" + browser + " ON:" + GetOsType());

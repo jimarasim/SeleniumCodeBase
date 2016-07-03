@@ -16,7 +16,7 @@ public class BPTPaymentTest extends BaseTest{
     @Test
     public void BPTPaymentPageHappyPathTest(){
         try{
-
+            System.out.println("TODO: VALID TEST. THIS WAS COPIED");
         }
         catch(Exception ex){
             Assert.fail("FAIL:"+ex.getMessage());
