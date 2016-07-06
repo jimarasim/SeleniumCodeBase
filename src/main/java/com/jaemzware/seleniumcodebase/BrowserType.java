@@ -16,6 +16,7 @@ public enum BrowserType {
     CHROMEMAC ("chrome","",Platform.MAC),
     FIREFOX("firefox","",Platform.WINDOWS),
     FIREFOXLINUX("firefox","",Platform.LINUX),
+    FIREFOXLINUXBPT("firefox","",Platform.LINUX),
     FIREFOXMAC("firefox","",Platform.MAC),
     SAFARI("safari","7",Platform.MAC),
     IE8("InternetExplorer","8",Platform.WINDOWS), 

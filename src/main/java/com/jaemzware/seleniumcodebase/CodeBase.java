@@ -341,7 +341,14 @@ public class CodeBase {
                     break;
                 case FIREFOX:
                 case FIREFOXLINUX:
+                case FIREFOXLINUXBPT:
                 case FIREFOXMAC:
+                    //specify the binary for FIREFOXLINUXBPT
+                    if(browser.equals(BrowserType.FIREFOXLINUXBPT)){
+                        System.setProperty("webdriver.firefox.bin","/usr/bin/firefox");
+                    }
+
+                    //do logging for all firefox flavors
                     if (logging != null) {
                         // get the desired capabilities
                         DesiredCapabilities cap = DesiredCapabilities.firefox();
@@ -360,6 +367,7 @@ public class CodeBase {
 
                         driver = new FirefoxDriver();
                     }
+
                     break;
                 case SAFARI:
                     if (GetOsType().equals(OsType.MAC)) {
