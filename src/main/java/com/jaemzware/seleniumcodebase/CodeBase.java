@@ -345,7 +345,7 @@ public class CodeBase {
                 case FIREFOXMAC:
                     //specify the binary for FIREFOXLINUXBPT
                     if(browser.equals(BrowserType.FIREFOXLINUXBPT)){
-                        System.setProperty("webdriver.firefox.bin","/usr/bin/firefox-bin");
+                        System.setProperty("webdriver.firefox.bin","/etc/firefox");
                     }
 
                     //do logging for all firefox flavors
