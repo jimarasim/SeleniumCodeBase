@@ -36,9 +36,11 @@ public class BPTVisitFirstPageOfEventsTest extends BPTFindAnEventTest{
             //verify each event page
             for (WebElement eventLink:links){
                 boolean evenLinkIsDisplayed = eventLink.isDisplayed();
+                boolean evenLinkIsEnabled = eventLink.isEnabled();
+
                 String eventLinkHref = eventLink.getAttribute("href");
 
-                if(evenLinkIsDisplayed) {
+                if(evenLinkIsDisplayed && evenLinkIsEnabled) {
                     //TODO: CLICK THE LINK. SELENIUM IS HAVING A HARD TIME WITH THIS ONE, AND NOTICED THAT THE BROWSER WINDOW IS NOT MAXIMIZING. I
                     System.out.println("EVENT LINK DISPLAYED:" + eventLinkHref);
                 }
