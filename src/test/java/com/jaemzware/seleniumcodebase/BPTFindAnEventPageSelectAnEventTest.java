@@ -7,7 +7,10 @@ package com.jaemzware.seleniumcodebase;
  */
 public class BPTFindAnEventPageSelectAnEventTest extends BPTFindAnEventPageTest {
 
-    //RULE1: test page objects begin with "test" followed by the page class name without the BPT prefix
+    //FUNCTIONAL TEST PAGE OBJECTS
+    //  THIS IS A FUNCTIONAL TEST THAT INVOLVES VERIFICATION ON MORE THAN ONE PAGE,
+    //  SO THERE WILL BE MORE THAN ONE PAGE OBJECT NEEDED,
+    //  IN ADDITION TO THE PAGE OBJECT WE ALREADY HAVE FROM THE CLASS THIS IS DERIVED FROM
     BPTEventPage testEventPage = new BPTEventPage();
 
     /**

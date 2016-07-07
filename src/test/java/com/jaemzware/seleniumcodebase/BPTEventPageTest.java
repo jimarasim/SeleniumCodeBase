@@ -9,6 +9,8 @@ import org.junit.Test;
 public class BPTEventPageTest extends BaseTest {
 
     //RULE1: test page objects begin with "test" followed by the page class name without the BPT prefix
+    //RULE: TEST CLASS DERIVED FROM BASETEST DECLARES ITS OWN PAGE OBJECT REFERENCE TO THE PAGE UNDER TEST
+    //RULE: AT LEAST ONE BASE TEST CLASS DERIVED FROM EVERY PAGE OBJECT
     BPTEventPage testEventPage = new BPTEventPage();
 
     @Test
