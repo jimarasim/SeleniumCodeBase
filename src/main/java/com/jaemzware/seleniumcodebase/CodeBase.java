@@ -1221,14 +1221,14 @@ public class CodeBase {
      *
      */
     //generic test for verifying multiple elements on a page
-    public void BasicTest(String startUrl, By[] elementsToVerify) throws Exception{
-        //START DRIVER AND MAKE SURE ITS RUNNING
+    public void ElementVerificationTest(String startUrl, By[] elementsToVerify) throws Exception{
         try{
+            //go to the page
             this.driverGetWithTime(startUrl);
 
             for(By anElement: elementsToVerify) {
                 if (!IsElementPresent(anElement)) {
-                    throw new Exception("FAIL: MISSING anElement XPATH:"+anElement);
+                    verificationErrors.append("FAIL: MISSING anElement XPATH:"+anElement);
                 } else {
                     System.out.println("PASS: FOUND anElement XPATH:"+anElement);
                 }

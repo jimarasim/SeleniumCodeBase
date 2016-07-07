@@ -5,9 +5,9 @@ package com.jaemzware.seleniumcodebase;
 /**
  * Created by jameskarasim on 6/26/16.
  */
-public class BPTSelectAnEventTest extends BPTFindAnEventTest{
+public class BPTFindAnEventPageSelectAnEventTest extends BPTFindAnEventPageTest {
 
-    //RULE: test page objects begin with "test" followed by the page class name without the BPT prefix
+    //RULE1: test page objects begin with "test" followed by the page class name without the BPT prefix
     BPTEventPage testEventPage = new BPTEventPage();
 
     /**
@@ -16,10 +16,8 @@ public class BPTSelectAnEventTest extends BPTFindAnEventTest{
     @Test
     public void BPTSelectAnEventHappyPathTest(){
 
-        //RULE: IF YOU DERIVE FROM A TEST CLASS THAT IS NOT A BASE CLASS, USE ITS HAPPY PATH TEST IF FEASIBLE
-        //running the base classes happy path test is redundant, but it doesnt take that long
-        // and navigates to the page under test for you
-        super.BPTFindAnEventPageHappyPathTest();
+        //RULE2: IF YOU DERIVE FROM A TEST CLASS THAT IS NOT A BASE CLASS, USE ITS HAPPY PATH TEST IF FEASIBLE (not too time consuming)
+        super.BPTFindAnEventPageElementVerificationTest();
 
         try{
             if(IsElementPresent(testFindAnEventPage.firstEventLink)) {

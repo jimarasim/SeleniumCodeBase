@@ -6,18 +6,16 @@ import org.junit.Test;
 /**
  * Created by jameskarasim on 6/25/16.
  */
-public class BPTAmazonPaymentTest extends BPTPaymentTest{
+public class BPTPaymentPageAmazonPaymentTest extends BPTPaymentPageTest {
 
+    //RULE1: test page objects begin with "test" followed by the page class name without the BPT prefix
     /**
-     * TODO: VALID TEST. THIS WAS COPIED
+     * TODO: VALID TEST FOR AMAZON PAYMENTS
      */
     @Test
     public void BPTAmazonPaymentHappyPathTest(){
         try{
-
-            super.BPTPaymentPageHappyPathTest();
-            System.out.println("TODO: VALID TEST. THIS WAS COPIED");
-
+            super.BPTPaymentPageElementVerificationTest();
         }
         catch(Exception ex){
             Assert.fail("FAIL:"+ex.getMessage());
