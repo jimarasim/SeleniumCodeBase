@@ -8,7 +8,8 @@ import org.junit.Test;
  */
 public class BPTPaymentTest extends BaseTest{
 
-    BPTPaymentPage testPage = new BPTPaymentPage();
+    //RULE: test page objects begin with "test" followed by the page class name without the BPT prefix
+    BPTPaymentPage testPaymentPage = new BPTPaymentPage();
 
     /**
      * TODO: VALID TEST. THIS WAS COPIED

@@ -1209,9 +1209,6 @@ public class CodeBase {
 
         return outputString.toString();
     }
-    
-
-
 
     /**SELENIUM TEST HELPERS
      *

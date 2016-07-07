@@ -7,6 +7,9 @@ package com.jaemzware.seleniumcodebase;
  */
 public class BPTSelectAnEventTest extends BPTFindAnEventTest{
 
+    //RULE: test page objects begin with "test" followed by the page class name without the BPT prefix
+    BPTEventPage testEventPage = new BPTEventPage();
+
     /**
      * Verifies an event can be selected
      */
@@ -19,11 +22,15 @@ public class BPTSelectAnEventTest extends BPTFindAnEventTest{
         super.BPTFindAnEventPageHappyPathTest();
 
         try{
-            if(IsElementPresent(testPage.firstEventLink)) {
-                System.out.println("PASS: FOUND FIRST EVENT LINK:"+testPage.firstEventLink);
+            if(IsElementPresent(testFindAnEventPage.firstEventLink)) {
+                System.out.println("PASS: FOUND FIRST EVENT LINK:"+testFindAnEventPage.firstEventLink);
+                driver.findElement(testFindAnEventPage.firstEventLink).click();
+                Thread.sleep(2000); //TODO REMOVE HARD CODED WAIT
+                driver.findElement(testEventPage.addToCartButton).click();
+                Thread.sleep(2000); //TODO REMOVE HARD CODED WAITs
             }
             else{
-                verificationErrors.append("MISSING FIRST EVENT LINK:"+testPage.firstEventLink);
+                verificationErrors.append("MISSING FIRST EVENT LINK:"+testFindAnEventPage.firstEventLink);
             }
         }
         catch(Exception ex){

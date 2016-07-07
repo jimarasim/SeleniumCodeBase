@@ -5,9 +5,10 @@ import org.junit.Test;
 /**
  * Created by jameskarasim on 6/26/16.
  */
-public class BPTEventNegativePathTest extends BaseTest{
+public class BPTNegativePathEventTest extends BaseTest{
 
-    BPTEventPage testPage = new BPTEventPage();
+    //RULE: test page objects begin with "test" followed by the page class name without the BPT prefix
+    BPTEventPage testEventPage = new BPTEventPage();
 
     /**
      * VERIFIES THE PAGE LOADS WITHOUT THE UNIQUE EVENT API ENDPOINT SPECIFIER (A NEGATIVE CASE. THERE ARE NO LINKS IN THE SITE THAT NAVIGATE TO THIS PAGE, BUT ITS A COMMON USAGE AMONG SMARTER INTERNET USERS)
@@ -21,22 +22,22 @@ public class BPTEventNegativePathTest extends BaseTest{
         try{
 
             //navigate to the page unter test's url
-            driverGetWithTime(testPage.pageBaseUrl);
+            driverGetWithTime(testEventPage.pageBaseUrl);
 
             //RULE: ALWAYS LOOK FOR SOMETHING BEFORE YOU USE IT
             //verify the negative page title is in the title
-            if(IsElementPresent(testPage.negativePageTitle)) {
-                System.out.println("PASS: CORRECT NEGATIVE CASE PAGE TITLE FOUND:"+testPage.negativePageTitle);
+            if(IsElementPresent(testEventPage.negativePageTitle)) {
+                System.out.println("PASS: CORRECT NEGATIVE CASE PAGE TITLE FOUND:"+testEventPage.negativePageTitle);
             }
             else{
-                verificationErrors.append("MISSING EXPECTED NEGATIVE PAGE TITLE:"+testPage.negativePageTitle);
+                verificationErrors.append("MISSING EXPECTED NEGATIVE PAGE TITLE:"+testEventPage.negativePageTitle);
             }
 
-            if(IsElementPresent(testPage.pageHeader)) {
-                System.out.println("PASS: PAGEHEADER FOUND:"+testPage.pageHeader);
+            if(IsElementPresent(testEventPage.pageHeader)) {
+                System.out.println("PASS: PAGEHEADER FOUND:"+testEventPage.pageHeader);
             }
             else{
-                verificationErrors.append("MISSING HEADER:"+testPage.pageHeader);
+                verificationErrors.append("MISSING HEADER:"+testEventPage.pageHeader);
             }
         }
         catch(Exception ex){
