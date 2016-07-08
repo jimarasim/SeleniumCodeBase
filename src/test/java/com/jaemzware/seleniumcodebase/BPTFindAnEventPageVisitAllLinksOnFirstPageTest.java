@@ -13,7 +13,7 @@ package com.jaemzware.seleniumcodebase;
  * Created by jameskarasim on 6/26/16.
  */
 //RULE: TEST CLASS NAME ENDS WITH TEST
-public class BPTFindAnEventPageVisitAllLinksOnFirstPagePageTest extends BPTFindAnEventPageTest {
+public class BPTFindAnEventPageVisitAllLinksOnFirstPageTest extends BPTFindAnEventPageTest {
 
     //RULE1: test page objects begin with "test" followed by the page class name without the BPT prefix
     BPTFindAnEventPage testFindAnEventPage = new BPTFindAnEventPage();
@@ -75,6 +75,8 @@ public class BPTFindAnEventPageVisitAllLinksOnFirstPagePageTest extends BPTFindA
                 else{
                     System.out.println("EVENT LINK DETECTED BUT NOT DISPLAYED AND ENABLED:" + eventLinkHref);
                 }
+
+                //refresh stale web elements
                 webElementlinks = driver.findElements(testFindAnEventPage.eventLinks);
             }
         }
