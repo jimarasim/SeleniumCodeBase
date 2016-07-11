@@ -35,6 +35,8 @@ public class Facebook extends CodeBase{
     static final String propertiesFile = 
             "src/test/java/com/jaemzware/seleniumcodebase/selenium.properties";
     static Properties properties = new Properties();
+    static final String fbuid = "facebook@stuffedanimalwar.com";
+    static final String fbpwd = "Face@Book";
     
     private final String loginButtonXpath="//input[@value='Log In']";
     @Before
@@ -120,9 +122,9 @@ public class Facebook extends CodeBase{
             
             //LOGIN
             if(IsElementPresent(By.id("email") )){
-               driver.findElement(By.id("email")).sendKeys("wontwon@joeypaintbrush.com");
+               driver.findElement(By.id("email")).sendKeys(fbuid);
                if(IsElementPresent(By.id("pass") )){
-                   driver.findElement(By.id("pass")).sendKeys("Face@Book");
+                   driver.findElement(By.id("pass")).sendKeys(fbpwd);
                    if(IsElementPresent(By.xpath(loginButtonXpath))){
                        driver.findElement(By.xpath(loginButtonXpath)).click();
                    }
@@ -143,7 +145,9 @@ public class Facebook extends CodeBase{
             */
             System.out.println(quickWaitMilliSeconds+"MILLI SECONDS TO LET FACEBOOK LOAD");
             Thread.sleep(quickWaitMilliSeconds);
-            
+
+            fileWriteString = driverGetWithTime(starturl);
+
             //GO TO PROFILE PAGE
             driver.findElement(By.xpath("//a[@title='Profile']")).click();
             
