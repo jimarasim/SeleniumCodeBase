@@ -863,7 +863,7 @@ public class CodeBase {
 
         // LOAD THE URL
         try{
-            //this sets the timeout for get. implicitly wait is just for findelements. DON'T DO FOR APPIM
+            //this sets the timeout for get. implicitly wait is just for findelements.
             //APPIUM DOESNT LIKE THIS CALL
             //SAFARI DOESNT LIKE THIS CALL
             if(!browser.toString().contains("APPIUM") &&
@@ -874,17 +874,12 @@ public class CodeBase {
             //grab an element to detect the staleness of it
             WebElement we = driver.findElement(By.xpath("//*"));
 
-            //check if we're already on the page before trying to load it
-            if(!driver.getCurrentUrl().equals(href)) {
-                driver.get(href);
+            //load the page
+            driver.get(href);
 
-                (new WebDriverWait(driver, defaultImplicitWaitSeconds))
-                        .until(ExpectedConditions.stalenessOf(we));
-
-                //i think get is returning in appium before the page is loaded on appium, so wait expclicitly for page to change
-//                (new WebDriverWait(driver, defaultImplicitWaitSeconds))
-//                        .until((ExpectedCondition<Boolean>) (WebDriver d) -> !driver.getCurrentUrl().equals(oldUrl));
-            }
+            //wait for the web element to go away
+            (new WebDriverWait(driver, defaultImplicitWaitSeconds))
+                    .until(ExpectedConditions.stalenessOf(we));
         }
         catch(Exception ex){
             System.out.println("ERROR: DRIVER.GET FAILED. HREF:"+href+" TRY SPECIFYING A LONGER -DdefaultImplicitWaitSeconds, WHICH IS SET TO "+defaultImplicitWaitSeconds+" SECONDS FOR THIS RUN. EXCEPTION:"+ex.getMessage());

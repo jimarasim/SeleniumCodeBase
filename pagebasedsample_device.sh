@@ -1,0 +1,2 @@
+mvn -Dtest="IosScratchApp" -Dbrowser="APPIUMAPPDEVICE" -DwaitAfterPageLoadMilliSeconds="500" -DdefaultImplicitWaitSeconds="120" -DappiumBinaryJSPath="/Users/jameskarasim/Downloads/installed/repositories/appium/bin/appium.js" -DappiumBinaryNodeJSPath="/usr/local/bin/node" -DappiumApp="/Users/jameskarasim/Desktop/pagebasedsample\ 2016-01-20\ 13-15-54/pagebasedsample.ipa
+" -DappiumUdid="88ff683cec637c3f1279386620b5397d48bc8341" test
