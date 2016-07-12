@@ -1228,7 +1228,7 @@ public class CodeBase {
 
             for(By anElement: elementsToVerify) {
                 if (!IsElementPresent(anElement)) {
-                    verificationErrors.append("FAIL: MISSING ELEMENT AT XPATH:"+anElement+" URL:"+startUrl);
+                        verificationErrors.append("FAIL: MISSING ELEMENT AT XPATH:"+anElement+" URL:"+startUrl);
                 } else {
                     System.out.println("PASS: FOUND ELEMENT AT XPATH:"+anElement+" URL:"+startUrl);
                 }

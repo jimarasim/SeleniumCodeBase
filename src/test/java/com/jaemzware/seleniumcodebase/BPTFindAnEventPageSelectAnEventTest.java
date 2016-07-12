@@ -2,6 +2,12 @@
 package com.jaemzware.seleniumcodebase;
         import org.junit.Assert;
         import org.junit.Test;
+        import org.openqa.selenium.WebElement;
+        import org.openqa.selenium.support.ui.ExpectedConditions;
+        import org.openqa.selenium.support.ui.WebDriverWait;
+
+        import static com.jaemzware.seleniumcodebase.ParameterType.defaultImplicitWaitSeconds;
+
 /**
  * Created by jameskarasim on 6/26/16.
  */
@@ -25,10 +31,11 @@ public class BPTFindAnEventPageSelectAnEventTest extends BPTFindAnEventPageTest 
         try{
             if(IsElementPresent(testFindAnEventPage.firstEventLink)) {
                 System.out.println("PASS: FOUND FIRST EVENT LINK:"+testFindAnEventPage.firstEventLink);
-                driver.findElement(testFindAnEventPage.firstEventLink).click();
-                Thread.sleep(2000); //TODO REMOVE HARD CODED WAIT
-                driver.findElement(testEventPage.addToCartButton).click();
-                Thread.sleep(2000); //TODO REMOVE HARD CODED WAITs
+                WebElement firstEventWebElement = driver.findElement(testFindAnEventPage.firstEventLink);
+                firstEventWebElement.click();
+                (new WebDriverWait(driver, defaultImplicitWaitSeconds))
+                        .until(ExpectedConditions.stalenessOf(firstEventWebElement));
+                System.out.println("PASS: FIRST EVENT SELECTED");
             }
             else{
                 verificationErrors.append("MISSING FIRST EVENT LINK:"+testFindAnEventPage.firstEventLink);
