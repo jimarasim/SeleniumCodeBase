@@ -11,7 +11,7 @@ package com.jaemzware.seleniumcodebase;
 /**
  * Created by jameskarasim on 6/26/16.
  */
-public class BPTFindAnEventPageSelectAnEventTest extends BPTFindAnEventPageTest {
+public class BPTFindAnEventPageSelectFirstEventTest extends BPTFindAnEventPageTest {
 
     //FUNCTIONAL TEST PAGE OBJECTS
     //  THIS IS A FUNCTIONAL TEST THAT INVOLVES VERIFICATION ON MORE THAN ONE PAGE,
