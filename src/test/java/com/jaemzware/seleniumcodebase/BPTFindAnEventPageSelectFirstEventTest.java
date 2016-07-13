@@ -23,9 +23,8 @@ public class BPTFindAnEventPageSelectFirstEventTest extends BPTFindAnEventPageTe
      * Verifies an event can be selected
      */
     @Test
-    public void BPTSelectAnEventHappyPathTest(){
+    public void BPTFindAnEventPageSelectFirstEventTest(){
 
-        //RULE2: IF YOU DERIVE FROM A TEST CLASS THAT IS NOT A BASE CLASS, USE ITS HAPPY PATH TEST IF FEASIBLE (not too time consuming)
         super.BPTFindAnEventPageElementVerificationTest();
 
         try{
@@ -33,6 +32,8 @@ public class BPTFindAnEventPageSelectFirstEventTest extends BPTFindAnEventPageTe
                 System.out.println("PASS: FOUND FIRST EVENT LINK:"+testFindAnEventPage.firstEventLink);
                 WebElement firstEventWebElement = driver.findElement(testFindAnEventPage.firstEventLink);
                 firstEventWebElement.click();
+
+                //WAIT FOR LINK TO GO STALE TO INDICATE RESULTANT PAGE IS READY
                 (new WebDriverWait(driver, defaultImplicitWaitSeconds))
                         .until(ExpectedConditions.stalenessOf(firstEventWebElement));
                 System.out.println("PASS: FIRST EVENT SELECTED");

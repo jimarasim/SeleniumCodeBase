@@ -8,7 +8,6 @@ import org.junit.Test;
  */
 public class BPTPaymentPageAmazonPaymentTest extends BPTPaymentPageTest {
 
-    //RULE1: test page objects begin with "test" followed by the page class name without the BPT prefix
     /**
      * TODO: VALID TEST FOR AMAZON PAYMENTS
      */

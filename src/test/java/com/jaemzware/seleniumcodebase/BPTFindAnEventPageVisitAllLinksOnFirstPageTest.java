@@ -22,19 +22,17 @@ public class BPTFindAnEventPageVisitAllLinksOnFirstPageTest extends BPTFindAnEve
     @Test
     public void BPTVisitFirstPageOfEventsHappyPathTest(){
 
-        //RULE2: IF YOU DERIVE FROM A TEST CLASS THAT IS NOT A BASE CLASS, USE ITS HAPPY PATH TEST IF FEASIBLE (not too time consuming)
         super.BPTFindAnEventPageElementVerificationTest();
 
         try{
 
+            //navigate to the FindAnEvent page
             driverGetWithTime(testFindAnEventPage.getBasePageUrl());
 
             //get all event links on the page
             List<WebElement> webElementlinks = driver.findElements(testFindAnEventPage.eventLinks);
 
             //verify each event page
-            //TODO: webelements go stale when the page is left, so need to go by the size and get them again at the end of the for loop
-            //TODO: MAKE SURE THE INDEX IS LESS THAN THE CURRENT SIZE OF THE ARRAY BECAUSE IT COULD CHANGE. IF ITS NOT, SAY SOMETHING
             int originalWebElementLinksSize = webElementlinks.size();
 
             //PLACEHOLDERS FOR THE CURRENT LINK BEING VISITED, SINCE THE BACK AND FORTH BETWEEN THE FIND EVENTS PAGE
