@@ -71,6 +71,8 @@ public class BPTFindAnEventPageSelectEventTest extends BPTFindAnEventPageTest {
                 .until(ExpectedConditions.stalenessOf(secondEventWebElement));
 
         System.out.println("PASS: SECOND EVENT SELECTED");
+
+
     }
 
     @Test public void BPTFindAnEventPageSelectRandomEventTest() throws Exception{
@@ -96,6 +98,8 @@ public class BPTFindAnEventPageSelectEventTest extends BPTFindAnEventPageTest {
 
         //GET THE RANDOM EVENT WEBELEMENT
         WebElement randomEventWebElement = driver.findElement(randomEventLink);
+
+        //TODO: HAVING ISSUES FINDING ELEMENTS ON THE PAGE FOR HIGHER NUMBER EVENT INDECES
 
         //AUTOMATIONSTEP: CLICK THE FIRST EVENT LINK
         randomEventWebElement.click();
