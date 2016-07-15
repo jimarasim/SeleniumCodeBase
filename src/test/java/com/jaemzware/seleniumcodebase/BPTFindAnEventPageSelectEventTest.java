@@ -3,6 +3,7 @@ package com.jaemzware.seleniumcodebase;
         import org.junit.Assert;
         import org.junit.Test;
         import org.openqa.selenium.By;
+        import org.openqa.selenium.JavascriptExecutor;
         import org.openqa.selenium.WebElement;
         import org.openqa.selenium.support.ui.ExpectedConditions;
         import org.openqa.selenium.support.ui.WebDriverWait;
@@ -26,8 +27,7 @@ public class BPTFindAnEventPageSelectEventTest extends BPTFindAnEventPageTest {
     /**
      * Verifies an event can be selected
      */
-    @Test
-    public void BPTFindAnEventPageSelectFirstEventTest() throws Exception {
+    @Test public void BPTFindAnEventPageSelectFirstEventTest() throws Exception {
 
         super.BPTFindAnEventPageElementVerificationTest();
 
@@ -63,8 +63,9 @@ public class BPTFindAnEventPageSelectEventTest extends BPTFindAnEventPageTest {
 
         WebElement secondEventWebElement = driver.findElement(testFindAnEventPage.secondEventLink);
 
-        //AUTOMATIONSTEP: CLICK THE FIRST EVENT LINK
-        secondEventWebElement.click();
+        //AUTOMATIONSTEP: TRYING TO EXECUTE SCRIPT IN THE TD'S ONCLICK INSTEAD OF CLICKING THE LINK BECAUSE THAT DOESN'T WORK CONSISTENTLY
+        String secondEventWebElementOnclickString = secondEventWebElement.getAttribute("onclick");
+        ((JavascriptExecutor)driver).executeScript(secondEventWebElementOnclickString);
 
         //WAIT FOR LINK TO GO STALE TO INDICATE RESULTANT PAGE IS READY
         (new WebDriverWait(driver, defaultImplicitWaitSeconds))
@@ -94,21 +95,21 @@ public class BPTFindAnEventPageSelectEventTest extends BPTFindAnEventPageTest {
         int randomEvent = randomGenerator.nextInt(numberOfEventLinks);
 
         //CREATE BY DEFINITION IN ORDER TO GET THE CORRESPONDING WEBELEMENT
-        By randomEventLink = By.xpath("//td[contains(@onclick,'group')]["+randomEvent+"]");
+        By randomEventLink = By.xpath("(//td[contains(@onclick,'group')])["+randomEvent+"]");
 
         //GET THE RANDOM EVENT WEBELEMENT
         WebElement randomEventWebElement = driver.findElement(randomEventLink);
 
-        //TODO: HAVING ISSUES FINDING ELEMENTS ON THE PAGE FOR HIGHER NUMBER EVENT INDECES
-
-        //AUTOMATIONSTEP: CLICK THE FIRST EVENT LINK
-        randomEventWebElement.click();
+        //AUTOMATIONSTEP: TRYING TO EXECUTE SCRIPT IN THE TD'S ONCLICK INSTEAD OF CLICKING THE LINK BECAUSE THAT DOESN'T WORK CONSISTENTLY
+        String randomEventWebElementOnclickString = randomEventWebElement.getAttribute("onclick");
+        ((JavascriptExecutor)driver).executeScript(randomEventWebElementOnclickString);
 
         //WAIT FOR LINK TO GO STALE TO INDICATE RESULTANT PAGE IS READY
         (new WebDriverWait(driver, defaultImplicitWaitSeconds))
                 .until(ExpectedConditions.stalenessOf(randomEventWebElement));
 
         System.out.println("PASS: RANDOM EVENT SELECTED");
+
     }
 }
 
