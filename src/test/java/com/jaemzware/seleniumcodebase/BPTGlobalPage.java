@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
  * Created by jameskarasim on 7/11/16.
  */
 public class BPTGlobalPage extends BasePage {
-    public String basePageUrl = "http://brownpapertickets.com/";
+    public static String basePageUrl = null;
     public By contactUs = By.xpath("//td[contains(text(),'Contact us')]");
     public By ticketBuyers = By.xpath("//td[contains(text(),'Ticket Buyers')]");
     public By joinTheMailingList = By.xpath("//td[contains(text(),'Join the mailing list')]");
@@ -23,6 +23,11 @@ public class BPTGlobalPage extends BasePage {
     public By readOurBlog = By.xpath("//a[contains(text(),'Read our blog')]");
     public By getToKnowUs = By.xpath("//a[contains(text(),'Get to know us')]");
     public By meetTheDoers = By.xpath("//a  [contains(text(),'Meet the Doers')]");
+
+    public BPTGlobalPage(){
+        basePageUrl = baseSiteUrl;
+    }
+
     public String getBasePageUrl(){
         return basePageUrl;
     }
