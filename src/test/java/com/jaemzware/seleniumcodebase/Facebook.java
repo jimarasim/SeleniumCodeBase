@@ -133,6 +133,8 @@ public class Facebook extends CodeBase{
                        (new WebDriverWait(driver, defaultImplicitWaitSeconds)).until(ExpectedConditions.stalenessOf(loginButton));
 
                        fileWriteString = driverGetWithTime(starturl);
+
+                       Thread.sleep(60000);
                    }
                    else{
                        verificationErrors.append("LOGIN BUTTON NOT FOUND ON LOGIN PAGE AT XPATH:"+loginButtonXpath+" MAY ALREADY BE LOGGED IN");
