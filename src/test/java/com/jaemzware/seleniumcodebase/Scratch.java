@@ -72,7 +72,7 @@ public class Scratch extends CodeBase {
             }
             
             //set defaultImplicitWaitSeconds IF NOT safari
-            if(!browser.toString().contains("SAFARI")){
+            if(!browser.toString().contains("SAFARI") && !browser.toString().contains("APPIUM")){
                 driver.manage().timeouts().implicitlyWait(defaultImplicitWaitSeconds, TimeUnit.SECONDS);
             }
 

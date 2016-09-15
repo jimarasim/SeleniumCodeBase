@@ -14,7 +14,6 @@ jaemzware
  */
 package com.jaemzware.seleniumcodebase;
 
-import static com.jaemzware.seleniumcodebase.ParameterType.*;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import java.io.BufferedReader;
 import java.io.File;
@@ -72,6 +71,8 @@ import org.openqa.selenium.safari.SafariOptions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import static com.jaemzware.seleniumcodebase.ParameterType.*;
 
 /**
  * CodeBase
@@ -772,111 +773,113 @@ public class CodeBase {
      * @return
      */
     protected String VerifyXpathOnCurrentPage(String xpathToVerify) {
-
-        StringBuilder outputString = new StringBuilder();
-
-        String href = driver.getCurrentUrl();
-
-<<<<<<< HEAD
-        // LOAD THE URL
-        try{
-            //this sets the timeout for get. implicitly wait is just for findelements.
-            //APPIUM DOESNT LIKE THIS CALL
-            //SAFARI DOESNT LIKE THIS CALL
-            if(!browser.toString().contains("APPIUM") &&
-                    !browser.toString().contains("SAFARI")){
-                driver.manage().timeouts().pageLoadTimeout(defaultImplicitWaitSeconds, TimeUnit.SECONDS);
-            }
-=======
-        // if logo is not present, don't assert/fail, just add a verification error,
-        // so all links get checked regardless of ones that fail
-        if (!IsElementPresent(By.xpath(xpathToVerify), 2000)) {
-            verificationErrors.append("URL:").append(href).append(" MISSING LOGO:").append(xpathToVerify).append("\n");
->>>>>>> BPT
-
-            // write error to html report
-            outputString.append("<br /><p class='severe'>PAGE MISSING LOGO XPATH:");
-            outputString.append(xpathToVerify);
-            outputString.append(" URL :</p><a href='");
-            outputString.append(href);
-            outputString.append("' target='_blank'>");
-            outputString.append(href);
-            outputString.append("</a><br />");
-
-<<<<<<< HEAD
-            //load the page
-            driver.get(href);
-
-            //wait for the web element to go away
-            (new WebDriverWait(driver, defaultImplicitWaitSeconds))
-                    .until(ExpectedConditions.stalenessOf(we));
-        }
-        catch(Exception ex){
-            System.out.println("ERROR: DRIVER.GET FAILED. HREF:"+href+" TRY SPECIFYING A LONGER -DdefaultImplicitWaitSeconds, WHICH IS SET TO "+defaultImplicitWaitSeconds+" SECONDS FOR THIS RUN. EXCEPTION:"+ex.getMessage());
-            return "ERROR";
-        }
-=======
-        } else {
-            outputString.append("<table><th>XPATH MATCHES FOR:").append(xpathToVerify).append("</th>");
-            String tagString;
-            String imageSrc;
-
-            List<WebElement> xpathElementMatches = driver.findElements(By.xpath(xpathToVerify));
-            // List<WebElement> xpathElementMatches = driver.findElements(By.xpath("name("+xpathToVerify+")"));
->>>>>>> BPT
-
-            for (WebElement we : xpathElementMatches) {
-                try {
-                    tagString = we.getTagName();
-                } catch (Exception ex) {
-                    System.out.println("WARNING: EXCEPTION GETTING TAG STRING SRC FROM XPATH ELEMENT."
-                            + ex.getMessage());
-                    outputString
-                            .append("<span class='warning'>WARNING: EXCEPTION GETTING TAG STRING FROM XPATH ELEMENT:")
-                            .append(ex.getMessage()).append("</span>");
-                    break;
-                }
-
-                outputString.append("<tr>");
-                outputString.append("<td>");
-                if (tagString.toLowerCase().equals("img")) {
-
-                    try {
-                        imageSrc = we.getAttribute("src");
-                    } catch (Exception ex) {
-                        System.out
-                                .println("WARNING: EXCEPTION GETTING IMAGE SRC FROM XPATH ELEMENT." + ex.getMessage());
-                        outputString
-                                .append("<span class='warning'>WARNING: EXCEPTION GETTING IMAGE SRC FROM XPATH ELEMENT:")
-                                .append(ex.getMessage()).append("</span>");
-                        break;
-                    }
-
-                    if (imageSrc != null && !imageSrc.isEmpty()) {
-                        outputString.append("<img src='").append(imageSrc).append("' />");
-                    } else {
-                        outputString.append("<p class='warning'>WARNING: IMAGE SRC IS EMPTY</p>");
-                    }
-                } else {
-                    try {
-                        outputString.append(we.getText());
-                    } catch (Exception ex) {
-                        System.out.println("WARNING: EXCEPTION GETTING TEXT FROM XPATH ELEMENT:" + ex.getMessage());
-                        outputString
-                                .append("<span class='warning'>WARNING: EXCEPTION GETTING TEXT FROM XPATH ELEMENT:")
-                                .append(ex.getMessage()).append("</span>");
-                        break;
-                    }
-                }
-
-                outputString.append("</td></tr>");
-            }
-            outputString.append("</table>");
-
-        }
-
-        return outputString.toString();
+        return(xpathToVerify);
     }
+
+//        StringBuilder outputString = new StringBuilder();
+//
+//        String href = driver.getCurrentUrl();
+//
+//<<<<<<< HEAD
+//        // LOAD THE URL
+//        try{
+//            //this sets the timeout for get. implicitly wait is just for findelements.
+//            //APPIUM DOESNT LIKE THIS CALL
+//            //SAFARI DOESNT LIKE THIS CALL
+//            if(!browser.toString().contains("APPIUM") &&
+//                    !browser.toString().contains("SAFARI")){
+//                driver.manage().timeouts().pageLoadTimeout(defaultImplicitWaitSeconds, TimeUnit.SECONDS);
+//            }
+//=======
+//        // if logo is not present, don't assert/fail, just add a verification error,
+//        // so all links get checked regardless of ones that fail
+//        if (!IsElementPresent(By.xpath(xpathToVerify), 2000)) {
+//            verificationErrors.append("URL:").append(href).append(" MISSING LOGO:").append(xpathToVerify).append("\n");
+//>>>>>>> BPT
+//
+//            // write error to html report
+//            outputString.append("<br /><p class='severe'>PAGE MISSING LOGO XPATH:");
+//            outputString.append(xpathToVerify);
+//            outputString.append(" URL :</p><a href='");
+//            outputString.append(href);
+//            outputString.append("' target='_blank'>");
+//            outputString.append(href);
+//            outputString.append("</a><br />");
+//
+//<<<<<<< HEAD
+//            //load the page
+//            driver.get(href);
+//
+//            //wait for the web element to go away
+//            (new WebDriverWait(driver, defaultImplicitWaitSeconds))
+//                    .until(ExpectedConditions.stalenessOf(we));
+//        }
+//        catch(Exception ex){
+//            System.out.println("ERROR: DRIVER.GET FAILED. HREF:"+href+" TRY SPECIFYING A LONGER -DdefaultImplicitWaitSeconds, WHICH IS SET TO "+defaultImplicitWaitSeconds+" SECONDS FOR THIS RUN. EXCEPTION:"+ex.getMessage());
+//            return "ERROR";
+//        }
+//=======
+//        } else {
+//            outputString.append("<table><th>XPATH MATCHES FOR:").append(xpathToVerify).append("</th>");
+//            String tagString;
+//            String imageSrc;
+//
+//            List<WebElement> xpathElementMatches = driver.findElements(By.xpath(xpathToVerify));
+//            // List<WebElement> xpathElementMatches = driver.findElements(By.xpath("name("+xpathToVerify+")"));
+//>>>>>>> BPT
+//
+//            for (WebElement we : xpathElementMatches) {
+//                try {
+//                    tagString = we.getTagName();
+//                } catch (Exception ex) {
+//                    System.out.println("WARNING: EXCEPTION GETTING TAG STRING SRC FROM XPATH ELEMENT."
+//                            + ex.getMessage());
+//                    outputString
+//                            .append("<span class='warning'>WARNING: EXCEPTION GETTING TAG STRING FROM XPATH ELEMENT:")
+//                            .append(ex.getMessage()).append("</span>");
+//                    break;
+//                }
+//
+//                outputString.append("<tr>");
+//                outputString.append("<td>");
+//                if (tagString.toLowerCase().equals("img")) {
+//
+//                    try {
+//                        imageSrc = we.getAttribute("src");
+//                    } catch (Exception ex) {
+//                        System.out
+//                                .println("WARNING: EXCEPTION GETTING IMAGE SRC FROM XPATH ELEMENT." + ex.getMessage());
+//                        outputString
+//                                .append("<span class='warning'>WARNING: EXCEPTION GETTING IMAGE SRC FROM XPATH ELEMENT:")
+//                                .append(ex.getMessage()).append("</span>");
+//                        break;
+//                    }
+//
+//                    if (imageSrc != null && !imageSrc.isEmpty()) {
+//                        outputString.append("<img src='").append(imageSrc).append("' />");
+//                    } else {
+//                        outputString.append("<p class='warning'>WARNING: IMAGE SRC IS EMPTY</p>");
+//                    }
+//                } else {
+//                    try {
+//                        outputString.append(we.getText());
+//                    } catch (Exception ex) {
+//                        System.out.println("WARNING: EXCEPTION GETTING TEXT FROM XPATH ELEMENT:" + ex.getMessage());
+//                        outputString
+//                                .append("<span class='warning'>WARNING: EXCEPTION GETTING TEXT FROM XPATH ELEMENT:")
+//                                .append(ex.getMessage()).append("</span>");
+//                        break;
+//                    }
+//                }
+//
+//                outputString.append("</td></tr>");
+//            }
+//            outputString.append("</table>");
+//
+//        }
+//
+//        return outputString.toString();
+//    }
     /**
      * this method just scrolls the page down a  times
      */
