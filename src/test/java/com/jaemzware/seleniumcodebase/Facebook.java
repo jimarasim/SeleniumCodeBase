@@ -27,15 +27,18 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.logging.LogType;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 /**
  *
  * @author jameskarasim
  */
 public class Facebook extends CodeBase{
-    static final String propertiesFile = 
-            "src/test/java/com/jaemzware/seleniumcodebase/selenium.properties";
+    static final String propertiesFile = "src/test/java/com/jaemzware/seleniumcodebase/selenium.properties";
     static Properties properties = new Properties();
-    
+    static final String fbuid = "facebook@stuffedanimalwar.com";
+    static final String fbpwd = "Face@Book";
     private final String loginButtonXpath="//input[@value='Log In']";
     @Before
     public void BeforeTest() {
@@ -65,16 +68,13 @@ public class Facebook extends CodeBase{
         }
     
     }
-    
     @Test
     public void FaceCrawlAllLinks() {
         
-        String linksOnSplashPageXpath = 
-            "//a[@href and not(@href='') and not(contains(@href,'javascript:')) and not(contains(@href,'mailto:'))]";
+        String linksOnSplashPageXpath = "//a[@href and not(@href='') and not(contains(@href,'javascript:')) and not(contains(@href,'mailto:'))]";
         String fileName = "index.htm";
         PrintWriter writer = null;
         String fileWriteString;
-
         try {
                 
             // get xpath to look for
@@ -96,6 +96,7 @@ public class Facebook extends CodeBase{
             ////////////////////
             // open browser
             StartDriver();
+
             //check if driver setting was successful
             if(driver==null){
                 throw new Exception("DRIVER WAS NOT SET; SUITABLE DRIVER WAS NOT FOUND.  LOOK ABOVE FOR ISSUES REPORTED BY StartDrvier()");
@@ -120,11 +121,20 @@ public class Facebook extends CodeBase{
             
             //LOGIN
             if(IsElementPresent(By.id("email") )){
-               driver.findElement(By.id("email")).sendKeys("wontwon@joeypaintbrush.com");
+               driver.findElement(By.id("email")).sendKeys(fbuid);
                if(IsElementPresent(By.id("pass") )){
-                   driver.findElement(By.id("pass")).sendKeys("Face@Book");
+                   driver.findElement(By.id("pass")).sendKeys(fbpwd);
                    if(IsElementPresent(By.xpath(loginButtonXpath))){
-                       driver.findElement(By.xpath(loginButtonXpath)).click();
+                       WebElement loginButton=driver.findElement(By.xpath(loginButtonXpath));
+                       //CLICK THE LOGIN BUTTON
+                       loginButton.click();
+
+                       //WAIT FOR THE LOGIN BUTTON TO GO AWAY; SIGNALING THE LOAD OF THE RESULTANT PAGE
+                       (new WebDriverWait(driver, defaultImplicitWaitSeconds)).until(ExpectedConditions.stalenessOf(loginButton));
+
+                       fileWriteString = driverGetWithTime(starturl);
+
+                       Thread.sleep(60000);
                    }
                    else{
                        verificationErrors.append("LOGIN BUTTON NOT FOUND ON LOGIN PAGE AT XPATH:"+loginButtonXpath+" MAY ALREADY BE LOGGED IN");
@@ -138,15 +148,6 @@ public class Facebook extends CodeBase{
                    verificationErrors.append("EMAIL TEXT BOX NOT FOUND ON LOGIN PAGE. MAY ALREADY BE LOGGED IN");
             }
 
-            /*
-            * TODO - REFACTOR THIS HARDCODED WAIT
-            */
-            System.out.println(quickWaitMilliSeconds+"MILLI SECONDS TO LET FACEBOOK LOAD");
-            Thread.sleep(quickWaitMilliSeconds);
-            
-            //GO TO PROFILE PAGE
-            driver.findElement(By.xpath("//a[@title='Profile']")).click();
-            
             /*
             * TODO - REFACTOR THIS HARDCODED WAIT
             */
@@ -282,7 +283,6 @@ public class Facebook extends CodeBase{
         }
 
     }
-    
     @After
     public void AfterTest() {
         try {

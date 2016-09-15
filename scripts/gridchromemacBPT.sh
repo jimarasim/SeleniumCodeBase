@@ -1,0 +1,1 @@
+mvn -Dtest=Scratch#VerifyLogos -DaHubServer=localhost -DaHubPort=4444 -Dbrowser=CHROMEMAC -Dinput=https://jamesa.bpt.me/ -DaNumber=0 -Dreport=BPTJAMESADEVCHROME -Duserid=brownpapertickets.com -DaString="//p" -DwaitAfterPageLoadMilliSeconds=0 -DdefaultImplicitWaitSeconds=60 -Dlogging test

@@ -1,2 +1,1 @@
-#!/usr/bin/env bash
 mvn -Dtest=Scratch#VerifyLogos -DaHubServer=localhost -DaHubPort=4444 -Dbrowser=FIREFOXMAC -Dinput=https://jamesa.bpt.me/ -DaNumber=0 -Dreport=BPTJAMESADEVFIREFOX -Duserid=brownpapertickets.com -DaString="//img" -DwaitAfterPageLoadMilliSeconds=0 -Dlogging test
