@@ -113,6 +113,7 @@ public class Scratch extends CodeBase {
             // NAVIGATE TO THE STARTING PAGE TO GET LINKS TO VISIT FROM
             System.out.println("STARTURL:"+starturl);
             fileWriteString = driverGetWithTime(starturl);
+
             //scroll the page (this can be overridden with -DnoScroll
             ScrollPage();
            
