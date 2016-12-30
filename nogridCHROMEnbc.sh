@@ -1,2 +1,0 @@
-#!/usr/bin/env bash
-mvn -Dtest=Scratch#VerifyLogos -DdefaultImplicitWaitSeconds=60 -Dbrowser=CHROMELINUX -Dinput="http://nbc.com/" -DaNumber=10 -Dreport=NBC -Duserid=nbc -DaString="//p" -DwaitAfterPageLoadMilliSeconds=1000 -Dlogging -Dnogrid test
