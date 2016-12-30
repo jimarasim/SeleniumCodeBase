@@ -1,2 +1,0 @@
-#!/usr/bin/env bash
-mvn -Dtest=Scratch#VerifyLogos -DdefaultImplicitWaitSeconds=60 -Dbrowser=CHROMELINUX32 -Dinput="http://brownpapertickets.com/" -DaNumber=5 -Dreport=verifylogosBPT -Duserid=brownpapertickets -DaString="//p" -DwaitAfterPageLoadMilliSeconds=0 -Dlogging -Dnogrid test
