@@ -1,1 +1,0 @@
-mvn -Dtest=Scratch#VerifyLogos -DaHubServer=localhost -DaHubPort=4444 -Dbrowser=FIREFOXMAC -Dinput=https://jaemzware.com/ -DaNumber=3 -Dreport=jaemzware -Duserid=jaemzware.com -DaString="//a" -DwaitAfterPageLoadMilliSeconds=0 -Dlogging test

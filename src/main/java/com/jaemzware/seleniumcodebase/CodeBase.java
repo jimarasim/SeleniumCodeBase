@@ -183,6 +183,8 @@ public class CodeBase {
                     case FIREFOX:
                     case FIREFOXLINUX:
                     case FIREFOXMAC:
+                        //FIREFOX REQUIRES GECKODRIVER
+                        System.setProperty("webdriver.gecko.driver", "relativePathToDrivers + \"geckodriver\"");
                         cap = DesiredCapabilities.firefox();
                         break;
                     case SAFARI:
@@ -353,6 +355,9 @@ public class CodeBase {
                 case FIREFOXLINUX:
                 case FIREFOXLINUXBPT:
                 case FIREFOXMAC:
+                    //FIREFOX REQUIRES GECKODRIVER
+                    System.setProperty("webdriver.gecko.driver", "relativePathToDrivers + \"geckodriver\"");
+
                     //specify the binary for FIREFOXLINUXBPT
                     if(browser.equals(BrowserType.FIREFOXLINUXBPT)){
                         System.setProperty("webdriver.firefox.bin","/usr/bin/firefox");
