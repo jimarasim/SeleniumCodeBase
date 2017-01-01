@@ -168,16 +168,12 @@ public class Scratch extends CodeBase {
                             !hrefFound.toLowerCase().contains("?ak_action") &&
                             !hrefFound.toLowerCase().contains("feed") &&
                             !hrefFound.toLowerCase().contains("rss") &&
-                            !hrefFound.toLowerCase().contains("javascript") &&
-                            !hrefFound.toLowerCase().contains(".jpg") &&
-                            !hrefFound.toLowerCase().contains(".jpeg") &&
-                            !hrefFound.toLowerCase().contains(".png") &&
-                            !hrefFound.toLowerCase().contains(".gif")) {
+                            !hrefFound.toLowerCase().contains("javascript")) {
                         hrefs.put(hrefFound, starturl);
                         System.out.println("WILL VISIT:" + hrefFound);
                     } else {
                         System.out
-                                .println("SKIPPING: URL:" + hrefFound+" ON:"+starturl + " DOES NOT CONTAIN BASE URL:" + baseurl);
+                                .println("SKIPPING: URL:" + hrefFound+" ON:"+starturl + " IS NOT A WEB PAGE OR DOES NOT CONTAIN BASE URL:" + baseurl);
                     }
 
                 }

@@ -7,7 +7,7 @@ import org.openqa.selenium.Platform;
  * @author jaemzware.org
  */
 public enum BrowserType {
-    
+    //PLATFORM IS ONLY USED WHEN USING GRID. FOR NON-GRID, JUST SPECIFYING CHROME, FIREFOX, OR SAFARI WILL SUFFICE
     //MAKE SURE THESE ARE ALL HANDLED IN THE GRID AND NON-GRID CASES
     //ALL APPIUM BROWSERS MUST HAVE APPIUM IN THE NAME
     CHROME("chrome","",Platform.WINDOWS), 
