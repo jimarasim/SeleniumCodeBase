@@ -5,6 +5,7 @@ mvn -Dtest=Scratch#VerifyLogos -Dinput=http://jaemzware.com -Duserid=.com -DaStr
 #-DASTRING IS XPATH OF PAGE OBJECTS TO COLLECT FROM EACH PAGE (eg xpath //a[contains(@href,'grindr.com')] and //img)
 #-DBROWSER
 #NOTE: VERSION AND PLATFORM ENUMERATION VARS ONLY USED BY GRID
+#NOTE: SAFARI MUST NOT ALREADY BE RUNNING WHEN RUNNING A SAFARI AUTOMATION
 #CHROME("chrome","",Platform.WINDOWS),
 #SAFARI("safari","7",Platform.MAC),
 #IE8("InternetExplorer","8",Platform.WINDOWS),
