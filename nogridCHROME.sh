@@ -8,6 +8,7 @@ mvn -Dtest=Scratch#VerifyLogos -Dinput=http://jaemzware.com -Duserid=.com -DaStr
 #NOTE: CHROMELINUX32 SPECIAL FOR RASPBERRY PI
 #NOTE: FIREFOX IS NO LONGER SUPPORTED RUNNING LOCALLY AS OF WEBDRIVER 3.0
 #NOTE: SAFARI MUST NOT ALREADY BE RUNNING WHEN RUNNING A SAFARI AUTOMATION
+#NOTE: SAFARI MUST enable the 'Allow Remote Automation' option in Safari's Develop menu to control Safari via WebDriver
 #CHROME("chrome","",Platform.WINDOWS),
 #CHROMELINUX32("chrome","",Platform.LINUX),
 #SAFARI("safari","7",Platform.MAC),
