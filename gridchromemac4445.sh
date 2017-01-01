@@ -11,7 +11,7 @@ mvn -Dtest=Scratch#VerifyLogos -DaHubServer=localhost -DaHubPort=4445 -Dbrowser=
 #FIREFOXLINUX("firefox","",Platform.LINUX),
 #FIREFOXLINUXBPT("firefox","",Platform.LINUX),
 #FIREFOXMAC("firefox","",Platform.MAC),
-#SAFARI("safari","7",Platform.MAC),
+#SAFARI("safari","10",Platform.MAC),
 #IE8("InternetExplorer","8",Platform.WINDOWS),
 #IE9("InternetExplorer","9",Platform.WINDOWS),
 #IE10("InternetExplorer","10",Platform.WINDOWS),

@@ -1,1 +1,0 @@
-mvn -Dtest=Scratch#VerifyLogos -DaHubServer=localhost -DaHubPort=4444 -Dbrowser=FIREFOX -Dinput=http://www.seattlerules.com -DaNumber=0 -Dreport=VERIFYLOGOSREIJOBPAGE -Duserid=seattlerules.com -DaString="//img" -DwaitAfterPageLoadMilliSeconds=0 -Dlogging -Dnogrid test
