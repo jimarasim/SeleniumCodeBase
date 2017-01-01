@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-mvn -Dtest=Scratch#VerifyLogos -Dinput=http://seattlerules.com/media/helena -Duserid="http://seattlerules.com" -DaString="//img" -Dbrowser=CHROMELINUX32 -DaNumber=0 -Dreport=jaemzware -DwaitAfterPageLoadMilliSeconds=0 -Dlogging -Dnogrid -DnoScroll test
+mvn -Dtest=Scratch#VerifyLogos -DaHubServer=localhost -DaHubPort=4444 -Dbrowser=SAFARI -Dinput=https://disney.com/ -DaNumber=3 -Dreport=verifylogosdisney -Duserid=disney.com -DaString="//a[@id='nav-logo')]" -DwaitAfterPageLoadMilliSeconds=0 test
 #-DINPUT MAPS TO STARTURL (eg http://jaemzware.com)
 #-DUSERID MAPS TO BASEURL OF LINKS TO FOLLOW (eg grindr.com)
 #-DASTRING IS XPATH OF PAGE OBJECTS TO COLLECT FROM EACH PAGE (eg xpath //a[contains(@href,'grindr.com')] and //img)

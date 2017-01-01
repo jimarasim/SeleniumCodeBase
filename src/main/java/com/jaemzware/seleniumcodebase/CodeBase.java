@@ -11,6 +11,10 @@ clients:
 brown paper tickets
 jaemzware
 
+major changes:
+logging only supported for chrome per webdriver 3 gecko with firefox
+firefox local no longer supported per webdriver 3 requiring gecko
+
  */
 package com.jaemzware.seleniumcodebase;
 
