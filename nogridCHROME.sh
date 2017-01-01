@@ -1,17 +1,21 @@
 #!/usr/bin/env bash
 mvn -Dtest=Scratch#VerifyLogos -Dinput=http://jaemzware.com -Duserid=https -DaString="//a" -Dbrowser=CHROME -DaNumber=0 -Dreport=jaemzware -DwaitAfterPageLoadMilliSeconds=250 -Dnogrid -Dlogging test
 #COMMAND LINE SWITCHES FOR VERIFYLOGOS
+#COMMAND LINE SWITCHES FOR VERIFYLOGOS
 #-DINPUT MAPS TO STARTURL (eg http://jaemzware.com)
 #-DUSERID MAPS TO BASEURL OF LINKS TO FOLLOW (eg grindr.com)
-#-DASTRING IS XPATH OF PAGE OBJECTS TO COLLECT FROM EACH PAGE (eg xpath //a[contains(@href,'grindr.com')] and //img)
-#-Dlogging CHROME AND IE ONLY SHOWS BROWSER ERRORS IF ANY
+#-DASTRING IS XPATH OF PAGE OBJECTS TO COLLECT FROM EACH PAGE
+#   eg xpath //a and //img
+#   if //img, the report will show the images where src is a link to the image (does not download them)
+#   if //a, the report will link the href
+#-Dlogging CHROME AND IE ONLY SHOWS BROWSER AND CLIENT ERRORS IF ANY
 #-DnoScroll DOESN'T SCROLL THE SCREEN FOR VIEWING (DEFAULT ON)
-#-DaNumber
-#-Dreport
+#-DaNumber - stop after visiting this many pages (default is 0, don't stop)
+#-Dreport appended to index in report name index___.htm
 #-DwaitAfterPageLoadMilliSeconds PAUSE EXECUTION AFTER PAGE LOAD AND EACH SCROLL (DEFAULT 0 MS)
 #-DdefaultImplicitWaitSeconds HOW LONG TO WAIT FOR ELEMENTS BEFORE TIMING OUT (DEFAULT 10 S)
 #-DnoScreenShots DONT TAKE SCREENSHOTS OF EACH PAGE. DEFAULT ON.
-#-DnoImages
+#-DnoImages - if DaString is //img, don't display images in the report
 #-DBROWSER
 #NOTE: VERSION AND PLATFORM ENUMERATION VARS ONLY USED BY GRID
 #NOTE: CHROMELINUX32 SPECIAL FOR RASPBERRY PI

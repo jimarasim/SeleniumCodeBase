@@ -1,9 +1,21 @@
 #!/usr/bin/env bash
-mvn -Dtest=Scratch#VerifyLogos -DaHubServer=localhost -DaHubPort=4444 -Dbrowser=SAFARI -Dinput=https://disney.com/ -DaNumber=3 -Dreport=jaemzware -Duserid=jaemzware.com -DaString="//a" -DwaitAfterPageLoadMilliSeconds=0 test
+mvn -Dtest=Scratch#VerifyLogos -DaHubServer=localhost -DaHubPort=4444 -Dbrowser=SAFARI -Dinput=https://jaemzware.com/ -Duserid=jaemzware.com -DaString="//a" -DaNumber=0 -Dreport=jaemzware -DwaitAfterPageLoadMilliSeconds=0 test
 #NOTE: SAFARI MUST NOT ALREADY BE RUNNING WHEN RUNNING A SAFARI AUTOMATION
+#COMMAND LINE SWITCHES FOR VERIFYLOGOS
 #-DINPUT MAPS TO STARTURL (eg http://jaemzware.com)
 #-DUSERID MAPS TO BASEURL OF LINKS TO FOLLOW (eg grindr.com)
-#-DASTRING IS XPATH OF PAGE OBJECTS TO COLLECT FROM EACH PAGE (eg xpath //a[contains(@href,'grindr.com')] and //img)
+#-DASTRING IS XPATH OF PAGE OBJECTS TO COLLECT FROM EACH PAGE
+#   eg xpath //a and //img
+#   if //img, the report will show the images where src is a link to the image (does not download them)
+#   if //a, the report will link the href
+#-Dlogging CHROME AND IE ONLY SHOWS BROWSER AND CLIENT ERRORS IF ANY
+#-DnoScroll DOESN'T SCROLL THE SCREEN FOR VIEWING (DEFAULT ON)
+#-DaNumber - stop after visiting this many pages (default is 0, don't stop)
+#-Dreport appended to index in report name index___.htm
+#-DwaitAfterPageLoadMilliSeconds PAUSE EXECUTION AFTER PAGE LOAD AND EACH SCROLL (DEFAULT 0 MS)
+#-DdefaultImplicitWaitSeconds HOW LONG TO WAIT FOR ELEMENTS BEFORE TIMING OUT (DEFAULT 10 S)
+#-DnoScreenShots DONT TAKE SCREENSHOTS OF EACH PAGE. DEFAULT ON.
+#-DnoImages - if DaString is //img, don't display images in the report
 #-DBROWSER
 #NOTE: VERSION AND PLATFORM ENUMERATION VARS ONLY USED BY GRID
 #NOTE: CHROMELINUX32 SPECIAL FOR RASPBERRY PI

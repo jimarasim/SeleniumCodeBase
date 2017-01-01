@@ -18,7 +18,7 @@ public enum BrowserType {
     FIREFOX("firefox","",Platform.WINDOWS), //REQUIRES GECKODRIVER
     FIREFOXLINUX("firefox","",Platform.LINUX),
     FIREFOXMAC("firefox","",Platform.MAC),
-    SAFARI("safari","7",Platform.MAC),  //REQUIRES SAFARI DRIVER
+    SAFARI("safari","",Platform.MAC),  //REQUIRES SAFARI DRIVER
     IE8("InternetExplorer","8",Platform.WINDOWS), //REQUIRES IEDRIVERSERVER
     IE9("InternetExplorer","9",Platform.WINDOWS), 
     IE10("InternetExplorer","10",Platform.WINDOWS),
