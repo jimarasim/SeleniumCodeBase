@@ -224,6 +224,7 @@ public class CodeBase {
                     else{
                         LoggingPreferences loggingprefs = new LoggingPreferences();
                         loggingprefs.enable(LogType.BROWSER, Level.ALL);
+                        loggingprefs.enable(LogType.CLIENT, Level.ALL);
                         cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
 
                         System.out.println("-Dlogging SPECIFIED");
@@ -346,6 +347,7 @@ public class CodeBase {
                             //chrome doesnt support this logging type CLIENT
                             LoggingPreferences loggingprefs = new LoggingPreferences();
                             loggingprefs.enable(LogType.BROWSER, Level.ALL);
+                            loggingprefs.enable(LogType.CLIENT, Level.ALL);
                             cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
 
                             System.out.println("-Dlogging SPECIFIED");
@@ -400,6 +402,7 @@ public class CodeBase {
 
                             LoggingPreferences loggingprefs = new LoggingPreferences();
                             loggingprefs.enable(LogType.BROWSER, Level.ALL);
+                            loggingprefs.enable(LogType.CLIENT, Level.ALL);
                             cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
 
                             System.out.println("-Dlogging SPECIFIED");
@@ -484,6 +487,7 @@ public class CodeBase {
             outputString.append("<table><th>XPATH MATCHES FOR:").append(xpathToVerify).append("</th>");
             String tagString;
             String imageSrc;
+            String anchorHref;
 
             List<WebElement> xpathElementMatches = driver.findElements(By.xpath(xpathToVerify));
             // List<WebElement> xpathElementMatches = driver.findElements(By.xpath("name("+xpathToVerify+")"));
@@ -520,7 +524,27 @@ public class CodeBase {
                     } else {
                         outputString.append("<p class='warning'>WARNING: IMAGE SRC IS EMPTY</p>");
                     }
-                } else {
+                }
+                else if (tagString.toLowerCase().equals("a")){
+                    try {
+                        anchorHref = we.getAttribute("href");
+                    } catch (Exception ex) {
+                        System.out
+                                .println("WARNING: EXCEPTION GETTING ANCHOR HREF FROM XPATH ELEMENT." + ex.getMessage());
+                        outputString
+                                .append("<span class='warning'>WARNING: EXCEPTION GETTING ANCHOR HREF FROM XPATH ELEMENT:")
+                                .append(ex.getMessage()).append("</span>");
+                        break;
+                    }
+
+                    if (anchorHref != null && !anchorHref.isEmpty()) {
+                        outputString.append("<a href='").append(anchorHref).append("' target='_blank'>").append(we.getText()).append("</>");
+                    } else {
+                        outputString.append("<p class='warning'>WARNING: IMAGE SRC IS EMPTY</p>");
+                    }
+                }
+
+                else {
                     try {
                         outputString.append(we.getText());
                     } catch (Exception ex) {
@@ -769,17 +793,6 @@ public class CodeBase {
         } else {
             logString.append("<tr><td colspan=2>No CLIENT log entries found.</td></tr>");
         }
-        //TODO: TRYing  THIS AGAIN
-        LogEntries driverLog = driver.manage().logs().get(LogType.DRIVER);
-        if(driverLog.getAll().size()>0){
-            logString.append("<tr><td colspan=2><h3>DRIVER</h3></td></tr>");
-            logString.append("<tr><td>LEVEL</td><td>MESSAGE</td></tr>");
-            logString.append(WriteLogEntryRows(driverLog));
-        }
-        else{
-            logString.append("<tr><td colspan=2>No DRIVER log entries found.</td></tr>");
-        }
-
 
         logString.append("</table>");
         return logString.toString();

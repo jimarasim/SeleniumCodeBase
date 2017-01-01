@@ -1,8 +1,17 @@
 #!/usr/bin/env bash
-mvn -Dtest=Scratch#VerifyLogos -Dinput=http://jaemzware.com -Duserid=.com -DaString="//img" -Dbrowser=CHROME -DaNumber=0 -Dreport=jaemzware -DwaitAfterPageLoadMilliSeconds=0 -Dlogging -Dnogrid -DnoScroll test
+mvn -Dtest=Scratch#VerifyLogos -Dinput=http://jaemzware.com -Duserid=https -DaString="//a" -Dbrowser=CHROME -DaNumber=0 -Dreport=jaemzware -DwaitAfterPageLoadMilliSeconds=250 -Dnogrid -Dlogging test
+#COMMAND LINE SWITCHES FOR VERIFYLOGOS
 #-DINPUT MAPS TO STARTURL (eg http://jaemzware.com)
 #-DUSERID MAPS TO BASEURL OF LINKS TO FOLLOW (eg grindr.com)
 #-DASTRING IS XPATH OF PAGE OBJECTS TO COLLECT FROM EACH PAGE (eg xpath //a[contains(@href,'grindr.com')] and //img)
+#-Dlogging CHROME AND IE ONLY SHOWS BROWSER ERRORS IF ANY
+#-DnoScroll DOESN'T SCROLL THE SCREEN FOR VIEWING (DEFAULT ON)
+#-DaNumber
+#-Dreport
+#-DwaitAfterPageLoadMilliSeconds PAUSE EXECUTION AFTER PAGE LOAD AND EACH SCROLL (DEFAULT 0 MS)
+#-DdefaultImplicitWaitSeconds HOW LONG TO WAIT FOR ELEMENTS BEFORE TIMING OUT (DEFAULT 10 S)
+#-DnoScreenShots DONT TAKE SCREENSHOTS OF EACH PAGE. DEFAULT ON.
+#-DnoImages
 #-DBROWSER
 #NOTE: VERSION AND PLATFORM ENUMERATION VARS ONLY USED BY GRID
 #NOTE: CHROMELINUX32 SPECIAL FOR RASPBERRY PI

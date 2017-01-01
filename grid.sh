@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-mvn -Dtest=Scratch#VerifyLogos -Dinput=http://jaemzware.com -Duserid=.com -DaString="//img" -Dbrowser=CHROME -DaNumber=0 -Dreport=jaemzware -DwaitAfterPageLoadMilliSeconds=0 -Dlogging -Dnogrid test
+mvn -Dtest=Scratch#VerifyLogos -DaHubServer=localhost -DaHubPort=4444 -Dbrowser=CHROMEMAC -Dinput=http://jaemzware.com/ -DaNumber=3 -Dreport=VerifyLogosReport -Duserid=".com" -DaString="//a[@id='nav-logo')]" -DwaitAfterPageLoadMilliSeconds=0 -Dlogging test
 #COMMAND LINE SWITCHES FOR VERIFYLOGOS
 #-DINPUT MAPS TO STARTURL (eg http://jaemzware.com)
 #-DUSERID MAPS TO BASEURL OF LINKS TO FOLLOW (eg grindr.com)
@@ -22,9 +22,22 @@ mvn -Dtest=Scratch#VerifyLogos -Dinput=http://jaemzware.com -Duserid=.com -DaStr
 #NOTE: SAFARI MUST NOT ALREADY BE RUNNING WHEN RUNNING A SAFARI AUTOMATION
 #NOTE: SAFARI MUST enable the 'Allow Remote Automation' option in Safari's Develop menu to control Safari via WebDriver
 #CHROME("chrome","",Platform.WINDOWS),
+#CHROMELINUX("chrome","",Platform.LINUX),
 #CHROMELINUX32("chrome","",Platform.LINUX),
-#SAFARI("safari","7",Platform.MAC),
+#CHROMEMAC ("chrome","",Platform.MAC),
+#FIREFOX("firefox","",Platform.WINDOWS),
+#FIREFOXLINUX("firefox","",Platform.LINUX),
+#FIREFOXLINUXBPT("firefox","",Platform.LINUX),
+#FIREFOXMAC("firefox","",Platform.MAC),
+#SAFARI("safari","10",Platform.MAC),
 #IE8("InternetExplorer","8",Platform.WINDOWS),
 #IE9("InternetExplorer","9",Platform.WINDOWS),
 #IE10("InternetExplorer","10",Platform.WINDOWS),
 #IE11("InternetExplorer","11",Platform.WINDOWS),
+#CHROMEIPHONE6("IPHONE","6",Platform.MAC),
+#CHROMEIPAD4("IPAD","4",Platform.MAC),
+#CHROMEANDROID402("ANDROID","4.0.2",Platform.WINDOWS),
+#APPIUMSAFARISIMULATOR("","",Platform.MAC),
+#APPIUMAPPSIMULATOR("","",Platform.MAC),
+#APPIUMAPPDEVICE("","",Platform.MAC),
+#APPIUMSAFARIDEVICE("","",Platform.MAC);
