@@ -218,8 +218,8 @@ public class CodeBase {
                     System.out.println("-Dlogging NOT SPECIFIED");
                 } else {
 
-                    if(browser.toString().contains("FIREFOX")) {
-                        throw new Exception("COMMAND LINE SWITCH EXCEPTION: -Dlogging NOT SUPPORTED BY FIREFOX. BROWSER SPECIFIED:"+browser.toString());
+                    if(browser.toString().contains("FIREFOX") || browser.toString().contains("SAFARI")) {
+                        throw new Exception("COMMAND LINE SWITCH EXCEPTION: -Dlogging NOT SUPPORTED BY FIREFOX NOR SAFARI AS OF WEBDRIVER 3.0, OR AT LEAST GOT BADLY DISRUPTED AND NEEDS TO BE INVESTIGATED LATER. BROWSER SPECIFIED:"+browser.toString());
                     }
                     else{
                         LoggingPreferences loggingprefs = new LoggingPreferences();
@@ -377,14 +377,7 @@ public class CodeBase {
                         cap.setCapability(SafariOptions.CAPABILITY, safariOptions);
 
                         if (logging != null) {
-                            LoggingPreferences loggingprefs = new LoggingPreferences();
-                            loggingprefs.enable(LogType.BROWSER, Level.ALL);
-                            cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
-
-                            System.out.println("-Dlogging SPECIFIED");
-                        }
-                        else{
-                            System.out.println("-Dlogging NOT SPECIFIED");
+                            throw new Exception("COMMAND LINE SWITCH EXCEPTION: -Dlogging NOT SUPPORTED BY FIREFOX NOR SAFARI AS OF WEBDRIVER 3.0, OR AT LEAST GOT BADLY DISRUPTED AND NEEDS TO BE INVESTIGATED LATER. BROWSER SPECIFIED:"+browser.toString());
                         }
 
                         driver = new SafariDriver(cap);

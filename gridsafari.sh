@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-mvn -Dtest=Scratch#VerifyLogos -DaHubServer=localhost -DaHubPort=4444 -Dbrowser=SAFARI -Dinput=https://disney.com/ -DaNumber=3 -Dreport=jaemzware -Duserid=jaemzware.com -DaString="//a" -DwaitAfterPageLoadMilliSeconds=0 -Dlogging test
+mvn -Dtest=Scratch#VerifyLogos -DaHubServer=localhost -DaHubPort=4444 -Dbrowser=SAFARI -Dinput=https://disney.com/ -DaNumber=3 -Dreport=jaemzware -Duserid=jaemzware.com -DaString="//a" -DwaitAfterPageLoadMilliSeconds=0 test
 #NOTE: SAFARI MUST NOT ALREADY BE RUNNING WHEN RUNNING A SAFARI AUTOMATION
 #-DINPUT MAPS TO STARTURL (eg http://jaemzware.com)
 #-DUSERID MAPS TO BASEURL OF LINKS TO FOLLOW (eg grindr.com)
