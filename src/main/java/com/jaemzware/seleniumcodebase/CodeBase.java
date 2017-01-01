@@ -12,7 +12,7 @@ brown paper tickets
 jaemzware
 
 major changes:
-logging only supported for chrome per webdriver 3 gecko with firefox
+logging NOT supported for FIREFOX per webdriver 3 gecko with firefox
 firefox local no longer supported per webdriver 3 requiring gecko
 
  */
@@ -218,18 +218,15 @@ public class CodeBase {
                     System.out.println("-Dlogging NOT SPECIFIED");
                 } else {
 
-                    if(browser.toString().contains("CHROME")) {
-
+                    if(browser.toString().contains("FIREFOX")) {
+                        throw new Exception("COMMAND LINE SWITCH EXCEPTION: -Dlogging NOT SUPPORTED BY FIREFOX. BROWSER SPECIFIED:"+browser.toString());
+                    }
+                    else{
                         LoggingPreferences loggingprefs = new LoggingPreferences();
                         loggingprefs.enable(LogType.BROWSER, Level.ALL);
-                        loggingprefs.enable(LogType.CLIENT, Level.ALL);
-                        loggingprefs.enable(LogType.DRIVER, Level.ALL);
                         cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
 
                         System.out.println("-Dlogging SPECIFIED");
-                    }
-                    else{
-                        throw new Exception("COMMAND LINE SWITCH EXCEPTION: -Dlogging NOW ONLY SUPPORTED BY CHROME ONLY. BROWSER SPECIFIED:"+browser.toString());
                     }
                 }
 
@@ -262,7 +259,7 @@ public class CodeBase {
                 } else if (ex.getMessage().contains("COULD NOT START A NEW SESSION")) {
                     System.out.println("SELENIUM GRID HUB NOT LAUNCHED EXCEPTION:" + ex.getMessage());
                 }
-                else if(ex.getMessage().contains("-Dlogging NOW ONLY")){
+                else if(ex.getMessage().contains("-Dlogging NOT SUPPORTED BY FIREFOX")){
                     System.out.println(ex.getMessage());
                 } else {
                     //CATCH ALL FOR EXCEPTIONS NOT THROWN BY CODEBASE.JAVA
