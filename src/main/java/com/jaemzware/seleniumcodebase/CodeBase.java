@@ -346,7 +346,6 @@ public class CodeBase {
                             //chrome doesnt support this logging type CLIENT
                             LoggingPreferences loggingprefs = new LoggingPreferences();
                             loggingprefs.enable(LogType.BROWSER, Level.ALL);
-    //                        loggingprefs.enable(LogType.DRIVER, Level.ALL);
                             cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
 
                             System.out.println("-Dlogging SPECIFIED");
@@ -380,8 +379,6 @@ public class CodeBase {
                         if (logging != null) {
                             LoggingPreferences loggingprefs = new LoggingPreferences();
                             loggingprefs.enable(LogType.BROWSER, Level.ALL);
-    //                        loggingprefs.enable(LogType.CLIENT, Level.ALL);
-    //                        loggingprefs.enable(LogType.DRIVER, Level.ALL);
                             cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
 
                             System.out.println("-Dlogging SPECIFIED");
@@ -410,8 +407,6 @@ public class CodeBase {
 
                             LoggingPreferences loggingprefs = new LoggingPreferences();
                             loggingprefs.enable(LogType.BROWSER, Level.ALL);
-    //                        loggingprefs.enable(LogType.CLIENT, Level.ALL);
-    //                        loggingprefs.enable(LogType.DRIVER, Level.ALL);
                             cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
 
                             System.out.println("-Dlogging SPECIFIED");
