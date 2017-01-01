@@ -213,13 +213,20 @@ public class CodeBase {
                 if (logging == null){
                     System.out.println("-Dlogging NOT SPECIFIED");
                 } else {
-                    LoggingPreferences loggingprefs = new LoggingPreferences();
-                    loggingprefs.enable(LogType.BROWSER, Level.ALL);
-//                    loggingprefs.enable(LogType.CLIENT, Level.ALL);
-//                    loggingprefs.enable(LogType.DRIVER, Level.ALL);
-                    cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
 
-                    System.out.println("-Dlogging SPECIFIED");
+                    if(browser.toString().contains("CHROME")) {
+
+                        LoggingPreferences loggingprefs = new LoggingPreferences();
+                        loggingprefs.enable(LogType.BROWSER, Level.ALL);
+                        loggingprefs.enable(LogType.CLIENT, Level.ALL);
+                        loggingprefs.enable(LogType.DRIVER, Level.ALL);
+                        cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
+
+                        System.out.println("-Dlogging SPECIFIED");
+                    }
+                    else{
+                        throw new Exception("COMMAND LINE SWITCH EXCEPTION: -Dlogging NOW ONLY SUPPORTED BY CHROME ONLY. BROWSER SPECIFIED:"+browser.toString());
+                    }
                 }
 
                 /**
@@ -250,7 +257,11 @@ public class CodeBase {
                             + browser.version + "' NOT LAUNCHED EXCEPTION:" + ex.getMessage());
                 } else if (ex.getMessage().contains("COULD NOT START A NEW SESSION")) {
                     System.out.println("SELENIUM GRID HUB NOT LAUNCHED EXCEPTION:" + ex.getMessage());
+                }
+                else if(ex.getMessage().contains("-Dlogging NOW ONLY")){
+                    System.out.println(ex.getMessage());
                 } else {
+                    //CATCH ALL FOR EXCEPTIONS NOT THROWN BY CODEBASE.JAVA
                     System.out.println("SELENIUM GRID HUB CONNECTION EXCEPTION. VERIFY ONE IS STARTED AT SERVER:"+aHubServer+" PORT:"+aHubPort+" MESSAGE:" + ex.getMessage() );
                 }
 
@@ -354,31 +365,7 @@ public class CodeBase {
                 case FIREFOX:
                 case FIREFOXLINUX:
                 case FIREFOXMAC:
-
                     throw new Exception("FIREFOX MUST BE RUN THROUGH SELENIUM GRID WITH GECKODRIVER AS OF SELENIUM WEBDRIVER 3.0");
-/*
-                    //do logging for all firefox flavors
-                    if (logging != null) {
-                        // get the desired capabilities
-                        DesiredCapabilities cap = DesiredCapabilities.firefox();
-
-                        LoggingPreferences loggingprefs = new LoggingPreferences();
-                        loggingprefs.enable(LogType.BROWSER, Level.ALL);
-    //                    loggingprefs.enable(LogType.CLIENT, Level.ALL);
-    //                    loggingprefs.enable(LogType.DRIVER, Level.ALL);
-                        cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
-
-                        System.out.println("-Dlogging SPECIFIED");
-
-                        driver = new FirefoxDriver(cap);
-                    } else {
-                        System.out.println("-Dlogging NOT SPECIFIED");
-
-                        driver = new FirefoxDriver();
-                    }
-
-                    break;
-                    */
                 case SAFARI:
                     if (GetOsType().equals(OsType.MAC)) {
                         DesiredCapabilities cap = DesiredCapabilities.safari();
