@@ -365,7 +365,7 @@ public class CodeBase {
                     break;
                 case FIREFOXLINUX:
                 case FIREFOXMAC:
-                    throw new Exception(browser.toString()+" MUST BE RUN THROUGH SELENIUM GRID WITH GECKODRIVER AS OF SELENIUM WEBDRIVER 3.0");
+                    throw new Exception("NOGRID SPECIFIED. "+browser.toString()+" MUST BE RUN THROUGH SELENIUM GRID WITH GECKODRIVER AS OF SELENIUM WEBDRIVER 3.0");
                 case SAFARI:
                     if (GetOsType().equals(OsType.MAC)) {
                         DesiredCapabilities cap = DesiredCapabilities.safari();
@@ -383,7 +383,7 @@ public class CodeBase {
                         driver = new SafariDriver(cap);
 
                     } else {
-                        throw new Exception("SAFARI IS UNSUPPORTED NATIVELY ON THIS OS:" + GetOsType());
+                        throw new Exception("NO GRID SPECIFIED. "+browser.toString()+" IS UNSUPPORTED NATIVELY ON THIS OS:" + GetOsType());
                     }
                     break;
                 case IE8:
