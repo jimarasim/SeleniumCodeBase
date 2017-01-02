@@ -1,21 +1,26 @@
 #!/usr/bin/env bash
-mvn -Dtest=Scratch#VerifyLogos -DaHubServer=localhost -DaHubPort=4444 -Dbrowser=CHROMEMAC -Dinput=http://jaemzware.com/ -DaNumber=3 -Dreport=VerifyLogosReport -Duserid=".com" -DaString="//a[@id='nav-logo')]" -DwaitAfterPageLoadMilliSeconds=0 -Dlogging test
-#COMMAND LINE SWITCHES FOR VERIFYLOGOS
-#-DINPUT MAPS TO STARTURL (eg http://jaemzware.com)
-#-DUSERID MAPS TO BASEURL OF LINKS TO FOLLOW (eg grindr.com)
-#-DASTRING IS XPATH OF PAGE OBJECTS TO COLLECT FROM EACH PAGE
-#   eg xpath //a and //img
+#[SOURCE OF TRUTH FOR Scratch#VerifyLogos GRID]
+mvn -Dbrowser=CHROMEMAC -Dinput=http://jaemzware.com/ -Dreport=VerifyLogosReport -DaNumber=0 -DdefaultImplicitWaitSeconds=5 -Dlogging -DwaitAfterPageLoadMilliSeconds=0 -Duserid=".com" -DaString="//a" -DaHubServer=localhost -DaHubPort=4444 -Dtest=Scratch#VerifyLogos test
+#COMMAND LINE SWITCHES FOR Scratch#VerifyLogos
+#-DaString IS XPATH OF PAGE OBJECTS TO COLLECT FROM EACH PAGE
+#   eg if xpath //a OR //img
 #   if //img, the report will show the images where src is a link to the image (does not download them)
 #   if //a, the report will link the href
-#-Dlogging CHROME AND IE ONLY SHOWS BROWSER AND CLIENT ERRORS IF ANY
-#-DnoScroll DOESN'T SCROLL THE SCREEN FOR VIEWING (DEFAULT ON)
-#-DaNumber - stop after visiting this many pages (default is 0, don't stop)
+#-Dinput MAPS TO STARTURL (eg http://jaemzware.com)
 #-Dreport appended to index in report name index___.htm
-#-DwaitAfterPageLoadMilliSeconds PAUSE EXECUTION AFTER PAGE LOAD AND EACH SCROLL (DEFAULT 0 MS)
+#-Duserid MAPS TO BASEURL OF LINKS TO FOLLOW (eg http OR .com OR jaemzware OR jaemzware.org)
+#COMMAND LINE SWITCHES FOR CODEBASE
+#-DaHubPort=4444 - port of selenium grid to use when -Dnogrid is absent
+#-DaHubServer=localhost - server of selenium grid to use when -Dnogrid is absent
+#-DaNumber - stop after visiting this many pages (default is 0 or negative, don't stop)
 #-DdefaultImplicitWaitSeconds HOW LONG TO WAIT FOR ELEMENTS BEFORE TIMING OUT (DEFAULT 10 S)
-#-DnoScreenShots DONT TAKE SCREENSHOTS OF EACH PAGE. DEFAULT ON.
+#-Dlogging CHROME AND IE ONLY SHOWS BROWSER AND CLIENT ERRORS IF ANY. NOT SUPPORTED BY FIREFOX NOR SAFARI
+#-Dnogrid LAUNCH LOCALLY, AND DON'T USE SELENIUM GRID
 #-DnoImages - if DaString is //img, don't display images in the report
-#-DBROWSER
+#-DnoScreenShots DONT TAKE SCREENSHOTS OF EACH PAGE. DEFAULT ON.
+#-DnoScroll DOESN'T SCROLL THE SCREEN FOR VIEWING (DEFAULT ON)
+#-DwaitAfterPageLoadMilliSeconds PAUSE EXECUTION AFTER PAGE LOAD AND EACH SCROLL (DEFAULT 0 MS)
+#-Dbrowser
 #NOTE: VERSION AND PLATFORM ENUMERATION VARS ONLY USED BY GRID
 #NOTE: CHROMELINUX32 SPECIAL FOR RASPBERRY PI
 #NOTE: FIREFOX IS NO LONGER SUPPORTED RUNNING LOCALLY AS OF WEBDRIVER 3.0
@@ -25,7 +30,6 @@ mvn -Dtest=Scratch#VerifyLogos -DaHubServer=localhost -DaHubPort=4444 -Dbrowser=
 #CHROMELINUX("chrome","",Platform.LINUX),
 #CHROMELINUX32("chrome","",Platform.LINUX),
 #CHROMEMAC ("chrome","",Platform.MAC),
-#FIREFOX("firefox","",Platform.WINDOWS),
 #FIREFOXLINUX("firefox","",Platform.LINUX),
 #FIREFOXLINUXBPT("firefox","",Platform.LINUX),
 #FIREFOXMAC("firefox","",Platform.MAC),
