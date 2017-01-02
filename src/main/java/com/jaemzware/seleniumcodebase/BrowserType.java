@@ -15,7 +15,6 @@ public enum BrowserType {
     CHROMELINUX("chrome","",Platform.LINUX),
     CHROMELINUX32("chrome","",Platform.LINUX),
     CHROMEMAC ("chrome","",Platform.MAC),
-    FIREFOX("firefox","",Platform.WINDOWS), //REQUIRES GECKODRIVER
     FIREFOXLINUX("firefox","",Platform.LINUX),
     FIREFOXMAC("firefox","",Platform.MAC),
     SAFARI("safari","",Platform.MAC),  //REQUIRES SAFARI DRIVER

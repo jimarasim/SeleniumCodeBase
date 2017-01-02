@@ -184,7 +184,6 @@ public class CodeBase {
                     case CHROMEMAC:
                         cap = DesiredCapabilities.chrome();
                         break;
-                    case FIREFOX:
                     case FIREFOXLINUX:
                     case FIREFOXMAC:
                         //FIREFOX REQUIRES GECKODRIVER
@@ -260,7 +259,7 @@ public class CodeBase {
                 } else if (ex.getMessage().contains("COULD NOT START A NEW SESSION")) {
                     System.out.println("SELENIUM GRID HUB NOT LAUNCHED EXCEPTION:" + ex.getMessage());
                 }
-                else if(ex.getMessage().contains("-Dlogging NOT SUPPORTED BY FIREFOX")){
+                else if(ex.getMessage().contains("-Dlogging NOT SUPPORTED BY")){
                     System.out.println(ex.getMessage());
                 } else {
                     //CATCH ALL FOR EXCEPTIONS NOT THROWN BY CODEBASE.JAVA
@@ -364,10 +363,9 @@ public class CodeBase {
                     }
 
                     break;
-                case FIREFOX:
                 case FIREFOXLINUX:
                 case FIREFOXMAC:
-                    throw new Exception("FIREFOX MUST BE RUN THROUGH SELENIUM GRID WITH GECKODRIVER AS OF SELENIUM WEBDRIVER 3.0");
+                    throw new Exception(browser.toString()+" MUST BE RUN THROUGH SELENIUM GRID WITH GECKODRIVER AS OF SELENIUM WEBDRIVER 3.0");
                 case SAFARI:
                     if (GetOsType().equals(OsType.MAC)) {
                         DesiredCapabilities cap = DesiredCapabilities.safari();
