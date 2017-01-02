@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-mvn -Dtest=Scratch#VerifyLogos -DaHubServer=localhost -DaHubPort=4444 -Dbrowser=SAFARI -Dinput=https://jaemzware.com/ -Duserid=jaemzware.com -DaString="//a" -DaNumber=0 -Dreport=jaemzware -DwaitAfterPageLoadMilliSeconds=0 test
+mvn -Dtest=Scratch#VerifyLogos -DaHubServer=localhost -DaHubPort=4444 -Dbrowser=SAFARI -Dinput=http://jaemzware.com/ -Duserid=http -DaString="//a" -DaNumber=0 -Dreport=jaemzware -DwaitAfterPageLoadMilliSeconds=0 test
 #NOTE: SAFARI MUST NOT ALREADY BE RUNNING WHEN RUNNING A SAFARI AUTOMATION
 #COMMAND LINE SWITCHES FOR VERIFYLOGOS
 #-DINPUT MAPS TO STARTURL (eg http://jaemzware.com)
-#-DUSERID MAPS TO BASEURL OF LINKS TO FOLLOW (eg grindr.com)
+#-DUSERID MAPS TO BASEURL OF LINKS TO FOLLOW (eg grindr.com) string can be anywhere in link href string; a contains
 #-DASTRING IS XPATH OF PAGE OBJECTS TO COLLECT FROM EACH PAGE
 #   eg xpath //a and //img
 #   if //img, the report will show the images where src is a link to the image (does not download them)

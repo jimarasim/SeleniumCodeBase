@@ -37,7 +37,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class Facebook extends CodeBase{
     static final String propertiesFile = "src/test/java/com/jaemzware/seleniumcodebase/selenium.properties";
     static Properties properties = new Properties();
-    static final String fbuid = "facebook@stuffedanimalwar.com";
+    static final String fbuid = "jaemzware@hotmail.com";
     static final String fbpwd = "Face@Book";
     private final String loginButtonXpath="//input[@value='Log In']";
     @Before
