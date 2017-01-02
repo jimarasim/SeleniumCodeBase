@@ -11,10 +11,13 @@ clients:
 brown paper tickets
 jaemzware
 
+major changes:
+logging NOT supported for FIREFOX per webdriver 3 gecko with firefox
+firefox local no longer supported per webdriver 3 requiring gecko
+
  */
 package com.jaemzware.seleniumcodebase;
 
-import static com.jaemzware.seleniumcodebase.ParameterType.*;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import java.io.BufferedReader;
 import java.io.File;
@@ -72,6 +75,8 @@ import org.openqa.selenium.safari.SafariOptions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import static com.jaemzware.seleniumcodebase.ParameterType.*;
 
 /**
  * CodeBase
@@ -179,9 +184,10 @@ public class CodeBase {
                     case CHROMEMAC:
                         cap = DesiredCapabilities.chrome();
                         break;
-                    case FIREFOX:
                     case FIREFOXLINUX:
                     case FIREFOXMAC:
+                        //FIREFOX REQUIRES GECKODRIVER
+                        System.setProperty("webdriver.gecko.driver", "relativePathToDrivers + \"geckodriver\"");
                         cap = DesiredCapabilities.firefox();
                         break;
                     case SAFARI:
@@ -210,13 +216,18 @@ public class CodeBase {
                 if (logging == null){
                     System.out.println("-Dlogging NOT SPECIFIED");
                 } else {
-                    LoggingPreferences loggingprefs = new LoggingPreferences();
-                    loggingprefs.enable(LogType.BROWSER, Level.ALL);
-//                    loggingprefs.enable(LogType.CLIENT, Level.ALL);
-//                    loggingprefs.enable(LogType.DRIVER, Level.ALL);
-                    cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
 
-                    System.out.println("-Dlogging SPECIFIED");
+                    if(browser.toString().contains("FIREFOX") || browser.toString().contains("SAFARI")) {
+                        throw new Exception("COMMAND LINE SWITCH EXCEPTION: -Dlogging NOT SUPPORTED BY FIREFOX NOR SAFARI AS OF WEBDRIVER 3.0, OR AT LEAST GOT BADLY DISRUPTED AND NEEDS TO BE INVESTIGATED LATER. BROWSER SPECIFIED:"+browser.toString());
+                    }
+                    else{
+                        LoggingPreferences loggingprefs = new LoggingPreferences();
+                        loggingprefs.enable(LogType.BROWSER, Level.ALL);
+                        loggingprefs.enable(LogType.CLIENT, Level.ALL);
+                        cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
+
+                        System.out.println("-Dlogging SPECIFIED");
+                    }
                 }
 
                 /**
@@ -247,7 +258,11 @@ public class CodeBase {
                             + browser.version + "' NOT LAUNCHED EXCEPTION:" + ex.getMessage());
                 } else if (ex.getMessage().contains("COULD NOT START A NEW SESSION")) {
                     System.out.println("SELENIUM GRID HUB NOT LAUNCHED EXCEPTION:" + ex.getMessage());
+                }
+                else if(ex.getMessage().contains("-Dlogging NOT SUPPORTED BY")){
+                    System.out.println(ex.getMessage());
                 } else {
+                    //CATCH ALL FOR EXCEPTIONS NOT THROWN BY CODEBASE.JAVA
                     System.out.println("SELENIUM GRID HUB CONNECTION EXCEPTION. VERIFY ONE IS STARTED AT SERVER:"+aHubServer+" PORT:"+aHubPort+" MESSAGE:" + ex.getMessage() );
                 }
 
@@ -331,7 +346,7 @@ public class CodeBase {
                             //chrome doesnt support this logging type CLIENT
                             LoggingPreferences loggingprefs = new LoggingPreferences();
                             loggingprefs.enable(LogType.BROWSER, Level.ALL);
-    //                        loggingprefs.enable(LogType.DRIVER, Level.ALL);
+                            loggingprefs.enable(LogType.CLIENT, Level.ALL);
                             cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
 
                             System.out.println("-Dlogging SPECIFIED");
@@ -348,36 +363,9 @@ public class CodeBase {
                     }
 
                     break;
-                case FIREFOX:
                 case FIREFOXLINUX:
-                case FIREFOXLINUXBPT:
                 case FIREFOXMAC:
-                    //specify the binary for FIREFOXLINUXBPT
-                    if(browser.equals(BrowserType.FIREFOXLINUXBPT)){
-                        System.setProperty("webdriver.firefox.bin","/usr/bin/firefox");
-                    }
-
-                    //do logging for all firefox flavors
-                    if (logging != null) {
-                        // get the desired capabilities
-                        DesiredCapabilities cap = DesiredCapabilities.firefox();
-
-                        LoggingPreferences loggingprefs = new LoggingPreferences();
-                        loggingprefs.enable(LogType.BROWSER, Level.ALL);
-    //                    loggingprefs.enable(LogType.CLIENT, Level.ALL);
-    //                    loggingprefs.enable(LogType.DRIVER, Level.ALL);
-                        cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
-
-                        System.out.println("-Dlogging SPECIFIED");
-
-                        driver = new FirefoxDriver(cap);
-                    } else {
-                        System.out.println("-Dlogging NOT SPECIFIED");
-
-                        driver = new FirefoxDriver();
-                    }
-
-                    break;
+                    throw new Exception("NOGRID SPECIFIED. "+browser.toString()+" MUST BE RUN THROUGH SELENIUM GRID WITH GECKODRIVER AS OF SELENIUM WEBDRIVER 3.0");
                 case SAFARI:
                     if (GetOsType().equals(OsType.MAC)) {
                         DesiredCapabilities cap = DesiredCapabilities.safari();
@@ -389,22 +377,13 @@ public class CodeBase {
                         cap.setCapability(SafariOptions.CAPABILITY, safariOptions);
 
                         if (logging != null) {
-                            LoggingPreferences loggingprefs = new LoggingPreferences();
-                            loggingprefs.enable(LogType.BROWSER, Level.ALL);
-    //                        loggingprefs.enable(LogType.CLIENT, Level.ALL);
-    //                        loggingprefs.enable(LogType.DRIVER, Level.ALL);
-                            cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
-
-                            System.out.println("-Dlogging SPECIFIED");
-                        }
-                        else{
-                            System.out.println("-Dlogging NOT SPECIFIED");
+                            throw new Exception("COMMAND LINE SWITCH EXCEPTION: -Dlogging NOT SUPPORTED BY FIREFOX NOR SAFARI AS OF WEBDRIVER 3.0, OR AT LEAST GOT BADLY DISRUPTED AND NEEDS TO BE INVESTIGATED LATER. BROWSER SPECIFIED:"+browser.toString());
                         }
 
                         driver = new SafariDriver(cap);
 
                     } else {
-                        throw new Exception("SAFARI IS UNSUPPORTED NATIVELY ON THIS OS:" + GetOsType());
+                        throw new Exception("NO GRID SPECIFIED. "+browser.toString()+" IS UNSUPPORTED NATIVELY ON THIS OS:" + GetOsType());
                     }
                     break;
                 case IE8:
@@ -421,8 +400,7 @@ public class CodeBase {
 
                             LoggingPreferences loggingprefs = new LoggingPreferences();
                             loggingprefs.enable(LogType.BROWSER, Level.ALL);
-    //                        loggingprefs.enable(LogType.CLIENT, Level.ALL);
-    //                        loggingprefs.enable(LogType.DRIVER, Level.ALL);
+                            loggingprefs.enable(LogType.CLIENT, Level.ALL);
                             cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
 
                             System.out.println("-Dlogging SPECIFIED");
@@ -477,6 +455,113 @@ public class CodeBase {
      *                                                                        *
      *                                                                        *
      **************************************************************************/
+    /**
+     * This method verifies logoxpath is on the currentpage
+     *
+     * @param xpathToVerify
+     * @return
+     */
+    protected String VerifyXpathOnCurrentPage(String xpathToVerify) {
+
+        StringBuilder outputString = new StringBuilder();
+
+        String href = driver.getCurrentUrl();
+
+        // if logo is not present, don't assert/fail, just add a verification error,
+        // so all links get checked regardless of ones that fail
+        if (!IsElementPresent(By.xpath(xpathToVerify), 2000)) {
+            verificationErrors.append("URL:").append(href).append(" MISSING LOGO:").append(xpathToVerify).append("\n");
+
+            // write error to html report
+            outputString.append("<br /><p class='severe'>PAGE MISSING LOGO XPATH:");
+            outputString.append(xpathToVerify);
+            outputString.append(" URL :</p><a href='");
+            outputString.append(href);
+            outputString.append("' target='_blank'>");
+            outputString.append(href);
+            outputString.append("</a><br />");
+
+        } else {
+            outputString.append("<table><th>XPATH MATCHES FOR:").append(xpathToVerify).append("</th>");
+            String tagString;
+            String imageSrc;
+            String anchorHref;
+
+            List<WebElement> xpathElementMatches = driver.findElements(By.xpath(xpathToVerify));
+            // List<WebElement> xpathElementMatches = driver.findElements(By.xpath("name("+xpathToVerify+")"));
+
+            for (WebElement we : xpathElementMatches) {
+                try {
+                    tagString = we.getTagName();
+                } catch (Exception ex) {
+                    System.out.println("WARNING: EXCEPTION GETTING TAG STRING SRC FROM XPATH ELEMENT."
+                            + ex.getMessage());
+                    outputString
+                            .append("<span class='warning'>WARNING: EXCEPTION GETTING TAG STRING FROM XPATH ELEMENT:")
+                            .append(ex.getMessage()).append("</span>");
+                    break;
+                }
+
+                outputString.append("<tr>");
+                outputString.append("<td>");
+                if (tagString.toLowerCase().equals("img")) {
+
+                    try {
+                        imageSrc = we.getAttribute("src");
+                    } catch (Exception ex) {
+                        System.out
+                                .println("WARNING: EXCEPTION GETTING IMAGE SRC FROM XPATH ELEMENT." + ex.getMessage());
+                        outputString
+                                .append("<span class='warning'>WARNING: EXCEPTION GETTING IMAGE SRC FROM XPATH ELEMENT:")
+                                .append(ex.getMessage()).append("</span>");
+                        break;
+                    }
+
+                    if (imageSrc != null && !imageSrc.isEmpty()) {
+                        outputString.append("<img src='").append(imageSrc).append("' />");
+                    } else {
+                        outputString.append("<p class='warning'>WARNING: IMAGE SRC IS EMPTY</p>");
+                    }
+                }
+                else if (tagString.toLowerCase().equals("a")){
+                    try {
+                        anchorHref = we.getAttribute("href");
+                    } catch (Exception ex) {
+                        System.out
+                                .println("WARNING: EXCEPTION GETTING ANCHOR HREF FROM XPATH ELEMENT." + ex.getMessage());
+                        outputString
+                                .append("<span class='warning'>WARNING: EXCEPTION GETTING ANCHOR HREF FROM XPATH ELEMENT:")
+                                .append(ex.getMessage()).append("</span>");
+                        break;
+                    }
+
+                    if (anchorHref != null && !anchorHref.isEmpty()) {
+                        outputString.append("<a href='").append(anchorHref).append("' target='_blank'>").append(we.getText()).append("</>");
+                    } else {
+                        outputString.append("<p class='warning'>WARNING: IMAGE SRC IS EMPTY</p>");
+                    }
+                }
+
+                else {
+                    try {
+                        outputString.append(we.getText());
+                    } catch (Exception ex) {
+                        System.out.println("WARNING: EXCEPTION GETTING TEXT FROM XPATH ELEMENT:" + ex.getMessage());
+                        outputString
+                                .append("<span class='warning'>WARNING: EXCEPTION GETTING TEXT FROM XPATH ELEMENT:")
+                                .append(ex.getMessage()).append("</span>");
+                        break;
+                    }
+                }
+
+                outputString.append("</td></tr>");
+            }
+            outputString.append("</table>");
+
+        }
+
+        return outputString.toString();
+    }
     /**
      * get a url and print out the load time
      *
@@ -706,17 +791,6 @@ public class CodeBase {
         } else {
             logString.append("<tr><td colspan=2>No CLIENT log entries found.</td></tr>");
         }
-        //TODO: TRYing  THIS AGAIN
-        LogEntries driverLog = driver.manage().logs().get(LogType.DRIVER);
-        if(driverLog.getAll().size()>0){
-            logString.append("<tr><td colspan=2><h3>DRIVER</h3></td></tr>");
-            logString.append("<tr><td>LEVEL</td><td>MESSAGE</td></tr>");
-            logString.append(WriteLogEntryRows(driverLog));
-        }
-        else{
-            logString.append("<tr><td colspan=2>No DRIVER log entries found.</td></tr>");
-        }
-
 
         logString.append("</table>");
         return logString.toString();
@@ -765,118 +839,7 @@ public class CodeBase {
         }
         return logEntryRows.toString();
     }
-    /**
-     * This method verifies logoxpath is on the currentpage
-     *
-     * @param xpathToVerify
-     * @return
-     */
-    protected String VerifyXpathOnCurrentPage(String xpathToVerify) {
 
-        StringBuilder outputString = new StringBuilder();
-
-        String href = driver.getCurrentUrl();
-
-<<<<<<< HEAD
-        // LOAD THE URL
-        try{
-            //this sets the timeout for get. implicitly wait is just for findelements.
-            //APPIUM DOESNT LIKE THIS CALL
-            //SAFARI DOESNT LIKE THIS CALL
-            if(!browser.toString().contains("APPIUM") &&
-                    !browser.toString().contains("SAFARI")){
-                driver.manage().timeouts().pageLoadTimeout(defaultImplicitWaitSeconds, TimeUnit.SECONDS);
-            }
-=======
-        // if logo is not present, don't assert/fail, just add a verification error,
-        // so all links get checked regardless of ones that fail
-        if (!IsElementPresent(By.xpath(xpathToVerify), 2000)) {
-            verificationErrors.append("URL:").append(href).append(" MISSING LOGO:").append(xpathToVerify).append("\n");
->>>>>>> BPT
-
-            // write error to html report
-            outputString.append("<br /><p class='severe'>PAGE MISSING LOGO XPATH:");
-            outputString.append(xpathToVerify);
-            outputString.append(" URL :</p><a href='");
-            outputString.append(href);
-            outputString.append("' target='_blank'>");
-            outputString.append(href);
-            outputString.append("</a><br />");
-
-<<<<<<< HEAD
-            //load the page
-            driver.get(href);
-
-            //wait for the web element to go away
-            (new WebDriverWait(driver, defaultImplicitWaitSeconds))
-                    .until(ExpectedConditions.stalenessOf(we));
-        }
-        catch(Exception ex){
-            System.out.println("ERROR: DRIVER.GET FAILED. HREF:"+href+" TRY SPECIFYING A LONGER -DdefaultImplicitWaitSeconds, WHICH IS SET TO "+defaultImplicitWaitSeconds+" SECONDS FOR THIS RUN. EXCEPTION:"+ex.getMessage());
-            return "ERROR";
-        }
-=======
-        } else {
-            outputString.append("<table><th>XPATH MATCHES FOR:").append(xpathToVerify).append("</th>");
-            String tagString;
-            String imageSrc;
-
-            List<WebElement> xpathElementMatches = driver.findElements(By.xpath(xpathToVerify));
-            // List<WebElement> xpathElementMatches = driver.findElements(By.xpath("name("+xpathToVerify+")"));
->>>>>>> BPT
-
-            for (WebElement we : xpathElementMatches) {
-                try {
-                    tagString = we.getTagName();
-                } catch (Exception ex) {
-                    System.out.println("WARNING: EXCEPTION GETTING TAG STRING SRC FROM XPATH ELEMENT."
-                            + ex.getMessage());
-                    outputString
-                            .append("<span class='warning'>WARNING: EXCEPTION GETTING TAG STRING FROM XPATH ELEMENT:")
-                            .append(ex.getMessage()).append("</span>");
-                    break;
-                }
-
-                outputString.append("<tr>");
-                outputString.append("<td>");
-                if (tagString.toLowerCase().equals("img")) {
-
-                    try {
-                        imageSrc = we.getAttribute("src");
-                    } catch (Exception ex) {
-                        System.out
-                                .println("WARNING: EXCEPTION GETTING IMAGE SRC FROM XPATH ELEMENT." + ex.getMessage());
-                        outputString
-                                .append("<span class='warning'>WARNING: EXCEPTION GETTING IMAGE SRC FROM XPATH ELEMENT:")
-                                .append(ex.getMessage()).append("</span>");
-                        break;
-                    }
-
-                    if (imageSrc != null && !imageSrc.isEmpty()) {
-                        outputString.append("<img src='").append(imageSrc).append("' />");
-                    } else {
-                        outputString.append("<p class='warning'>WARNING: IMAGE SRC IS EMPTY</p>");
-                    }
-                } else {
-                    try {
-                        outputString.append(we.getText());
-                    } catch (Exception ex) {
-                        System.out.println("WARNING: EXCEPTION GETTING TEXT FROM XPATH ELEMENT:" + ex.getMessage());
-                        outputString
-                                .append("<span class='warning'>WARNING: EXCEPTION GETTING TEXT FROM XPATH ELEMENT:")
-                                .append(ex.getMessage()).append("</span>");
-                        break;
-                    }
-                }
-
-                outputString.append("</td></tr>");
-            }
-            outputString.append("</table>");
-
-        }
-
-        return outputString.toString();
-    }
     /**
      * this method just scrolls the page down a  times
      */

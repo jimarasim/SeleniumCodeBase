@@ -1,2 +1,0 @@
-#!/usr/bin/env bash
-mvn -Dtest=BPTFindAnEventTest -DdefaultImplicitWaitSeconds=60 -Dbrowser=CHROMELINUX -Dinput="http://brownpapertickets.com/" -DaNumber=0 -Dreport=verifylogosgrindline -Duserid=brownpapertickets -DaString="//p" -DwaitAfterPageLoadMilliSeconds=1000 -Dlogging -DaHubServer=localhost -DaHubPort=4444 test

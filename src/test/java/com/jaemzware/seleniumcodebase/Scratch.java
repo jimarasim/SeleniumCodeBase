@@ -72,7 +72,7 @@ public class Scratch extends CodeBase {
             }
             
             //set defaultImplicitWaitSeconds IF NOT safari
-            if(!browser.toString().contains("SAFARI")){
+            if(!browser.toString().contains("SAFARI") && !browser.toString().contains("APPIUM")){
                 driver.manage().timeouts().implicitlyWait(defaultImplicitWaitSeconds, TimeUnit.SECONDS);
             }
 
@@ -113,6 +113,7 @@ public class Scratch extends CodeBase {
             // NAVIGATE TO THE STARTING PAGE TO GET LINKS TO VISIT FROM
             System.out.println("STARTURL:"+starturl);
             fileWriteString = driverGetWithTime(starturl);
+
             //scroll the page (this can be overridden with -DnoScroll
             ScrollPage();
            
@@ -167,16 +168,12 @@ public class Scratch extends CodeBase {
                             !hrefFound.toLowerCase().contains("?ak_action") &&
                             !hrefFound.toLowerCase().contains("feed") &&
                             !hrefFound.toLowerCase().contains("rss") &&
-                            !hrefFound.toLowerCase().contains("javascript") &&
-                            !hrefFound.toLowerCase().contains(".jpg") &&
-                            !hrefFound.toLowerCase().contains(".jpeg") &&
-                            !hrefFound.toLowerCase().contains(".png") &&
-                            !hrefFound.toLowerCase().contains(".gif")) {
+                            !hrefFound.toLowerCase().contains("javascript")) {
                         hrefs.put(hrefFound, starturl);
                         System.out.println("WILL VISIT:" + hrefFound);
                     } else {
                         System.out
-                                .println("SKIPPING: URL:" + hrefFound+" ON:"+starturl + " DOES NOT CONTAIN BASE URL:" + baseurl);
+                                .println("SKIPPING: URL:" + hrefFound+" ON:"+starturl + " IS NOT A WEB PAGE OR DOES NOT CONTAIN BASE URL:" + baseurl);
                     }
 
                 }

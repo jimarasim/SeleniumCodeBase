@@ -1,1 +1,0 @@
-mvn -Dtest=Scratch#VerifyLogos -DaHubServer=localhost -DaHubPort=4445 -Dbrowser=CHROMEMAC -Dinput=https://disney.com/ -DaNumber=50 -Dreport=VerifyLogosReport -Duserid=disney.com -DaString="//a[@id='nav-logo')]" -DwaitAfterPageLoadMilliSeconds=0 -Dlogging test

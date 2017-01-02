@@ -1,0 +1,2 @@
+mvn -DappiumIosTargetVersion="9.3" -DappiumIosDeviceName="iPhone 6" -Dtest="IosScratchApp#EnumerateElements" -Dbrowser="APPIUMAPPSIMULATOR" -DwaitAfterPageLoadMilliSeconds="500" -DdefaultImplicitWaitSeconds="120" -DappiumBinaryJSPath="/usr/local/lib/node_modules/appium/bin/appium.js" -DappiumBinaryNodeJSPath="/usr/local/bin/node" -DappiumApp="/Users/jameskarasim/Library/Developer/Xcode/DerivedData/pagebasedsample-etlslkkykkrqcmdyfkiwvjynetpz/Build/Products/Release-iphonesimulator/pagebasedsample.app
+" test
