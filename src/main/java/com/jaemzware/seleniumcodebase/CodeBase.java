@@ -567,7 +567,8 @@ public class CodeBase {
      *
      * @param href
      * @throws Exception when driver can't get
-     * @return html formatted output
+     * @return IMPORTANT: html formatted output, or "ERROR" string if there's an issue (console will show error)
+     * ALWAYS CHECK FOR AN ERROR!
      */
     protected String driverGetWithTime(String href) throws Exception{
         return driverGetWithTime(href,0);
@@ -578,7 +579,8 @@ public class CodeBase {
      * @param href
      * @param randomPauseMaxSeconds
      * @throws Exception when driver can't get
-     * @return html formatted output, or "ERROR" string if there's an issue (console will show error)
+     * @return IMPORTANT: html formatted output, or "ERROR" string if there's an issue (console will show error)
+     * ALWAYS CHECK FOR AN ERROR!
      */
     protected String driverGetWithTime(String href,int randomPauseMaxSeconds) throws Exception{
         long startTime;
@@ -900,9 +902,6 @@ public class CodeBase {
             catch(NumberFormatException | InterruptedException ex){
                 CustomStackTrace("SCROLLING EXCEPTION",ex);
             }
-        }
-        else{
-            System.out.println("-DnoScroll SPECIFIED. REMOVE FROM COMMAND LINE TO ENABLE PAGE SCROLLING HERE. ");
         }
     }
     /**JAVA NETWORKING UTILITIES
