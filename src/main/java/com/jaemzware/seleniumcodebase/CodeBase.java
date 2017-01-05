@@ -187,7 +187,7 @@ public class CodeBase {
                     case FIREFOXLINUX:
                     case FIREFOXMAC:
                         //FIREFOX REQUIRES GECKODRIVER
-                        System.setProperty("webdriver.gecko.driver", "relativePathToDrivers + \"geckodriver\"");
+                        System.setProperty("webdriver.gecko.driver", relativePathToDrivers + "geckodriver");
                         cap = DesiredCapabilities.firefox();
                         break;
                     case SAFARI:
@@ -363,9 +363,15 @@ public class CodeBase {
                     }
 
                     break;
+                case FIREFOX:
                 case FIREFOXLINUX:
                 case FIREFOXMAC:
-                    throw new Exception("NOGRID SPECIFIED. "+browser.toString()+" MUST BE RUN THROUGH SELENIUM GRID WITH GECKODRIVER AS OF SELENIUM WEBDRIVER 3.0");
+                    //FIREFOX REQUIRES GECKODRIVER
+                    System.setProperty("webdriver.gecko.driver", relativePathToDrivers + "geckodriver");
+                    driver = new FirefoxDriver();
+                    break;
+                //                    throw new Exception("NOGRID SPECIFIED. "+browser.toString()+" MUST BE RUN THROUGH SELENIUM GRID WITH GECKODRIVER AS OF SELENIUM WEBDRIVER 3.0");
+
                 case SAFARI:
                     if (GetOsType().equals(OsType.MAC)) {
                         DesiredCapabilities cap = DesiredCapabilities.safari();

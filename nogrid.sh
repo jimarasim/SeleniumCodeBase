@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #[SOURCE OF TRUTH FOR Scratch#VerifyLogos NO GRID]
-mvn -Dbrowser=SAFARI -Dinput=http://jaemzware.com/ -Dreport=VerifyLogosReportSafariImagesNoscreenshots -DaNumber=0 -DdefaultImplicitWaitSeconds=5 -DnoScreenShots -DwaitAfterPageLoadMilliSeconds=0 -Duserid=".com" -DaString="//img" -Dnogrid -Dtest=Scratch#VerifyLogos test
+mvn -Dbrowser=FIREFOX -Dinput=http://jaemzware.com/ -Dreport=VerifyLogosReportSafariImagesNoscreenshots -DaNumber=0 -DdefaultImplicitWaitSeconds=10 -DnoScreenShots -DwaitAfterPageLoadMilliSeconds=0 -Duserid=".com" -DaString="//img" -Dnogrid -Dtest=Scratch#VerifyLogos test
 #COMMAND LINE SWITCHES FOR Scratch#VerifyLogos
 #-DaString IS XPATH OF PAGE OBJECTS TO COLLECT FROM EACH PAGE
 #   eg if xpath //a OR //img
