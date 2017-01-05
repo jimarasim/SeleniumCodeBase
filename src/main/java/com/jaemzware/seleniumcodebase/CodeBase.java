@@ -675,31 +675,32 @@ public class CodeBase {
      *
      * @param oldUrl
      *            - old value of what should be at resultStatsTextXpath
-     * @throws Exception
-     */
-    protected void WaitForPageChange(String oldUrl)  {
+     * @return IMPORTANT: html formatted output, or "ERROR" string if there's an issue (console will show error)
+     * ALWAYS CHECK FOR AN ERROR!
+     **/
+    protected String WaitForPageChange(String oldUrl)  {
         try{
             final String waitTillUrlIsNot = oldUrl; // string to wait for to change when the page is loaded
 
             System.out.println("WAITING FOR PAGE TO CHANGE FROM:"+oldUrl);
 
             // wait for links to be loaded by waiting for the resultStatsText to change
-            (new WebDriverWait(driver, waitAfterPageLoadMilliSeconds)).until(new ExpectedCondition<Boolean>() {
+            (new WebDriverWait(driver, waitForPageChangeMilliSeconds)).until(new ExpectedCondition<Boolean>() {
                 @Override
                 public Boolean apply(WebDriver d) {
                     return !driver.getCurrentUrl().equals(waitTillUrlIsNot);
                 }
             });
 
-            System.out.println("PAGE CHANGED FROM:"+oldUrl+" TO:"+driver.getCurrentUrl());
-
-            Thread.sleep(quickWaitMilliSeconds);
+            Thread.sleep(waitAfterPageLoadMilliSeconds);
+            return("=============================CODEBASE INFORMATIONAL: PAGE CHANGED FROM:"+oldUrl+" TO:"+driver.getCurrentUrl());
 
         }
         catch(Exception ex){
             ScreenShot();
             CustomStackTrace("WAITFORPAGECHANGE EXCEPTION", ex);
-            System.out.println("WARNING: WAITFORPAGE CHANGE FAILED, MOVING ON. EXCEPTION:"+ex.getMessage());
+            System.out.println("=============================CODEBASE EXCEPTION: WaitForPageChange: MESSAGE:"+ex.getMessage());
+            return "ERROR";
         }
 
     }
@@ -848,68 +849,7 @@ public class CodeBase {
         return logEntryRows.toString();
     }
 
-    /**
-     * this method just scrolls the page down a  times
-     */
-    @SuppressWarnings("SleepWhileInLoop")
-    protected void ScrollPage(){
 
-        /**
-         * Scroll page, unless specificallu told not to
-         */
-        if(noScroll==null){
-            try{
-
-                //get the total height of the web page
-                Object documentHeight = ((JavascriptExecutor)driver).executeScript("return Math.max( document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight )");
-
-                //not sure why, but this get null sometimes
-                if(documentHeight==null){
-                    System.out.println("JAVASCRIPT TO RETRIEVE documentHeight RETURNED A NULL VALUE");
-                    return;
-                }
-                else{
-                    System.out.println("documentHeight:"+documentHeight.toString());
-                }
-
-                //get the y distance that is scrolled down
-                Object pageYOffset = ((JavascriptExecutor)driver).executeScript("return window.pageYOffset");
-                System.out.println("pageYOffset:"+pageYOffset.toString());
-
-                //get the height of the visible web page
-                Object innerHeight = ((JavascriptExecutor)driver).executeScript("return window.innerHeight");
-                System.out.println("innerHeight:"+innerHeight.toString());
-
-                //scroll down till at the bottom
-                while(Integer.parseInt(pageYOffset.toString()) <
-                        (Integer.parseInt(documentHeight.toString())-Integer.parseInt(innerHeight.toString())-1)){
-
-                    ((JavascriptExecutor)driver).executeScript("window.scrollBy(0,"+innerHeight.toString()+")");
-
-                    //make sure the page scrolled.  there was one case in fark where it didn't, so just break if that happens
-                    Object newPageYOffset = ((JavascriptExecutor)driver).executeScript("return window.pageYOffset");
-                    if(newPageYOffset.toString().equals(pageYOffset.toString())){
-                        System.out.println("NEW PAGE Y OFFSET IS THE SAME, BREAKING SCROLL");
-                        break;
-                    }
-                    else{
-                        pageYOffset=newPageYOffset;
-                        System.out.println("pageYOffset:"+pageYOffset.toString());
-                    }
-
-                    innerHeight = ((JavascriptExecutor)driver).executeScript("return window.innerHeight");
-                    System.out.println("innerHeight:"+innerHeight.toString());
-
-                    //sleep for a sec
-                    Thread.sleep(waitAfterPageLoadMilliSeconds);
-                }
-
-            }
-            catch(NumberFormatException | InterruptedException ex){
-                CustomStackTrace("SCROLLING EXCEPTION",ex);
-            }
-        }
-    }
     /**JAVA NETWORKING UTILITIES
      *                                                                        *
      *                                                                        *
@@ -1175,6 +1115,69 @@ public class CodeBase {
      *
      *
      */
+    /**
+     * this method just scrolls the page down a  times
+     */
+    @SuppressWarnings("SleepWhileInLoop")
+    protected void ScrollPage(){
+
+        /**
+         * Scroll page, unless specificallu told not to
+         */
+        if(noScroll==null){
+            try{
+
+                //get the total height of the web page
+                Object documentHeight = ((JavascriptExecutor)driver).executeScript("return Math.max( document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight )");
+
+                //not sure why, but this get null sometimes
+                if(documentHeight==null){
+                    System.out.println("JAVASCRIPT TO RETRIEVE documentHeight RETURNED A NULL VALUE");
+                    return;
+                }
+                else{
+                    System.out.println("documentHeight:"+documentHeight.toString());
+                }
+
+                //get the y distance that is scrolled down
+                Object pageYOffset = ((JavascriptExecutor)driver).executeScript("return window.pageYOffset");
+                System.out.println("pageYOffset:"+pageYOffset.toString());
+
+                //get the height of the visible web page
+                Object innerHeight = ((JavascriptExecutor)driver).executeScript("return window.innerHeight");
+                System.out.println("innerHeight:"+innerHeight.toString());
+
+                //scroll down till at the bottom
+                while(Integer.parseInt(pageYOffset.toString()) <
+                        (Integer.parseInt(documentHeight.toString())-Integer.parseInt(innerHeight.toString())-1)){
+
+                    ((JavascriptExecutor)driver).executeScript("window.scrollBy(0,"+innerHeight.toString()+")");
+
+                    //make sure the page scrolled.  there was one case in fark where it didn't, so just break if that happens
+                    Object newPageYOffset = ((JavascriptExecutor)driver).executeScript("return window.pageYOffset");
+                    if(newPageYOffset.toString().equals(pageYOffset.toString())){
+                        System.out.println("NEW PAGE Y OFFSET IS THE SAME, BREAKING SCROLL");
+                        break;
+                    }
+                    else{
+                        pageYOffset=newPageYOffset;
+                        System.out.println("pageYOffset:"+pageYOffset.toString());
+                    }
+
+                    innerHeight = ((JavascriptExecutor)driver).executeScript("return window.innerHeight");
+                    System.out.println("innerHeight:"+innerHeight.toString());
+
+                    //sleep for a sec
+                    Thread.sleep(waitAfterPageLoadMilliSeconds);
+                }
+
+            }
+            catch(NumberFormatException | InterruptedException ex){
+                CustomStackTrace("SCROLLING EXCEPTION",ex);
+            }
+        }
+    }
+
     //generic test for verifying multiple elements on a page
     public void ElementVerificationTest(String startUrl, By[] elementsToVerify) throws Exception{
         try{
