@@ -11,10 +11,6 @@ clients:
 brown paper tickets
 jaemzware
 
-major changes:
-logging NOT supported for FIREFOX per webdriver 3 gecko with firefox
-firefox local no longer supported per webdriver 3 requiring gecko
-
  */
 package com.jaemzware.seleniumcodebase;
 
@@ -184,6 +180,7 @@ public class CodeBase {
                     case CHROMEMAC:
                         cap = DesiredCapabilities.chrome();
                         break;
+                    case FIREFOX:
                     case FIREFOXLINUX:
                     case FIREFOXMAC:
                         //FIREFOX REQUIRES GECKODRIVER
