@@ -113,6 +113,9 @@ public class Scratch extends CodeBase {
             // NAVIGATE TO THE STARTING PAGE TO GET LINKS TO VISIT FROM
             System.out.println("STARTURL:"+starturl);
             fileWriteString = driverGetWithTime(starturl);
+            if(fileWriteString.equals("ERROR")){
+                throw new Exception("Scratch VerifyLogos DRIVERGETWITHTIME ERROR OCCURRED. LOOK ABOVE FOR EXCEPTION MESSAGE.");
+            }
 
             //scroll the page (this can be overridden with -DnoScroll
             ScrollPage();
@@ -198,6 +201,9 @@ public class Scratch extends CodeBase {
                 
                 // go to the href
                 fileWriteString = driverGetWithTime(href);
+                if(fileWriteString.equals("ERROR")){
+                    throw new Exception("Scratch VerifyLogos DRIVERGETWITHTIME ERROR OCCURRED. LOOK ABOVE FOR EXCEPTION MESSAGE.");
+                }
                 
                 // write stats to html report
                 writer.println(fileWriteString);

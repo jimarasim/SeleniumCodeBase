@@ -118,6 +118,10 @@ public class Facebook extends CodeBase{
             // NAVIGATE TO THE STARTING PAGE
             System.out.println("STARTURL:"+starturl);
             fileWriteString = driverGetWithTime(starturl);
+            if(fileWriteString.equals("ERROR")){
+                throw new Exception("FACEBOOK FaceCrawlAllLinks DRIVERGETWITHTIME ERROR OCCURRED. LOOK ABOVE FOR EXCEPTION MESSAGE.");
+            }
+
             
             //LOGIN
             if(IsElementPresent(By.id("email") )){
@@ -133,6 +137,9 @@ public class Facebook extends CodeBase{
                        (new WebDriverWait(driver, defaultImplicitWaitSeconds)).until(ExpectedConditions.stalenessOf(loginButton));
 
                        fileWriteString = driverGetWithTime(starturl);
+                       if(fileWriteString.equals("ERROR")){
+                           throw new Exception("Facebook FaceCrawlAllLinks DRIVERGETWITHTIME ERROR OCCURRED. LOOK ABOVE FOR EXCEPTION MESSAGE.");
+                       }
 
                        Thread.sleep(60000);
                    }
@@ -245,6 +252,9 @@ public class Facebook extends CodeBase{
             
                 //GET A LINK IN ALL THE LINKS WE FOUND, AND HIT IT AT RANDOM TIMES
                 fileWriteString = driverGetWithTime(href,2);
+                if(fileWriteString.equals("ERROR")){
+                    throw new Exception("Facebook FaceCrawlAllLinks DRIVERGETWITHTIME ERROR OCCURRED. LOOK ABOVE FOR EXCEPTION MESSAGE.");
+                }
                 
                 // write stats to html report
                 writer.println(fileWriteString);

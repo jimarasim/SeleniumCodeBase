@@ -1175,8 +1175,11 @@ public class CodeBase {
     //generic test for verifying multiple elements on a page
     public void ElementVerificationTest(String startUrl, By[] elementsToVerify) throws Exception{
         try{
-            //go to the page
-            this.driverGetWithTime(startUrl);
+            //GET THE LINK AND CHECK FOR AN ERROR LOADING THE PAGE
+            String driverGetResponse = this.driverGetWithTime(startUrl);
+            if(driverGetResponse.equals("ERROR")){
+                throw new Exception("CODEBASE ElementVerificationTest DRIVERGETWITHTIME ERROR OCCURRED. LOOK ABOVE FOR EXCEPTION MESSAGE.");
+            }
 
             for(By anElement: elementsToVerify) {
                 if (!IsElementPresent(anElement)) {
@@ -1194,7 +1197,11 @@ public class CodeBase {
     //generic test for verifying multiple images on a page
     public void BasicPageImagesTest(String startUrl, String expectedImages[]) throws Exception{
         try{
-            this.driverGetWithTime(startUrl);
+            //GET THE LINK AND CHECK FOR AN ERROR LOADING THE PAGE
+            String driverGetResponse = this.driverGetWithTime(startUrl);
+            if(driverGetResponse.equals("ERROR")){
+                throw new Exception("CODEBASE BasicPageImagesTest DRIVERGETWITHTIME ERROR OCCURRED. LOOK ABOVE FOR EXCEPTION MESSAGE.");
+            }
 
             for(String image: expectedImages){
                 if(!IsElementPresent(By.xpath("//img[@src='"+image+"']"))){
