@@ -700,7 +700,6 @@ public class CodeBase {
             System.out.println("=============================CODEBASE EXCEPTION: WaitForPageChange: MESSAGE:"+ex.getMessage());
             return "ERROR";
         }
-
     }
     /**
      * IsElementPresent stub with default waitTime of 10 seconds (when no wait time specified)

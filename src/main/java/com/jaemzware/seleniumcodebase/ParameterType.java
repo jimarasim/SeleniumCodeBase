@@ -19,7 +19,7 @@ public class ParameterType {
     public static String appiumBinaryNodeJSPath="/usr/local/bin/node";
     
     public static String aString=null;
-    public static int defaultImplicitWaitSeconds=10; //implicit wait time for finding elements on a page
+    public static int defaultImplicitWaitSeconds=15; //implicit wait time for finding elements on a page
     public static int waitAfterPageLoadMilliSeconds=0; //how long to wait for thread.sleep OR after a page loads from a link click (see protected String driverGetWithTime)
     public static int waitForPageChangeMilliSeconds=60000; //how long to wait for a page to change from an old url to a new one (see protected void WaitForPageChange)
 
