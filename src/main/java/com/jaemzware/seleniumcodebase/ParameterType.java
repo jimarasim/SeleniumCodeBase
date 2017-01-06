@@ -4,13 +4,14 @@
 package com.jaemzware.seleniumcodebase;
 
 //ALL PARAMETERS DEFINED HERE ARE OVERRIDABLE FROM THE MAVEN COMMAND LINE WITH -D{parametertype} (e.g. -DaNumber=-1)
+//**********WHEN ADDING VARIABLES HERE YOU MUST IMPLEMENT THEM BELOW IN SetParameter TOO!!!!!!!****************/
 public class ParameterType {
     public static BrowserType browser=BrowserType.CHROME;
+
+    public static String nogrid=null; //dont use selenium grid. default behavior is to look for grid on aHubPort aHubServer
     public static String aHubServer="localhost"; //where to look for selenium grid. server name only. default behavior is to look for one.
     public static String aHubPort="4444"; //port to use for selenium grid, if looking for one.
 
-    public static int aNumber=0; //usage depends on test. verifylogos and boardscrub use it to signify how many links to visit. =<0 == visit all
-    
     public static String appiumApp=null;//"/Users/jameskarasim/Library/Developer/Xcode/DerivedData/Scratch-cdvmqpqxkymrtecctsbjrwupqtya/Build/Products/Debug-iphoneos/Scratch.app";
     public static String appiumIosDeviceName=null;//"iPhone 6"; //ijaemzware
     public static String appiumIosTargetVersion=null;//"9.1";
@@ -18,22 +19,24 @@ public class ParameterType {
     public static String appiumBinaryJSPath="/Users/jameskarasim/Downloads/installed/repositories/appium/bin/appium.js";
     public static String appiumBinaryNodeJSPath="/usr/local/bin/node";
     
-    public static String aString=null;
-    public static int defaultImplicitWaitSeconds=15; //implicit wait time for finding elements on a page
+    public static int defaultImplicitWaitSeconds=15; //implicit wait time for finding elements on a page, where the page being loaded is a factor (selenium)
+    public static int hardCodedSleepMilliSeconds=5000; //facebookcrawlalllinks is the only test that uses this
+    public static int throttleDownWaitTimeMilliSeconds=500; //how long to wait when throttling down to look for elements after a page is known to be loaded (boardscrub craigslist codebase iselementpresent default)
     public static int waitAfterPageLoadMilliSeconds=0; //how long to wait for thread.sleep OR after a page loads from a link click (see protected String driverGetWithTime)
     public static int waitForPageChangeMilliSeconds=60000; //how long to wait for a page to change from an old url to a new one (see protected void WaitForPageChange)
 
-    public static EnvironmentType environment=null;
-    public static String input=null;
-    public static String logging=null;
-    public static String nogrid=null;
-    public static String noImages=null;
-    public static String noScreenShots=null;
-    public static String noScroll=null;
-    public static String password=null;
-    public static String report=null;
-    public static String userid=null;//"starbucks.com";
-    public static int quickWaitMilliSeconds=5000;
+    public static EnvironmentType environment=null; //not used; pending deprecation
+    public static int aNumber=0; //verifylogos and boardscrub use it to signify how many links to visit. =<0 == visit all
+    public static String aString=null; //verifylogos uses it to signify what element to look for as its "logo"
+    public static String input=null; //verifylogos and boardscrub use it specify the first page to load
+    public static String logging=null; //turn on logging to report browser errors, currently used only with CHROME
+    public static String noImages=null; //boardscrub uses this to omit images found in its report.
+    public static String noScreenShots=null; //codebase drivergetwithtime uses this to decide whether to save screenshots
+    public static String noScroll=null; //codebase ScrollPage() will refrain from scrolling if this is specified
+    public static String password=null; //usage depends on test
+    public static String report=null; //verifylogos and boardscrub use this to name their reports: index{report}.htm
+    public static String userid=null;//usage depends on test
+
     public static final String jenkinsReportPath = null;//"http://computer.local:8080/job/verifylogosappium/ws/";
     public static final String jenkinsReportPathInternal = null;//"http://localhost:8080/job/verifylogosappium/ws/";
     public static final String jenkinsDeployDirectory = null;//"job/verifylogos/ws/";
@@ -150,7 +153,7 @@ public class ParameterType {
                 break;
             case "quickWaitMilliseconds":
                 try {
-                    quickWaitMilliSeconds = Integer.parseInt(parameterValue);
+                    hardCodedSleepMilliSeconds = Integer.parseInt(parameterValue);
                 } catch (NumberFormatException nfx) {
                     throw new Exception("-DquickWaitMilliseconds:" + parameterValue+ " SPECIFIED IS NOT A PARSEABLE INT. RETURNING THIS STRING TO INDICATE FAILURE (MAY BE IGNORED BY SOME TESTS)");
                 }
@@ -166,6 +169,20 @@ public class ParameterType {
                     waitAfterPageLoadMilliSeconds = Integer.parseInt(parameterValue);
                 } catch (NumberFormatException nfx) {
                     throw new Exception("-DwaitAfterPageLoadMilliSeconds:" + parameterValue+ " SPECIFIED IS NOT A PARSEABLE INT. RETURNING THIS STRING TO INDICATE FAILURE (MAY BE IGNORED BY SOME TESTS)");
+                }
+                break;
+            case "throttleDownWaitTimeMilliSeconds":
+                try {
+                    throttleDownWaitTimeMilliSeconds = Integer.parseInt(parameterValue);
+                } catch (NumberFormatException nfx) {
+                    throw new Exception("-DthrottleDownWaitTimeMilliSeconds:" + parameterValue+ " SPECIFIED IS NOT A PARSEABLE INT. RETURNING THIS STRING TO INDICATE FAILURE (MAY BE IGNORED BY SOME TESTS)");
+                }
+                break;
+            case "waitForPageChangeMilliSeconds":
+                try {
+                    waitForPageChangeMilliSeconds = Integer.parseInt(parameterValue);
+                } catch (NumberFormatException nfx) {
+                    throw new Exception("-DwaitForPageChangeMilliSeconds:" + parameterValue+ " SPECIFIED IS NOT A PARSEABLE INT. RETURNING THIS STRING TO INDICATE FAILURE (MAY BE IGNORED BY SOME TESTS)");
                 }
                 break;
             //FOR BOARDSCRUB.JAVA

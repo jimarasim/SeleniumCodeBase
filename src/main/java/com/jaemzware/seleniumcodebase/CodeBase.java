@@ -705,7 +705,7 @@ public class CodeBase {
      * @return
      */
     public static boolean IsElementPresent(By locatorKey) {
-        return IsElementPresent(locatorKey, 10000);
+        return IsElementPresent(locatorKey, throttleDownWaitTimeMilliSeconds);
     }
     /**
      * IsElementPresent method, that allows one to specify how long to try finding the element

@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 #[SOURCE OF TRUTH FOR Scratch#VerifyLogos NO GRID]
 mvn -Dbrowser=CHROME -Dinput=https://commercehero.io/ -Dreport=commercehero -DnoScroll -Dlogging -Duserid="commercehero.io" -DaString="//a[contains(@href,'register')]" -Dnogrid -Dtest=Scratch#VerifyLogos test
+#=====================================
 #COMMAND LINE SWITCHES FOR Scratch#VerifyLogos
 #-DaString IS XPATH OF PAGE OBJECTS TO COLLECT FROM EACH PAGE
 #   eg if xpath //a OR //img
@@ -9,17 +10,35 @@ mvn -Dbrowser=CHROME -Dinput=https://commercehero.io/ -Dreport=commercehero -Dno
 #-Dinput MAPS TO STARTURL (eg http://jaemzware.com)
 #-Dreport appended to index in report name index___.htm
 #-Duserid MAPS TO BASEURL OF LINKS TO FOLLOW (eg http OR .com OR jaemzware OR jaemzware.org)
-#COMMAND LINE SWITCHES FOR CODEBASE
-#-DaHubPort=4444 - port of selenium grid to use when -Dnogrid is absent
-#-DaHubServer=localhost - server of selenium grid to use when -Dnogrid is absent
-#-DaNumber - stop after visiting this many pages (default is 0 or negative, don't stop)
-#-DdefaultImplicitWaitSeconds HOW LONG TO WAIT FOR ELEMENTS BEFORE TIMING OUT (DEFAULT 10 S)
-#-Dlogging CHROME AND IE ONLY SHOWS BROWSER AND CLIENT ERRORS IF ANY. NOT SUPPORTED BY FIREFOX NOR SAFARI
-#-Dnogrid LAUNCH LOCALLY, AND DON'T USE SELENIUM GRID
-#-DnoImages - if DaString is //img, don't display images in the report
-#-DnoScreenShots DONT TAKE SCREENSHOTS OF EACH PAGE. DEFAULT ON.
-#-DnoScroll DOESN'T SCROLL THE SCREEN FOR VIEWING (DEFAULT ON)
-#-DwaitAfterPageLoadMilliSeconds PAUSE EXECUTION AFTER PAGE LOAD AND EACH SCROLL (DEFAULT 0 MS)
+#COMMAND LINE SWITCHES FOR VERIFYLOGOS
+#=====================================
+#CODEBASE HUB SWITCHES
+#-DaHubServer="localhost"; //where to look for selenium grid. server name only. default behavior is to look for one.
+#-DaHubPort="4444"; //port to use for selenium grid, if looking for one.
+#-Dnogrid=null; //dont use selenium grid. default behavior is to look for grid on aHubPort aHubServer
+#=====================================
+#CODEBASE AND TEST TIME SWITCHES
+#-DdefaultImplicitWaitSeconds=15; //implicit wait time for finding elements on a page, where the page being loaded is a factor (selenium)
+#-DhardCodedSleepMilliSeconds=5000; //facebookcrawlalllinks is the only test that uses this
+#-DthrottleDownWaitTimeMilliSeconds=500; //how long to wait when throttling down to look for elements after a page is known to be loaded (boardscrub craigslist codebase iselementpresent default)
+#-DwaitAfterPageLoadMilliSeconds=0; //how long to wait for thread.sleep OR after a page loads from a link click (see protected String driverGetWithTime)
+#-DwaitForPageChangeMilliSeconds=60000; //how long to wait for a page to change from an old url to a new one (see protected void WaitForPageChange)
+#=====================================
+#OTHER TEST SWITCHES
+#-DaNumber=0; //verifylogos and boardscrub use it to signify how many links to visit. =<0 == visit all
+#-DaString=null; //verifylogos uses it to signify what element to look for as its "logo"
+#-Dinput=null; //verifylogos and boardscrub use it specify the first page to load
+#-DnoImages=null; //boardscrub uses this to omit images found in its report.
+#-Dpassword=null; //usage depends on test; virtually no known usage
+#-Dreport=null; //verifylogos and boardscrub use this to name their reports: index{report}.htm
+#-Duserid=null;//usage depends on test; virtually no known usage
+#=====================================
+#OTHER CODEBASE SWITCHES
+#-Dlogging=null; //turn on logging to report browser errors, currently used only with CHROME
+#-DnoScreenShots=null; //codebase drivergetwithtime uses this to decide whether to save screenshots
+#-DnoScroll=null; //codebase ScrollPage() will refrain from scrolling if this is specified
+#=====================================
+#BROWSER ENUMERATIONS
 #-Dbrowser
 #NOTE: VERSION AND PLATFORM ENUMERATION VARS ONLY USED BY GRID
 #NOTE: CHROMELINUX32 SPECIAL FOR RASPBERRY PI

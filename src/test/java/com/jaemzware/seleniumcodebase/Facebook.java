@@ -158,7 +158,7 @@ public class Facebook extends CodeBase{
             /*
             * TODO - REFACTOR THIS HARDCODED WAIT
             */
-            Thread.sleep(quickWaitMilliSeconds);
+            Thread.sleep(hardCodedSleepMilliSeconds);
 
             // write stats to html report
             writer.println(fileWriteString);
