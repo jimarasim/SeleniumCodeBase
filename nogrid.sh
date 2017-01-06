@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #[SOURCE OF TRUTH FOR Scratch#VerifyLogos NO GRID]
-mvn -Dbrowser=SAFARI -Dinput=http://jaemzware.com/ -Dreport=VerifyLogosReportSafariImagesNoscreenshots -DaNumber=0 -DdefaultImplicitWaitSeconds=5 -DnoScreenShots -DwaitAfterPageLoadMilliSeconds=0 -Duserid=".com" -DaString="//img" -Dnogrid -Dtest=Scratch#VerifyLogos test
+mvn -Dbrowser=FIREFOX -Dinput=http://jaemzware.com/ -Dreport=VerifyLogosReportSafariImagesNoscreenshots -DaNumber=0 -DnoScreenShots -DwaitAfterPageLoadMilliSeconds=0 -Duserid=".com" -DaString="//img" -Dnogrid -Dtest=Scratch#VerifyLogos test
 #COMMAND LINE SWITCHES FOR Scratch#VerifyLogos
 #-DaString IS XPATH OF PAGE OBJECTS TO COLLECT FROM EACH PAGE
 #   eg if xpath //a OR //img
@@ -26,6 +26,7 @@ mvn -Dbrowser=SAFARI -Dinput=http://jaemzware.com/ -Dreport=VerifyLogosReportSaf
 #NOTE: FIREFOX IS NO LONGER SUPPORTED RUNNING LOCALLY AS OF WEBDRIVER 3.0
 #NOTE: SAFARI MUST NOT ALREADY BE RUNNING WHEN RUNNING A SAFARI AUTOMATION
 #NOTE: SAFARI MUST enable the 'Allow Remote Automation' option in Safari's Develop menu to control Safari via WebDriver
+#NOTE: SAFARI IS FAST BUT DOESN'T WORK CONSISTENTLY LIKE CHROME, AND FIREFOX
 #CHROME("chrome","",Platform.WINDOWS),
 #CHROMELINUX("chrome","",Platform.LINUX),
 #CHROMELINUX32("chrome","",Platform.LINUX),

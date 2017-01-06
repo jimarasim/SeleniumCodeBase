@@ -8,13 +8,13 @@ import org.openqa.selenium.Platform;
  */
 public enum BrowserType {
     //PLATFORM IS ONLY USED WHEN USING GRID. FOR NON-GRID, JUST SPECIFYING CHROME
-    //FIREFOX ONLY WORKS WITH GECKODRIVER AND GRID NOW
+    //FIREFOX ONLY WORKS WITH GECKODRIVER AND GRID NOW (TESTING AGAIN)
     //MAKE SURE THESE ARE ALL HANDLED IN THE GRID AND NON-GRID CASES
-    //ALL APPIUM BROWSERS MUST HAVE APPIUM IN THE NAME
     CHROME("chrome","",Platform.WINDOWS),  //REQUIRES CHROMEDRIVER
     CHROMELINUX("chrome","",Platform.LINUX),
     CHROMELINUX32("chrome","",Platform.LINUX),
     CHROMEMAC ("chrome","",Platform.MAC),
+    FIREFOX("firefox","",Platform.WINDOWS),
     FIREFOXLINUX("firefox","",Platform.LINUX),
     FIREFOXMAC("firefox","",Platform.MAC),
     SAFARI("safari","",Platform.MAC),  //REQUIRES SAFARI DRIVER

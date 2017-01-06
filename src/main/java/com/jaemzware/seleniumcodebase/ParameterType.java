@@ -1,15 +1,15 @@
 /*
- * To change this license header=""; choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * jaemzware
  */
 package com.jaemzware.seleniumcodebase;
 
+//ALL PARAMETERS DEFINED HERE ARE OVERRIDABLE FROM THE MAVEN COMMAND LINE WITH -D{parametertype} (e.g. -DaNumber=-1)
 public class ParameterType {
     public static BrowserType browser=BrowserType.CHROME;
-    public static String aHubPort=null;
-    public static String aHubServer=null;
-    public static int aNumber=-1;
+    public static String aHubServer="localhost"; //where to look for selenium grid. server name only. default behavior is to look for one.
+    public static String aHubPort="4444"; //port to use for selenium grid, if looking for one.
+
+    public static int aNumber=0; //usage depends on test. verifylogos and boardscrub use it to signify how many links to visit. =<0 == visit all
     
     public static String appiumApp=null;//"/Users/jameskarasim/Library/Developer/Xcode/DerivedData/Scratch-cdvmqpqxkymrtecctsbjrwupqtya/Build/Products/Debug-iphoneos/Scratch.app";
     public static String appiumIosDeviceName=null;//"iPhone 6"; //ijaemzware
@@ -18,10 +18,13 @@ public class ParameterType {
     public static String appiumBinaryJSPath="/Users/jameskarasim/Downloads/installed/repositories/appium/bin/appium.js";
     public static String appiumBinaryNodeJSPath="/usr/local/bin/node";
     
-    public static String aString=null;//"//p";
-    public static int defaultImplicitWaitSeconds=10;
+    public static String aString=null;
+    public static int defaultImplicitWaitSeconds=15; //implicit wait time for finding elements on a page
+    public static int waitAfterPageLoadMilliSeconds=0; //how long to wait for thread.sleep OR after a page loads from a link click (see protected String driverGetWithTime)
+    public static int waitForPageChangeMilliSeconds=60000; //how long to wait for a page to change from an old url to a new one (see protected void WaitForPageChange)
+
     public static EnvironmentType environment=null;
-    public static String input=null;//"https://starbucks.com";
+    public static String input=null;
     public static String logging=null;
     public static String nogrid=null;
     public static String noImages=null;
@@ -30,14 +33,13 @@ public class ParameterType {
     public static String password=null;
     public static String report=null;
     public static String userid=null;//"starbucks.com";
-    public static String bodyTextXpath=null;
-    public static int waitAfterPageLoadMilliSeconds=0;   
-    public static int quickWaitMilliSeconds=5000;    
+    public static int quickWaitMilliSeconds=5000;
     public static final String jenkinsReportPath = null;//"http://computer.local:8080/job/verifylogosappium/ws/";
     public static final String jenkinsReportPathInternal = null;//"http://localhost:8080/job/verifylogosappium/ws/";
     public static final String jenkinsDeployDirectory = null;//"job/verifylogos/ws/";
     
     //BOARDSCRUB ONLY USES THESE
+    public static String bodyTextXpath=null;
     public static String imageXpath =null;
     public static String linksLoadedIndicatorXpath =null;
     public static String linkXpath =null;
