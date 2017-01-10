@@ -108,7 +108,7 @@ public class Scratch extends CodeBase {
             writer = new PrintWriter(fileName, "UTF-8");
 
             // write the html header in the web page
-            writer.println(HtmlReportHeader("VerifyLogos:<a href='"+starturl+"' target='_blank'>"+starturl+"</a><br />baseurl:"+baseurl+" <br />starturl:"+starturl+" <br />logoxpath:"+logoxpath));
+            writer.println(HtmlReportHeader("VerifyLogos:<a href='"+starturl+"' target='_blank'>"+starturl+"</a><br />browser:"+browser.toString()+"<br />baseurl:"+baseurl+" <br />starturl:"+starturl+" <br />logoxpath:"+logoxpath));
             
             // NAVIGATE TO THE STARTING PAGE TO GET LINKS TO VISIT FROM
             System.out.println("STARTURL:"+starturl);

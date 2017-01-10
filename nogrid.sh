@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #[SOURCE OF TRUTH FOR Scratch#VerifyLogos NO GRID]
-mvn -Dbrowser=CHROME -Dinput=https://commercehero.io/ -Dreport=commercehero -DnoScroll -Dlogging -Duserid="commercehero.io" -DaString="//a[contains(@href,'register')]" -Dnogrid -Dtest=Scratch#VerifyLogos test
+mvn -DaNumber=2 -Dbrowser=CHROMENEXUS5 -Dinput=http://jaemzware.com/ -Dreport=jaemzware -DnoScroll -Dlogging -Duserid="http" -DaString="//a" -Dnogrid -Dtest=Scratch#VerifyLogos test
 #=====================================
 #COMMAND LINE SWITCHES FOR Scratch#VerifyLogos
 #-DaString IS XPATH OF PAGE OBJECTS TO COLLECT FROM EACH PAGE

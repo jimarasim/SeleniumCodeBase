@@ -25,11 +25,7 @@ import java.lang.reflect.Field;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Properties;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.regex.Matcher;
@@ -266,22 +262,14 @@ public class CodeBase {
                 driver = null;
             }
         }
-        // LAUNCH LOCAL BROWSER, IF DRIVER HASN'T BEEN SET
+        // LAUNCH LOCAL BROWSER, IF DRIVER HASN'T BEEN SET BY FINDING SELENIUM GRID FIRST, OR -Dnogrid WAS SPECIFIED
         else {
-            System.out.println("ATTEMPTING TO LAUNCH LOCAL BROWSER:" + browser + " ON:" + GetOsType());
+            System.out.println("ATTEMPTING TO LAUNCH LOCAL BROWSER WITHOUT SELENIUM GRID:" + browser + " ON:" + GetOsType());
 
-            switch (browser) {
-            // CHROME VARIATIONS.
-                case CHROMELINUX:
-                case CHROMELINUX32:
-                case CHROMEMAC:
-                case CHROME:
-                case CHROMEIPHONE6: // CHROME EMULATOR
-                case CHROMEIPAD4: // CHROME EMULATOR
-                case CHROMEANDROID402: // CHROME EMULATOR
-
-                    // chrome uses a different driver binary depending on what os we're on
-                    switch (GetOsType()) {
+            //ALL CHROME browser TYPES NEED TO KNOW WHERE THE CHROMEDRIVER IS
+            if(browser.toString().startsWith("CHROME")){
+                // chrome uses a different driver binary depending on what os we're on
+                switch (GetOsType()) {
                     case WINDOWS:
                         System.setProperty("webdriver.chrome.driver", relativePathToDrivers + "chromedriver.exe"); // FOR
                         break;
@@ -295,24 +283,62 @@ public class CodeBase {
                         else {
                             System.setProperty("webdriver.chrome.driver", relativePathToDrivers + "chromedriverlinux64"); // FOR
                         }
-                                                                                                                      // unix
+                        // unix
                         break;
                     default:
                         throw new Exception("-Dbrowser=" + browser + " IS UNSUPPORTED NATIVELY ON THIS OS:" + GetOsType());
+                }
+            }
+
+            switch (browser) {
+            // CHROME VARIATIONS.
+                case CHROMELINUX:
+                case CHROMELINUX32:
+                case CHROMEMAC:
+                case CHROME:
+                    // turn on debug logging if debug is specified. this takes longer
+                    if (logging != null) {
+                        // get the chrome driver/start regular chrome
+                        // get the desired capabilities
+                        DesiredCapabilities cap = DesiredCapabilities.chrome();
+
+                        //chrome doesnt support this logging type CLIENT
+                        LoggingPreferences loggingprefs = new LoggingPreferences();
+                        loggingprefs.enable(LogType.BROWSER, Level.ALL);
+                        loggingprefs.enable(LogType.CLIENT, Level.ALL);
+                        cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
+
+                        System.out.println("-Dlogging SPECIFIED");
+
+                        driver = new ChromeDriver(cap);
+                    } else {
+                        System.out.println("-Dlogging NOT SPECIFIED");
+
+                        //incognito
+                        ChromeOptions options = new ChromeOptions();
+                        driver = new ChromeDriver(options);
                     }
-
-    //                Map<String, String> mobileEmulation = new HashMap<String, String>();
-    //                mobileEmulation.put("deviceName", "Google Nexus 5");
-    //
-    //                Map<String, Object> chromeOptions = new HashMap<String, Object>();
-    //                chromeOptions.put("mobileEmulation", mobileEmulation);
-    //                DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-    //                capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
-    //                WebDriver driver = new ChromeDriver(capabilities);
-
+                    break;
+                case CHROMENEXUS5:
+                case CHROMEIPHONE6: // CHROME EMULATOR
+                case CHROMEIPAD4: // CHROME EMULATOR
+                case CHROMEANDROID402: // CHROME EMULATOR
 
                     // USE CHROME OPTIONS TO SET THE USER AGENT IF REQUESTED (e.g. CHROMEIPHONE6)
-                    if (browser.equals(BrowserType.CHROMEIPHONE6)) {
+                    if(browser.equals(BrowserType.CHROMENEXUS5)){
+                        Map<String, String> mobileEmulation = new HashMap<String, String>();
+                        Map<String, Object> chromeOptions = new HashMap<String, Object>();
+                        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+
+                        String deviceName = browser.browserName+" "+browser.version;
+
+                        mobileEmulation.put("deviceName", deviceName);
+                        chromeOptions.put("mobileEmulation", mobileEmulation);
+                        capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
+                        driver = new ChromeDriver(capabilities);
+
+                    }
+                    else if (browser.equals(BrowserType.CHROMEIPHONE6)) {
                         ChromeOptions options = new ChromeOptions();
 
                         // iphone ios6
@@ -334,29 +360,6 @@ public class CodeBase {
 
                         driver = new ChromeDriver(options);
                     } else {
-                         // turn on debug logging if debug is specified. this takes longer
-                        if (logging != null) {
-                            // get the chrome driver/start regular chrome
-                             // get the desired capabilities
-                            DesiredCapabilities cap = DesiredCapabilities.chrome();
-
-                            //chrome doesnt support this logging type CLIENT
-                            LoggingPreferences loggingprefs = new LoggingPreferences();
-                            loggingprefs.enable(LogType.BROWSER, Level.ALL);
-                            loggingprefs.enable(LogType.CLIENT, Level.ALL);
-                            cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
-
-                            System.out.println("-Dlogging SPECIFIED");
-
-                            driver = new ChromeDriver(cap);
-                        } else {
-                            System.out.println("-Dlogging NOT SPECIFIED");
-
-                            //incognito
-                            ChromeOptions options = new ChromeOptions();
-                            driver = new ChromeDriver(options);
-                        }
-
                     }
 
                     break;
@@ -1459,7 +1462,8 @@ public class CodeBase {
             iosDriver.get(href);
         }
         catch(Exception ex){
-            throw new Exception("IOSDRIVER.GET FAILED. TRY SPECIFYING A LONGER -DdefaultImplicitWaitSeconds, WHICH IS SET TO "+defaultImplicitWaitSeconds+" SECONDS FOR THIS RUN. EXCEPTION:"+ex.getMessage());
+            System.out.println("IOSDRIVER.GET FAILED. EXCEPTION:"+ex.getMessage());
+            return "ERROR";
         }
 
         // PRINT OUT LOAD TIME
