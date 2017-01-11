@@ -319,49 +319,22 @@ public class CodeBase {
                         driver = new ChromeDriver(options);
                     }
                     break;
-                case CHROMENEXUS5:
+                case CHROMENEXUS5: // CHROME EMULATOR
+                case CHROMENEXUS6P:
+                case CHROMEIPHONE5:
                 case CHROMEIPHONE6: // CHROME EMULATOR
-                case CHROMEIPAD4: // CHROME EMULATOR
-                case CHROMEANDROID402: // CHROME EMULATOR
+                case CHROMEIPHONE6PLUS:
+                case CHROMEIPAD:
+                    Map<String, String> mobileEmulation = new HashMap<String, String>();
+                    Map<String, Object> chromeOptions = new HashMap<String, Object>();
+                    DesiredCapabilities capabilities = DesiredCapabilities.chrome();
 
-                    // USE CHROME OPTIONS TO SET THE USER AGENT IF REQUESTED (e.g. CHROMEIPHONE6)
-                    if(browser.equals(BrowserType.CHROMENEXUS5)){
-                        Map<String, String> mobileEmulation = new HashMap<String, String>();
-                        Map<String, Object> chromeOptions = new HashMap<String, Object>();
-                        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+                    String deviceName = browser.browserName+" "+browser.version;
 
-                        String deviceName = browser.browserName+" "+browser.version;
-
-                        mobileEmulation.put("deviceName", deviceName);
-                        chromeOptions.put("mobileEmulation", mobileEmulation);
-                        capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
-                        driver = new ChromeDriver(capabilities);
-
-                    }
-                    else if (browser.equals(BrowserType.CHROMEIPHONE6)) {
-                        ChromeOptions options = new ChromeOptions();
-
-                        // iphone ios6
-                        options.addArguments("--user-agent=Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25");
-
-                        driver = new ChromeDriver(options);
-                    } else if (browser.equals(BrowserType.CHROMEIPAD4)) {
-                        ChromeOptions options = new ChromeOptions();
-
-                        // ipad ios4
-                        options.addArguments("--user-agent=Mozilla/5.0 (iPad; CPU OS 4_3_2 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8H7 Safari/6533.18.5");
-
-                        driver = new ChromeDriver(options);
-                    } else if (browser.equals(BrowserType.CHROMEANDROID402)) {
-                        ChromeOptions options = new ChromeOptions();
-
-                        // android 4.0.2
-                        options.addArguments("--user-agent=Mozilla/5.0 (Linux; U; Android 4.0.2; en-us; Galaxy Nexus Build/ICL53F) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30");
-
-                        driver = new ChromeDriver(options);
-                    } else {
-                    }
-
+                    mobileEmulation.put("deviceName", deviceName);
+                    chromeOptions.put("mobileEmulation", mobileEmulation);
+                    capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
+                    driver = new ChromeDriver(capabilities);
                     break;
                 case FIREFOX:
                 case FIREFOXLINUX:

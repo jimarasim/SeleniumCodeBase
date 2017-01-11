@@ -23,17 +23,12 @@ public enum BrowserType {
     IE10("InternetExplorer","10",Platform.WINDOWS),
     IE11("InternetExplorer","11",Platform.WINDOWS),
     //CHROME EMULATIONS
-    CHROMEGALAXYS5("Google","Galaxy S5",Platform.MAC),  //REQUIRES CHROMEDRIVER; DEVICE NAMES FROM CHROME EMULATOR IN THE BROWSER INSPECTOR
     CHROMENEXUS5("Google","Nexus 5", Platform.MAC),
-    CHROMENEXUS5X("Google","Nexus 5X",Platform.MAC),
     CHROMENEXUS6P("Google","Nexus 6P",Platform.MAC),
-    CHROMEIPHONE5("Google","iPhone 5",Platform.MAC),
-    CHROMEIPHONE6("Google","iPhone 6",Platform.MAC),
-    CHROMEIPHONE6PLUS("Google","iPhone 6 Plus",Platform.MAC),
-    CHROMEIPAD("Google","iPad",Platform.MAC),
-    CHROMEIPADPRO("Google","iPad Pro",Platform.MAC),
-    CHROMEIPAD4("IPAD","4",Platform.MAC),
-    CHROMEANDROID402("ANDROID","4.0.2",Platform.WINDOWS),
+    CHROMEIPHONE5("Apple","iPhone 5",Platform.MAC),
+    CHROMEIPHONE6("Apple","iPhone 6",Platform.MAC),
+    CHROMEIPHONE6PLUS("Apple","iPhone 6 Plus",Platform.MAC),
+    CHROMEIPAD("Apple","iPad",Platform.MAC),
     //APPIUM MUST BE RUNNING AS THE SELENIUM GRID FOR THESE
     APPIUMSAFARISIMULATOR("","",Platform.MAC),
     APPIUMAPPSIMULATOR("","",Platform.MAC),
