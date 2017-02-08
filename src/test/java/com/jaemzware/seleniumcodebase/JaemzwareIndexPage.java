@@ -11,6 +11,8 @@ public class JaemzwareIndexPage extends BasePage {
     }
 
     public By[] getBasePageSanityCheckElements(){
+
+        //TODO OPTIONAL: CREATE PRIVATE VARIABLES FOR EACH XPATH DEFINITION
         By[] sanityCheckElements = new By[] {
                 By.xpath("//h1[contains(text(),'jaemzware')]"),
                 By.xpath("//a[contains(text(),'skatecreteordie')]"),
