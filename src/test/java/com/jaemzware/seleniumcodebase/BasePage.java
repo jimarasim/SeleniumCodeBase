@@ -8,5 +8,4 @@ import org.openqa.selenium.By;
 public abstract class BasePage {
     public abstract String getBasePageUrl();
     public abstract By[] getBasePageSanityCheckElements();
-    public static final String baseSiteUrl="https://jaemzware.com/";
 }
