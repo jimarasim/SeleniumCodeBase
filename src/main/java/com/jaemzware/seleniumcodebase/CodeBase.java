@@ -1195,6 +1195,7 @@ public class CodeBase {
     }
     /**
      * This method gets links to visit from the target page
+     * NOTE: TEST USING THIS METHOD MUST SET linksLoadedIndicatorXpath and linkXpath
      * @return
      * @throws java.lang.Exception
      */
