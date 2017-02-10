@@ -93,6 +93,32 @@ public class AnalogArchiveTest extends BaseTest {
 
         //DISPLAY THE COUNT FOR FUTURE TESTING
         System.out.println("NUMBER OF SONGS FOUND FOR THE MELVINS:"+songListSize);
+    }
+
+    /**
+     * THIS TEST CHECKS A CHECKBOX TO START THE MUSIC PLAYING
+     */
+    @Test
+    public void PlayTheFirstSong() throws Exception
+    {
+        //GO TO THE PAGE WHERE SONGS SHOULD APPEAR
+        driverGetWithTime(testPage.getBasePageUrl());
+
+        //GET A LIST OF SONG WEB ELEMENTS
+        List<WebElement> songList = driver.findElements(testPage.artistCheckbox);
+
+        //CLICK THE FIRST SONG TO MAKE IT PLAY
+        songList.get(0).click();
+
+        //WAIT A SECOND FOR THE BROWSER TO GIVE AUDIO FEEDBACK
+        Thread.sleep(1000);
+
+        //TRY CLICKING THE AUDIO PLAYER
+        WebElement audioPlayer = driver.findElement(testPage.analogAudioPlayer);
+        audioPlayer.click();
+
+        //WAIT A SECOND FOR USER TO VERIFY IF AUDIO PLAYER CLICKS
+        Thread.sleep(1000);
 
 
     }
