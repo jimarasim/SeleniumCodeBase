@@ -18,6 +18,7 @@ public class AnalogArchivePage extends BasePage {
     public By fileSortLink = By.id("fileSort");
     public By modifiedDateSortLink = By.id("modifiedDateSort");
     public By artistCheckbox = By.xpath("//td[@name='artist']/input[@type='checkbox']");
+    public By analogPlayListItem = By.xpath("//ul[@id='analogplaylist']/li");
 
 
     public String getBasePageUrl(){

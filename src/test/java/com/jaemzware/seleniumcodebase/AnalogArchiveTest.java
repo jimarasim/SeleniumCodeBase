@@ -119,8 +119,37 @@ public class AnalogArchiveTest extends BaseTest {
 
         //WAIT A SECOND FOR USER TO VERIFY IF AUDIO PLAYER CLICKS
         Thread.sleep(1000);
-
-
     }
+
+    /**
+     * THIS TEST POPULATES THE PLAYLIST WITH SEVERAL SONGS, AND THEN CLEARS IT, MAKING SURE PLAYLIST IS EMPTY
+     */
+    @Test
+    public void ClearThePlaylist() throws Exception
+    {
+        int songsToPlay = 5;
+
+        //GO TO THE PAGE WHERE SONGS SHOULD APPEAR
+        driverGetWithTime(testPage.getBasePageUrl());
+
+        //GET A LIST OF SONG WEB ELEMENTS
+        List<WebElement> songList = driver.findElements(testPage.artistCheckbox);
+
+        //CLICK THE FIRST SEVERAL SONGS TO MAKE THEM PLAY
+        for(int i=0;i<songsToPlay;i++) {
+            songList.get(i).click();
+        }
+
+        //ASSERT THAT FIVE SONGS ARE IN THE LIST
+        List<WebElement> songsInPlaylist = driver.findElements(testPage.analogPlayListItem);
+        Assert.assertTrue(songsInPlaylist.size()==songsToPlay);
+
+        //CLICK THE CLEAR BUTTON
+        driver.findElement(testPage.clearPlaylistButton).click();
+
+        //ASSERT THAT THE PLAY LIST SONGS ARE GONE
+        Assert.assertFalse(IsElementPresent(testPage.analogPlayListItem));
+    }
+
 
 }
