@@ -1,11 +1,9 @@
 package com.jaemzware.seleniumcodebase;
 
-import com.sun.xml.internal.rngom.parse.host.Base;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.Arrays;
