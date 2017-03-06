@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 
 @RunWith(Parameterized.class)
-public class ParameterizedVerifyLogos extends BaseTest{
+public class VerifyLogosParameterized extends BaseTest{
 
     private String testCity="";
 
@@ -27,7 +27,7 @@ public class ParameterizedVerifyLogos extends BaseTest{
         });
     }
 
-    public ParameterizedVerifyLogos(String city){
+    public VerifyLogosParameterized(String city){
         testCity=city;
     }
 
