@@ -31,4 +31,10 @@ public class SkatecreteordieTest extends BaseTest {
             }
         }
     }
+
+    @Test
+    public void CheckSanityElementsWithCodebase() throws Exception{
+        ElementVerificationTest(testPage.getBasePageUrl(),testPage.getBasePageSanityCheckElements());
+
+    }
 }

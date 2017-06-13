@@ -688,7 +688,7 @@ public class CodeBase {
     public static boolean IsElementPresent(By locatorKey, int waitTimeMillis) {
         try {
             //implictlywait cant' work with appium
-            if(!browser.toString().contains("APPIUM")){
+            if(!browser.toString().contains("APPIUM") && !browser.toString().contains("SAFARI")){
                 // throttle wait time when looking for elements that should already be on the page
                 driver.manage().timeouts().implicitlyWait(waitTimeMillis, TimeUnit.MILLISECONDS);
             }
