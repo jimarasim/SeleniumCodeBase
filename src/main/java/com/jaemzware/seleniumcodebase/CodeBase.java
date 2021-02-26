@@ -53,6 +53,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
@@ -183,21 +184,6 @@ public class CodeBase {
                         System.setProperty("webdriver.gecko.driver", relativePathToDrivers + "geckodriver");
                         cap = DesiredCapabilities.firefox();
                         break;
-                    case SAFARI:
-                        cap = DesiredCapabilities.safari();
-
-                        // start safari clean (delete all cookies doesn't work)
-                        SafariOptions safariOptions = new SafariOptions();
-                        safariOptions.setUseCleanSession(true);
-                        cap.setCapability(SafariOptions.CAPABILITY, safariOptions);
-
-                        break;
-                    case IE8:
-                    case IE9:
-                    case IE10:
-                    case IE11:
-                        cap = DesiredCapabilities.internetExplorer();
-                        break;
                     default:
                         throw new Exception("NOT CONFIGURED TO LAUNCH THIS BROWSER ON GRID, USING StartDriver.");
                 }
@@ -291,50 +277,18 @@ public class CodeBase {
             }
 
             switch (browser) {
+                case HTMLUNITMAC:
+                    driver = new HtmlUnitDriver();
+                    break;
             // CHROME VARIATIONS.
                 case CHROMELINUX:
                 case CHROMELINUX32:
                 case CHROMEMAC:
                 case CHROME:
-                    // turn on debug logging if debug is specified. this takes longer
-                    if (logging != null) {
-                        // get the chrome driver/start regular chrome
-                        // get the desired capabilities
-                        DesiredCapabilities cap = DesiredCapabilities.chrome();
-
-                        //chrome doesnt support this logging type CLIENT
-                        LoggingPreferences loggingprefs = new LoggingPreferences();
-                        loggingprefs.enable(LogType.BROWSER, Level.ALL);
-                        loggingprefs.enable(LogType.CLIENT, Level.ALL);
-                        cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
-
-                        System.out.println("-Dlogging SPECIFIED");
-
-                        driver = new ChromeDriver(cap);
-                    } else {
-                        System.out.println("-Dlogging NOT SPECIFIED");
-
-                        //incognito
-                        ChromeOptions options = new ChromeOptions();
-                        driver = new ChromeDriver(options);
-                    }
-                    break;
-                case CHROMENEXUS5: // CHROME EMULATOR
-                case CHROMENEXUS6P:
-                case CHROMEIPHONE5:
-                case CHROMEIPHONE6: // CHROME EMULATOR
-                case CHROMEIPHONE6PLUS:
-                case CHROMEIPAD:
-                    Map<String, String> mobileEmulation = new HashMap<String, String>();
-                    Map<String, Object> chromeOptions = new HashMap<String, Object>();
-                    DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-
-                    String deviceName = browser.browserName+" "+browser.version;
-
-                    mobileEmulation.put("deviceName", deviceName);
-                    chromeOptions.put("mobileEmulation", mobileEmulation);
-                    capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
-                    driver = new ChromeDriver(capabilities);
+                    System.out.println("-Dlogging NOT SPECIFIED");
+                    //incognito
+                    ChromeOptions options = new ChromeOptions();
+                    driver = new ChromeDriver(options);
                     break;
                 case FIREFOX:
                 case FIREFOXLINUX:
@@ -342,57 +296,6 @@ public class CodeBase {
                     //FIREFOX REQUIRES GECKODRIVER
                     System.setProperty("webdriver.gecko.driver", relativePathToDrivers + "geckodriver");
                     driver = new FirefoxDriver();
-                    break;
-                case SAFARI:
-                    if (GetOsType().equals(OsType.MAC)) {
-                        DesiredCapabilities cap = DesiredCapabilities.safari();
-                        cap.setPlatform(Platform.MAC);
-
-                        // start safari clean (delete all cookies doesn't work)
-                        SafariOptions safariOptions = new SafariOptions();
-                        safariOptions.setUseCleanSession(true);
-                        cap.setCapability(SafariOptions.CAPABILITY, safariOptions);
-
-                        if (logging != null) {
-                            throw new Exception("COMMAND LINE SWITCH EXCEPTION: -Dlogging NOT SUPPORTED BY FIREFOX NOR SAFARI AS OF WEBDRIVER 3.0, OR AT LEAST GOT BADLY DISRUPTED AND NEEDS TO BE INVESTIGATED LATER. BROWSER SPECIFIED:"+browser.toString());
-                        }
-
-                        driver = new SafariDriver(cap);
-
-                    } else {
-                        throw new Exception("NO GRID SPECIFIED. "+browser.toString()+" IS UNSUPPORTED NATIVELY ON THIS OS:" + GetOsType());
-                    }
-                    break;
-                case IE8:
-                case IE9:
-                case IE10:
-                case IE11:
-                    if (GetOsType().equals(OsType.WINDOWS)) {
-                        // if we're on windows, just look for the windows driver regardless of version
-                        System.setProperty("webdriver.ie.driver", relativePathToDrivers + "IEDriverServer.exe");
-
-                        if (logging != null) {
-                            // get the desired capabilities
-                            DesiredCapabilities cap = DesiredCapabilities.firefox();
-
-                            LoggingPreferences loggingprefs = new LoggingPreferences();
-                            loggingprefs.enable(LogType.BROWSER, Level.ALL);
-                            loggingprefs.enable(LogType.CLIENT, Level.ALL);
-                            cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
-
-                            System.out.println("-Dlogging SPECIFIED");
-
-                            driver = new InternetExplorerDriver(cap);
-                        } else {
-
-                            System.out.println("-Dlogging NOT SPECIFIED");
-
-                            driver = new InternetExplorerDriver();
-                        }
-
-                    } else {
-                        throw new Exception("IE IS UNSUPPORTED NATIVELY ON THIS OS:" + GetOsType());
-                    }
                     break;
                 default:
                     throw new Exception("NOT CONFIGURED TO LAUNCH THIS BROWSER LOCALLY. MUST USE GRID -Dbrowser:" + browser);
@@ -402,9 +305,7 @@ public class CodeBase {
         }
 
         if(driver!=null){
-            // safari 7.0.1 doesn't like this for some reason
-            if (browser != BrowserType.SAFARI && 
-                    !browser.toString().contains("APPIUM")) {               
+            if (!browser.toString().contains("APPIUM")) {
                 driver.manage().deleteAllCookies();
                 driver.manage().window().maximize();               
             }
@@ -591,11 +492,6 @@ public class CodeBase {
             WebElement we = driver.findElement(By.xpath("//*"));
 
             driver.get(href);
-
-            (new WebDriverWait(driver, defaultImplicitWaitSeconds))
-                    .until(ExpectedConditions.stalenessOf(we));
-
-
         }
         catch(Exception ex){
             System.out.println("ERROR: DRIVER.GET FAILED. HREF:"+href+" TRY SPECIFYING A LONGER -DdefaultImplicitWaitSeconds, WHICH IS SET TO "+defaultImplicitWaitSeconds+" SECONDS FOR THIS RUN. EXCEPTION:"+ex.getMessage());
@@ -1199,14 +1095,8 @@ public class CodeBase {
         List<String> urls = new ArrayList<>();
 
         // wait for links to be loaded
-        (new WebDriverWait(driver, defaultImplicitWaitSeconds)).until(new ExpectedCondition<Boolean>() {
-            @Override
-            public Boolean apply(WebDriver d) {
-                System.out.println("IsElementPresent(By.xpath(linksLoadedIndicatorXpath))");
-                System.out.println("IsElementPresent(By.xpath("+linksLoadedIndicatorXpath+"))");
-                return IsElementPresent(By.xpath(linksLoadedIndicatorXpath));
-            }
-        });
+        WebDriverWait wait = new WebDriverWait(driver, defaultImplicitWaitSeconds);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(linksLoadedIndicatorXpath)));
 
         // make sure there are some links
         System.out.println("CHECKING FOR RESULTS");

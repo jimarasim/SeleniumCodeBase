@@ -80,8 +80,18 @@
     <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
         <artifactId>selenium-java</artifactId>
-        <version>3.0.1</version>
-    </dependency> 
+        <version>3.141.59</version>
+    </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>htmlunit-driver</artifactId>
+      <version>2.47.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-support</artifactId>
+      <version>3.0.1</version>
+    </dependency>
   </dependencies>
 <!--
 mvn -Dtest="IosScratchApp" -Dbrowser="APPIUMAPPDEVICE" -DwaitAfterPageLoadMilliSeconds="500" -DdefaultImplicitWaitSeconds="120" -DappiumBinaryJSPath="//Users//jameskarasim//Downloads//installed//repositories//appium//bin//appium.js" -DappiumBinaryNodeJSPath="//usr//local//bin//node" -DappiumApp="//Users//jameskarasim//Downloads//pagebasedsample.ipa" -DappiumUdid="88ff683cec637c3f1279386620b5397d48bc8341" test
